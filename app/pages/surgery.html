@@ -1,0 +1,122 @@
+{% extends "templates/base.html" %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>Surgeries</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Core</a></li>
+              <li class="breadcrumb-item active">Surgeries</li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <!-- Info Boxes -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>Surgeries</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>65</h3>
+
+                <p>Pending Surgeries</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-chart-pie"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- / Info Boxes -->
+
+        <!-- Card -->
+        <div class="card card-primary card-outline">
+
+          <!-- Card Header -->
+          <div class="card-header">
+            <h3 class="card-title">Surgeries</h3>
+          </div>
+          <!-- /.card-header -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="surgeries" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <!-- <th>Patient</th>
+                <th>Room</th>
+                <th>Surgery Type</th> -->
+                <th>Schedule Start</th>
+                <th>Schedule End</th>
+                <th>Status</th>
+              </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+          
+      </div>
+    </section>
+    <!-- /.content -->
+  }
+  {% endblock %}
+  
+  {% block scripts %}
+  <script>
+
+    const surgeries = JSON.parse(' {{surgeries|tojson}} ')
+
+
+  $(() => {
+    $('#surgeries').DataTable({
+      data: surgeries,
+      columns: [
+        { data : "start_date"},
+        { data : "end_date"},
+        { data : "status"}
+      ]
+    });
+  });
+</script>
+  {% endblock %}
