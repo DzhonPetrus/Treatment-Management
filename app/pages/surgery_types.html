@@ -7,14 +7,14 @@
           
           <!-- Title -->
           <div class="col-sm-6">
-            <h1>Surgeries</h1>
+            <h1>Surgery Types</h1>
           </div>
 
           <!-- Breadcrumb -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Core</a></li>
-              <li class="breadcrumb-item active">Surgeries</li>
+              <li class="breadcrumb-item active">Surgery Types</li>
             </ol>
           </div>
           <!-- / breadcrumb -->
@@ -36,7 +36,7 @@
               <div class="inner">
                 <h3>150</h3>
 
-                <p>Surgeries</p>
+                <p>Surgery Types</p>
               </div>
               <div class="icon">
                 <i class="fas fa-shopping-cart"></i>
@@ -47,22 +47,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Pending Surgeries</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-chart-pie"></i>
-              </div>
-              <a href="#" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
-              </a>
-            </div>
-          </div>
+          
         </div>
         <!-- / Info Boxes -->
 
@@ -71,24 +56,23 @@
 
           <!-- Card Header -->
           <div class="card-header">
-            <h3 class="card-title">Surgeries</h3>
+            <h3 class="card-title">Surgery Types</h3>
             
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery">New Surgery</button>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery_type">New Surgery Type</button>
           </div>
           <!-- /.card-header -->
 
           <!-- Card Body -->
           <div class="card-body">
-            <table id="surgeries" class="table table-bordered table-hover">
+            <table id="surgery_types" class="table table-bordered table-hover">
               <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Room</th>
-                <th>Surgery Type</th>
-                <th>Schedule Start</th>
-                <th>Schedule End</th>
-                <th>Status</th>
-              </tr>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Updated Last</th>
+                </tr>
               </thead>
               <tbody></tbody>
             </table>
@@ -99,21 +83,11 @@
         <!-- /.card -->
           
 
-        <div class="card card-primary">
-          <div class="card-header">
-            <h3 class="card-title">Quick Example</h3>
-          </div>
-          <!-- /.card-header -->
-          <!-- form start -->
-          
-        </div>
-
-
-        <div class="modal fade" id="modal-surgery" aria-modal="true" role="dialog">
+        <div class="modal fade" id="modal-surgery_type" aria-modal="true" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Surgery</h4>
+                <h4 class="modal-title">Surgery Type</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
@@ -122,17 +96,15 @@
           <form>
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
-              {{ forms.input('Surgery Type', 'surgery_type_id', 'text' ) }}
-              {{ forms.input('Patient', 'patient_id', 'text' ) }}
-              {{ forms.input('Room', 'room_id', 'text' ) }}
-              {{ forms.input('Schedule', 'start_date', 'datetime-local' ) }}
-              <!-- {{ forms.input('End Date', 'end_date', 'datetime-local' ) }} -->
+              {{ forms.input('Name', 'name', 'text' ) }}
+              {{ forms.textarea('Description', 'description') }}
+              {{ forms.input('Price', 'price', 'number' ) }}
+              
             </div>
-          </form>
-              </div>
+          </form> </div>
               <div class="modal-footer float-right">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_modal_secondary">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_modal_primary">Save changes</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -143,18 +115,18 @@
       </div>
     </section>
     <!-- /.content -->
-  }
+  
   {% endblock %}
   
   {% block scripts %}
-  <script>
+  <script defer>
 
-    const surgeries = JSON.parse(' {{surgeries|tojson}} ')
+    const surgery_types = JSON.parse(' {{surgery_types|tojson}} ')
 
 
   $(() => {
     $('#surgeries').DataTable({
-      data: surgeries,
+      data: surgery_types,
       columns: [
         { data : "patient_id"},
         { data : "room_id"},
@@ -164,6 +136,19 @@
         { data : "status"}
       ]
     });
+
+    $('input[name="price"]').on(
+				'blur',
+				function(event) {
+					if( document.querySelector('form') ) {
+						var price_to_2_decimals =
+							parseFloat($('input[name="price"]').val()).toFixed(2);
+
+						$('input[name="price"]').val(price_to_2_decimals);
+
+					} 
+				}
+			);
   });
 </script>
   {% endblock %}

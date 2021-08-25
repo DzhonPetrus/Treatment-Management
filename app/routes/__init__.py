@@ -1,1 +1,1 @@
-from . import surgery
+from . import surgery, surgery_type

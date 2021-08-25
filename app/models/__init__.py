@@ -1,3 +1,4 @@
 from ..database import Base
 
-from .Surgery import Surgery
+from .surgery import *
+from .surgery_type import *

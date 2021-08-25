@@ -6,8 +6,16 @@
     class="form-control"
     id="{{ name }}"
     name="{{ name }}"
-    placeholder="{{ title }}"
+    placeholder="Input {{ title }}"
+    value="{{ value }}"
   />
 </div>
 {%- endmacro %} 
 
+{% macro textarea(title, name, value='') -%}
+    <!-- textarea -->
+    <div class="form-group">
+      <label>{{ title }}</label>
+      <textarea class="form-control" rows="3" placeholder="Input {{ title }}...">{{ value }}</textarea>
+    </div>
+{%- endmacro %} 
