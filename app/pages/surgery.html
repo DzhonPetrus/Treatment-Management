@@ -72,6 +72,8 @@
           <!-- Card Header -->
           <div class="card-header">
             <h3 class="card-title">Surgeries</h3>
+            
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery">New Surgery</button>
           </div>
           <!-- /.card-header -->
 
@@ -80,9 +82,9 @@
             <table id="surgeries" class="table table-bordered table-hover">
               <thead>
               <tr>
-                <!-- <th>Patient</th>
+                <th>Patient</th>
                 <th>Room</th>
-                <th>Surgery Type</th> -->
+                <th>Surgery Type</th>
                 <th>Schedule Start</th>
                 <th>Schedule End</th>
                 <th>Status</th>
@@ -96,6 +98,48 @@
         </div>
         <!-- /.card -->
           
+
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Quick Example</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          
+        </div>
+
+
+        <div class="modal fade" id="modal-surgery" aria-modal="true" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Surgery</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+          <form>
+            {% import 'templates/forms.html' as forms %}
+            <div class="card-body">
+              {{ forms.input('Surgery Type', 'surgery_type_id', 'text' ) }}
+              {{ forms.input('Patient', 'patient_id', 'text' ) }}
+              {{ forms.input('Room', 'room_id', 'text' ) }}
+              {{ forms.input('Schedule', 'start_date', 'datetime-local' ) }}
+              <!-- {{ forms.input('End Date', 'end_date', 'datetime-local' ) }} -->
+            </div>
+          </form>
+              </div>
+              <div class="modal-footer float-right">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        
       </div>
     </section>
     <!-- /.content -->
@@ -112,6 +156,9 @@
     $('#surgeries').DataTable({
       data: surgeries,
       columns: [
+        { data : "patient_id"},
+        { data : "room_id"},
+        { data : "surgery_type_id"},
         { data : "start_date"},
         { data : "end_date"},
         { data : "status"}
