@@ -9,7 +9,7 @@ from fastapi.templating import Jinja2Templates
 
 from .. import database
 
-from ..controllers import surgery_type
+from ..controllers import lab_results
 from .. import schemas
 
 
@@ -31,7 +31,7 @@ def create(LabResults: schemas.CreateLabResults, db: Session = Depends(get_db)):
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.LabResults)
 def show(request: Request, id, db: Session = Depends(get_db)):
     # return lab_results.get_one(id, db)
-    return templates.TemplateResponse("lab_results.html", {"request":request, "lab_results": surgery_type.get_one(id, db)})
+    return templates.TemplateResponse("lab_results.html", {"request":request, "lab_results": lab_request.get_one(id, db)})
 
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.LabResults], response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
