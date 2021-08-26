@@ -1,0 +1,146 @@
+{% extends "templates/base.html" %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>Profiles</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Core</a></li>
+              <li class="breadcrumb-item active">Profiles</li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <!-- Info Boxes -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>Profiles</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+          
+        </div>
+        <!-- / Info Boxes -->
+
+        <!-- Card -->
+        <div class="card card-primary card-outline">
+
+          <!-- Card Header -->
+          <div class="card-header">
+            <h3 class="card-title">Profiles</h3>
+            
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-profile">New Profile</button>
+          </div>
+          <!-- /.card-header -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="profiles" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Position</th>
+                  <th>First Name</th>
+                  <th>Middle Name</th>
+                  <th>Last Name</th>
+                  <th>Suffix Name</th>
+                  <th>Birth Date</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+          
+
+        <div class="modal fade" id="modal-profile" aria-modal="true" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Profile</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+          <form>
+            {% import 'templates/forms.html' as forms %}
+            <div class="card-body">
+              {{ forms.input('Position', 'position') }}
+              {{ forms.input('First Name', 'first_name') }}
+              {{ forms.input('Middle Name', 'middle_name') }}
+              {{ forms.input('Last Name', 'last_name') }}
+              {{ forms.input('Suffix Name', 'suffix_name') }}
+              {{ forms.input('Birth Date', 'birth_date', 'date') }}
+              
+            </div>
+          </form> </div>
+              <div class="modal-footer float-right">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_modal_secondary">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_modal_primary">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        
+      </div>
+    </section>
+    <!-- /.content -->
+  
+  {% endblock %}
+  
+  {% block scripts %}
+  <script defer>
+
+    const profiles = JSON.parse(' {{profiles|tojson}} ')
+
+
+  $(() => {
+    $('#profiles').DataTable({
+      data: profiles,
+      columns: [
+        { data : "position"},
+        { data : "first_name"},
+        { data : "middle_name"},
+        { data : "last_name"},
+        { data : "suffix_name"},
+        { data : "birth_date"},
+      ]
+    });
+
+  });
+</script>
+  {% endblock %}
