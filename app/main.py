@@ -24,3 +24,5 @@ app.include_router(routes.surgery.router)
 app.include_router(routes.profile.router)
 app.include_router(routes.surgery_type.router)
 
+app.include_router(routes.lab_test.router)
+

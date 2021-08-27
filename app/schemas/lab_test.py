@@ -6,18 +6,19 @@ class Base(BaseModel):
         orm_mode = True
 
 
-class LabTestBase(Base):
+class LabTestBase(Base):  
+    status: str
+
+
+class CreateLabTest(Base):
     name: str
     description: str
     price: float
 
-    status: str
 
-
-class CreateLabTest(LabTestBase):
-    pass
-
-
-class LabTest(LabTestBase):
+class LabTest(Base):
+    name: str
+    description: str
+    price: float
     created_at: dt
     updated_at: dt

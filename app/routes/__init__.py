@@ -1,1 +1,1 @@
-from . import surgery, surgery_type, profile
+from . import surgery, surgery_type, profile, lab_test

@@ -10,7 +10,7 @@ def get_all(db: Session):
 def get_one(id, db: Session):
     lab_test = db.query(models.LabTest).filter(models.LabTest.id == id).first()
     if not lab_test:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'LabTest with id {id} not found')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Laboratory Test with id {id} not found')
     return lab_test
 
 def create(lab_test, db: Session):
