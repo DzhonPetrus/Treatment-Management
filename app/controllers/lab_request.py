@@ -1,4 +1,3 @@
-from app.models import lab_results
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 
@@ -16,7 +15,8 @@ def get_one(id, db: Session):
 
 def create(lab_request, db: Session):
     new_lab_request = models.LabRequest(
-        
+     # lab_tests_id = lab_request.lab_tests_id,
+     # lab_results_id = lab_request.lab_results_id
     )
     db.add(new_lab_request)
     db.commit()

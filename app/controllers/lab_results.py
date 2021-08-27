@@ -1,4 +1,3 @@
-from app.models import lab_results
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 

@@ -1,4 +1,3 @@
-from app.models import lab_request
 from typing import List
 from fastapi import APIRouter, Depends, status, Request
 from sqlalchemy.orm import Session
@@ -9,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 
 from .. import database
 
-from ..controllers import lab_results
+from ..controllers import lab_request
 from .. import schemas
 
 
