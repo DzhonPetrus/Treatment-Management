@@ -27,3 +27,6 @@ app.include_router(routes.surgery_type.router)
 app.include_router(routes.lab_test.router)
 app.include_router(routes.lab_results.router)
 app.include_router(routes.lab_request.router)
+
+app.include_router(routes.treatment.router)
+app.include_router(routes.treatment_type.router)

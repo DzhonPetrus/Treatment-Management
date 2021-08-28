@@ -16,7 +16,7 @@ class Surgery(Base):
     end_time = Column(DateTime)
 
 
-    status = Column(String(100), default=text('PENDING'))
+    status = Column(String(100), default='PENDING')
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 

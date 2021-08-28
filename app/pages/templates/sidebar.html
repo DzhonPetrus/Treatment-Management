@@ -1,3 +1,26 @@
+{% set navigation_core = [
+  ('/', 'index', 'Home', 'fa-home'),
+  ('/profile', 'profile', 'Profiles', 'fa-address-card')
+  ] -%}
+
+{% set navigation_surgery = [
+  ('/surgery', 'surgery', 'Surgeries', 'fa-procedures'),
+  ('/surgery_type', 'surgery_type', 'Surgery Types', 'fa-procedures')
+  ] -%}
+
+{% set navigation_lab = [
+  ('/lab_test', 'lab_test', 'Lab Tests', 'fa-x-ray'),
+  ('/lab_result', 'lab_result', 'Lab Results', 'fa-file-medical-alt'),
+  ('/lab_request', 'lab_request', 'Lab Requests', 'fa-file-medical')
+  ] -%}
+
+{% set navigation_treatment = [
+  ('/treatment', 'treatment', 'Treatments', 'fa-syringe'),
+  ('/treatment_type', 'treatment_type', 'Treatment Types', 'fa-syringe')
+  ] -%}
+
+{% set active_page = active_page|default('index') -%}
+
 <aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
     
     <!-- Brand Logo -->
@@ -35,60 +58,79 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+
           <li class="nav-header">CORE</li>
+          {% for href, id, caption, icon in navigation_core -%}
+
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-line"></i>
-              <p>Dashboard</p>
-            </a>
-          </li><li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-chart-line"></i>
-              <p>Surgeries</p>
+            <a href="{{ href|e }}" 
+
+            {% if id == active_page %} 
+            class="nav-link active" 
+            {% else %}
+            class="nav-link" 
+            {% endif %}>
+              <i class="nav-icon fas {{ icon|e }}"></i>
+              <p>{{ caption|e }}</p>
             </a>
           </li>
 
-          <li class="nav-header">SINGLE LEVEL</li>
+          {% endfor %}
+
+          <li class="nav-header">TREATMENT</li>
+          {% for href, id, caption, icon in navigation_treatment -%}
+
           <li class="nav-item">
-            <a href="{{ url_for('static', path='/iframe.html') }}" class="nav-link">
-              <i class="nav-icon fas fa-user-tie"></i>
-              <p>Link 1</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
-              <i class="nav-icon fas fa-user-tie"></i>
-              <p>
-                Link 2
-                <span class="right badge badge-primary">99+</span>
-              </p>
+            <a href="{{ href|e }}" 
+
+            {% if id == active_page %} 
+            class="nav-link active" 
+            {% else %}
+            class="nav-link" 
+            {% endif %}>
+              <i class="nav-icon fas {{ icon|e }}"></i>
+              <p>{{ caption|e }}</p>
             </a>
           </li>
 
-          <li class="nav-header">MULTI LEVEL</li>
+          {% endfor %}
+
+          <li class="nav-header">LABORATORY</li>
+          {% for href, id, caption, icon in navigation_lab -%}
+
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-circle nav-icon"></i>
-              <p>Level 1</p>
+            <a href="{{ href|e }}" 
+
+            {% if id == active_page %} 
+            class="nav-link active" 
+            {% else %}
+            class="nav-link" 
+            {% endif %}>
+              <i class="nav-icon fas {{ icon|e }}"></i>
+              <p>{{ caption|e }}</p>
             </a>
           </li>
+
+          {% endfor %}
+
+          <li class="nav-header">SURGERY</li>
+          {% for href, id, caption, icon in navigation_surgery -%}
+
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-                Level 1
-                <i class="right fas fa-angle-left"></i>
-              </p>
+            <a href="{{ href|e }}" 
+
+            {% if id == active_page %} 
+            class="nav-link active" 
+            {% else %}
+            class="nav-link" 
+            {% endif %}>
+              <i class="nav-icon fas {{ icon|e }}"></i>
+              <p>{{ caption|e }}</p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Level 2</p>
-                </a>
-              </li>
-            </ul>
           </li>
+
+          {% endfor %}
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

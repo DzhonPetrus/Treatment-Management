@@ -1,4 +1,5 @@
 {% extends "templates/base.html" %}
+{% set active_page = current_path.split('/')[1] %}
 {% block content %}
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -93,6 +94,7 @@
           <!-- Card Header -->
           <div class="card-header">
             <h3 class="card-title">Surgery Types</h3>
+
             
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery_type">New Surgery Type</button>
           </div>
