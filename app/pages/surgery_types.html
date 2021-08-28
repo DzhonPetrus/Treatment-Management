@@ -34,7 +34,7 @@
             <!-- small card -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3 id="totalTypes">0</h3>
 
                 <p>Surgery Types</p>
               </div>
@@ -45,8 +45,44 @@
                 More info <i class="fas fa-arrow-circle-right"></i>
               </a>
             </div>
+
+
           </div>
           <!-- ./col -->
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 id="totalTypesActive">0</h3>
+
+                <p>Active Surgery Types</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3 id="totalTypesInactive">0</h3>
+
+                <p>Inactive Surgery Types</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+
+
           
         </div>
         <!-- / Info Boxes -->
@@ -64,14 +100,14 @@
 
           <!-- Card Body -->
           <div class="card-body">
-            <table id="surgery_types" class="table table-bordered table-hover">
+            <table id="dataTable" class="table table-bordered table-hover style="width:100%">
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Description</th>
                   <th>Price</th>
                   <th>Status</th>
-                  <th>Updated Last</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -93,21 +129,24 @@
                 </button>
               </div>
               <div class="modal-body">
-          <form>
+          <form id="form" data-parsley-validate>
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
-              {{ forms.input('Name', 'name', 'text' ) }}
-              {{ forms.textarea('Description', 'description') }}
-              {{ forms.input('Price', 'price', 'number' ) }}
+              {{ forms.input('ID', 'id', 'text', 'hidden', '' )}}
+              {{ forms.input('Name', 'name', 'text', 'required') }}
+              {{ forms.textarea('Description', 'description', 'required') }}
+              {{ forms.input('Price', 'price', 'number', 'required' ) }}
               
             </div>
-          </form> </div>
-              <div class="modal-footer float-right">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_modal_secondary">Close</button>
-                <button type="button" class="btn btn-primary" id="btn_modal_primary">Save changes</button>
+            </div>
+            <div class="modal-footer float-right">
+              <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="group-btnAdd">Add</button>
+              <button type="submit" class="btn btn-primary" id="group-btnUpdate">Save Changes</button>
               </div>
             </div>
             <!-- /.modal-content -->
+          </form> 
           </div>
           <!-- /.modal-dialog -->
         </div>
@@ -119,23 +158,16 @@
   {% endblock %}
   
   {% block scripts %}
+
   <script defer>
 
     const surgery_types = JSON.parse(' {{surgery_types|tojson}} ')
+    const active_surgery_types = surgery_types.filter(types => types.status === 'ACTIVE')
+    const inactive_surgery_types = surgery_types.filter(types => types.status === 'INACTIVE')
 
-
-  $(() => {
-    $('#surgeries').DataTable({
-      data: surgery_types,
-      columns: [
-        { data : "patient_id"},
-        { data : "room_id"},
-        { data : "surgery_type_id"},
-        { data : "start_date"},
-        { data : "end_date"},
-        { data : "status"}
-      ]
-    });
+    $('#totalTypes').html(surgery_types.length)
+    $('#totalTypesActive').html(active_surgery_types.length)
+    $('#totalTypesInactive').html(inactive_surgery_types.length)
 
     $('input[name="price"]').on(
 				'blur',
@@ -149,6 +181,8 @@
 					} 
 				}
 			);
-  });
+
 </script>
+
+<script src="{{ url_for('static', path='/js/pages/surgery_types.js') }}"></script>
   {% endblock %}
