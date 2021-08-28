@@ -1,0 +1,155 @@
+{% extends "templates/base.html" %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>Treatment Types</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Core</a></li>
+              <li class="breadcrumb-item active">Treatment Types</li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <!-- Info Boxes -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>Treatment Types</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+          
+        </div>
+        <!-- / Info Boxes -->
+
+        <!-- Card -->
+        <div class="card card-primary card-outline">
+
+          <!-- Card Header -->
+          <div class="card-header">
+            <h3 class="card-title">Treatment Types</h3>
+            
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-treatment_type">New Treatment Type</button>
+          </div>
+          <!-- /.card-header -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="treatment_types" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Updated Last</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+          
+
+        <div class="modal fade" id="modal-treatment_type" aria-modal="true" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Treatment Type</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+          <form>
+            {% import 'templates/forms.html' as forms %}
+            <div class="card-body">
+              {{ forms.input('Name', 'name', 'text' ) }}
+              {{ forms.input('Room', 'room_id', 'text' ) }}
+              {{ forms.textarea('Description', 'description') }}
+              {{ forms.input('Price', 'price', 'number' ) }}
+              
+            </div>
+          </form> </div>
+              <div class="modal-footer float-right">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_modal_secondary">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_modal_primary">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        
+      </div>
+    </section>
+    <!-- /.content -->
+  
+  {% endblock %}
+  
+  {% block scripts %}
+  <script defer>
+
+    const treatment_types = JSON.parse(' {{treatment_types|tojson}} ')
+
+
+  $(() => {
+    $('#treatment').DataTable({
+      data: treatment_types,
+      columns: [
+        { data : "patient_id"},
+        { data : "profile_id"},
+        { data : "treatment_type_id"},
+        { data : "lab_result_id"},
+        { data : "description"},
+        { data : "status"}
+      ]
+    });
+    $('input[name="price"]').on(
+				'blur',
+				function(event) {
+					if( document.querySelector('form') ) {
+						var price_to_2_decimals =
+							parseFloat($('input[name="price"]').val()).toFixed(2);
+
+						$('input[name="price"]').val(price_to_2_decimals);
+
+					} 
+				}
+			);
+   
+  });
+</script>
+  {% endblock %}
