@@ -21,6 +21,7 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 
 app.include_router(routes.surgery.router)
+app.include_router(routes.profile.router)
 app.include_router(routes.surgery_type.router)
 app.include_router(routes.lab_results.router)
 app.include_router(routes.lab_request.router)

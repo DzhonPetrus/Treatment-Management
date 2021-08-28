@@ -5,8 +5,8 @@ from sqlalchemy.orm import relationship
 from ..database import Base
 
 
-class SurgeryType(Base):
-    __tablename__ = "surgery_types"
+class LabTest(Base):
+    __tablename__ = "lab_tests"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     name = Column(String(100))
@@ -14,9 +14,6 @@ class SurgeryType(Base):
     price = Column(Numeric(15,2))
 
 
-    status = Column(String(100), default='ACTIVE')
+    status = Column(String(100), default=text('ACTIVE'))
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
-
-
-    # surgery = relationship('Surgery', back_populates='surgery_type')

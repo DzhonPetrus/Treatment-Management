@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Depends, status, Request
+from fastapi import APIRouter, Depends, status, Request, Form
 from sqlalchemy.orm import Session
 
 from fastapi.responses import HTMLResponse
@@ -24,13 +24,13 @@ get_db = database.get_db
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=schemas.SurgeryType)
-def create(SurgeryType: schemas.CreateSurgeryType, db: Session = Depends(get_db)):
+def create(SurgeryType: schemas.CreateSurgeryType = Depends(schemas.CreateSurgeryType.as_form), db: Session = Depends(get_db)):
     return surgery_type.create(SurgeryType, db)
 
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.SurgeryType)
 def show(request: Request, id, db: Session = Depends(get_db)):
-    # return surgery_type.get_one(id, db)
-    return templates.TemplateResponse("surgery_type.html", {"request":request, "surgery_type": surgery_type.get_one(id, db)})
+    return surgery_type.get_one(id, db)
+    # return templates.TemplateResponse("surgery_type.html", {"request":request, "surgery_type": surgery_type.get_one(id, db)})
 
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.SurgeryType], response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
