@@ -35,4 +35,4 @@ def show(request: Request, id, db: Session = Depends(get_db)):
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.TreatmentType], response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return treatment_type.get_all(db)
-    return templates.TemplateResponse("treatment_type.html", {"request":request, "treatment_type": jsonable_encoder(treatment_type.get_all(db))})
+    return templates.TemplateResponse("treatment_types.html", {"request":request, "treatment_type": jsonable_encoder(treatment_type.get_all(db))})
