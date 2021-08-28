@@ -1,5 +1,5 @@
-{% macro input(title, name, type='text', value='') -%}
-<div class="form-group" id="group-{{ name }}">
+{% macro input(title, name, type='text', attr="", value='') -%}
+<div class="form-group" id="group-{{ name }}" {{attr}}>
   <label>{{ title }}</label>
   <input
     type="{{ type }}"
@@ -8,14 +8,15 @@
     name="{{ name }}"
     placeholder="Input {{ title }}"
     value="{{ value }}"
+    {{ attr }}
   />
 </div>
 {%- endmacro %} 
 
-{% macro textarea(title, name, value='') -%}
+{% macro textarea(title, name, attr='', value='') -%}
     <!-- textarea -->
-    <div class="form-group" id="group-{{ name }}">
+    <div class="form-group" id="group-{{ name }}" {{attr}}>
       <label>{{ title }}</label>
-      <textarea class="form-control" rows="3" placeholder="Input {{ title }}...">{{ value }}</textarea>
+      <textarea id="{{name}}" name="{{name}}" class="form-control" rows="3" placeholder="Input {{ title }}..." {{attr}}>{{ value }}</textarea>
     </div>
 {%- endmacro %} 

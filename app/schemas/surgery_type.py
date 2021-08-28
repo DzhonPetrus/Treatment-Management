@@ -1,9 +1,9 @@
 from datetime import datetime as dt
-from pydantic import BaseModel
+from typing import Optional
 
-class Base(BaseModel):
-    class Config():
-        orm_mode = True
+
+from ..utils.schemaHelper import Base, as_form
+
 
 
 class SurgeryTypeBase(Base):
@@ -11,13 +11,14 @@ class SurgeryTypeBase(Base):
     description: str
     price: float
 
-    status: str
+    status: Optional[str]
 
 
+@as_form
 class CreateSurgeryType(SurgeryTypeBase):
     pass
 
 
 class SurgeryType(SurgeryTypeBase):
-    created_at: dt
-    updated_at: dt
+    created_at: Optional[dt]
+    updated_at: Optional[dt]

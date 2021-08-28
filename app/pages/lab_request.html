@@ -1,0 +1,135 @@
+{% extends "templates/base.html" %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>Laboratory Requests</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Core</a></li>
+              <li class="breadcrumb-item active">Laboratory Requests</li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <!-- Info Boxes -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150</h3>
+
+                <p>Laboratory Requests</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a href="#" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+              </a>
+            </div>
+          </div>
+          <!-- ./col -->
+          
+        </div>
+        <!-- / Info Boxes -->
+
+        <!-- Card -->
+        <div class="card card-primary card-outline">
+
+          <!-- Card Header -->
+          <div class="card-header">
+            <h3 class="card-title">Laboratory Requests</h3>
+            
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lab_request">New Lab Request</button>
+          </div>
+          <!-- /.card-header -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="lab_request" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                 <th>Laboratory Tests </th>   
+                 <th> Laboratory Results</th>
+                 <th> Status </th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+          
+
+        <div class="modal fade" id="modal-lab_request" aria-modal="true" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Laboratory Requests</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+          <form>
+            {% import 'templates/forms.html' as forms %}
+            <div class="card-body">
+                {{ forms.input('Laboratory Tests', 'lab_tests_id', 'text' ) }}
+                {{ forms.input('Laboratory Results', 'lab_results_id', 'text' ) }} 
+            </div>
+          </form> </div>
+              <div class="modal-footer float-right">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_modal_secondary">Close</button>
+                <button type="button" class="btn btn-primary" id="btn_modal_primary">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        
+      </div>
+    </section>
+    <!-- /.content -->
+  
+  {% endblock %}
+  
+  {% block scripts %}
+  <script defer>
+
+    const lab_request = JSON.parse(' {{lab_request|tojson}} ')
+
+
+  $(() => {
+    $('#lab_request').DataTable({
+      data: lab_request,
+      columns: [
+        { data : "lab_tests_id"},
+        { data : "lab_results_id"},
+        { data : "status"},
+      ]
+    });
+
+  });
+</script>
+  {% endblock %}
