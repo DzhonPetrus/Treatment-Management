@@ -16,7 +16,7 @@ from .. import schemas
 templates = Jinja2Templates(directory="app/pages")
 
 router = APIRouter(
-    prefix="/lab_results",
+    prefix="/lab_result",
     tags=['Lab Results']
 )
 

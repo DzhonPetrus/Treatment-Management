@@ -8,22 +8,21 @@ class Base(BaseModel):
 
 
 class TreatmentBase(Base):
-    start_time: dt
-    end_time: dt
+    description: str
+    status: Optional[str]
 
-    status: str
+    created_at: Optional[dt]
+    updated_at: Optional[dt]
 
 
 class CreateTreatment(TreatmentBase):
-    room_id: str
-    patient_id: str
-    treatment_type_id: str
+    pass
+    # room_id: str
+    # patient_id: str
+    # treatment_type_id: str
 
 
 class Treatment(TreatmentBase):
-    patient: str
-    description: str
-    status: Optional[str]
-    treatment_type: str
-    created_at: Optional[dt]
-    updated_at: Optional[dt]
+    # patient: str
+    # treatment_type: str
+    pass

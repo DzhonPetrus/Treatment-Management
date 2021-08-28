@@ -6,7 +6,7 @@ from ..database import Base
 
 
 class Treatment(Base):
-    __tablename__ = "treatment"
+    __tablename__ = "treatments"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     # patient_id = Column(String(36), ForeignKey("patients.id"))

@@ -69,10 +69,10 @@
               <thead>
                 <tr>
                   <th>Name</th>
+                  <th>Room</th>
                   <th>Description</th>
                   <th>Price</th>
                   <th>Status</th>
-                  <th>Updated Last</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -130,11 +130,10 @@
     $('#treatment_types').DataTable({
       data: treatment_types,
       columns: [
-        { data : "patient_id"},
-        { data : "profile_id"},
-        { data : "treatment_type_id"},
-        { data : "lab_result_id"},
+        { data : "name"},
+        { data : "room"},
         { data : "description"},
+        { data : "price"},
         { data : "status"}
       ]
     });

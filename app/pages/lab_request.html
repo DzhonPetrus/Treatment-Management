@@ -68,6 +68,7 @@
             <table id="lab_request" class="table table-bordered table-hover">
               <thead>
                 <tr>
+                  <th>ID</th>
                  <th>Laboratory Tests </th>   
                  <th> Laboratory Results</th>
                  <th> Status </th>
@@ -125,8 +126,9 @@
     $('#lab_request').DataTable({
       data: lab_request,
       columns: [
-        { data : "lab_tests_id"},
-        { data : "lab_results_id"},
+        { data : "id"},
+        { data : null},
+        { data : null},
         { data : "status"},
       ]
     });

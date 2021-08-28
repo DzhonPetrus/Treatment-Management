@@ -148,7 +148,7 @@
   {% block scripts %}
   <script defer>
 
-    const treatment = JSON.parse(' {{treatment|tojson}} ')
+    const treatments = JSON.parse(' {{treatments|tojson}} ')
 
 
   $(() => {
@@ -156,14 +156,13 @@
     $('#reservationdatetime').datetimepicker();
 
     $('#treatments').DataTable({
-      data: treatment,
+      data: treatments,
       columns: [
-        { data : "patient_id"},
-        { data : "profile_id"},
-        { data : "treatment_type_id"},
-        { data : "lab_result_id"},
-        { data : "description"},
-        { data : "status"}
+        { data : null},
+        { data : null},
+        { data : null},
+        { data : "status"},
+        { data : null}
       ]
     });
 
