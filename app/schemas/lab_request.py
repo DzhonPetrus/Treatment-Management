@@ -1,5 +1,5 @@
 from datetime import datetime as dt
-from typing import Text, TextIO
+from typing import Optional, Text, TextIO
 from pydantic import BaseModel
 
 class Base(BaseModel):
@@ -23,5 +23,5 @@ class CreateLabRequest(LabRequestBase):
 class LabRequest(Base):
     lab_tests : str
     lab_requests : str    
-    created_at: dt
-    updated_at: dt
+    created_at: Optional[dt]
+    updated_at: Optional[dt]

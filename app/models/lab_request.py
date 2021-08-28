@@ -11,7 +11,7 @@ class LabRequest(Base):
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     
 
-    status = Column(String(100), default=text('ACTIVE'))
+    status = Column(String(100), default='ACTIVE')
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 

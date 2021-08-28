@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+from typing import Optional
 from pydantic import BaseModel
 
 class Base(BaseModel):
@@ -22,7 +23,7 @@ class CreateTreatment(TreatmentBase):
 class Treatment(TreatmentBase):
     patient: str
     description: str
-    status: str
+    status: Optional[str]
     treatment_type: str
-    created_at: dt
-    updated_at: dt
+    created_at: Optional[dt]
+    updated_at: Optional[dt]

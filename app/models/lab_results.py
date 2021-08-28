@@ -16,7 +16,7 @@ class LabResults(Base):
     detailed_result = Column(String(100))
 
 
-    status = Column(String(100), default=text('ACTIVE'))
+    status = Column(String(100), default='ACTIVE')
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 

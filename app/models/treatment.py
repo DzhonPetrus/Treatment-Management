@@ -18,7 +18,7 @@ class Treatment(Base):
     
 
 
-    status = Column(String(100), default=text('PENDING'))
+    status = Column(String(100), default='PENDING')
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 

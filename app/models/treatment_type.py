@@ -15,6 +15,7 @@ class TreatmentType(Base):
     price = Column(Numeric(15,2))
 
 
+    status = Column(String(100), default='ACTIVE')
     status = Column(String(100), default=text('ACTIVE'))
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))

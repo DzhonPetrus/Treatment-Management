@@ -18,7 +18,7 @@ class Profile(Base):
     birth_date = Column(String(100))
 
 
-    status = Column(String(100))
+    status = Column(String(100), default='ACTIVE')
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, default=text('NOW()'), onupdate=text('NOW()'))
 

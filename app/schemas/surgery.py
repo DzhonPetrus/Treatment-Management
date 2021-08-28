@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+from typing import Optional
 from pydantic import BaseModel
 
 class Base(BaseModel):
@@ -7,10 +8,10 @@ class Base(BaseModel):
 
 
 class SurgeryBase(Base):
-    start_time: dt
-    end_time: dt
+    created_at: Optional[dt]
+    updated_at: Optional[dt]
 
-    status: str
+    status: Optional[str]
 
 
 class CreateSurgery(SurgeryBase):
@@ -23,5 +24,3 @@ class Surgery(SurgeryBase):
     room: str
     patient: str
     surgery_type: str
-    created_at: dt
-    updated_at: dt
