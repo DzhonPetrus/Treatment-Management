@@ -13,7 +13,6 @@ class LabTest(Base):
     description = Column(Text)
     price = Column(Numeric(15,2))
 
-
-    status = Column(String(100), default=text('ACTIVE'))
+    status = Column(String(100))
     created_at = Column(DateTime, default=text('NOW()'))
-    updated_at = Column(DateTime, onupdate=text('NOW()'))
+    updated_at = Column(DateTime, default=text('NOW()'), onupdate=text('NOW()'))

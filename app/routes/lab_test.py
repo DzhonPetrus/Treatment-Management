@@ -17,7 +17,7 @@ templates = Jinja2Templates(directory="app/pages")
 
 router = APIRouter(
     prefix="/lab_test",
-    tags=['Lab Tests']
+    tags=['Lab_Tests']
 )
 
 get_db = database.get_db
@@ -35,4 +35,4 @@ def show(request: Request, id, db: Session = Depends(get_db)):
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.LabTest], response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return lab_test.get_all(db)
-    return templates.TemplateResponse("lab_test.html", {"request":request, "lab_test": jsonable_encoder(lab_test.get_all(db))})
+    return templates.TemplateResponse("lab_tests.html", {"request":request, "lab_tests": jsonable_encoder(lab_test.get_all(db))})
