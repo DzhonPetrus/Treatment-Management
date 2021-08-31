@@ -5,7 +5,7 @@
 	window.modal = "#modal-surgery_type";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "description", "price", "status", "btnAdd", "btnUpdate"];
+	window.fields = ["id", "name", "description", "price", "status", "btnAdd", "btnUpdate"];
 	window.fieldsHidden = ["id", "btnUpdate", "status"];
 	window.readOnlyFields = ["id"];
 
@@ -78,7 +78,7 @@ $(function () {
 const loadTable = () => {
     $(dataTable).DataTable({
 	  stateSave:true,
-      data: surgery_types,
+      data: surgery_types.data,
 	  aLengthMenu: [5, 10, 20, 30, 50, 100],
 	  responsive: true,
 	  serverSide: false,
@@ -105,7 +105,7 @@ viewData = (id) => {
 			type: "GET",
 			dataType: "json",
 
-			success: data => (data.error == false) ? setState("view", data) : notification("error", "Error!", data.message),
+			success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
 			error: ({ responseJSON }) => console.error(responseJSON),
 		});
 	}
@@ -120,7 +120,7 @@ editData = (id) => {
 			data: { id },
 			dataType: "json",
 
-			success: data => (data.error == false) ? setState("edit", data) : notification("error", "Error!", data.message),
+			success: data => (data.error == false) ? setState("edit", data.data) : notification("error", "Error!", data.message),
 			error: function ({ responseJSON }) {},
 		});
 	}

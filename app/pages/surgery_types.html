@@ -96,7 +96,7 @@
             <h3 class="card-title">Surgery Types</h3>
 
             
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery_type">New Surgery Type</button>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery_type" onclick="newHandler()">New Surgery Type</button>
           </div>
           <!-- /.card-header -->
 
@@ -134,7 +134,7 @@
           <form id="form" data-parsley-validate>
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
-              {{ forms.input('ID', 'id', 'text', 'hidden', '' )}}
+              {{ forms.input('ID', 'id', 'text', '', '' )}}
               {{ forms.input('Name', 'name', 'text', 'required') }}
               {{ forms.textarea('Description', 'description', 'required') }}
               {{ forms.input('Price', 'price', 'number', 'required' ) }}

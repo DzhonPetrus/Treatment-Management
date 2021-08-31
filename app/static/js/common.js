@@ -81,10 +81,35 @@ const newHandler = () => {
 
 const renderButtons = (aData) => {
 	let buttons =
-		"" +
-		`<button type="button" onClick="return viewData('${aData["id"]}')" class="btn btn-info"><i class="fa fa-eye"></i></button> ` +
-		`<button type="button" onClick="return editData('${aData["id"]}')" class="btn btn-success"><i class="fa fa-pencil-alt"></i></button> ` +
-		`<button type="button" onClick="return deleteData('${aData["id"]}')" class="btn btn-danger"><i class="fa fa-trash"></i></button>`;
+		`
+		<div class="text-center dropdown">
+      <div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+	<div class="dropdown-menu dropdown-menu-right">
+        <div class="dropdown-item d-flex" role="button">
+
+			<button type="button" onClick="return viewData('${aData["id"]}')" class="btn btn-info"><i class="fa fa-eye">
+			 View
+			</i></button> 
+
+		</div>
+
+        <div class="dropdown-item d-flex" role="button">
+
+		<button type="button" onClick="return editData('${aData["id"]}')" class="btn btn-success"><i class="fa fa-pencil-alt"> Edit</i></button>
+			 
+
+		</div>
+
+        <div class="dropdown-item d-flex" role="button">
+
+		<button type="button" onClick="return deleteData('${aData["id"]}')" class="btn btn-danger"><i class="fa fa-trash"> Delete</i></button>
+
+		</div>
+
+    </div>
+		`;
 	return buttons;
 };
 
