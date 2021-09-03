@@ -33,5 +33,38 @@ def create(surgery_type, db: Session):
     return {
         "data": new_surgery_type,
         "error": False,
-        "message": "Successfully created new surgery type"
+        "message": f"New Surgery Type with id '{new_surgery_type.id}' successfully created."
     }
+
+def update(id, Surgery_Type, db: Session):
+    surgery_type = db.query(models.SurgeryType).filter(models.SurgeryType.id == id)
+    if not surgery_type.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'SurgeryType with id {id} not found')
+    else:
+        surgery_type.update({
+            "name": Surgery_Type.name,
+            "description": Surgery_Type.description,
+            "price": Surgery_Type.price,
+            "status": Surgery_Type.status
+        })
+        db.commit()
+        return {
+            "data": Surgery_Type,
+            "error": False,
+            "message": f"Surgery Type with id '{id}' successfully updated."
+        }
+
+def destroy(id, db: Session):
+    surgery_type = db.query(models.SurgeryType).filter(models.SurgeryType.id == id)
+    if not surgery_type.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'SurgeryType with id {id} not found')
+    else:
+        surgery_type.update({
+            "status": "Inactive"
+        })
+        db.commit()
+        return {
+            "data": id,
+            "error": False,
+            "message": "Successfully updated"
+        }

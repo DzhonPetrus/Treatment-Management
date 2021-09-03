@@ -40,11 +40,8 @@
                 <p>Surgery Types</p>
               </div>
               <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-procedures"></i>
               </div>
-              <a href="#" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
-              </a>
             </div>
 
 
@@ -59,11 +56,8 @@
                 <p>Active Surgery Types</p>
               </div>
               <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-procedures"></i>
               </div>
-              <a href="#" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
-              </a>
             </div>
           </div>
 
@@ -75,11 +69,8 @@
                 <p>Inactive Surgery Types</p>
               </div>
               <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-procedures"></i>
               </div>
-              <a href="#" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
-              </a>
             </div>
           </div>
 
@@ -96,13 +87,16 @@
             <h3 class="card-title">Surgery Types</h3>
 
             
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery_type" onclick="newHandler()">New Surgery Type</button>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery_type" onclick="newHandler()">
+              <i class="fa fa-plus"></i>
+              New Surgery Type
+            </button>
           </div>
           <!-- /.card-header -->
 
           <!-- Card Body -->
           <div class="card-body">
-            <table id="dataTable" class="table table-bordered table-hover style="width:100%">
+            <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -122,7 +116,7 @@
           
 
         <div class="modal fade" id="modal-surgery_type" aria-modal="true" role="dialog">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title">Surgery Type</h4>
@@ -138,13 +132,20 @@
               {{ forms.input('Name', 'name', 'text', 'required') }}
               {{ forms.textarea('Description', 'description', 'required') }}
               {{ forms.input('Price', 'price', 'number', 'required' ) }}
+              {{ forms.input('Status', 'status', 'text', 'required' ) }}
               
             </div>
             </div>
             <div class="modal-footer float-right">
               <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" id="group-btnAdd">Add</button>
-              <button type="submit" class="btn btn-primary" id="group-btnUpdate">Save Changes</button>
+              <button type="submit" class="btn btn-primary" id="group-btnAdd">
+                Yes, submit it! 
+                <i class="fa fa-check"></i>
+              </button>
+              <button type="submit" class="btn btn-info" id="group-btnUpdate">
+                Yes, update it!
+                <i class="fa fa-check"></i>
+              </button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -152,6 +153,8 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
+
+        <div id="confirmationModal"></div>
         
       </div>
     </section>
@@ -163,13 +166,6 @@
 
   <script defer>
 
-    const surgery_types = JSON.parse(' {{surgery_types|tojson}} ')
-    const active_surgery_types = surgery_types.filter(types => types.status === 'ACTIVE')
-    const inactive_surgery_types = surgery_types.filter(types => types.status === 'INACTIVE')
-
-    $('#totalTypes').html(surgery_types.length)
-    $('#totalTypesActive').html(active_surgery_types.length)
-    $('#totalTypesInactive').html(inactive_surgery_types.length)
 
     $('input[name="price"]').on(
 				'blur',

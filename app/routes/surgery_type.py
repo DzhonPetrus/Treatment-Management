@@ -22,17 +22,28 @@ router = APIRouter(
 
 get_db = database.get_db
 
+@router.get('/all', status_code=status.HTTP_200_OK)
+def show(request: Request, db: Session = Depends(get_db)):
+    return surgery_type.get_all(db)
 
-@router.post('/', status_code=status.HTTP_201_CREATED)
-def create(SurgeryType: schemas.CreateSurgeryType = Depends(schemas.CreateSurgeryType.as_form), db: Session = Depends(get_db)):
-    return surgery_type.create(SurgeryType, db)
+@router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+def all(request: Request, db: Session = Depends(get_db)):
+    # return surgery_type.get_all(db)
+    return templates.TemplateResponse("surgery_types.html", {"request":request, 'current_path': request.url.path})
 
 @router.get('/{id}', status_code=status.HTTP_200_OK)
 def show(request: Request, id, db: Session = Depends(get_db)):
     return surgery_type.get_one(id, db)
     # return templates.TemplateResponse("surgery_type.html", {"request":request, "surgery_type": surgery_type.get_one(id, db)})
 
-@router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
-def all(request: Request, db: Session = Depends(get_db)):
-    # return surgery_type.get_all(db)
-    return templates.TemplateResponse("surgery_types.html", {"request":request, "surgery_types": jsonable_encoder(surgery_type.get_all(db)), 'current_path': request.url.path})
+@router.post('/', status_code=status.HTTP_201_CREATED)
+def create(SurgeryType: schemas.CreateSurgeryType = Depends(schemas.CreateSurgeryType.as_form), db: Session = Depends(get_db)):
+    return surgery_type.create(SurgeryType, db)
+
+@router.put('/{id}', status_code=status.HTTP_200_OK)
+def update(id, SurgeryType: schemas.CreateSurgeryType = Depends(schemas.CreateSurgeryType.as_form), db: Session = Depends(get_db)):
+    return surgery_type.update(id, SurgeryType, db)
+
+@router.delete('/{id}', status_code=status.HTTP_200_OK)
+def destroy(id, db: Session = Depends(get_db)):
+    return surgery_type.destroy(id, db)

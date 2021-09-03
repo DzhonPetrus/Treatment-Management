@@ -39,7 +39,6 @@ $(function () {
 							loadTable();
 							notification("success", "Success!", data.message);
 							$(form).reset();
-							console.log('successfully added')
 						} else {
 							notification("error", "Error!", data.message);
 						}
@@ -75,27 +74,76 @@ $(function () {
 	});
 });
 
-const loadTable = () => {
-    $(dataTable).DataTable({
-	  stateSave:true,
-      data: surgery_types.data,
-	  aLengthMenu: [5, 10, 20, 30, 50, 100],
-	  responsive: true,
-	  serverSide: false,
-      columns: [
-        { data : "name"},
-        { data : "description"},
-        { data : "price"},
-        { data : "status"},
-		{
-			data: null,
-			render: (aData) => renderButtons(aData),
+loadTable = () => {
+	$.ajaxSetup({
+		headers: {
+			Accept: "application/json",
+			Authorization: "Bearer " + token,
+			ContentType: "application/x-www-form-urlencoded",
 		},
-      ],
-    });
+	});
+	$(dataTable).dataTable().fnClearTable();
+	$(dataTable).dataTable().fnDestroy();
+	$(dataTable).dataTable({
+		responsive: true,
+		serverSide: false,
+		stateSave:true,
+		order: [[0, "desc"]],
+		aLengthMenu: [5, 10, 20, 30, 50, 100],
+		aoColumns: [
+			{ sClass: "text-left" },
+			{ sClass: "text-left" },
+			{ sClass: "text-left" },
+			{ sClass: "text-left" },
+			{ sClass: "text-center" },
+		],
+		columns: [
+			{
+				data: "name",
+				name: "name",
+				searchable: true,
+			},
+			{
+				data: "description",
+				name: "description",
+				searchable: true,
+			},
+			{
+				data: "price",
+				name: "price",
+				searchable: true,
+			},
+			{
+				data: "status",
+				render: (aData) => aData.toUpperCase() == "ACTIVE" ? `<span class="p-2 w-100 badge badge-primary">${aData}</span>` : `<span class="p-2 w-100 badge badge-danger">${aData}</span>`,
+				// name: "status",
+				// searchable: true,
+			},
+			{
+				data: null,
+				render: (aData) => renderButtons(aData, "Surgery Type"),
+			},
+		],
+		ajax: {
+			url: BASE_URL + `${endpoint}/all`,
+			type: "GET",
+			ContentType: "application/x-www-form-urlencoded",
+		},
+		drawCallback: function (settings) {
+			// POPULATE ANALYTIC CARDS
+			let surgery_types = settings.json;
+			if(surgery_types !== undefined){
+				console.log(surgery_types)
+				const active_surgery_types = surgery_types.data.filter(types => types.status === 'ACTIVE')
+				const inactive_surgery_types = surgery_types.data.filter(types => types.status === 'INACTIVE')
 
-
-}
+				$('#totalTypes').html(surgery_types.data.length)
+				$('#totalTypesActive').html(active_surgery_types.length)
+				$('#totalTypesInactive').html(inactive_surgery_types.length)
+			}
+		},
+	});
+};
 
 // VIEW DATA
 viewData = (id) => {
@@ -127,35 +175,27 @@ editData = (id) => {
 };
 
 // function to delete data
-deleteData = (id) => {
-	Swal.fire({
-		title: "Are you sure you want to delete this record?",
-		text: "You won't be able to revert this!",
-		icon: "warning",
-		showCancelButton: !0,
-		confirmButtonColor: "#34c38f",
-		cancelButtonColor: "#f46a6a",
-		confirmButtonText: "Yes, delete it!",
-	}).then(function (t) {
-		// if surgery_type clickes yes, it will change the active status to "Not Active".
-		if (t.value) {
-			$.ajax({
-				url: BASE_URL + endpoint,
-				type: "DELETE",
-				data: { id },
-				dataType: "json",
+deleteData = (id, confirmed = false) => {
+	if (confirmed) {
+		$.ajax({
+			url: BASE_URL + endpoint + `/${id}`,
+			type: "DELETE",
+			data: { id },
+			dataType: "json",
 
-				success: function (data) {
-					if (data.error == false) {
-						notification("success", "Success!", data.message);
-						loadTable();
-					} else {
-						notification("error", "Error!", data.message);
-					}
-				},
-				error: function ({ responseJSON }) {},
-			});
-		}
-	});
+			success: function (data) {
+				console.log(data)
+				if (data.error == false) {
+					notification("info", "Info!", data.message);
+					loadTable();
+				} else {
+					notification("error", "Error!", data.message);
+				}
+			},
+			error: function ({ responseJSON }) {console.log(data)},
+		});
+	} else {
+		confirmationModal('delete', id);
+	}
 };
 

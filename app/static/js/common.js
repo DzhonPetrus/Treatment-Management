@@ -58,6 +58,7 @@ formReset = () => {
 };
 
 const showModal = () => $(modal).modal("show");
+const hideModal = () => $(modal).modal("hide");
 const setInputValue = (data) =>{
 console.log(data);
 	fields.forEach((field) => $(`#${field}`).val(data[field]));
@@ -77,40 +78,6 @@ const newHandler = () => {
 	formReset();
 	setFieldsReadOnly(false);
 	setReadOnlyFields();
-};
-
-const renderButtons = (aData) => {
-	let buttons =
-		`
-		<div class="text-center dropdown">
-      <div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">
-        <i class="fas fa-ellipsis-v"></i>
-      </div>
-	<div class="dropdown-menu dropdown-menu-right">
-        <div class="dropdown-item d-flex" role="button">
-
-			<button type="button" onClick="return viewData('${aData["id"]}')" class="btn btn-info"><i class="fa fa-eye">
-			 View
-			</i></button> 
-
-		</div>
-
-        <div class="dropdown-item d-flex" role="button">
-
-		<button type="button" onClick="return editData('${aData["id"]}')" class="btn btn-success"><i class="fa fa-pencil-alt"> Edit</i></button>
-			 
-
-		</div>
-
-        <div class="dropdown-item d-flex" role="button">
-
-		<button type="button" onClick="return deleteData('${aData["id"]}')" class="btn btn-danger"><i class="fa fa-trash"> Delete</i></button>
-
-		</div>
-
-    </div>
-		`;
-	return buttons;
 };
 
 const setState = (state, data) => {
@@ -133,4 +100,107 @@ const setState = (state, data) => {
 
 	showModal();
 
+};
+
+const renderButtons = (aData, title) => {
+	let buttons =
+		`
+		<div class="text-center dropdown">
+      <div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+
+	<div class="dropdown-menu dropdown-menu-right">
+
+        <div class="dropdown-item d-flex" role="button" onClick="return viewData('${aData["id"]}')">
+			<div style="width:2rem">
+				<i class="fa fa-eye"> </i>
+			</div>
+			<div>View ${title}</div>
+		</div>
+
+        <div class="dropdown-item d-flex" role="button" onClick="return editData('${aData["id"]}')">
+			<div style="width:2rem">
+				<i class="fa fa-edit"> </i>
+			</div>
+			<div>Edit ${title}</div>
+		</div>
+
+        <div class="dropdown-item d-flex" role="button" onClick="return deleteData('${aData["id"]}')">
+			<div style="width:2rem">
+				<i class="fa fa-trash-alt"> </i>
+			</div>
+			<div>Delete ${title}</div>
+		</div>
+
+    </div>
+		`;
+	return buttons;
+};
+
+function confirmationModal(type, id='') {
+	var headIcon = 'fa-exclamation-triangle', headText = 'Confirmation', message, btnColor, btnText, btnIcon = 'fa-check';
+	switch(type) {
+		case 'create':
+			message = 'Are you sure you want to submit it now?';
+			btnColor = 'btn-primary ';
+			btnText = "Yes, submit it!";
+			break;
+
+		case 'update':
+			message = 'Are you sure you want to update your request now?';
+			btnColor = 'btn-info ';
+			btnText = "Yes, update it!";
+			break;
+
+		case 'delete':
+			message = 'Are you sure you want to delete it now?';
+			btnColor = 'btn-danger ';
+			btnText = "Yes, delete it!";
+			break;
+
+		case 'logout':
+			headIcon = 'fa-sign-out-alt';
+			headText = 'Log out';
+			message = 'Are you sure you want to delete it now?';
+			btnColor = 'btn-danger ';
+			btnText = "Yes, delete it!";
+			btnIcon = 'fa-sign-out-alt';
+			break;
+	}
+	let modal = `
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+              <div class="modal-content">
+                  <div class="modal-header">
+				  <div class="modal-title">
+					<i class="fa ${headIcon}"></i>
+                      ${headText}
+				  </div>
+                  </div>
+                  <div class="modal-body">
+                      ${message}
+                  </div>
+      
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <a href="#" 
+					  	id="submit" 
+						class="btn ${btnColor}"
+						${(id !== '') 
+							? `onClick="deleteData('${id}', ${true})"` 
+							: ""}
+					  >
+
+						${btnText}
+						<i class="fa ${btnIcon}"></i>
+					  </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+	`;
+	$('#confirmationModal').html(modal);
+	$('#confirmModal').modal("show");
+	console.log(modal)
 };
