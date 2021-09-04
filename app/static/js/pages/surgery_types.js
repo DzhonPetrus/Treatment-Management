@@ -5,9 +5,9 @@
 	window.modal = "#modal-surgery_type";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "name", "description", "price", "status", "btnAdd", "btnUpdate"];
-	window.fieldsHidden = ["id", "btnUpdate", "status"];
-	window.readOnlyFields = ["id"];
+	window.fields = ["id", "name", "description", "price", "is_active", "btnAdd", "btnUpdate"];
+	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
+	window.readOnlyFields = ["id", "is_active"];
 
 $(function () {
 
@@ -37,16 +37,13 @@ $(function () {
 					success: function (data) {
 						if (data.error == false) {
 							loadTable();
+							formReset();
 							notification("success", "Success!", data.message);
-							$(form).reset();
 						} else {
 							notification("error", "Error!", data.message);
 						}
 					},
-					error: function (data) {
-						notification("error", data.responseJSON.message);
-							console.log('error in add')
-				},
+					error: (data) => notification("error", data.responseJSON.detail),
 				});
 			} else {
 				$.ajax({
@@ -65,9 +62,7 @@ $(function () {
 							notification("error", "Error!", data.message);
 						}
 					},
-					error: function (data) {
-						notification("error", data.responseJSON.message);
-				},
+					error: (data) => notification("error", data.responseJSON.detail),
 				});
 			}
 		}
@@ -114,7 +109,7 @@ loadTable = () => {
 				searchable: true,
 			},
 			{
-				data: "status",
+				data: "is_active",
 				render: (aData) => aData.toUpperCase() == "ACTIVE" ? `<span class="p-2 w-100 badge badge-primary">${aData}</span>` : `<span class="p-2 w-100 badge badge-danger">${aData}</span>`,
 				// name: "status",
 				// searchable: true,
@@ -134,8 +129,8 @@ loadTable = () => {
 			let surgery_types = settings.json;
 			if(surgery_types !== undefined){
 				console.log(surgery_types)
-				const active_surgery_types = surgery_types.data.filter(types => types.status === 'ACTIVE')
-				const inactive_surgery_types = surgery_types.data.filter(types => types.status === 'INACTIVE')
+				const active_surgery_types = surgery_types.data.filter(types => types.is_active === 'ACTIVE')
+				const inactive_surgery_types = surgery_types.data.filter(types => types.is_active === 'INACTIVE')
 
 				$('#totalTypes').html(surgery_types.data.length)
 				$('#totalTypesActive').html(active_surgery_types.length)
@@ -154,7 +149,7 @@ viewData = (id) => {
 			dataType: "json",
 
 			success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
-			error: ({ responseJSON }) => console.error(responseJSON),
+			error: (data) => notification("error", data.responseJSON.detail),
 		});
 	}
 };
@@ -169,7 +164,7 @@ editData = (id) => {
 			dataType: "json",
 
 			success: data => (data.error == false) ? setState("edit", data.data) : notification("error", "Error!", data.message),
-			error: function ({ responseJSON }) {},
+			error: (data) => notification("error", data.responseJSON.detail),
 		});
 	}
 };
@@ -184,7 +179,6 @@ deleteData = (id, confirmed = false) => {
 			dataType: "json",
 
 			success: function (data) {
-				console.log(data)
 				if (data.error == false) {
 					notification("info", "Info!", data.message);
 					loadTable();
@@ -192,10 +186,35 @@ deleteData = (id, confirmed = false) => {
 					notification("error", "Error!", data.message);
 				}
 			},
-			error: function ({ responseJSON }) {console.log(data)},
+			error: (data) => notification("error", data.responseJSON.detail),
 		});
 	} else {
 		confirmationModal('delete', id);
+	}
+};
+
+
+// function to reactivate data
+reactivateData = (id, confirmed = false) => {
+	if (confirmed) {
+		$.ajax({
+			url: BASE_URL + endpoint + `/reactivate/${id}`,
+			type: "PUT",
+			data: { id },
+			dataType: "json",
+
+			success: function (data) {
+				if (data.error == false) {
+					notification("info", "Info!", data.message);
+					loadTable();
+				} else {
+					notification("error", "Error!", data.message);
+				}
+			},
+			error: (data) => notification("error", data.responseJSON.detail),
+		});
+	} else {
+		confirmationModal('reactivate', id);
 	}
 };
 

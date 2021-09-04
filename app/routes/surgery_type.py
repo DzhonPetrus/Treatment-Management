@@ -40,6 +40,10 @@ def show(request: Request, id, db: Session = Depends(get_db)):
 def create(SurgeryType: schemas.CreateSurgeryType = Depends(schemas.CreateSurgeryType.as_form), db: Session = Depends(get_db)):
     return surgery_type.create(SurgeryType, db)
 
+@router.put('/reactivate/{id}', status_code=status.HTTP_200_OK)
+def update(id, db: Session = Depends(get_db)):
+    return surgery_type.reactivate(id, db)
+
 @router.put('/{id}', status_code=status.HTTP_200_OK)
 def update(id, SurgeryType: schemas.CreateSurgeryType = Depends(schemas.CreateSurgeryType.as_form), db: Session = Depends(get_db)):
     return surgery_type.update(id, SurgeryType, db)

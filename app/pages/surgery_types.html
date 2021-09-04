@@ -125,14 +125,14 @@
                 </button>
               </div>
               <div class="modal-body">
-          <form id="form" data-parsley-validate>
+          <form id="form">
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
               {{ forms.input('ID', 'id', 'text', '', '' )}}
               {{ forms.input('Name', 'name', 'text', 'required') }}
               {{ forms.textarea('Description', 'description', 'required') }}
               {{ forms.input('Price', 'price', 'number', 'required' ) }}
-              {{ forms.input('Status', 'status', 'text', 'required' ) }}
+              {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'Active' ) }}
               
             </div>
             </div>

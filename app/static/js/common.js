@@ -112,29 +112,45 @@ const renderButtons = (aData, title) => {
 
 	<div class="dropdown-menu dropdown-menu-right">
 
-        <div class="dropdown-item d-flex" role="button" onClick="return viewData('${aData["id"]}')">
+        <div class="dropdown-item d-flex" role="button" onClick="return viewData('${aData.id}')">
 			<div style="width:2rem">
 				<i class="fa fa-eye"> </i>
 			</div>
 			<div>View ${title}</div>
 		</div>
 
-        <div class="dropdown-item d-flex" role="button" onClick="return editData('${aData["id"]}')">
+        <div class="dropdown-item d-flex" role="button" onClick="return editData('${aData.id}')">
 			<div style="width:2rem">
 				<i class="fa fa-edit"> </i>
 			</div>
 			<div>Edit ${title}</div>
 		</div>
-
-        <div class="dropdown-item d-flex" role="button" onClick="return deleteData('${aData["id"]}')">
-			<div style="width:2rem">
-				<i class="fa fa-trash-alt"> </i>
-			</div>
-			<div>Delete ${title}</div>
-		</div>
-
-    </div>
 		`;
+		buttons += aData.is_active == "ACTIVE" 
+			? `
+				<div 
+					class="dropdown-item d-flex" 
+					role="button" 
+					onClick="return deleteData('${aData.id}')
+				">
+					<div style="width:2rem">
+						<i class="fa fa-trash-alt"> </i>
+					</div>
+					<div>Delete ${title}</div>
+				</div>
+			` : `
+				<div 
+					class="dropdown-item d-flex" 
+					role="button" 
+					onClick="return reactivateData('${aData.id}')
+				">
+					<div style="width:2rem">
+						<i class="fa fa-redo-alt"> </i>
+					</div>
+					<div>Re-Activate ${title}</div>
+				</div>
+			`;
+    buttons += '</div>'
 	return buttons;
 };
 
@@ -157,6 +173,12 @@ function confirmationModal(type, id='') {
 			message = 'Are you sure you want to delete it now?';
 			btnColor = 'btn-danger ';
 			btnText = "Yes, delete it!";
+			break;
+
+		case 'reactivate':
+			message = 'Are you sure you want to re-activate it now?';
+			btnColor = 'btn-info ';
+			btnText = "Yes, re-activate it!";
 			break;
 
 		case 'logout':
@@ -187,8 +209,11 @@ function confirmationModal(type, id='') {
                       <a href="#" 
 					  	id="submit" 
 						class="btn ${btnColor}"
-						${(id !== '') 
+						${(id !== '' && type === 'delete') 
 							? `onClick="deleteData('${id}', ${true})"` 
+							: ""}
+						${(id !== '' && type === 'reactivate') 
+							? `onClick="reactivateData('${id}', ${true})"` 
 							: ""}
 					  >
 

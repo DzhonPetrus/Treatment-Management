@@ -11,7 +11,7 @@ class SurgeryTypeBase(Base):
     description: str
     price: float
 
-    status: Optional[str]
+    is_active: Optional[str]
 
 
 @as_form
