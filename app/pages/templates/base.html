@@ -94,7 +94,9 @@
 
 <script src="{{ url_for('static', path='/plugins/toastr/toastr.min.js') }}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js"></script>
+<script src="{{ url_for('static', path='/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js"></script> -->
 
 <script src="{{ url_for('static', path='/js/common.js') }}" defer></script>
 {% block scripts %}

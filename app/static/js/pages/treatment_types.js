@@ -1,11 +1,11 @@
-	window.endpoint = 'surgery_type'
+	window.endpoint = 'treatment_type'
 	window.token = "TEMPORARY"
 
 	window.form = "#form"
-	window.modal = "#modal-surgery_type";
+	window.modal = "#modal-treatment_type";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "name", "description", "price", "is_active", "btnAdd", "btnUpdate"];
+	window.fields = ["id", "name", "room", "description", "price", "is_active", "btnAdd", "btnUpdate"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
 	window.readOnlyFields = ["id", "is_active"];
 
@@ -18,6 +18,7 @@ $(function () {
 	$(form).on("submit", function (e) {
 		e.preventDefault();
 		trimInputFields();
+		console.log($(form).validate())
 
 		if ($(form).validate()) {
 			var form_data = new FormData(this);
@@ -90,12 +91,18 @@ loadTable = () => {
 			{ sClass: "text-left" },
 			{ sClass: "text-left" },
 			{ sClass: "text-left" },
+			{ sClass: "text-left" },
 			{ sClass: "text-center" },
 		],
 		columns: [
 			{
 				data: "name",
 				name: "name",
+				searchable: true,
+			},
+			{
+				data: "room",
+				name: "room",
 				searchable: true,
 			},
 			{
@@ -116,7 +123,7 @@ loadTable = () => {
 			},
 			{
 				data: null,
-				render: (aData) => renderButtons(aData, "Surgery Type"),
+				render: (aData) => renderButtons(aData, "Treatment Type"),
 			},
 		],
 		ajax: {
@@ -126,14 +133,14 @@ loadTable = () => {
 		},
 		drawCallback: function (settings) {
 			// POPULATE ANALYTIC CARDS
-			let surgery_types = settings.json;
-			if(surgery_types !== undefined){
-				const active_surgery_types = surgery_types.data.filter(types => types.is_active === 'ACTIVE')
-				const inactive_surgery_types = surgery_types.data.filter(types => types.is_active === 'INACTIVE')
+			let treatment_types = settings.json;
+			if(treatment_types !== undefined){
+				const active_treatment_types = treatment_types.data.filter(types => types.is_active === 'ACTIVE')
+				const inactive_treatment_types = treatment_types.data.filter(types => types.is_active === 'INACTIVE')
 
-				$('#totalTypes').html(surgery_types.data.length)
-				$('#totalTypesActive').html(active_surgery_types.length)
-				$('#totalTypesInactive').html(inactive_surgery_types.length)
+				$('#totalTypes').html(treatment_types.data.length)
+				$('#totalTypesActive').html(active_treatment_types.length)
+				$('#totalTypesInactive').html(inactive_treatment_types.length)
 			}
 		},
 	});

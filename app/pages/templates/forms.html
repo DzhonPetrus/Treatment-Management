@@ -1,6 +1,11 @@
 {% macro input(title, name, type='text', attr="", value='') -%}
 <div class="form-group" id="group-{{ name }}" {{attr}}>
-  <label>{{ title }}</label>
+  <label>
+    {{ title }}
+    {% if attr=='required' -%}
+    <span style="color:red">*</span>
+    {% endif -%}
+  </label>
   <input
     type="{{ type }}"
     class="form-control"
@@ -16,7 +21,12 @@
 {% macro textarea(title, name, attr='', value='') -%}
     <!-- textarea -->
     <div class="form-group" id="group-{{ name }}" {{attr}}>
-      <label>{{ title }}</label>
+      <label>
+        {{ title }}
+        {% if attr=='required' -%}
+        <span style="color:red">*</span>
+        {% endif -%}
+      </label>
       <textarea id="{{name}}" name="{{name}}" class="form-control" rows="3" placeholder="Input {{ title }}..." {{attr}}>{{ value }}</textarea>
     </div>
 {%- endmacro %} 
