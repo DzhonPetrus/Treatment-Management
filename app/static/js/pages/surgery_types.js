@@ -128,7 +128,6 @@ loadTable = () => {
 			// POPULATE ANALYTIC CARDS
 			let surgery_types = settings.json;
 			if(surgery_types !== undefined){
-				console.log(surgery_types)
 				const active_surgery_types = surgery_types.data.filter(types => types.is_active === 'ACTIVE')
 				const inactive_surgery_types = surgery_types.data.filter(types => types.is_active === 'INACTIVE')
 

@@ -60,7 +60,6 @@ formReset = () => {
 const showModal = () => $(modal).modal("show");
 const hideModal = () => $(modal).modal("hide");
 const setInputValue = (data) =>{
-console.log(data);
 	fields.forEach((field) => $(`#${field}`).val(data[field]));
 
 }
@@ -81,7 +80,6 @@ const newHandler = () => {
 };
 
 const setState = (state, data) => {
-	console.log(state)
 	showAllFields();
 	setInputValue(data);
 	$("#group-btnAdd").hide();
@@ -227,5 +225,4 @@ function confirmationModal(type, id='') {
 	`;
 	$('#confirmationModal').html(modal);
 	$('#confirmModal').modal("show");
-	console.log(modal)
 };
