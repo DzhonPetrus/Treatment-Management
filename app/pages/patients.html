@@ -180,6 +180,9 @@
     $("#birth_date").daterangepicker({
       singleDatePicker: true,
       showDropdowns: true,
+      locale: {
+        format: 'YYYY-MM-DD'
+      },
       minYear: 1901,
       maxYear: parseInt(moment().format('YYYY'),10)
     });

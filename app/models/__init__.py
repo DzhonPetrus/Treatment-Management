@@ -10,3 +10,11 @@ from .treatment import *
 from .treatment_type import *
 
 from .patient import *
+
+
+
+
+# RELATIONSHIPS
+# SurgeryType.surgeries = relationship("Surgery", back_populates="surgery_type")
+
+# Surgery.surgery_type = relationship("Surgery_Type", back_populates="surgeries")

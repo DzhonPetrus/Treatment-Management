@@ -9,12 +9,9 @@ class Surgery(Base):
     __tablename__ = "surgeries"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
-    # patient_id = Column(String(36), ForeignKey("patients.id"))
-    # room_id = Column(String(36), ForeignKey("rooms.id"))
+    patient_id = Column(String(36), ForeignKey("patients.id"))
     room = Column(String(100))
-    patient_id = Column(String(100))
-    surgery_type_id = Column(String(100))
-    # surgery_type_id = Column(String(36), ForeignKey("surgery_types.id"))
+    surgery_type_id = Column(String(36), ForeignKey("surgery_types.id"))
     start_time = Column(DateTime)
     end_time = Column(DateTime)
 
@@ -25,6 +22,5 @@ class Surgery(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
 
-    # patient = relationship('Patient', back_populates='surgeries')
-    # room = relationship('Room', back_populates='surgeries')
-    # surgery_type = relationship('Surgery_Type', back_populates='surgeries')
+    patient = relationship('Patient', back_populates='surgeries')
+    surgery_type = relationship("SurgeryType", back_populates="surgeries")
