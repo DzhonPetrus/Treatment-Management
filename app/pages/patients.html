@@ -138,7 +138,7 @@
               {{ forms.input('Middle Name', 'middle_name', 'text', '') }}
               {{ forms.input('Last Name', 'last_name', 'text', 'required') }}
               {{ forms.input('Suffix Name', 'suffix_name', 'text', '') }}
-              {{ forms.input('Birth Date', 'birth_date', 'date', 'required') }}
+              {{ forms.input('Birth Date', 'birth_date', 'text', 'required') }}
               {{ forms.select('Gender', 'gender', 'text',['Male', 'Female']) }}
               {{ forms.input('Contact Number', 'contact_no', 'text', 'required') }}
               {{ forms.input('Email', 'email', 'email', 'required') }}
@@ -176,7 +176,15 @@
   
   {% block scripts %}
 
-  <script defer></script>
+  <script defer>
+    $("#birth_date").daterangepicker({
+      singleDatePicker: true,
+      showDropdowns: true,
+      minYear: 1901,
+      maxYear: parseInt(moment().format('YYYY'),10)
+    });
+
+  </script>
 
 <script src="{{ url_for('static', path='/js/pages/patients.js') }}"></script>
   {% endblock %}
