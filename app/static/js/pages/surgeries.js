@@ -1,11 +1,11 @@
-	window.endpoint = 'surgery_type'
+	window.endpoint = 'surgery'
 	window.token = "TEMPORARY"
 
 	window.form = "#form"
-	window.modal = "#modal-surgery_type";
+	window.modal = "#modal-surgery";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "name", "description", "price", "is_active", "btnAdd", "btnUpdate"];
+	window.fields = ["id", "surgery_type_id", "room", "patient_id", "status", "is_active", "btnAdd", "btnUpdate"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
 	window.readOnlyFields = ["id", "is_active"];
 
@@ -21,7 +21,6 @@ $(function () {
 
 		if ($(form).validate()) {
 			var form_data = new FormData(this);
-			form_data.append('is_active', $('#is_active').val())
 
 			var id = $("#id").val();
 			if (id == "") {
@@ -95,18 +94,33 @@ loadTable = () => {
 		],
 		columns: [
 			{
-				data: "name",
-				name: "name",
+				data: "patient",
+				name: "patient",
 				searchable: true,
 			},
 			{
-				data: "description",
-				name: "description",
+				data: "room",
+				name: "room",
 				searchable: true,
 			},
 			{
-				data: "price",
-				name: "price",
+				data: "surgery_type",
+				name: "surgery_type",
+				searchable: true,
+			},
+			{
+				data: "start_date",
+				name: "start_date",
+				searchable: true,
+			},
+			{
+				data: "end_date",
+				name: "end_date",
+				searchable: true,
+			},
+			{
+				data: "status",
+				name: "status",
 				searchable: true,
 			},
 			{
@@ -117,24 +131,25 @@ loadTable = () => {
 			},
 			{
 				data: null,
-				render: (aData) => renderButtons(aData, "Surgery Type"),
+				render: (aData) => console.log(aData)
 			},
 		],
 		ajax: {
 			url: BASE_URL + `${endpoint}/all`,
 			type: "GET",
 			ContentType: "application/x-www-form-urlencoded",
+			success: (data) => console.log(data)
 		},
 		drawCallback: function (settings) {
 			// POPULATE ANALYTIC CARDS
-			let surgery_types = settings.json;
-			if(surgery_types !== undefined){
-				const active_surgery_types = surgery_types.data.filter(types => types.is_active === 'ACTIVE')
-				const inactive_surgery_types = surgery_types.data.filter(types => types.is_active === 'INACTIVE')
+			let surgeries = settings.json;
+			if(surgeries !== undefined){
+				const active_surgeries = surgeries.data.filter(surgery => surgery.is_active === 'ACTIVE')
+				const inactive_surgeries = surgeries.data.filter(surgery => surgery.is_active === 'INACTIVE')
 
-				$('#totalTypes').html(surgery_types.data.length)
-				$('#totalTypesActive').html(active_surgery_types.length)
-				$('#totalTypesInactive').html(inactive_surgery_types.length)
+				$('#totalSurgeries').html(surgeries.data.length)
+				$('#totalSurgeriesActive').html(active_surgeries.length)
+				$('#totalSurgeriesInactive').html(inactive_surgeries.length)
 			}
 		},
 	});

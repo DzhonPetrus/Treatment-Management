@@ -22,6 +22,7 @@ $(function () {
 
 		if ($(form).validate()) {
 			var form_data = new FormData(this);
+			form_data.append('is_active', $('#is_active').val())
 
 			var id = $("#id").val();
 			if (id == "") {

@@ -27,4 +27,4 @@ class Patient(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
 
-    # surgery = relationship('Surgery', back_populates='surgery_type')
+    # surgeries = relationship('Surgery', back_populates='patient')
