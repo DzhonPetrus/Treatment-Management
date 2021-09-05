@@ -133,16 +133,16 @@
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
               {{ forms.input('ID', 'id', 'text', '', '' )}}
-              {{ forms.input('Type', 'type', 'text', 'required') }}
+              {{ forms.select('Type', 'type', 'required', ['Outpatient', 'Inpatient']) }}
               {{ forms.input('First Name', 'first_name', 'text', 'required') }}
               {{ forms.input('Middle Name', 'middle_name', 'text', '') }}
               {{ forms.input('Last Name', 'last_name', 'text', 'required') }}
               {{ forms.input('Suffix Name', 'suffix_name', 'text', '') }}
               {{ forms.input('Birth Date', 'birth_date', 'date', 'required') }}
-              {{ forms.input('Gender', 'gender', 'text', 'required') }}
+              {{ forms.select('Gender', 'gender', 'text',['Male', 'Female']) }}
               {{ forms.input('Contact Number', 'contact_no', 'text', 'required') }}
               {{ forms.input('Email', 'email', 'email', 'required') }}
-              {{ forms.input('Blood Type', 'blood_type', 'text', 'required') }}
+              {{ forms.select('Blood Type', 'blood_type', 'text', ['O-', 'O+', 'B-', 'B+', 'A-', 'A+', 'AB-', 'AB+']) }}
               <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
               {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'Active' ) }}
               

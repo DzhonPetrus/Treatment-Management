@@ -24,7 +24,7 @@ $(function () {
 
 			console.log(form_data)
 			console.table(form_data)
-			console.log(form_data.get("birth_date"))
+			console.log(form_data.get("type"))
 			var id = $("#id").val();
 			if (id == "") {
 

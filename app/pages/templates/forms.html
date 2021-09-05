@@ -30,3 +30,22 @@
       <textarea id="{{name}}" name="{{name}}" class="form-control" rows="3" placeholder="Input {{ title }}..." {{attr}}>{{ value }}</textarea>
     </div>
 {%- endmacro %} 
+
+{% macro select(title, name, attr='', options=[]) -%}
+    <!-- textarea -->
+    <div class="form-group" id="group-{{ name }}" {{attr}}>
+      <label>
+        {{ title }}
+        <span style="color:red">*</span>
+      </label>
+      <select class="form-control select2" style="width: 100%;" id="{{name}}" name={{name}}>
+        {% for option in options -%}
+          {% if option == options[0] -%}
+            <option selected="selected" value="{{option}}">{{option}}</option>
+          {% else -%}
+            <option value="{{option}}">{{option}}</option>
+          {% endif -%}
+        {% endfor -%}
+      </select>
+    </div>
+{%- endmacro %} 
