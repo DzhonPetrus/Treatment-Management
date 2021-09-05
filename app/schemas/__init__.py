@@ -6,3 +6,5 @@ from .lab_request import*
 from .profile import *
 from .treatment import *
 from .treatment_type import *
+
+from .patient import *

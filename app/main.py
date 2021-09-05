@@ -30,3 +30,5 @@ app.include_router(routes.lab_request.router)
 
 app.include_router(routes.treatment.router)
 app.include_router(routes.treatment_type.router)
+
+app.include_router(routes.patient.router)
