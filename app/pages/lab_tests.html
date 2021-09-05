@@ -8,14 +8,14 @@
           
           <!-- Title -->
           <div class="col-sm-6">
-            <h1>Laboratory Types</h1>
+            <h1>Lab Tests</h1>
           </div>
 
           <!-- Breadcrumb -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Core</a></li>
-              <li class="breadcrumb-item active">Laboratory Tests</li>
+              <li class="breadcrumb-item active">Lab Tests</li>
             </ol>
           </div>
           <!-- / breadcrumb -->
@@ -35,19 +35,46 @@
             <!-- small card -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3 id="totalTests">0</h3>
 
-                <p>Laboratory Tests</p>
+                <p>Lab Tests</p>
               </div>
               <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-x-ray"></i>
               </div>
-              <a href="#" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
-              </a>
             </div>
+
+
           </div>
           <!-- ./col -->
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 id="totalTestsActive">0</h3>
+
+                <p>Active Lab Tests</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-x-ray"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3 id="totalTestsInactive">0</h3>
+
+                <p>Inactive Lab Tests</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-x-ray"></i>
+              </div>
+            </div>
+          </div>
+
+
           
         </div>
         <!-- / Info Boxes -->
@@ -57,21 +84,26 @@
 
           <!-- Card Header -->
           <div class="card-header">
-            <h3 class="card-title">Laboratory Tests</h3>
+            <h3 class="card-title">Lab Tests</h3>
+
             
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lab_test">New Laboratory Test</button>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lab_test" onclick="newHandler()">
+              <i class="fa fa-plus"></i>
+              New Lab Test
+            </button>
           </div>
           <!-- /.card-header -->
 
           <!-- Card Body -->
           <div class="card-body">
-            <table id="lab_tests" class="table table-bordered table-hover">
+            <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Description</th>
                   <th>Price</th>
-                 
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -84,33 +116,45 @@
           
 
         <div class="modal fade" id="modal-lab_test" aria-modal="true" role="dialog">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Laboratory Test</h4>
+                <h4 class="modal-title">Lab Test</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
               <div class="modal-body">
-          <form>
+          <form id="form">
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
-              {{ forms.input('Name', 'name', 'text' ) }}
-              {{ forms.textarea('Description', 'description') }}
-              {{ forms.input('Price', 'price', 'number' ) }}
+              {{ forms.input('ID', 'id', 'text', '', '' )}}
+              {{ forms.input('Name', 'name', 'text', 'required') }}
+              {{ forms.textarea('Description', 'description', 'required') }}
+              {{ forms.input('Price', 'price', 'number', 'required' ) }}
+              {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'Active' ) }}
               
             </div>
-          </form> </div>
-              <div class="modal-footer float-right">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn_modal_secondary">Close</button>
-                <button type="button" class="btn btn-primary" id="btn_modal_primary">Save changes</button>
+            </div>
+            <div class="modal-footer float-right">
+              <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="group-btnAdd">
+                Yes, submit it! 
+                <i class="fa fa-check"></i>
+              </button>
+              <button type="submit" class="btn btn-info" id="group-btnUpdate">
+                Yes, update it!
+                <i class="fa fa-check"></i>
+              </button>
               </div>
             </div>
             <!-- /.modal-content -->
+          </form> 
           </div>
           <!-- /.modal-dialog -->
         </div>
+
+        <div id="confirmationModal"></div>
         
       </div>
     </section>
@@ -119,21 +163,9 @@
   {% endblock %}
   
   {% block scripts %}
+
   <script defer>
 
-    const lab_tests = JSON.parse(' {{lab_tests|tojson}} ')
-
-
-  $(() => {
-    $('#lab_tests').DataTable({
-      data: lab_tests,
-      columns: [
-        { data : "name"},
-        { data : "description"},
-        { data : "price"},
-        { data : "status"},
-      ]
-    });
 
     $('input[name="price"]').on(
 				'blur',
@@ -147,6 +179,8 @@
 					} 
 				}
 			);
-  });
+
 </script>
+
+<script src="{{ url_for('static', path='/js/pages/lab_tests.js') }}"></script>
   {% endblock %}
