@@ -22,11 +22,11 @@ router = APIRouter(
 
 get_db = database.get_db
 
-@router.get('/all', status_code=status.HTTP_200_OK)
+@router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutTreatmentTypes)
 def show(request: Request, db: Session = Depends(get_db)):
     return treatment_type.get_all(db)
 
-@router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+@router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse, response_model=schemas.OutTreatmentType)
 def all(request: Request, db: Session = Depends(get_db)):
     # return treatment_type.get_all(db)
     return templates.TemplateResponse("treatment_types.html", {"request":request, 'current_path': request.url.path})

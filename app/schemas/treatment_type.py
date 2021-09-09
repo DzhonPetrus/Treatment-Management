@@ -10,7 +10,7 @@ class TreatmentTypeBase(Base):
     description: str
     price: float
 
-    is_active: Optional[str]
+    is_active: Optional[str] = None
     
 
 @as_form
@@ -19,11 +19,16 @@ class CreateTreatmentType(TreatmentTypeBase):
 
 
 class TreatmentType(TreatmentTypeBase):
-    created_at: Optional[dt]
-    updated_at: Optional[dt]
+    id: str
+    created_at: Optional[dt] = None
+    updated_at: Optional[dt] = None
 
-
-class TreatmentTypeOut(Base):
+class OutTreatmentTypes(Base):
     data: List[TreatmentType]
+    error: bool
+    message: str
+
+class OutTreatmentType(Base):
+    data: TreatmentType
     error: bool
     message: str
