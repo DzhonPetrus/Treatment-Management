@@ -22,7 +22,7 @@ router = APIRouter(
 
 get_db = database.get_db
 
-@router.get('/all', status_code=status.HTTP_200_OK)
+@router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutLabTests)
 def show(request: Request, db: Session = Depends(get_db)):
     return lab_test.get_all(db)
 
@@ -31,7 +31,7 @@ def all(request: Request, db: Session = Depends(get_db)):
     # return lab_test.get_all(db)
     return templates.TemplateResponse("lab_tests.html", {"request":request, 'current_path': request.url.path})
 
-@router.get('/{id}', status_code=status.HTTP_200_OK)
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutLabTest)
 def show(request: Request, id, db: Session = Depends(get_db)):
     return lab_test.get_one(id, db)
     # return templates.TemplateResponse("lab_test.html", {"request":request, "lab_test": lab_test.get_one(id, db)})

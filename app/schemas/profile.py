@@ -28,8 +28,3 @@ class Profile(CreateProfile):
     # department: str
     created_at: dt
     updated_at: dt
-
-class ProfileOut(Base):
-    data: List[Profile]
-    error: bool
-    message: str

@@ -9,7 +9,7 @@ class LabTestBase(Base):
     description: str
     price: float
 
-    is_active: Optional[str]
+    is_active: Optional[str] = None
 
 
 @as_form
@@ -18,10 +18,16 @@ class CreateLabTest(LabTestBase):
 
 
 class LabTest(LabTestBase):
-    created_at: Optional[dt]
-    updated_at: Optional[dt]
+    id: str
+    created_at: Optional[dt] = None
+    updated_at: Optional[dt] = None
 
-class LabTestOut(Base):
+class OutLabTests(Base):
     data: List[LabTest]
+    error: bool
+    message: str
+
+class OutLabTest(Base):
+    data: LabTest
     error: bool
     message: str
