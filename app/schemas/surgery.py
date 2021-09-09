@@ -30,7 +30,12 @@ class Surgery(SurgeryBase):
     patient: Optional[PatientBase] = None
 
 
-class SurgeryOut(Base):
+class OutSurgeries(Base):
     data: List[Surgery]
+    error: bool
+    message: str
+
+class OutSurgery(Base):
+    data: Surgery
     error: bool
     message: str
