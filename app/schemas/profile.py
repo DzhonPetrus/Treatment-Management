@@ -1,5 +1,6 @@
 from datetime import datetime as dt
 from pydantic import BaseModel
+from typing import List
 
 class Base(BaseModel):
     class Config():
@@ -27,3 +28,8 @@ class Profile(CreateProfile):
     # department: str
     created_at: dt
     updated_at: dt
+
+class ProfileOut(Base):
+    data: List[Profile]
+    error: bool
+    message: str

@@ -133,15 +133,45 @@
           <form id="form">
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
-              {{ forms.input('Surgery Type', 'surgery_type_id', 'text' ) }}
-              {{ forms.input('Patient', 'patient_id', 'text' ) }}
-              {{ forms.input('Room', 'room_id', 'text' ) }}
-              {{ forms.input('Schedule', 'start_date', 'text' ) }}
-              <!-- {{ forms.input('End Date', 'end_date', 'datetime-local' ) }} -->
+
+            {{ forms.input('ID', 'id', 'text', '', '' )}}
+              <!-- SURGERY TYPE -->
+              <div class="form-group" id="group-surgery_type_id">
+                <label>
+                  Surgery Type
+                  <span style="color:red">*</span>
+                </label>
+                <select class="form-control select2" style="width: 100%;" id="surgery_type_id" name="surgery_type_id">
+              {% for surgery_type in surgery_types %}
+                    <option value="{{surgery_type['id']}}">{{surgery_type['name']}}</option>
+              {% endfor -%}
+                </select>
+              </div>
+              <!-- END SURGERY TYPE -->
+
+              <!-- PATIENT-->
+              <div class="form-group" id="group-patient_id">
+                <label>
+                  Patient
+                  <span style="color:red">*</span>
+                </label>
+                <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
+              {% for patient in patients %}
+                    <option value="{{patient['id']}}">{{patient['first_name']}}</option>
+              {% endfor -%}
+                </select>
+              </div>
+              <!-- END PATIENT -->
+
+              {{ forms.input('Room', 'room', 'text' ) }}
+              {{ forms.input('Schedule', 'start_time', 'text' ) }}
+              {{ forms.input('Surgery Ended', 'end_time', 'text' ) }}
+              {{ forms.select('Status', 'status', 'text', ['PENDING', 'ON-GOING', 'FINISHED', 'CANCELLED']) }}
+              {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
               
               
             </div>
-          </form> </div>
+          </div>
             <div class="modal-footer float-right">
                 <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary" id="group-btnAdd">
@@ -153,6 +183,7 @@
                   <i class="fa fa-check"></i>
                 </button>
               </div>
+            </form> 
               
             </div>
             <!-- /.modal-content -->
@@ -169,17 +200,29 @@
   
   {% block scripts %}
   <script defer>
+    const surgery_types = JSON.parse(' {{surgery_types|tojson}} ');
+    const patients = JSON.parse(' {{patients|tojson}} ');
 
   $(() => {
-    $("#start_date").daterangepicker({
+    $('#surgery_type_id').select2();
+    $('#patient_id').select2();
+    $("#end_time").daterangepicker({
       singleDatePicker: true,
       timePicker: true,
       showDropdowns: true,
       locale: {
-        format: 'YYYY-MM-DD hh:mm A'
+        format: 'YYYY-MM-DD hh:mm:ss'
       },
       minYear: 1901,
-      maxYear: parseInt(moment().format('YYYY'),10)
+    });
+    $("#start_time").daterangepicker({
+      singleDatePicker: true,
+      timePicker: true,
+      showDropdowns: true,
+      locale: {
+        format: 'YYYY-MM-DD hh:mm:ss'
+      },
+      minYear: 1901,
     });
 
   });

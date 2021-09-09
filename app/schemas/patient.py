@@ -1,5 +1,5 @@
-from datetime import datetime as dt
-from typing import Optional
+from datetime import date, datetime as dt
+from typing import Optional, List
 
 
 from ..utils.schemaHelper import Base, as_form
@@ -12,7 +12,7 @@ class PatientBase(Base):
     middle_name : Optional[str]
     last_name : str
     suffix_name : Optional[str]
-    birth_date : str
+    birth_date : date
     gender : str
     contact_no : str
     email : str
@@ -30,3 +30,8 @@ class CreatePatient(PatientBase):
 class Patient(PatientBase):
     created_at: Optional[dt]
     updated_at: Optional[dt]
+
+class PatientOut(Base):
+    data: List[Patient]
+    error: bool
+    message: str

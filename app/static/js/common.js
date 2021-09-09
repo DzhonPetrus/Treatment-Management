@@ -1,5 +1,8 @@
 const BASE_URL = `http://127.0.0.1:8000/`;
 
+const formatDateTime = dt => moment(dt).format(`MMMM D, YYYY hh:mm:ss`);
+const formatDate = d => moment(d).format(`MMMM D, YYYY`);
+
 const notification = (type, title, message)=> {
     return toastr[type](message,title);
 };
@@ -80,6 +83,12 @@ const newHandler = () => {
 };
 
 const setState = (state, data) => {
+	// if(fields.includes('start_time'))
+	// 	data['start_time'] = data['start_time'].replace('T',' ');
+
+	// if(fields.includes('end_time'))
+	// 	data['end_time'] = data['end_time'] != null ? data['end_time'].replace('T',' ') : null;
+
 	showAllFields();
 	setInputValue(data);
 	$("#group-btnAdd").hide();
@@ -100,7 +109,7 @@ const setState = (state, data) => {
 
 };
 
-const renderButtons = (aData, title) => {
+const renderButtons = (aData, title, additionalButtons = '') => {
 	let buttons =
 		`
 		<div class="text-center dropdown">
@@ -148,7 +157,9 @@ const renderButtons = (aData, title) => {
 					<div>Re-Activate ${title}</div>
 				</div>
 			`;
-    buttons += '</div>'
+	buttons += additionalButtons !== '' ? `<div class="dropdown-divider"></div>` : '';
+	buttons += additionalButtons;
+    buttons += '</div>';
 	return buttons;
 };
 
@@ -171,6 +182,12 @@ function confirmationModal(type, id='') {
 			message = 'Are you sure you want to delete it now?';
 			btnColor = 'btn-danger ';
 			btnText = "Yes, delete it!";
+			break;
+
+		case 'cancel':
+			message = 'Are you sure you want to cancel it now?';
+			btnColor = 'btn-danger ';
+			btnText = "Yes, cancel it!";
 			break;
 
 		case 'reactivate':
@@ -207,11 +224,8 @@ function confirmationModal(type, id='') {
                       <a href="#" 
 					  	id="submit" 
 						class="btn ${btnColor}"
-						${(id !== '' && type === 'delete') 
-							? `onClick="deleteData('${id}', ${true})"` 
-							: ""}
-						${(id !== '' && type === 'reactivate') 
-							? `onClick="reactivateData('${id}', ${true})"` 
+						${(id !== '' && (type === 'delete' ||type === 'reactivate' || type === 'cancel')) 
+							? `onClick="${type}Data('${id}', ${true})"` 
 							: ""}
 					  >
 

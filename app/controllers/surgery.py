@@ -5,6 +5,7 @@ from .. import models
 
 def get_all(db: Session):
     surgeries = db.query(models.Surgery).all()
+    # return surgeries
     return {
         "data": surgeries,
         "error": False,
@@ -22,25 +23,35 @@ def get_one(id, db: Session):
     }
 
 def create(surgery, db: Session):
-    check = db.query(models.Surgery).filter(models.Surgery.name == surgery.name)
-    if check.first():
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Surgery with name {surgery.name} already exist.')
+    new_surgery = models.Surgery(
+        patient_id = surgery.patient_id,
+        surgery_type_id = surgery.surgery_type_id,
+        room = surgery.room,
+        start_time = surgery.start_time,
+        status = surgery.status,
+        is_active = surgery.is_active
+    )
+    db.add(new_surgery)
+    db.commit()
+    db.refresh(new_surgery)
+    return {
+        "data": new_surgery,
+        "error": False,
+        "message": f"New Surgery with id '{new_surgery.id}' has been successfully created."
+    }
+
+def cancel(id, db: Session):
+    surgery = db.query(models.Surgery).filter(models.Surgery.id == id)
+    if not surgery.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Surgery with id {id} not found')
     else:
-        new_surgery = models.Surgery(
-            patient_id = surgery.patient_id,
-            surgery_type_id = surgery.surgery_type_id,
-            start_time = surgery.start_time,
-            end_time = surgery.end_time,
-            status = surgery.status
-        )
-        db.add(new_surgery)
+        surgery.update({
+            "status": "CANCELLED"
+        })
         db.commit()
-        db.refresh(new_surgery)
-        return {
-            "data": new_surgery,
-            "error": False,
-            "message": f"New Surgery with id '{new_surgery.id}' has been successfully created."
-        }
+        res = get_one(id, db)
+        res["message"] = f"Surgery with id '{id}' has been successfully cancelled." 
+        return res
 
 def reactivate(id, db: Session):
     surgery = db.query(models.Surgery).filter(models.Surgery.id == id)
@@ -63,9 +74,11 @@ def update(id, Surgery, db: Session):
         surgery.update({
             "patient_id" : Surgery.patient_id,
             "surgery_type_id" : Surgery.surgery_type_id,
+            "room" : Surgery.room,
             "start_time" : Surgery.start_time,
             "end_time" : Surgery.end_time,
-            "status" : Surgery.status
+            "status" : Surgery.status,
+            "is_active" : Surgery.is_active
         })
         db.commit()
         return {

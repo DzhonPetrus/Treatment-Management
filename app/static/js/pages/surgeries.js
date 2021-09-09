@@ -5,9 +5,29 @@
 	window.modal = "#modal-surgery";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "surgery_type_id", "room", "patient_id", "status", "is_active", "btnAdd", "btnUpdate"];
-	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
-	window.readOnlyFields = ["id", "is_active"];
+	window.fields = ["id", "surgery_type_id", "room", "patient_id", "start_time", "end_time", "status", "is_active", "btnAdd", "btnUpdate"];
+	window.fieldsHidden = ["id", "btnUpdate", "is_active", "end_time"];
+	window.readOnlyFields = ["id", "is_active", "end_time"];
+
+	const renderAdditionalButtons = (aData) => {
+		let buttons = '';
+		if(aData.status === 'PENDING'){
+			buttons += `
+				<div 
+					class="dropdown-item d-flex" 
+					role="button" 
+					onClick="return cancelData('${aData.id}')
+				">
+					<div style="width:2rem">
+						<i class="fa fa-trash-alt"> </i>
+					</div>
+					<div>Cancel Surgery</div>
+				</div>
+			`
+		}
+
+		return buttons;
+	}
 
 $(function () {
 
@@ -19,8 +39,15 @@ $(function () {
 		e.preventDefault();
 		trimInputFields();
 
+
 		if ($(form).validate()) {
 			var form_data = new FormData(this);
+
+			form_data.append('id', $("#id").val())
+			form_data.append('start_time', $("#start_time").val())
+			form_data.append('end_time', $("#end_time").val())
+			form_data.append('status', $("#status").val())
+			form_data.append('is_active', $("#is_active").val())
 
 			var id = $("#id").val();
 			if (id == "") {
@@ -97,6 +124,7 @@ loadTable = () => {
 				data: "patient",
 				name: "patient",
 				searchable: true,
+				render: (aData) => `${aData.last_name}, ${aData.first_name} ${aData.middle_name || ''} ${aData.suffix_name ? ', ' + aData.suffix_name : ''}`
 			},
 			{
 				data: "room",
@@ -104,19 +132,21 @@ loadTable = () => {
 				searchable: true,
 			},
 			{
-				data: "surgery_type",
-				name: "surgery_type",
+				data: "surgery_type.name",
+				name: "surgery_type.name",
 				searchable: true,
 			},
 			{
-				data: "start_date",
-				name: "start_date",
+				data: "start_time",
+				name: "start_time",
 				searchable: true,
+				render: data => formatDateTime(data) + `<div class="text-secondary fomt-italic">${moment(data).fromNow()}</div>`
 			},
 			{
-				data: "end_date",
-				name: "end_date",
+				data: "end_time",
+				name: "end_time",
 				searchable: true,
+				render: data => data == null ? `<div class=”text-secondary font-italic”>No data</div>` : formatDateTime(data) + `<div class="text-secondary fomt-italic">${moment(data).fromNow()}</div>`
 			},
 			{
 				data: "status",
@@ -131,14 +161,14 @@ loadTable = () => {
 			},
 			{
 				data: null,
-				render: (aData) => console.log(aData)
+				render: (aData) => renderButtons(aData, "Surgery", renderAdditionalButtons(aData)),
+				// render:(data) => console.log(data.surgery_type)
 			},
 		],
 		ajax: {
 			url: BASE_URL + `${endpoint}/all`,
 			type: "GET",
 			ContentType: "application/x-www-form-urlencoded",
-			success: (data) => console.log(data)
 		},
 		drawCallback: function (settings) {
 			// POPULATE ANALYTIC CARDS
@@ -232,6 +262,33 @@ reactivateData = (id, confirmed = false) => {
 		});
 	} else {
 		confirmationModal('reactivate', id);
+	}
+};
+
+
+
+// function to cancel surgery
+cancelData = (id, confirmed = false) => {
+	if (confirmed) {
+		$.ajax({
+			url: BASE_URL + endpoint + `/cancel/${id}`,
+			type: "PUT",
+			data: { id },
+			dataType: "json",
+
+			success: function (data) {
+				if (data.error == false) {
+					$('#confirmModal').modal("hide");
+					notification("info", "Info!", data.message);
+					loadTable();
+				} else {
+					notification("error", "Error!", data.message);
+				}
+			},
+			error: (data) => notification("error", data.responseJSON.detail),
+		});
+	} else {
+		confirmationModal('cancel', id);
 	}
 };
 

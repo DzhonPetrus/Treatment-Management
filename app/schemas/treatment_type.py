@@ -1,13 +1,8 @@
 from datetime import datetime as dt
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 from ..utils.schemaHelper import Base, as_form
-
-class Base(BaseModel):
-    class Config():
-        orm_mode = True
-
 
 class TreatmentTypeBase(Base):
     name: str
@@ -26,3 +21,9 @@ class CreateTreatmentType(TreatmentTypeBase):
 class TreatmentType(TreatmentTypeBase):
     created_at: Optional[dt]
     updated_at: Optional[dt]
+
+
+class TreatmentTypeOut(Base):
+    data: List[TreatmentType]
+    error: bool
+    message: str

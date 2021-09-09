@@ -1,13 +1,8 @@
 from datetime import datetime as dt
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 from ..utils.schemaHelper import Base, as_form
-
-class Base(BaseModel):
-    class Config():
-        orm_mode = True
-
 
 class LabTestBase(Base):  
     name: str
@@ -25,3 +20,8 @@ class CreateLabTest(LabTestBase):
 class LabTest(LabTestBase):
     created_at: Optional[dt]
     updated_at: Optional[dt]
+
+class LabTestOut(Base):
+    data: List[LabTest]
+    error: bool
+    message: str
