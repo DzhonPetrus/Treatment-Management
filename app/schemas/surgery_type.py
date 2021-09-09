@@ -11,7 +11,7 @@ class SurgeryTypeBase(Base):
     description: str
     price: float
 
-    is_active: Optional[str]
+    is_active: Optional[str] = None
 
 
 @as_form
@@ -20,10 +20,16 @@ class CreateSurgeryType(SurgeryTypeBase):
 
 
 class SurgeryType(SurgeryTypeBase):
-    created_at: Optional[dt]
-    updated_at: Optional[dt]
+    id: str
+    created_at: Optional[dt] = None
+    updated_at: Optional[dt] = None
 
-class SurgeryTypeOut(Base):
+class OutSurgeryTypes(Base):
     data: List[SurgeryType]
+    error: bool
+    message: str
+
+class OutSurgeryType(Base):
+    data: SurgeryType
     error: bool
     message: str

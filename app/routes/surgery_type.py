@@ -22,7 +22,7 @@ router = APIRouter(
 
 get_db = database.get_db
 
-@router.get('/all', status_code=status.HTTP_200_OK)
+@router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutSurgeryTypes)
 def show(request: Request, db: Session = Depends(get_db)):
     return surgery_type.get_all(db)
 
@@ -31,7 +31,7 @@ def all(request: Request, db: Session = Depends(get_db)):
     # return surgery_type.get_all(db)
     return templates.TemplateResponse("surgery_types.html", {"request":request, 'current_path': request.url.path})
 
-@router.get('/{id}', status_code=status.HTTP_200_OK)
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutSurgeryType)
 def show(request: Request, id, db: Session = Depends(get_db)):
     return surgery_type.get_one(id, db)
     # return templates.TemplateResponse("surgery_type.html", {"request":request, "surgery_type": surgery_type.get_one(id, db)})
