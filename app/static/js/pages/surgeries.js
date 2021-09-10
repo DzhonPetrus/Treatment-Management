@@ -110,8 +110,40 @@ loadTable = () => {
 		// BUTTONS FOR EXPORT
         dom: 'Bfrtip',
 		buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
+			{
+				extend: 'collection',
+				text: '<i class="fa fa-file-export"></i> Export',
+				buttons: [
+					{
+						extend: 'excelHtml5',
+						text: '<i class="fa fa-file-excel"></i> Export to Excel',
+						titleAttr: 'Export to Excel',
+						title: 'Hospital Management System',
+						exportOptions: {
+							columns: ':not(:last-child)',
+						}
+					},
+					{
+						extend: 'csvHtml5',
+						text: '<i class="fa fa-file-csv"></i> Export to CSV',
+						titleAttr: 'CSV',
+						title: 'Hospital Management System',
+						exportOptions: {
+							columns: ':not(:last-child)',
+						}
+					},
+					{
+						extend: 'pdfHtml5',
+						text: '<i class="fa fa-file-pdf"></i> Export to PDF',
+						titleAttr: 'PDF',
+						title: 'Hospital Management System',
+						exportOptions: {
+							columns: ':not(:last-child)',
+						},
+					},
+				]
+			}
+		],
 		responsive: true,
 		serverSide: false,
 		stateSave:true,
