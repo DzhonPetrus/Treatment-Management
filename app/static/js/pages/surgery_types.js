@@ -81,6 +81,11 @@ loadTable = () => {
 	$(dataTable).dataTable().fnClearTable();
 	$(dataTable).dataTable().fnDestroy();
 	$(dataTable).dataTable({
+		// BUTTONS FOR EXPORT
+        dom: 'Bfrtip',
+		buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
 		responsive: true,
 		serverSide: false,
 		stateSave:true,
