@@ -10,6 +10,7 @@ class Profile(Base):
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     # department_id = Column(String(36), ForeignKey("departments.id"))
+    department = Column(String(100))
     position = Column(String(100))
     first_name = Column(String(100))
     middle_name = Column(String(100))
@@ -18,7 +19,7 @@ class Profile(Base):
     birth_date = Column(String(100))
 
 
-    status = Column(String(100), default='ACTIVE')
+    is_active = Column(String(100), default='ACTIVE')
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, default=text('NOW()'), onupdate=text('NOW()'))
 

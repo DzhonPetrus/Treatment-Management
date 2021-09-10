@@ -1,30 +1,39 @@
-from datetime import datetime as dt
+from datetime import date, datetime as dt
 from pydantic import BaseModel
-from typing import List
+from typing import List, Optional
 
-class Base(BaseModel):
-    class Config():
-        orm_mode = True
-
+from ..utils.schemaHelper import Base, as_form
 
 class ProfileBase(Base):
-    start_time: dt
-    end_time: dt
-
-    status: str
-
-
-class CreateProfile(Base):
     # department_id: str
+    department: str
     position: str
     first_name: str
-    middle_name: str
+    middle_name: Optional[str] = None
     last_name: str
-    suffix_name: str
-    birth_date: str
+    suffix_name: Optional[str] = None
+    birth_date: Optional[date] = None
+
+    is_active: Optional[str] = None
 
 
-class Profile(CreateProfile):
-    # department: str
-    created_at: dt
-    updated_at: dt
+@as_form
+class CreateProfile(ProfileBase):
+    pass
+
+
+
+class Profile(ProfileBase):
+    id: str
+    created_at: Optional[dt] = None
+    updated_at: Optional[dt] = None
+
+class OutProfiles(Base):
+    data: List[Profile]
+    error: bool
+    message: str
+
+class OutProfile(Base):
+    data: Profile
+    error: bool
+    message: str
