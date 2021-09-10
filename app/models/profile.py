@@ -25,3 +25,4 @@ class Profile(Base):
 
 
     # department = relationship('Department', back_populates='user_profile')
+    user_account = relationship('User', back_populates='user_profile')

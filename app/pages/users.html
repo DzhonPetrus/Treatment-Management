@@ -1,0 +1,173 @@
+{% extends "templates/base.html" %}
+{% set active_page = current_path.split('/')[1] %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>Users</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Core</a></li>
+              <li class="breadcrumb-item active">Users</li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <!-- Info Boxes -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3 id="totalUsers">0</h3>
+
+                <p>Users</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-procedures"></i>
+              </div>
+            </div>
+
+
+          </div>
+          <!-- ./col -->
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 id="totalUsersActive">0</h3>
+
+                <p>Active Users</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-procedures"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3 id="totalUsersInactive">0</h3>
+
+                <p>Inactive Users</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-procedures"></i>
+              </div>
+            </div>
+          </div>
+
+
+          
+        </div>
+        <!-- / Info Boxes -->
+
+        <!-- Card -->
+        <div class="card card-primary card-outline">
+
+          <!-- Card Header -->
+          <div class="card-header">
+            <h3 class="card-title">Users</h3>
+
+            
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-user" onclick="newHandler()">
+              <i class="fa fa-plus"></i>
+              New User
+            </button>
+          </div>
+          <!-- /.card-header -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
+              <thead>
+                <tr>
+                  <th>User Type</th>
+                  <th>Email</th>
+                  <th>Full Name</th>
+                  <th>Position</th>
+                  <th>Department</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+        </div>
+        <!-- /.card -->
+          
+
+        <div class="modal fade" id="modal-user" aria-modal="true" role="dialog">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+          <form id="form">
+            {% import 'templates/forms.html' as forms %}
+            <div class="card-body">
+              {{ forms.input('ID', 'id', 'text', '', '' )}}
+              {{ forms.input('Email', 'email', 'email', 'required') }}
+              {{ forms.select('User Type', 'user_type', 'text', ['Admin', 'Surgery_Scheduler', 'Surgeon', 'Lab_Technician', 'Physician', 'Nurse']) }}
+              {{ forms.input('Password', 'password', 'password', 'required' ) }}
+              {{ forms.input('User Profile ID', 'user_profile_id', 'text', '', '' )}}
+              {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+              
+            </div>
+            </div>
+            <div class="modal-footer float-right">
+              <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="group-btnAdd">
+                Yes, submit it! 
+                <i class="fa fa-check"></i>
+              </button>
+              <button type="submit" class="btn btn-info" id="group-btnUpdate">
+                Yes, update it!
+                <i class="fa fa-check"></i>
+              </button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </form> 
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+        <div id="confirmationModal"></div>
+        
+      </div>
+    </section>
+    <!-- /.content -->
+  
+  {% endblock %}
+  
+  {% block scripts %}
+
+  <script defer></script>
+
+<script src="{{ url_for('static', path='/js/pages/users.js') }}"></script>
+  {% endblock %}

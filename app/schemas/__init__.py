@@ -8,3 +8,4 @@ from .treatment import *
 from .treatment_type import *
 
 from .patient import *
+from .user import *
