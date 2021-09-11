@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 
 from .. import models
 
-def get_all(db: Session):
-    users = db.query(models.User).all()
+def get_all(db: Session, is_active = ''):
+    users = db.query(models.User).all() if is_active == '' else db.query(models.User).filter(models.User.is_active == is_active)
     return {
         "data": users,
         "error": False,
