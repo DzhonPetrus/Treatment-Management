@@ -19,3 +19,5 @@ class TreatmentType(Base):
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
+
+    treatments = relationship('Treatment', back_populates='treatment_type')

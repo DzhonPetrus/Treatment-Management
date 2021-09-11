@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from .. import models
 
 def get_all(db: Session, is_active = ''):
-    treatments = db.query(models.Treatment).all() if is_active == '' else db.query(models.Treatment).filter(models.Treatment.is_active == is_active)
+    treatments = db.query(models.Treatment).all() if is_active == '' else db.query(models.Treatment).filter(models.Treatment.is_active == is_active).all()
     # return treatments
     return {
         "data": treatments,

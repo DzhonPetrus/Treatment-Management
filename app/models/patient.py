@@ -28,3 +28,4 @@ class Patient(Base):
 
 
     surgeries = relationship('Surgery', back_populates='patient')
+    treatments = relationship('Treatment', back_populates='patient')
