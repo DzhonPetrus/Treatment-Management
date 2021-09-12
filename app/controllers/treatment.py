@@ -70,12 +70,12 @@ def update(id, Treatment, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Treatment with id {id} not found')
     else:
         treatment.update({
-            "patient_id" : treatment.patient_id,
-            "treatment_type_id" : treatment.treatment_type_id,
-            "user_id" : treatment.user_id,
-            "description" : treatment.description,
-            "status" : treatment.status,
-            "is_active" : treatment.is_active
+            "patient_id" : Treatment.patient_id,
+            "treatment_type_id" : Treatment.treatment_type_id,
+            "user_id" : Treatment.user_id,
+            "description" : Treatment.description,
+            "status" : Treatment.status,
+            "is_active" : Treatment.is_active
         })
         db.commit()
         return {
