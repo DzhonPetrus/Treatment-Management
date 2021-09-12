@@ -171,7 +171,7 @@ loadTable = () => {
 				data: "physician",
 				name: "physician",
 				searchable: true,
-				render: aData => aData.first_name
+				render: (aData) => `${aData.user_profile.last_name}, ${aData.user_profile.first_name} ${aData.user_profile.middle_name || ''} ${aData.user_profile.suffix_name ? ', ' + aData.user_profile.suffix_name : ''}`
 			},
 			{
 				data: "description",

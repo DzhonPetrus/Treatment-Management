@@ -2,6 +2,7 @@ from datetime import datetime as dt
 from typing import Optional
 
 from .treatment_type import *
+from .user import *
 from .patient import *
 from ..utils.schemaHelper import Base, as_form
 
@@ -26,6 +27,7 @@ class Treatment(TreatmentBase):
     updated_at: Optional[dt] = None
     treatment_type: Optional[TreatmentTypeBase] = None
     patient: Optional[PatientBase] = None
+    physician: Optional[User] = None
 
 
 class OutTreatments(Base):
