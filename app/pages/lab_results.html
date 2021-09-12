@@ -137,7 +137,7 @@
               {{ forms.input('Reference', 'reference', 'text', 'required') }}
               {{ forms.input('Unit', 'unit', 'text', 'required') }}
               {{ forms.input('Detailed Result', 'detailed_result', 'text', '') }}
-              {{ forms.select('Status', 'status', 'text', ['PENDING', 'ON-GOING', 'FINISHED', 'CANCELLED']) }}
+              {{ forms.select('Status', 'status', 'text', ['PROCESSING', 'UNCLAIMED', 'CLAIMED']) }}
               {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
               
             </div>

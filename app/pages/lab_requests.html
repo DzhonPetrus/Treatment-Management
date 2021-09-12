@@ -158,8 +158,8 @@
               {% endfor -%}
                 </select>
               </div>
-              <!-- LAB RESULT -->
-              {{ forms.select('Status', 'status', 'text', ['PENDING', 'ON-GOING', 'FINISHED', 'CANCELLED']) }}
+              <!-- END LAB RESULT -->
+              {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED']) }}
               {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
               
               
