@@ -138,7 +138,7 @@
               <!-- TREATMENT TYPE -->
               <div class="form-group" id="group-treatment_type_id">
                 <label>
-                  treatment type
+                  Treatment Type
                   <span style="color:red">*</span>
                 </label>
                 <select class="form-control select2" style="width: 100%;" id="treatment_type_id" name="treatment_type_id">
@@ -157,7 +157,7 @@
                 </label>
                 <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
               {% for patient in patients %}
-                    <option value="{{patient['id']}}">{{patient['first_name']}}</option>
+                    <option value="{{patient['id']}}">{{patient['last_name']}}, {{patient['first_name']}}</option>
               {% endfor -%}
                 </select>
               </div>
@@ -169,9 +169,9 @@
                   Physician
                   <span style="color:red">*</span>
                 </label>
-                <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
+                <select class="form-control select2" style="width: 100%;" id="user_id" name="user_id">
               {% for physician in physicians %}
-                    <option value="{{physician['id']}}">{{physician['first_name']}}</option>
+                    <option value="{{physician['id']}}">{{physician['user_profile']['last_name']}}, {{physician['user_profile']['first_name']}}</option>
               {% endfor -%}
                 </select>
               </div>

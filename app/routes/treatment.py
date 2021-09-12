@@ -1,3 +1,4 @@
+import httpx
 from typing import List
 from fastapi import APIRouter, Depends, status, Request
 from sqlalchemy.orm import Session
@@ -34,7 +35,9 @@ def show(request: Request, db: Session = Depends(get_db)):
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return treatment.get_all(db)
-    return templates.TemplateResponse("treatments.html", {"request":request, 'current_path': request.url.path, "treatment_types":jsonable_encoder(treatment_type.get_all(db,'ACTIVE')['data']), "patients":jsonable_encoder(patient.get_all(db,'ACTIVE')['data']), "physicians":jsonable_encoder(user.get_all(db,'ACTIVE')['data'])})
+    physicians = httpx.get('http://127.0.0.1:8000/user/all').json()['data']
+
+    return templates.TemplateResponse("treatments.html", {"request":request, 'current_path': request.url.path, "treatment_types":jsonable_encoder(treatment_type.get_all(db,'ACTIVE')['data']), "patients":jsonable_encoder(patient.get_all(db,'ACTIVE')['data']), "physicians":jsonable_encoder(physicians)})
 
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutTreatment)
 def show(request: Request, id, db: Session = Depends(get_db)):
