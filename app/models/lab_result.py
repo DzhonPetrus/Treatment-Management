@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 from ..database import Base
 
 
-class LabResults(Base):
+class LabResult(Base):
     __tablename__ = "lab_results"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
@@ -16,7 +16,8 @@ class LabResults(Base):
     detailed_result = Column(String(100))
 
 
-    status = Column(String(100), default='ACTIVE')
+    status = Column(String(100), default='PENDING')
+    is_active = Column(String(100), default='ACTIVE')
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 

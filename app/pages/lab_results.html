@@ -8,14 +8,14 @@
           
           <!-- Title -->
           <div class="col-sm-6">
-            <h1>Laboratory Results</h1>
+            <h1>Lab Results</h1>
           </div>
 
           <!-- Breadcrumb -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Core</a></li>
-              <li class="breadcrumb-item active">Laboratory Results</li>
+              <li class="breadcrumb-item active">Lab Results</li>
             </ol>
           </div>
           <!-- / breadcrumb -->
@@ -35,35 +35,47 @@
             <!-- small card -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3 id="totalLabResults">0</h3>
 
-                <p>Laboratory Results</p>
+                <p>Lab Results</p>
               </div>
               <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-address-card"></i>
               </div>
-              <a href="#" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
-              </a>
             </div>
+
+
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
 
-                <p>Pending Tests</p>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 id="totalLabResultsActive">0</h3>
+
+                <p>Active Lab Results</p>
               </div>
               <div class="icon">
-                <i class="fas fa-chart-pie"></i>
+                <i class="fas fa-address-card"></i>
               </div>
-              <a href="#" class="small-box-footer">
-                More info <i class="fas fa-arrow-circle-right"></i>
-              </a>
             </div>
           </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3 id="totalLabResultsInactive">0</h3>
+
+                <p>Inactive Lab Results</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-address-card"></i>
+              </div>
+            </div>
+          </div>
+
+
+          
         </div>
         <!-- / Info Boxes -->
 
@@ -72,26 +84,30 @@
 
           <!-- Card Header -->
           <div class="card-header">
-            <h3 class="card-title">Laboratory Results</h3>
+            <h3 class="card-title">Lab Results</h3>
+
             
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lab_results">New Lab Result</button>
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lab_result" onclick="newHandler()">
+              <i class="fa fa-plus"></i>
+              New Lab Result
+            </button>
           </div>
           <!-- /.card-header -->
 
           <!-- Card Body -->
           <div class="card-body">
-            <table id="lab_results" class="table table-bordered table-hover">
+            <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
               <thead>
-              <tr>
-
-
-                <th>Specimen</th>
-                <th>Result</th>
-                <th>Reference </th>
-                <th>Unit</th>
-                <th>Detailed Result</th>
-                <th>Status</th>
-              </tr>
+                <tr>
+                  <th>Specimen</th>
+                  <th>Result</th>
+                  <th>Reference</th>
+                  <th>Unit</th>
+                  <th>Detailed Result</th>
+                  <th>Status</th>
+                  <th>Is Active</th>
+                  <th>Actions</th>
+                </tr>
               </thead>
               <tbody></tbody>
             </table>
@@ -102,36 +118,49 @@
         <!-- /.card -->
           
 
-
-        <div class="modal fade" id="modal-lab_results" aria-modal="true" role="dialog">
-          <div class="modal-dialog">
+        <div class="modal fade" id="modal-lab_result" aria-modal="true" role="dialog">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Laboratory Results</h4>
+                <h4 class="modal-title">Lab Result</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
               <div class="modal-body">
-          <form>
+          <form id="form">
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
-              {{ forms.input('Specimen', 'specimen', 'text' ) }}
-              {{ forms.input('Result', 'result', 'text' ) }}
-              {{ forms.input('Reference', 'reference', 'text' ) }}
-              {{ forms.input('Unit', 'unit', 'text' ) }}
-              {{ forms.input('Detailed Result', 'detailed_result', 'text' ) }}
-              <!-- {{ forms.input('End Date', 'end_date', 'datetime-local' ) }} -->
-         </form> </div>
-              <div class="modal-footer float-right">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+              {{ forms.input('ID', 'id', 'text', '', '' )}}
+              {{ forms.input('Specimen', 'specimen', 'text', 'required') }}
+              {{ forms.input('Result', 'result', 'text', 'required') }}
+              {{ forms.input('Reference', 'reference', 'text', 'required') }}
+              {{ forms.input('Unit', 'unit', 'text', 'required') }}
+              {{ forms.input('Detailed Result', 'detailed_result', 'text', '') }}
+              {{ forms.select('Status', 'status', 'text', ['PENDING', 'ON-GOING', 'FINISHED', 'CANCELLED']) }}
+              {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+              
+            </div>
+            </div>
+            <div class="modal-footer float-right">
+              <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="group-btnAdd">
+                Yes, submit it! 
+                <i class="fa fa-check"></i>
+              </button>
+              <button type="submit" class="btn btn-info" id="group-btnUpdate">
+                Yes, update it!
+                <i class="fa fa-check"></i>
+              </button>
               </div>
             </div>
             <!-- /.modal-content -->
+          </form> 
           </div>
           <!-- /.modal-dialog -->
         </div>
+
+        <div id="confirmationModal"></div>
         
       </div>
     </section>
@@ -140,25 +169,8 @@
   {% endblock %}
   
   {% block scripts %}
-  <script defer>
 
-    const lab_results = JSON.parse(' {{lab_results|tojson}} ')
+  <script defer></script>
 
-
-  $(() => {
-
-    $('#lab_results').DataTable({
-      data: lab_results,
-      columns: [
-        { data : "specimen"},
-        { data : "result"},
-        { data : "reference"},
-        { data : "unit"},
-        { data : "detailed_result"},
-        { data : "status"}
-      ]
-    });
-
-  });
-</script>
+<script src="{{ url_for('static', path='/js/pages/lab_results.js') }}"></script>
   {% endblock %}
