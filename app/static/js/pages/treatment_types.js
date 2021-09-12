@@ -83,7 +83,7 @@ loadTable = () => {
 	$(dataTable).dataTable().fnDestroy();
 	$(dataTable).dataTable({
 		// BUTTONS FOR EXPORT
-        dom: 'Bfrtip',
+        dom: 'Blfrtip',
 		buttons: [
 			{
 				extend: 'collection',
