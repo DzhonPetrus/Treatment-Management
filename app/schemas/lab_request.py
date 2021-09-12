@@ -1,27 +1,37 @@
 from datetime import datetime as dt
-from typing import Optional, Text, TextIO
+from typing import Optional, List
 from pydantic import BaseModel
-
-class Base(BaseModel):
-    class Config():
-        orm_mode = True
-
+from ..utils.schemaHelper import Base, as_form
+from .lab_result import *
+from .lab_test import *
 
 class LabRequestBase(Base):
-    lab_tests_id : str
-    lab_requests_id : str
+    lab_test_id: str
+    lab_result_id: str
 
-    status: str
+    status: Optional[str] = None
+    is_active: Optional[str] = None
 
 
-
-
+@as_form
 class CreateLabRequest(LabRequestBase):
     pass
 
 
-class LabRequest(Base):
-    lab_tests : str
-    lab_requests : str    
-    created_at: Optional[dt]
-    updated_at: Optional[dt]
+class LabRequest(LabRequestBase):
+    id: str
+    created_at: Optional[dt] = None
+    updated_at: Optional[dt] = None
+    lab_result: Optional[LabResultBase] = None
+    lab_test: Optional[LabTestBase] = None
+
+
+class OutLabRequests(Base):
+    data: List[LabRequest]
+    error: bool
+    message: str
+
+class OutLabRequest(Base):
+    data: LabRequest
+    error: bool
+    message: str

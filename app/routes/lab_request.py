@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 
 from .. import database
 
-from ..controllers import lab_request
+from ..controllers import lab_request, lab_test, lab_result
 from .. import schemas
 
 
@@ -23,16 +23,41 @@ router = APIRouter(
 get_db = database.get_db
 
 
-@router.post('/', status_code=status.HTTP_201_CREATED, response_model=schemas.LabRequest)
-def create(LabRequest: schemas.CreateLabRequest, db: Session = Depends(get_db)):
-    return lab_request.create(LabRequest, db)
+@router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutLabRequests)
+def show(request: Request, db: Session = Depends(get_db)):
+    return lab_request.get_all(db)
+    # return {
+    #     "data": lab_request.get_all(db),
+    #     "error": False,
+    #     "message": "LabRequests has been successfully retrieved."
+    # }
 
-@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.LabRequest)
-def show(request: Request, id, db: Session = Depends(get_db)):
-    # return lab_request.get_one(id, db)
-    return templates.TemplateResponse("lab_request.html", {"request":request, "lab_request": lab_request.get_one(id, db)})
-
-@router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.LabRequest], response_class=HTMLResponse)
+@router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return lab_request.get_all(db)
-    return templates.TemplateResponse("lab_request.html", {"request":request, "lab_request": jsonable_encoder(lab_request.get_all(db)), 'current_path': request.url.path})
+    return templates.TemplateResponse("lab_requests.html", {"request":request, 'current_path': request.url.path, "lab_tests":jsonable_encoder(lab_test.get_all(db,'ACTIVE')['data']), 'lab_results':jsonable_encoder(lab_result.get_all(db,'ACTIVE')['data'])})
+
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutLabRequest)
+def show(request: Request, id, db: Session = Depends(get_db)):
+    return lab_request.get_one(id, db)
+    # return templates.TemplateResponse("lab_request.html", {"request":request, "lab_request": lab_request.get_one(id, db)})
+
+@router.post('/', status_code=status.HTTP_201_CREATED)
+def create(LabRequest: schemas.CreateLabRequest = Depends(schemas.CreateLabRequest.as_form), db: Session = Depends(get_db)):
+    return lab_request.create(LabRequest, db)
+
+@router.put('/cancel/{id}', status_code=status.HTTP_200_OK)
+def update(id, db: Session = Depends(get_db)):
+    return lab_request.cancel(id, db)
+
+@router.put('/reactivate/{id}', status_code=status.HTTP_200_OK)
+def update(id, db: Session = Depends(get_db)):
+    return lab_request.reactivate(id, db)
+
+@router.put('/{id}', status_code=status.HTTP_200_OK)
+def update(id, LabRequest: schemas.CreateLabRequest = Depends(schemas.CreateLabRequest.as_form), db: Session = Depends(get_db)):
+    return lab_request.update(id, LabRequest, db)
+
+@router.delete('/{id}', status_code=status.HTTP_200_OK)
+def destroy(id, db: Session = Depends(get_db)):
+    return lab_request.destroy(id, db)

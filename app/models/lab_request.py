@@ -6,15 +6,18 @@ from ..database import Base
 
 
 class LabRequest(Base):
-    __tablename__ = "lab_request"
+    __tablename__ = "lab_requests"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
+    lab_test_id = Column(String(36), ForeignKey("lab_tests.id"))
+    lab_result_id = Column(String(36), ForeignKey("lab_results.id"))
     
 
-    status = Column(String(100), default='ACTIVE')
+    is_active = Column(String(100), default='ACTIVE')
+    status = Column(String(100), default='PENDING')
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
 
-    #lab_result
-    #lab_test
+    lab_result = relationship('LabResult', back_populates='lab_requests')
+    lab_test = relationship('LabTest', back_populates='lab_requests')

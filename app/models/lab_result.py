@@ -22,4 +22,5 @@ class LabResult(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
 
+    lab_requests = relationship('LabRequest', back_populates='lab_result')
     
