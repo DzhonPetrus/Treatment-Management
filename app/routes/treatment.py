@@ -35,7 +35,8 @@ def show(request: Request, db: Session = Depends(get_db),  current_user: schemas
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return treatment.get_all(db)
-    physicians = httpx.get('http://127.0.0.1:8000/user/all').json()['data']
+    role_path = request.url.path.split('/')[1]
+    physicians = httpx.get(f'http://127.0.0.1:8000/{role_path}/user/all').json()['data']
 
     return templates.TemplateResponse("treatments.html", {"request":request, 'current_path': request.url.path, "treatment_types":jsonable_encoder(treatment_type.get_all(db,'ACTIVE')['data']), "patients":jsonable_encoder(patient.get_all(db,'ACTIVE')['data']), "physicians":jsonable_encoder(physicians)})
 

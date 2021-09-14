@@ -1,4 +1,4 @@
-	window.endpoint = 'treatment'
+	window.endpoint = (window.user_type).toLowerCase() + '/' + 'treatment'
 	
 
 	window.form = "#form"

@@ -46,9 +46,9 @@ $(function () {
 				cache: false,
 				success: (data) => {
 					setToken(data.access_token);
+					setUserType(data.user_type);
 					window.token = getToken();
-					console.log(token)
-					console.log(data.user_type)
+					window.user_type = getUserType();
 				},
 				error: (data) => notification("warning", data.responseJSON.detail),
 			});

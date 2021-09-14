@@ -1,4 +1,4 @@
-	window.endpoint = 'patient'
+	window.endpoint = (window.user_type).toLowerCase() + '/' + 'patient'
 
 	window.form = "#form"
 	window.modal = "#modal-patient";

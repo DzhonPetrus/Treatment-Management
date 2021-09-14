@@ -1,5 +1,6 @@
-	window.endpoint = 'profile'
+	window.endpoint = (window.user_type).toLowerCase() + '/' + 'profile'
 	
+	console.log(endpoint)
 
 	window.form = "#form"
 	window.modal = "#modal-profile";

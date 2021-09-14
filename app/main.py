@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from . import models, routes
+from . import models, routes, roles
 from .database import engine
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -19,19 +19,21 @@ app.add_middleware(
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-
 app.include_router(routes.authentication.router)
 
-app.include_router(routes.surgery.router)
-app.include_router(routes.surgery_type.router)
 
-app.include_router(routes.lab_test.router)
-app.include_router(routes.lab_result.router)
-app.include_router(routes.lab_request.router)
+app.include_router(roles.admin.router)
 
-app.include_router(routes.treatment.router)
-app.include_router(routes.treatment_type.router)
 
-app.include_router(routes.patient.router)
-app.include_router(routes.user.router)
-app.include_router(routes.profile.router)
+app.include_router(roles.lab_technician.router)
+app.include_router(roles.lab_receptionist.router)
+
+
+app.include_router(roles.medical_specialist.router)
+
+
+app.include_router(roles.surgery_scheduler.router)
+app.include_router(roles.surgical_nurse.router)
+app.include_router(roles.surgeon.router)
+
+

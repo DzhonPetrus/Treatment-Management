@@ -1,4 +1,4 @@
-	window.endpoint = 'user'
+	window.endpoint = (window.user_type).toLowerCase() + '/' + 'user'
 
 	window.form = "#form"
 	window.modal = "#modal-user";
