@@ -10,7 +10,6 @@ class UserBase(Base):
     user_type: str
     user_profile_id: Optional[str] = None
 
-    status: Optional[str] = None
     is_active: Optional[str] = None
 
 

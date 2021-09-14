@@ -6,10 +6,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.templating import Jinja2Templates
 
-from .. import database
+from .. import database, schemas, oauth2
 
 from ..controllers import patient
-from .. import schemas
 
 
 
@@ -23,7 +22,8 @@ router = APIRouter(
 get_db = database.get_db
 
 @router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutPatients)
-def show(request: Request, db: Session = Depends(get_db)):
+def all(request: Request, db: Session = Depends(get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+    print(current_user)
     return patient.get_all(db)
 
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)

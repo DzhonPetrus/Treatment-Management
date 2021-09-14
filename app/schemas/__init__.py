@@ -9,3 +9,5 @@ from .treatment_type import *
 
 from .patient import *
 from .user import *
+
+from .token import *

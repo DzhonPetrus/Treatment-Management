@@ -2,6 +2,7 @@ from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 
 from .. import models
+from ..utils.hashing import Hash
 
 def get_all(db: Session, is_active = ''):
     users = db.query(models.User).all() if is_active == '' else db.query(models.User).filter(models.User.is_active == is_active).all()
@@ -28,7 +29,7 @@ def create(user, db: Session):
     else:
         new_user = models.User(
             email = user.email,
-            password = user.password,
+            password = Hash.bcrypt(user.password),
             user_profile_id = user.user_profile_id,
             user_type = user.user_type
         )
@@ -59,9 +60,11 @@ def update(id, User, db: Session):
     if not user.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'User with id {id} not found')
     else:
+        new_password = User.password if(User.password == user.first().password) else Hash.bcrypt(User.password)
+
         user.update({
             "email": User.email,
-            "password": User.password,
+            "password": new_password,
             "user_type": User.user_type,
             "user_profile_id": User.user_profile_id,
             "is_active": User.is_active

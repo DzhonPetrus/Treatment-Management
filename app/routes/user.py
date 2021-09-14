@@ -6,10 +6,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.templating import Jinja2Templates
 
-from .. import database
+from .. import database, schemas
 
 from ..controllers import user
-from .. import schemas
 
 
 
