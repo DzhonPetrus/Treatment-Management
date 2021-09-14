@@ -22,7 +22,7 @@ router = APIRouter(
 get_db = database.get_db
 
 @router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutUsers)
-def show(request: Request, db: Session = Depends(get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
+def show(request: Request, db: Session = Depends(get_db)):
     return user.get_all(db)
 
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
