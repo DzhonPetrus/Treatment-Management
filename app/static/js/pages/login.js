@@ -46,9 +46,10 @@ $(function () {
 				cache: false,
 				success: (data) => {
 					setToken(data.access_token);
-					setUserType(data.user_type);
+					setUserType(data.user_type.toLowerCase());
 					window.token = getToken();
 					window.user_type = getUserType();
+					location.replace(`${BASE_URL}${window.user_type}/`);
 				},
 				error: (data) => notification("warning", data.responseJSON.detail),
 			});

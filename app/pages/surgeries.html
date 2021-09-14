@@ -1,5 +1,6 @@
 {% extends "templates/base.html" %}
-{% set active_page = current_path.split('/')[1] %}
+{% set active_page = current_path.split('/')[2] %}
+{% set user_type = current_path.split('/')[1] %}
 {% block content %}
     <!-- Content Header (Page header) -->
     <section class="content-header">

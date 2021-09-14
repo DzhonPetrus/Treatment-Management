@@ -9,9 +9,11 @@ const removeToken = () => localStorage.removeItem('session_token');
 const setUserType = (user_type) => localStorage.setItem('user_type', user_type);
 const removeUserType = () => localStorage.removeItem('user_type');
 
-if (!(window.location.pathname == '/login')){
+if ((window.location.pathname !== '/login')){
 	window.token = getToken();
-	window.user_type = getUserType();
+	window.user_type = getUserType()
+	if(window.location.pathname.split('/')[1] !== `${window.user_type}`)
+		location.replace(`${BASE_URL}${window.user_type}/`);
 
 }else {
 	removeToken();

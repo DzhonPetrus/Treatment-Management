@@ -7,5 +7,7 @@ router = APIRouter(
     tags=['Medical Specialist']
 )
 
+router.include_router(routes.index.router)
+
 router.include_router(routes.treatment.router)
 router.include_router(routes.treatment_type.router)

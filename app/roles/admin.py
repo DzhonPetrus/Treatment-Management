@@ -7,6 +7,8 @@ router = APIRouter(
     tags=['Admin']
 )
 
+router.include_router(routes.index.router)
+
 router.include_router(routes.surgery.router)
 router.include_router(routes.surgery_type.router)
 

@@ -1,3 +1,36 @@
+{% set user_type = user_type.lower() -%}
+{% if user_type == 'surgery_scheduler' or user_type == 'surgeon' or user_type == 'surgical_nurse' -%}
+{% set navigation_core = [
+  ('/', 'index', 'Home', 'fa-home'),
+  ] -%}
+{% set navigation_surgery = [
+  ('/surgery', 'surgery', 'Surgeries', 'fa-procedures'),
+  ('/surgery_type', 'surgery_type', 'Surgery Types', 'fa-procedures')
+  ] -%}
+{% endif -%}
+
+{% if user_type == 'lab_technician' or user_type == 'lab_receptionist' -%}
+{% set navigation_core = [
+  ('/', 'index', 'Home', 'fa-home'),
+  ] -%}
+{% set navigation_lab = [
+  ('/lab_test', 'lab_test', 'Lab Tests', 'fa-x-ray'),
+  ('/lab_result', 'lab_result', 'Lab Results', 'fa-file-medical-alt'),
+  ('/lab_request', 'lab_request', 'Lab Requests', 'fa-file-medical')
+  ] -%}
+{% endif -%}
+
+{% if user_type == 'medical_specialist' -%}
+{% set navigation_core = [
+  ('/', 'index', 'Home', 'fa-home'),
+  ] -%}
+{% set navigation_treatment = [
+  ('/treatment', 'treatment', 'Treatments', 'fa-syringe'),
+  ('/treatment_type', 'treatment_type', 'Treatment Types', 'fa-syringe')
+  ] -%}
+{% endif -%}
+
+{% if user_type == 'admin' -%}
 {% set navigation_core = [
   ('/', 'index', 'Home', 'fa-home'),
   ('/user', 'user', 'Users', 'fa-users'),
@@ -20,6 +53,7 @@
   ('/treatment', 'treatment', 'Treatments', 'fa-syringe'),
   ('/treatment_type', 'treatment_type', 'Treatment Types', 'fa-syringe')
   ] -%}
+{% endif -%}
 
 {% set active_page = active_page|default('index') -%}
 
@@ -28,7 +62,7 @@
     <!-- Brand Logo -->
     <a href="{{ url_for('static', path='/index3.html') }}" class="brand-link text-center">
       <i class="fa fa-hospital"></i>
-      <span class="brand-text font-weight-light">HOMIES-HMS</span>
+      <span class="brand-text font-weight-light">HOMIES-HMS | {{user_type}}</span>
     </a>
 
     <!-- Sidebar -->
@@ -61,11 +95,13 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
 
+          {% if navigation_core -%}
           <li class="nav-header">CORE</li>
+          {% endif -%}
           {% for href, id, caption, icon in navigation_core -%}
 
           <li class="nav-item">
-            <a href="{{ href|e }}" 
+            <a href="/{{user_type}}{{ href|e }}" 
 
             {% if id == active_page %} 
             class="nav-link active" 
@@ -79,11 +115,13 @@
 
           {% endfor %}
 
+          {% if navigation_treatment -%}
           <li class="nav-header">TREATMENT</li>
+          {% endif -%}
           {% for href, id, caption, icon in navigation_treatment -%}
 
           <li class="nav-item">
-            <a href="{{ href|e }}" 
+            <a href="/{{user_type}}{{ href|e }}" 
 
             {% if id == active_page %} 
             class="nav-link active" 
@@ -97,11 +135,13 @@
 
           {% endfor %}
 
+          {% if navigation_lab -%}
           <li class="nav-header">LABORATORY</li>
+          {% endif -%}
           {% for href, id, caption, icon in navigation_lab -%}
 
           <li class="nav-item">
-            <a href="{{ href|e }}" 
+            <a href="/{{user_type}}{{ href|e }}" 
 
             {% if id == active_page %} 
             class="nav-link active" 
@@ -115,11 +155,13 @@
 
           {% endfor %}
 
+          {% if navigation_surgery -%}
           <li class="nav-header">SURGERY</li>
+          {% endif -%}
           {% for href, id, caption, icon in navigation_surgery -%}
 
           <li class="nav-item">
-            <a href="{{ href|e }}" 
+            <a href="/{{user_type}}{{ href|e }}" 
 
             {% if id == active_page %} 
             class="nav-link active" 
