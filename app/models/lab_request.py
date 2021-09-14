@@ -11,6 +11,7 @@ class LabRequest(Base):
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     lab_test_id = Column(String(36), ForeignKey("lab_tests.id"))
     lab_result_id = Column(String(36), ForeignKey("lab_results.id"))
+    patient_id = Column(String(36), ForeignKey("patients.id"))
     
 
     is_active = Column(String(100), default='ACTIVE')
@@ -21,3 +22,4 @@ class LabRequest(Base):
 
     lab_result = relationship('LabResult', back_populates='lab_requests')
     lab_test = relationship('LabTest', back_populates='lab_requests')
+    patient = relationship('Patient', back_populates='lab_requests')

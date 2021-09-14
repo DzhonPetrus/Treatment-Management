@@ -100,6 +100,7 @@
             <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
               <thead>
               <tr>
+                <th>Patient</th>
                 <th>Lab Test</th>
                 <th>Lab Result</th>
                 <th>Status</th>
@@ -132,6 +133,20 @@
             <div class="card-body">
 
             {{ forms.input('ID', 'id', 'text', '', '' )}}
+              <!-- PATIENT -->
+              <div class="form-group" id="group-patient_id">
+                <label>
+                  Patient
+                  <span style="color:red">*</span>
+                </label>
+                <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
+              {% for patient in patients %}
+                    <option value="{{patient['id']}}">{{patient['first_name']}}</option>
+              {% endfor -%}
+                </select>
+              </div>
+              <!-- END PATIENT -->
+
               <!-- LAB TEST -->
               <div class="form-group" id="group-lab_request_type_id">
                 <label>
@@ -195,10 +210,12 @@
   <script defer>
     const lab_tests = JSON.parse(' {{lab_tests|tojson}} ');
     const lab_results = JSON.parse(' {{lab_results|tojson}} ');
+    const patients = JSON.parse(' {{patients|tojson}} ');
 
   $(() => {
     $('#lab_test_id').select2();
     $('#lab_result_id').select2();
+    $('#patient_id').select2();
   });
 </script>
 <script src="{{ url_for('static', path='/js/pages/lab_requests.js') }}"></script>

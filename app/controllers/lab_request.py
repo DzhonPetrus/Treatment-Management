@@ -26,6 +26,7 @@ def create(lab_request, db: Session):
     new_lab_request = models.LabRequest(
         lab_test_id = lab_request.lab_test_id,
         lab_result_id = lab_request.lab_result_id,
+        patient_id = lab_request.patient_id,
         status = lab_request.status,
         is_active = lab_request.is_active
     )
@@ -72,6 +73,7 @@ def update(id, LabRequest, db: Session):
         lab_request.update({
             "lab_test_id" : LabRequest.lab_test_id,
             "lab_result_id" : LabRequest.lab_result_id,
+            "patient_id" : LabRequest.patient_id,
             "status" : LabRequest.status,
             "is_active" : LabRequest.is_active
         })

@@ -156,6 +156,12 @@ loadTable = () => {
 		],
 		columns: [
 			{
+				data: "patient",
+				name: "patient",
+				searchable: true,
+				render: (aData) => `${aData.last_name}, ${aData.first_name} ${aData.middle_name || ''} ${aData.suffix_name ? ', ' + aData.suffix_name : ''}`
+			},
+			{
 				data: "lab_test.name",
 				name: "lab_test.name",
 				searchable: true,
