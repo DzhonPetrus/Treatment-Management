@@ -2,18 +2,23 @@ from datetime import timedelta
 
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from app.jwt_token import ACCESS_TOKEN_EXPIRE_MINUTES
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 
 from .. import database, models, jwt_token
 from ..utils import hashing
 
+templates = Jinja2Templates(directory="app/pages")
 
 router = APIRouter(
     tags=['Authentication']
 )
+
+get_db = database.get_db
 
 @router.post('/login')
 def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
@@ -36,5 +41,13 @@ def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(
 
     return {
         "access_token": access_token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "user_type": user.user_type
     }
+
+
+
+@router.get('/login', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+def all(request: Request, db: Session = Depends(get_db)):
+    # return user.get_all(db)
+    return templates.TemplateResponse("login.html", {"request":request})

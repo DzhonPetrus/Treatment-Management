@@ -1,5 +1,5 @@
 	window.endpoint = 'surgery_type'
-	window.token = "TEMPORARY"
+	
 
 	window.form = "#form"
 	window.modal = "#modal-surgery_type";

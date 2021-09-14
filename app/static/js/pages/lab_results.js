@@ -1,5 +1,5 @@
 	window.endpoint = 'lab_result'
-	window.token = "TEMPORARY"
+	
 
 	window.form = "#form"
 	window.modal = "#modal-lab_result";

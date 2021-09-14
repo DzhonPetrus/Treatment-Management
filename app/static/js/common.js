@@ -1,5 +1,3 @@
-const BASE_URL = `http://127.0.0.1:8000/`;
-
 const formatDateTime = dt => moment(dt).format(`MMMM D, YYYY hh:mm:ss`);
 const formatDate = d => moment(d).format(`MMMM D, YYYY`);
 

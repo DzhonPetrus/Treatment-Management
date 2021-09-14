@@ -1,5 +1,5 @@
 	window.endpoint = 'treatment_type'
-	window.token = "TEMPORARY"
+	
 
 	window.form = "#form"
 	window.modal = "#modal-treatment_type";
