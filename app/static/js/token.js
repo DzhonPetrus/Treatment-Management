@@ -8,3 +8,5 @@ const removeToken = () => localStorage.removeItem('session_token');
 
 if (!(window.location.pathname == '/login'))
 	window.token = getToken();
+
+console.log(window.location.pathname == '/login')

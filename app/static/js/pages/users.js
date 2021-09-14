@@ -1,6 +1,4 @@
 	window.endpoint = 'user'
-	window.token = "TEMPORARY"
-	// window.token = getToken();
 
 	window.form = "#form"
 	window.modal = "#modal-user";

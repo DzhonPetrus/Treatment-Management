@@ -9,7 +9,7 @@ from fastapi.templating import Jinja2Templates
 from .. import database
 
 from ..controllers import surgery, surgery_type, patient
-from .. import schemas
+from .. import schemas, oauth2
 
 
 
@@ -23,7 +23,7 @@ router = APIRouter(
 get_db = database.get_db
 
 @router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutSurgeries)
-def show(request: Request, db: Session = Depends(get_db)):
+def show(request: Request, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
     return surgery.get_all(db)
     # return {
     #     "data": surgery.get_all(db),
@@ -37,26 +37,26 @@ def all(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse("surgeries.html", {"request":request, 'current_path': request.url.path, "surgery_types":jsonable_encoder(surgery_type.get_all(db)['data']), "patients":jsonable_encoder(patient.get_all(db)['data'])})
 
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutSurgery)
-def show(request: Request, id, db: Session = Depends(get_db)):
+def show(request: Request, id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
     return surgery.get_one(id, db)
     # return templates.TemplateResponse("surgery.html", {"request":request, "surgery": surgery.get_one(id, db)})
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def create(Surgery: schemas.CreateSurgery = Depends(schemas.CreateSurgery.as_form), db: Session = Depends(get_db)):
+def create(Surgery: schemas.CreateSurgery = Depends(schemas.CreateSurgery.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
     return surgery.create(Surgery, db)
 
 @router.put('/cancel/{id}', status_code=status.HTTP_200_OK)
-def update(id, db: Session = Depends(get_db)):
+def update(id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
     return surgery.cancel(id, db)
 
 @router.put('/reactivate/{id}', status_code=status.HTTP_200_OK)
-def update(id, db: Session = Depends(get_db)):
+def update(id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
     return surgery.reactivate(id, db)
 
 @router.put('/{id}', status_code=status.HTTP_200_OK)
-def update(id, Surgery: schemas.CreateSurgery = Depends(schemas.CreateSurgery.as_form), db: Session = Depends(get_db)):
+def update(id, Surgery: schemas.CreateSurgery = Depends(schemas.CreateSurgery.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
     return surgery.update(id, Surgery, db)
 
 @router.delete('/{id}', status_code=status.HTTP_200_OK)
-def destroy(id, db: Session = Depends(get_db)):
+def destroy(id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
     return surgery.destroy(id, db)
