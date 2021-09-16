@@ -28,5 +28,3 @@ if ((window.location.pathname !== '/login')){
 	removeUserType();
 	removeUserProfile();
 }
-
-console.log(user_profile)
