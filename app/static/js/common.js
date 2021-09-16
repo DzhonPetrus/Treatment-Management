@@ -245,3 +245,8 @@ function confirmationModal(type, id='') {
 }
 
 const logout = () => confirmationModal('logout');
+
+$("#sidebar_picture").attr("src", user_profile.photo_url !== null ? `${BASE_URL}static/upload/${user_profile.photo_url}` : '');
+$("#sidebar_full_name").html(`
+	${user_profile.first_name} ${user_profile.middle_name || ''} ${user_profile.last_name} ${user_profile.suffix_name || ''}
+`);

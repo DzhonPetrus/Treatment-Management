@@ -31,7 +31,7 @@
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
                        src="{{ url_for('static', path='/img/avatar.png') }}"
-                       alt="User profile picture">
+                       alt="User profile picture" id="dp_picture" style="object-fit: cover;">
                 </div>
 
                 <h3 class="profile-username text-center" id="dp_full_name">Nina Mcintire</h3>
@@ -129,7 +129,15 @@
   
   {% block scripts %}
 
-  <script defer></script>
+  <script defer>
+
+$("#dp_picture").attr("src", user_profile.photo_url !== null ? `${BASE_URL}static/upload/${user_profile.photo_url}` : '');
+$("#dp_position").html(user_profile.position);
+$("#dp_department").html(user_profile.department);
+$("#dp_full_name").html(`
+	${user_profile.first_name} ${user_profile.middle_name || ''} ${user_profile.last_name} ${user_profile.suffix_name || ''}
+`);
+  </script>
 
 <script src="{{ url_for('static', path='/js/pages/me.js') }}"></script>
   {% endblock %}

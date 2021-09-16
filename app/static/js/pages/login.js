@@ -22,7 +22,7 @@ trimInputFields = () =>
     });
 };
 
-$(function () {
+$(async function () {
 	formReset();
 
 	// function to save/update record
@@ -46,9 +46,18 @@ $(function () {
 				cache: false,
 				success: (data) => {
 					setToken(data.access_token);
-					setUserType(data.user_type.toLowerCase());
 					window.token = getToken();
+					setUserType(data.user_type.toLowerCase());
 					window.user_type = getUserType();
+					fetch(`${BASE_URL}admin/user/${data.id}`, {
+						method: 'GET',
+						headers: {
+							Authorization: `bearer ${token}`
+						}
+					})
+						.then(res => res.json())
+						.then(data => setUserProfile(JSON.stringify(data.data.user_profile)))
+					window.user_profile = getUserProfile();
 					location.replace(`${BASE_URL}${window.user_type}/`);
 				},
 				error: (data) => notification("warning", data.responseJSON.detail),
