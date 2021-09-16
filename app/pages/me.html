@@ -57,7 +57,7 @@
                 <div class="tab-content">
                   <div class="active tab-pane" id="profile">
                     <form class="form-horizontal">
-                      <div class="form-group" id="group-account_id">
+                      <div class="form-group" id="group-info_id">
                         <label>
                           ID
                           <span style="color:red">*</span>
@@ -65,7 +65,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          id="account_id"
+                          id="info_id"
                           name="id"
                           placeholder="Input ID"
                           value=""
@@ -80,15 +80,15 @@
                       {{ forms.input('Suffix Name', 'suffix_name', 'text', '') }}
                       {{ forms.input('Birth Date', 'birth_date', 'text', 'required') }}
                       <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
-                      <div class="form-group" id="group-account_is_active">
+                      <div class="form-group" id="group-info_is_active">
                         <label>
-                          ID
+                          Is Active
                           <span style="color:red">*</span>
                         </label>
                         <input
                           type="text"
                           class="form-control"
-                          id="account_is_active"
+                          id="info_is_active"
                           name="id"
                           placeholder="Input Is Active"
                           value=""
@@ -116,7 +116,7 @@
             {% import 'templates/forms.html' as forms %}
                   <div class="tab-pane" id="account">
                     <form class="form-horizontal">
-                      <div class="form-group" id="group-info_id">
+                      <div class="form-group" id="group-account_id">
                         <label>
                           ID
                           <span style="color:red">*</span>
@@ -124,7 +124,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          id="info_id"
+                          id="account_id"
                           name="id"
                           placeholder="Input ID"
                           value=""
@@ -134,16 +134,16 @@
                       {{ forms.input('Email', 'email', 'email', 'required') }}
                       {{ forms.select('User Type', 'user_type', 'text', ['Admin', 'Surgery_Scheduler', 'Surgeon', 'Lab_Technician', 'Physician', 'Nurse']) }}
                       {{ forms.input('Password', 'password', 'password', 'required' ) }}
-                      {{ forms.input('User Profile ID', 'user_profile_id', 'text', '', '' )}}
-                      <div class="form-group" id="group-info_is_active">
+                      {{ forms.input('User Profile ID', 'user_profile_id', 'text', '') }}
+                      <div class="form-group" id="group-account_is_active">
                         <label>
-                          ID
+                          Is Active
                           <span style="color:red">*</span>
                         </label>
                         <input
                           type="text"
                           class="form-control"
-                          id="info_is_active"
+                          id="account_is_active"
                           name="id"
                           placeholder="Input Is Active"
                           value=""

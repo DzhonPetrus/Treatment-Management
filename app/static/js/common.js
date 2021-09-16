@@ -53,6 +53,8 @@ readURL = (input) => {
 formReset = () => {
 	$("html", "body").animate({ scrollTop: 0 }, "slow");
 
+	$("#photo_url_placeholder").attr("src", `https://i.stack.imgur.com/y9DpT.jpg`);
+	$("#detailed_result_placeholder").attr("href", `#`);
 	$(form)[0].reset();
 	showAllFields();
 	setHiddenFields();

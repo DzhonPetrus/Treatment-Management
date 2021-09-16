@@ -276,6 +276,7 @@ reactivateData = (id, confirmed = false) => {
 	}
 };
 
-$("#imageUpload").change(function () {
+$("#photo_url_placeholder").click(() => $('#file').click())
+$("#file").change(function () {
     readURL(this);
 });
