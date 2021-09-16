@@ -29,7 +29,8 @@ def create(profile, db: Session):
         middle_name = profile.middle_name,
         last_name = profile.last_name,
         suffix_name = profile.suffix_name,
-        birth_date = profile.birth_date
+        birth_date = profile.birth_date,
+        picture = profile.picture
     )
     db.add(new_profile)
     db.commit()
@@ -66,6 +67,7 @@ def update(id, Profile, db: Session):
             "last_name" : Profile.last_name,
             "suffix_name" : Profile.suffix_name,
             "birth_date" : Profile.birth_date,
+            "picture" : Profile.picture,
             "is_active": Profile.is_active
         })
         db.commit()

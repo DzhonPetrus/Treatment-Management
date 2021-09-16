@@ -17,6 +17,7 @@ class Profile(Base):
     last_name = Column(String(100))
     suffix_name = Column(String(100))
     birth_date = Column(String(100))
+    picture = Column(String(255))
 
 
     is_active = Column(String(100), default='ACTIVE')

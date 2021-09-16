@@ -13,6 +13,7 @@ class ProfileBase(Base):
     last_name: str
     suffix_name: Optional[str] = None
     birth_date: Optional[date] = None
+    picture: Optional[str] = None
 
     is_active: Optional[str] = None
 

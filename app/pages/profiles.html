@@ -129,7 +129,7 @@
                 </button>
               </div>
               <div class="modal-body">
-          <form id="form">
+          <form id="form" enctype="multipart/form-data">
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
               {{ forms.input('ID', 'id', 'text', '', '' )}}
@@ -144,6 +144,7 @@
               {{ forms.input('Birth Date', 'birth_date', 'text', 'required') }}
               <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
               {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+              <input type="file" name="file" id="file">
               
             </div>
             </div>

@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Depends, status, Request
+from fastapi import APIRouter, Depends, status, Request, UploadFile, File
 from sqlalchemy.orm import Session
 
 from fastapi.responses import HTMLResponse
@@ -10,6 +10,7 @@ from .. import database
 
 from ..controllers import profile
 from .. import schemas, oauth2
+from ..utils.file_upload import file_upload
 
 
 templates = Jinja2Templates(directory="app/pages")
@@ -37,7 +38,8 @@ def show(request: Request, id, db: Session = Depends(get_db),  current_user: sch
     # return templates.TemplateResponse("profile.html", {"request":request, "profile": profile.get_one(id, db)})
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def create(Profile: schemas.CreateProfile = Depends(schemas.CreateProfile.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+async def create(Profile: schemas.CreateProfile = Depends(schemas.CreateProfile.as_form), file: UploadFile = File(...), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    Profile.picture = await file_upload(file)
     return profile.create(Profile, db)
 
 @router.put('/reactivate/{id}', status_code=status.HTTP_200_OK)
