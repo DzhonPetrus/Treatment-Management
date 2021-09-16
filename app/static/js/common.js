@@ -197,9 +197,9 @@ function confirmationModal(type, id='') {
 		case 'logout':
 			headIcon = 'fa-sign-out-alt';
 			headText = 'Log out';
-			message = 'Are you sure you want to delete it now?';
+			message = 'Are you sure you want to log out now?';
 			btnColor = 'btn-danger ';
-			btnText = "Yes, delete it!";
+			btnText = "Yes, log out now!";
 			btnIcon = 'fa-sign-out-alt';
 			break;
 	}
@@ -225,6 +225,7 @@ function confirmationModal(type, id='') {
 						${(id !== '' && (type === 'delete' ||type === 'reactivate' || type === 'cancel')) 
 							? `onClick="${type}Data('${id}', ${true})"` 
 							: ""}
+						${(type === 'logout') ? `onclick="location.replace('${BASE_URL}login')"` : ''}
 					  >
 
 						${btnText}
@@ -237,4 +238,6 @@ function confirmationModal(type, id='') {
 	`;
 	$('#confirmationModal').html(modal);
 	$('#confirmModal').modal("show");
-};
+}
+
+const logout = () => confirmationModal('logout');
