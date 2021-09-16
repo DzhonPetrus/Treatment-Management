@@ -47,6 +47,8 @@ $(async function () {
 				success: (data) => {
 					setToken(data.access_token);
 					window.token = getToken();
+					setUserId(data.id);
+					window.user_id = getUserId();
 					setUserType(data.user_type.toLowerCase());
 					window.user_type = getUserType();
 					fetch(`${BASE_URL}admin/user/${data.id}`, {
