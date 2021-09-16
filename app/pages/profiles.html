@@ -132,6 +132,19 @@
           <form id="form" enctype="multipart/form-data">
             {% import 'templates/forms.html' as forms %}
             <div class="card-body">
+              <div>
+                <label for="image" class="form-label">Image</label>
+
+                <input class="form-control" type="file" id="file" name="file"
+                    accept="image/*">
+                <input type="hidden" name="photo_url">
+            </div>
+            <div>
+              <img src="https://i.stack.imgur.com/y9DpT.jpg" alt=""
+                          class="rounded avatar-lg img-thumbnail" style="object-fit: cover;"
+                          id="photo_url_placeholder" name="photo_url_placeholder">
+            </div>
+
               {{ forms.input('ID', 'id', 'text', '', '' )}}
               <!-- {{ forms.input('Department', 'department', 'text', 'required') }} -->
               <!-- {{ forms.input('Position', 'position', 'text', 'required') }} -->
@@ -144,7 +157,6 @@
               {{ forms.input('Birth Date', 'birth_date', 'text', 'required') }}
               <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
               {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
-              <input type="file" name="file" id="file">
               
             </div>
             </div>

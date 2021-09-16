@@ -39,7 +39,7 @@ def show(request: Request, id, db: Session = Depends(get_db),  current_user: sch
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 async def create(Profile: schemas.CreateProfile = Depends(schemas.CreateProfile.as_form), file: UploadFile = File(...), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
-    Profile.picture = await file_upload(file)
+    Profile.photo_url = await file_upload(file)
     return profile.create(Profile, db)
 
 @router.put('/reactivate/{id}', status_code=status.HTTP_200_OK)
@@ -47,7 +47,8 @@ def update(id, db: Session = Depends(get_db),  current_user: schemas.User = Depe
     return profile.reactivate(id, db)
 
 @router.put('/{id}', status_code=status.HTTP_200_OK)
-def update(id, Profile: schemas.CreateProfile = Depends(schemas.CreateProfile.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+async def update(id, Profile: schemas.CreateProfile = Depends(schemas.CreateProfile.as_form), file: UploadFile = File(...), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    Profile.photo_url = await file_upload(file)
     return profile.update(id, Profile, db)
 
 @router.delete('/{id}', status_code=status.HTTP_200_OK)

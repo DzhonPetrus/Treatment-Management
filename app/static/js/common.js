@@ -81,11 +81,9 @@ const newHandler = () => {
 };
 
 const setState = (state, data) => {
-	// if(fields.includes('start_time'))
-	// 	data['start_time'] = data['start_time'].replace('T',' ');
 
-	// if(fields.includes('end_time'))
-	// 	data['end_time'] = data['end_time'] != null ? data['end_time'].replace('T',' ') : null;
+
+	$("#photo_url_placeholder").attr("src", `${BASE_URL}static/upload/${data.photo_url}`);
 
 	showAllFields();
 	setInputValue(data);

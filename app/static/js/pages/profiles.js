@@ -6,7 +6,7 @@
 	window.modal = "#modal-profile";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "position", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "department", "is_active", "btnAdd", "btnUpdate"];
+	window.fields = ["id", "position", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "department", "is_active", "btnAdd", "btnUpdate", "file"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
 	window.readOnlyFields = ["id", "is_active"];
 
@@ -276,3 +276,6 @@ reactivateData = (id, confirmed = false) => {
 	}
 };
 
+$("#imageUpload").change(function () {
+    readURL(this);
+});
