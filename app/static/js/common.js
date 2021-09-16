@@ -78,12 +78,18 @@ const newHandler = () => {
 	formReset();
 	setFieldsReadOnly(false);
 	setReadOnlyFields();
+	$("#detailed_result_placeholder").hide();
 };
 
 const setState = (state, data) => {
 
 
 	$("#photo_url_placeholder").attr("src", `${BASE_URL}static/upload/${data.photo_url}`);
+	$("#detailed_result_placeholder").hide();
+	if(data.detailed_result !== undefined){
+		$("#detailed_result_placeholder").attr("href", `${BASE_URL}static/upload/${data.detailed_result}`);
+		$("#detailed_result_placeholder").show();
+	}
 
 	showAllFields();
 	setInputValue(data);

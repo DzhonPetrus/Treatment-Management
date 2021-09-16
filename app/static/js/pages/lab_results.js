@@ -5,8 +5,8 @@
 	window.modal = "#modal-lab_result";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "specimen", "result", "reference", "unit", "detailed_result", "status", "is_active", "btnAdd", "btnUpdate"];
-	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
+	window.fields = ["id", "specimen", "result", "reference", "unit", "detailed_result", "status", "is_active", "btnAdd", "btnUpdate", "file", "detailed_result_placeholder"];
+	window.fieldsHidden = ["id", "btnUpdate", "is_active", "detailed_result_placeholder"];
 	window.readOnlyFields = ["id", "is_active"];
 
 $(function () {
@@ -159,7 +159,7 @@ loadTable = () => {
 				data: "detailed_result",
 				name: "detailed_result",
 				searchable: true,
-				render: (aData) => aData || `<span class=”text-secondary font-italic”>No data</span>`
+				render: (aData) => `<a target="_blank" href="${BASE_URL}static/upload/${aData}">${aData}</a>` || `<span class=”text-secondary font-italic”>No data</span>`
 			},
 			{
 				data: "status",

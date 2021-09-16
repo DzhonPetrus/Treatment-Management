@@ -137,7 +137,16 @@
               {{ forms.input('Result', 'result', 'text', 'required') }}
               {{ forms.input('Reference', 'reference', 'text', 'required') }}
               {{ forms.input('Unit', 'unit', 'text', 'required') }}
-              {{ forms.input('Detailed Result', 'detailed_result', 'text', '') }}
+              <div class="form-group">
+                <label for="image" class="form-label">Detailed Result</label>
+
+                <input class="form-control" type="file" id="file" name="file"
+                    accept="image/*|.doc|.pdf|.docx|.xlsx|.csv|.xls">
+                <input type="hidden" name="detailed_result">
+            </div>
+            <div class="form-group">
+              <a class="form-control" href="" id="detailed_result_placeholder" target="_blank">Detailed Result</a>
+            </div>
               {{ forms.select('Status', 'status', 'text', ['PROCESSING', 'UNCLAIMED', 'CLAIMED']) }}
               {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
               
