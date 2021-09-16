@@ -22,3 +22,5 @@ router.include_router(routes.treatment_type.router)
 router.include_router(routes.patient.router)
 router.include_router(routes.user.router)
 router.include_router(routes.profile.router)
+
+router.include_router(routes.me.router)

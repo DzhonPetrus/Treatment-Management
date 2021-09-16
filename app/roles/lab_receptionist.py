@@ -12,3 +12,5 @@ router.include_router(routes.index.router)
 router.include_router(routes.lab_test.router)
 router.include_router(routes.lab_result.router)
 router.include_router(routes.lab_request.router)
+
+router.include_router(routes.me.router)

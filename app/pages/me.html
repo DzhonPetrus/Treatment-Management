@@ -1,0 +1,135 @@
+{% extends "templates/base.html" %}
+{% import 'templates/forms.html' as forms %}
+{% set active_page = current_path.split('/')[2] %}
+{% set user_type = current_path.split('/')[1] %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>My Profile</h1>
+          </div>
+
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="{{ url_for('static', path='/img/avatar.png') }}"
+                       alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center" id="dp_full_name">Nina Mcintire</h3>
+
+                <p class="text-muted text-center" id="dp_position">Software Engineer</p>
+                <p class="text-muted text-center" id="dp_department">Treatment Management</p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#profile" data-toggle="tab">Profile</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#account" data-toggle="tab">Account</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="profile">
+                    <form class="form-horizontal">
+                      {{ forms.input('ID', 'id', 'text', '', '' )}}
+                      {{ forms.select('Department', 'department', 'text', ['Emergency Room', 'Emergency Department', 'Intensive Care Unit', 'Cardiac Care Unit', 'Nursery', 'Labor and Delivery', 'Surgery', 'Pediatrics']) }}
+                      {{ forms.select('Position', 'position', 'text', ['Physician', 'Surgeon', 'Nurse']) }}
+                      {{ forms.input('First Name', 'first_name', 'text', 'required') }}
+                      {{ forms.input('Middle Name', 'middle_name', 'text', '') }}
+                      {{ forms.input('Last Name', 'last_name', 'text', 'required') }}
+                      {{ forms.input('Suffix Name', 'suffix_name', 'text', '') }}
+                      {{ forms.input('Birth Date', 'birth_date', 'text', 'required') }}
+                      <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
+                      {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+                      
+                      <!-- <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                            </label>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+            {% import 'templates/forms.html' as forms %}
+                  <div class="tab-pane" id="account">
+                    <form class="form-horizontal">
+                      {{ forms.input('ID', 'id', 'text', '', '' )}}
+                      {{ forms.input('Email', 'email', 'email', 'required') }}
+                      {{ forms.select('User Type', 'user_type', 'text', ['Admin', 'Surgery_Scheduler', 'Surgeon', 'Lab_Technician', 'Physician', 'Nurse']) }}
+                      {{ forms.input('Password', 'password', 'password', 'required' ) }}
+                      {{ forms.input('User Profile ID', 'user_profile_id', 'text', '', '' )}}
+                      {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+                      
+                      <!-- <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                            </label>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </section>
+    <!-- /.content -->
+  
+  {% endblock %}
+  
+  {% block scripts %}
+
+  <script defer></script>
+
+<script src="{{ url_for('static', path='/js/pages/me.js') }}"></script>
+  {% endblock %}

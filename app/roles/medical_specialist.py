@@ -11,3 +11,5 @@ router.include_router(routes.index.router)
 
 router.include_router(routes.treatment.router)
 router.include_router(routes.treatment_type.router)
+
+router.include_router(routes.me.router)
