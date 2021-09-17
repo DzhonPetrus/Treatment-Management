@@ -4,10 +4,12 @@ from sqlalchemy.orm import Session
 from .. import models
 from ..utils.hashing import Hash
 
-def get_all(db: Session, is_active = ''):
-    users = db.query(models.User).all() if is_active == '' else db.query(models.User).filter(models.User.is_active == is_active).all()
+def get_all(db: Session, is_active = '', user_type = ''):
+    users = db.query(models.User) if is_active == '' else db.query(models.User).filter(models.User.is_active == is_active)
+    if user_type != '':
+        users = db.query(models.User).filter(models.User.user_type == user_type)
     return {
-        "data": users,
+        "data": users.all(),
         "error": False,
         "message": "Users has been successfully retrieved."
     }

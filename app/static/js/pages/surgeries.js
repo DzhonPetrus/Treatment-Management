@@ -48,7 +48,13 @@ $(function () {
 			form_data.append('end_time', $("#end_time").val())
 			form_data.append('status', $("#status").val())
 			form_data.append('is_active', $("#is_active").val())
+			in_charge = $('#surgeon_in_charge').val()
+			in_charge = [...in_charge, ...$('#nurse_in_charge').val()]
+			form_data.append('in_charge', in_charge)
+			console.log(form_data.get('in_charge'))
+			console.log(in_charge)
 
+			console.table([...form_data])
 			var id = $("#id").val();
 			if (id == "") {
 
@@ -217,8 +223,39 @@ loadTable = () => {
 				$('#totalSurgeries').html(surgeries.data.length)
 				$('#totalSurgeriesActive').html(active_surgeries.length)
 				$('#totalSurgeriesInactive').html(inactive_surgeries.length)
+			console.log(surgeries)
 			}
 		},
+	});
+	$.ajax({
+		url: BASE_URL + `admin/user/all/surgical_nurse`,
+		type: "GET",
+		dataType: "json",
+		success: function (data) {
+			options = '';
+			data.data.forEach(data => {
+				options += `
+					<option value="${data.id}">${data.user_profile.first_name}</option>
+				`;
+			})
+			$('#nurse_in_charge').html(options);
+		},
+		error: (data) => notification("error", data.responseJSON.detail),
+	});
+	$.ajax({
+		url: BASE_URL + `admin/user/all/surgeon`,
+		type: "GET",
+		dataType: "json",
+		success: function (data) {
+			options = '';
+			data.data.forEach(data => {
+				options += `
+					<option value="${data.id}">${data.user_profile.first_name}</option>
+				`;
+			})
+			$('#surgeon_in_charge').html(options);
+		},
+		error: (data) => notification("error", data.responseJSON.detail),
 	});
 };
 

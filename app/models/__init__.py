@@ -1,5 +1,6 @@
 from ..database import Base
 
+from .surgery_in_charge import *
 from .surgery import *
 from .surgery_type import *
 from .lab_test import *

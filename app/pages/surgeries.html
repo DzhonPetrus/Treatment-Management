@@ -164,12 +164,26 @@
               </div>
               <!-- END PATIENT -->
 
-              {{ forms.input('Room', 'room', 'text' ) }}
-              {{ forms.input('Schedule', 'start_time', 'text' ) }}
+              {{ forms.input('Room', 'room', 'text', 'required' ) }}
+              {{ forms.input('Schedule', 'start_time', 'text', 'required' ) }}
               {{ forms.input('Surgery Ended', 'end_time', 'text' ) }}
               {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-PROCESS', 'DONE', 'CANCELLED']) }}
               {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
               
+              <div class="form-group" id="group-nurse_in_charge">
+                <label>
+                  Surgical Nurse In Charge
+                  <span style="color:red">*</span>
+                </label>
+                <select class="form-control select2" style="width: 100%;" id="nurse_in_charge" name="nurse_in_charge" multiple="multiple"></select>
+              </div>
+              <div class="form-group" id="group-surgeon_in_charge">
+                <label>
+                  Surgeon In Charge
+                  <span style="color:red">*</span>
+                </label>
+                <select class="form-control select2" style="width: 100%;" id="surgeon_in_charge" name="surgeon_in_charge" multiple="multiple"></select>
+              </div>
               
             </div>
           </div>
@@ -205,6 +219,8 @@
     const patients = JSON.parse(' {{patients|tojson}} ');
 
   $(() => {
+    $('#surgeon_in_charge').select2();
+    $('#nurse_in_charge').select2();
     $('#surgery_type_id').select2();
     $('#patient_id').select2();
     $("#end_time").daterangepicker({

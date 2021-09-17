@@ -25,6 +25,11 @@ get_db = database.get_db
 def show(request: Request, db: Session = Depends(get_db)):
     return user.get_all(db)
 
+@router.get('/all/{user_type}', status_code=status.HTTP_200_OK, response_model=schemas.OutUsers)
+def show(request: Request, user_type, db: Session = Depends(get_db)):
+    print(user_type)
+    return user.get_all(db, '', user_type)
+
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return user.get_all(db)

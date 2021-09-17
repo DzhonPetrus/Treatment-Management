@@ -22,3 +22,5 @@ class User(Base):
 
     user_profile = relationship("Profile", back_populates="user_account")
     treatments = relationship("Treatment", back_populates="physician")
+
+    handled_surgeries = relationship("SurgeryInCharge", back_populates="in_charge")

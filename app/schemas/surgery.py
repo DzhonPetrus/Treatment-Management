@@ -2,14 +2,17 @@ from datetime import datetime as dt
 from typing import Optional, List
 from pydantic import BaseModel
 
+from .user import UserBase
 from .surgery_type import *
 from .patient import *
 from ..utils.schemaHelper import Base, as_form
 
 class SurgeryBase(Base):
-    room: str
-    patient_id: str
-    surgery_type_id: str
+    room: Optional[str] = None
+    patient_id: Optional[str] = None
+    surgery_type_id: Optional[str] = None
+
+    in_charge: Optional[str] = None
 
     start_time: Optional[dt] = None
     end_time: Optional[dt] = None
@@ -27,6 +30,7 @@ class Surgery(SurgeryBase):
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
     surgery_type: Optional[SurgeryTypeBase] = None
+    in_charge: Optional[UserBase] = None
     patient: Optional[PatientBase] = None
 
 

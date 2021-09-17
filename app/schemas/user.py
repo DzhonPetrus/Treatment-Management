@@ -6,8 +6,8 @@ from .profile import *
 from ..utils.schemaHelper import Base, as_form
 
 class UserBase(Base):
-    email: str
-    user_type: str
+    email: Optional[str]
+    user_type: Optional[str] = None
     user_profile_id: Optional[str] = None
 
     is_active: Optional[str] = None
@@ -17,10 +17,23 @@ class UserBase(Base):
 class CreateUser(UserBase):
     password: str
 
+class SurgeryBase(Base):
+    room: Optional[str] = None
+    patient_id: Optional[str] = None
+    surgery_type_id: Optional[str] = None
+
+    in_charge: Optional[str] = None
+
+    start_time: Optional[dt] = None
+    end_time: Optional[dt] = None
+    status: Optional[str] = None
+    is_active: Optional[str] = None
+
 
 class User(CreateUser):
     id: str
     user_profile: Optional[Profile] = None
+    handled_surgeries: Optional[SurgeryBase] = None
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
 
