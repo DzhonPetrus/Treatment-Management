@@ -203,7 +203,7 @@ $(function () {
 			const total_active_lab_tests = active_lab_tests.length;
 			const total_inactive_lab_tests = inactive_lab_tests.length;
 
-			$('#totalLabTest').html(total_lab_tests);
+			$('#totalLabTests').html(total_lab_tests);
 			let chartCanvas = $('#labTestChart').get(0).getContext('2d');
 			let chartData = {
 			  labels: [
