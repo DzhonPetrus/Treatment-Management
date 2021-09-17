@@ -8,6 +8,7 @@ router = APIRouter(
 )
 
 router.include_router(routes.index.router)
+router.include_router(routes.user.router)
 
 router.include_router(routes.treatment.router)
 router.include_router(routes.treatment_type.router)
