@@ -40,7 +40,7 @@ $(function () {
 			  responsive : true,
 			}
 			new Chart(chartCanvas, {
-			  type: 'pie',
+			  type: 'polarArea',
 			  data: chartData,
 			  options: chartOptions
 			})
@@ -176,7 +176,7 @@ $(function () {
 			  responsive : true,
 			}
 			new Chart(chartCanvas, {
-			  type: 'doughnut',
+			  type: 'polarArea',
 			  data: chartData,
 			  options: chartOptions
 			})
@@ -314,7 +314,7 @@ $(function () {
 			  responsive : true,
 			}
 			new Chart(chartCanvas, {
-			  type: 'pie',
+			  type: 'polarArea',
 			  data: chartData,
 			  options: chartOptions
 			})
