@@ -121,6 +121,7 @@ const setInfoState = data => {
 
 	info_fields.forEach((field) => $(`#${field}`).val(data[field]));
 	info_fields.forEach((field) => $(`#group-${field}`).show());
+	info_fieldsHidden.forEach((field) => $(`#group-${field}`).hide());
 	info_fields.forEach((field) => $(`#${field}`).prop("disabled", true));
 	// info_readOnlyFields.forEach((field) => $(`#${field}`).prop("disabled", true));
 
@@ -133,6 +134,7 @@ const setAccountState = data => {
 
 	account_fields.forEach((field) => $(`#${field}`).val(data[field]));
 	account_fields.forEach((field) => $(`#group-${field}`).show());
+	account_fieldsHidden.forEach((field) => $(`#group-${field}`).hide());
 	account_fields.forEach((field) => $(`#${field}`).prop("disabled", true));
 	// account_readOnlyFields.forEach((field) => $(`#${field}`).prop("disabled", true));
 }

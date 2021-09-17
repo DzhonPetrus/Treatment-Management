@@ -133,7 +133,7 @@
             <div class="card-body">
               {{ forms.input('ID', 'id', 'text', '', '' )}}
               {{ forms.input('Email', 'email', 'email', 'required') }}
-              {{ forms.select('User Type', 'user_type', 'text', ['Admin', 'Surgery_Scheduler', 'Surgeon', 'Lab_Technician', 'Physician', 'Nurse']) }}
+              {{ forms.select('User Type', 'user_type', 'text', ['Admin', 'Surgery_Scheduler', 'Surgeon', 'Lab_Technician', 'Lab_Receptionist', 'Medical_Specialist', 'Surgical_Nurse']) }}
               {{ forms.input('Password', 'password', 'password', 'required' ) }}
               {{ forms.input('User Profile ID', 'user_profile_id', 'text', '', '' )}}
               {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}

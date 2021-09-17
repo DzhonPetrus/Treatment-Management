@@ -72,8 +72,8 @@
                           readonly
                         />
                       </div>
-                      {{ forms.select('Department', 'department', 'disabled', ['Emergency Room', 'Emergency Department', 'Intensive Care Unit', 'Cardiac Care Unit', 'Nursery', 'Labor and Delivery', 'Surgery', 'Pediatrics'])}}
                       {{ forms.select('Position', 'position', 'disabled', ['Physician', 'Surgeon', 'Nurse'])}}
+                      {{ forms.select('Department', 'department', 'disabled', ['Emergency Room', 'Emergency Department', 'Intensive Care Unit', 'Cardiac Care Unit', 'Nursery', 'Labor and Delivery', 'Surgery', 'Pediatrics'])}}
                       {{ forms.input('First Name', 'first_name', 'text', 'required') }}
                       {{ forms.input('Middle Name', 'middle_name', 'text', '') }}
                       {{ forms.input('Last Name', 'last_name', 'text', 'required') }}
@@ -105,11 +105,11 @@
                           </div>
                         </div>
                       </div> -->
-                      <div class="form-group row">
+                      <!-- <div class="form-group row">
                         <div class="offset-sm-10 col-sm-10">
                           <button type="submit" class="btn btn-danger">Submit</button>
                         </div>
-                      </div>
+                      </div> -->
                     </form>
                   </div>
 
@@ -132,8 +132,8 @@
                         />
                       </div>
                       {{ forms.input('Email', 'email', 'email', 'required') }}
-                      {{ forms.select('User Type', 'user_type', 'text', ['Admin', 'Surgery_Scheduler', 'Surgeon', 'Lab_Technician', 'Physician', 'Nurse']) }}
                       {{ forms.input('Password', 'password', 'password', 'required' ) }}
+                      {{ forms.select('User Type', 'user_type', 'text', ['Admin', 'Surgery_Scheduler', 'Surgeon', 'Lab_Technician', 'Physician', 'Nurse']) }}
                       {{ forms.input('User Profile ID', 'user_profile_id', 'text', '') }}
                       <div class="form-group" id="group-account_is_active">
                         <label>
@@ -160,11 +160,11 @@
                           </div>
                         </div>
                       </div> -->
-                      <div class="form-group row">
+                      <!-- <div class="form-group row">
                         <div class="offset-sm-10 col-sm-10">
                           <button type="submit" class="btn btn-danger">Submit</button>
                         </div>
-                      </div>
+                      </div> -->
                     </form>
                   </div>
                   <!-- /.tab-pane -->

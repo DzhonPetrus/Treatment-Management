@@ -1,0 +1,45 @@
+
+{% extends "templates/base.html" %}
+{% set user_type = current_path.split('/')[1] %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>Home</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Core</a></li>
+              <li class="breadcrumb-item active">Home</li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+          <h1>LAB TECHNICIAN</h1>
+      </div>
+    </section>
+    <!-- /.content -->
+  
+    <div id="confirmationModal"></div>
+  {% endblock %}
+  
+  {% block scripts %}
+
+  <script defer></script>
+
+<script src="{{ url_for('static', path='/js/pages/users.js') }}"></script>
+  {% endblock %}

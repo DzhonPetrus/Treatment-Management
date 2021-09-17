@@ -58,9 +58,11 @@ $(async function () {
 						}
 					})
 						.then(res => res.json())
-						.then(data => setUserProfile(JSON.stringify(data.data.user_profile)))
-					window.user_profile = getUserProfile();
-					location.replace(`${BASE_URL}${window.user_type}/`);
+						.then(data => {
+							setUserProfile(JSON.stringify(data.data.user_profile));
+							window.user_profile = getUserProfile();
+							location.replace(`${BASE_URL}${window.user_type}/`);
+						})
 				},
 				error: (data) => notification("warning", data.responseJSON.detail),
 			});

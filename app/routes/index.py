@@ -23,5 +23,14 @@ get_db = database.get_db
 
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
+    current_role = request.url.path.split('/')[1]
+    print(current_role)
+    if current_role == 'admin':
+        print(f'{current_role}/index.html')
+    elif current_role == 'surgery_scheduler':
+        print('zup scheduler')
+    elif current_role == 'surgeon':
+        print('zup doc')
     # return lab_request.get_all(db)
-    return templates.TemplateResponse("index.html", {"request":request, 'current_path': request.url.path})
+    return templates.TemplateResponse(f'{current_role}.index.html', {"request":request, 'current_path': request.url.path})
+    # return templates.TemplateResponse(f"index.html", {"request":request, 'current_path': request.url.path})
