@@ -21,6 +21,29 @@ $(function () {
 			const totalUsersActive = active_users.length;
 			const totalUsersInactive = inactive_users.length;
 
+			let chartCanvas = $('#usersChart').get(0).getContext('2d')
+			let chartData = {
+			  labels: [
+				  'Active Users',
+				  'Inactive Users',
+			  ],
+			  datasets: [
+				{
+				  data: [totalUsersActive, totalUsersInactive],
+				  backgroundColor : ['#f56954', '#00a65a'],
+				}
+			  ]
+			}
+			let chartOptions = {
+			  maintainAspectRatio : false,
+			  responsive : true,
+			}
+			new Chart(chartCanvas, {
+			  type: 'pie',
+			  data: chartData,
+			  options: chartOptions
+			})
+
 		},
 		error: (data) => notification("error", data.responseJSON.detail),
 	});
