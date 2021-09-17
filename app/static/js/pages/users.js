@@ -211,7 +211,6 @@ loadTable = () => {
 				$('#totalUsers').html(users.data.length)
 				$('#totalUsersActive').html(active_users.length)
 				$('#totalUsersInactive').html(inactive_users.length)
-				console.log(users)
 			}
 		},
 	});

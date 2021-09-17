@@ -223,7 +223,6 @@ loadTable = () => {
 				$('#totalSurgeries').html(surgeries.data.length)
 				$('#totalSurgeriesActive').html(active_surgeries.length)
 				$('#totalSurgeriesInactive').html(inactive_surgeries.length)
-			console.log(surgeries)
 			}
 		},
 	});
