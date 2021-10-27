@@ -27,14 +27,20 @@
     </section>
     <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-          <h1>NURSE</h1>
+ <section class="content">
+  <div class="container-fluid">
+
+    <!-- Under Maintenance -->
+    <div class="d-flex flex-column justify-content-center align-items-center text-center">
+      <div class="py-5 d-flex justify-content-center">
+        <img draggable="false" src="{{ url_for('static', path='/img/under_construction.svg') }}" alt="Under Maintenance" width="50%">
       </div>
-    </section>
-    <!-- /.content -->
-  
+      <h4>Oops! This page is under maintenance.</h4>
+      <p class="text-secondary">You can go back in others days. Sorry for the incovenience.</p>
+    </div>
+
+  </div>
+</section> 
     <div id="confirmationModal"></div>
   {% endblock %}
   
@@ -42,5 +48,5 @@
 
   <script defer></script>
 
-<script src="{{ url_for('static', path='/js/pages/users.js') }}"></script>
+<!-- <script src="{{ url_for('static', path='/js/pages/users.js') }}"></script> -->
   {% endblock %}
