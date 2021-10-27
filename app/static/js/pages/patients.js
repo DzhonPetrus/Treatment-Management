@@ -80,7 +80,9 @@ loadTable = () => {
 	$(dataTable).dataTable().fnDestroy();
 	$(dataTable).dataTable({
 		// BUTTONS FOR EXPORT
-        dom: 'Blfrtip',
+        dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
+"<'row'<'col-sm-12'tr>>" +
+"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 		buttons: [
 			{
 				extend: 'collection',
@@ -142,7 +144,7 @@ loadTable = () => {
 				data: "middle_name",
 				name: "middle_name",
 				searchable: true,
-				render: (aData) => aData || `<span class=”text-secondary font-italic”>No data</span>`
+				render: (aData) => aData || `<span class='font-italic text-secondary'>No data</span>`
 			},
 			{
 				data: "last_name",
@@ -166,7 +168,7 @@ loadTable = () => {
 			},
 			{
 				data: "is_active",
-				render: (aData) => aData.toUpperCase() == "ACTIVE" ? `<span class="p-2 w-100 badge badge-primary">${aData}</span>` : `<span class="p-2 w-100 badge badge-danger">${aData}</span>`,
+				render: (aData) => aData.toUpperCase() == "ACTIVE" ? `<span class='p-2 w-100 badge badge-primary'>${aData}</span>` : `<span class='p-2 w-100 badge badge-danger'>${aData}</span>`,
 				// name: "status",
 				// searchable: true,
 			},

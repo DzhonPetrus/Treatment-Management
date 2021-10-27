@@ -2,216 +2,214 @@
 {% set active_page = current_path.split('/')[2] %}
 {% set user_type = current_path.split('/')[1] %}
 {% block content %}
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          
-          <!-- Title -->
-          <div class="col-sm-6">
-            <h1>Lab Requests</h1>
-          </div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
 
-          <!-- Breadcrumb -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Core</a></li>
-              <li class="breadcrumb-item active">Lab Requests</li>
-            </ol>
-          </div>
-          <!-- / breadcrumb -->
-
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-
-        <!-- Info Boxes -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3 id="totalLabRequests">0</h3>
-
-                <p>Lab Requests</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-file-medical"></i>
-              </div>
-            </div>
-
-
-          </div>
-          <!-- ./col -->
-
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3 id="totalLabRequestsActive">0</h3>
-
-                <p>Active Lab Requests</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-file-medical"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3 id="totalLabRequestsInactive">0</h3>
-
-                <p>Inactive Lab Requests</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-file-medical"></i>
-              </div>
-            </div>
-          </div>
-
-
-          
-        </div>
-        
-        <!-- / Info Boxes -->
-
-        <!-- Card -->
-        <div class="card card-primary card-outline">
-
-          <!-- Card Header -->
-          <div class="card-header">
-            <h3 class="card-title">List of Lab Requests</h3>
-
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lab_request" onclick="newHandler()">
-              <i class="fa fa-plus"></i>
-              New Lab Request
-            </button>
-            
-          </div>
-          <!-- /.card-header -->
-
-          <!-- Card Body -->
-          <div class="card-body">
-            <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
-              <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Lab Test</th>
-                <th>Lab Result</th>
-                <th>Status</th>
-                <th>Is Active</th>
-                <th></th>
-              </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
-
-        </div>
-        <!-- /.card -->
-          
-
-
-        <div class="modal fade" id="modal-lab_request" aria-modal="true" role="dialog">
-          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Lab Request</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div class="modal-body">
-          <form id="form">
-            {% import 'templates/forms.html' as forms %}
-            <div class="card-body">
-
-            {{ forms.input('ID', 'id', 'text', '', '' )}}
-              <!-- PATIENT -->
-              <div class="form-group" id="group-patient_id">
-                <label>
-                  Patient
-                  <span style="color:red">*</span>
-                </label>
-                <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
-              {% for patient in patients %}
-                    <option value="{{patient['id']}}">{{patient['first_name']}}</option>
-              {% endfor -%}
-                </select>
-              </div>
-              <!-- END PATIENT -->
-
-              <!-- LAB TEST -->
-              <div class="form-group" id="group-lab_request_type_id">
-                <label>
-                  Lab Test
-                  <span style="color:red">*</span>
-                </label>
-                <select class="form-control select2" style="width: 100%;" id="lab_test_id" name="lab_test_id">
-              {% for lab_test in lab_tests %}
-                    <option value="{{lab_test['id']}}">{{lab_test['name']}}</option>
-              {% endfor -%}
-                </select>
-              </div>
-              <!-- END LAB TEST -->
-
-              <!-- LAB RESULT -->
-              <div class="form-group" id="group-patient_id">
-                <label>
-                  Lab Result
-                  <span style="color:red">*</span>
-                </label>
-                <select class="form-control select2" style="width: 100%;" id="lab_result_id" name="lab_result_id">
-              {% for lab_result in lab_results %}
-                    <option value="{{lab_result['id']}}">{{lab_result['specimen']}} | {{lab_result['result']}}</option>
-              {% endfor -%}
-                </select>
-              </div>
-              <!-- END LAB RESULT -->
-              {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED']) }}
-              {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
-              
-              
-            </div>
-          </div>
-            <div class="modal-footer float-right">
-                <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="group-btnAdd">
-                  Yes, submit it! 
-                  <i class="fa fa-check"></i>
-                </button>
-                <button type="submit" class="btn btn-info" id="group-btnUpdate">
-                  Yes, update it!
-                  <i class="fa fa-check"></i>
-                </button>
-              </div>
-            </form> 
-              
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        
-        <div id="confirmationModal"></div>
+      <!-- Title -->
+      <div class="col-sm-6">
+        <h1>Lab Requests</h1>
       </div>
-    </section>
-    <!-- /.content -->
-  
-  {% endblock %}
-  
-  {% block scripts %}
-  <script defer>
-    const lab_tests = JSON.parse(' {{lab_tests|tojson}} ');
-    const lab_results = JSON.parse(' {{lab_results|tojson}} ');
-    const patients = JSON.parse(' {{patients|tojson}} ');
+
+      <!-- Breadcrumb -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Core</a></li>
+          <li class="breadcrumb-item active">Lab Requests</li>
+        </ol>
+      </div>
+      <!-- / breadcrumb -->
+
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <!-- Info Boxes -->
+
+    <div class="row">
+
+      <div class="col-md-4 col-sm-6 col-12">
+
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="far fa-file-medical"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Lab Requests</span>
+            <span class="info-box-number" id="totalLabRequests">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success"><i class="far fa-file-medical"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Active Lab Requests</span>
+            <span class="info-box-number" id="totalLabRequestsActive">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-danger"><i class="far fa-file-medical"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Inactive Lab Requests</span>
+            <span class="info-box-number" id="totalLabRequestsInactive">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+    </div>
+    <!-- / Info Boxes -->
+
+    <!-- Card -->
+    <div class="card card-primary card-outline">
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <h3 class="card-title">List of Lab Requests</h3>
+
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lab_request"
+          onclick="newHandler()">
+          <i class="fa fa-plus"></i>
+          New Lab Request
+        </button>
+
+      </div>
+      <!-- /.card-header -->
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Lab Test</th>
+              <th>Lab Request</th>
+              <th>Status</th>
+              <th>Is Active</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+
+
+    <div class="modal fade" id="modal-lab_request" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Lab Request</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form">
+              {% import 'templates/forms.html' as forms %}
+              <div class="card-body">
+
+                {{ forms.input('ID', 'id', 'text', '', '' )}}
+                <!-- PATIENT -->
+                <div class="form-group" id="group-patient_id">
+                  <label>
+                    Patient
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
+                    {% for patient in patients %}
+                    <option value="{{patient['id']}}">{{patient['first_name']}}</option>
+                    {% endfor -%}
+                  </select>
+                </div>
+                <!-- END PATIENT -->
+
+                <!-- LAB TEST -->
+                <div class="form-group" id="group-lab_request_type_id">
+                  <label>
+                    Lab Test
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="lab_test_id" name="lab_test_id">
+                    {% for lab_test in lab_tests %}
+                    <option value="{{lab_test['id']}}">{{lab_test['name']}}</option>
+                    {% endfor -%}
+                  </select>
+                </div>
+                <!-- END LAB TEST -->
+
+                <!-- LAB RESULT -->
+                <div class="form-group" id="group-patient_id">
+                  <label>
+                    Lab Request
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="lab_result_id" name="lab_result_id">
+                    {% for lab_result in lab_results %}
+                    <option value="{{lab_result['id']}}">{{lab_result['specimen']}} | {{lab_result['result']}}</option>
+                    {% endfor -%}
+                  </select>
+                </div>
+                <!-- END LAB RESULT -->
+                {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED'])
+                }}
+                {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+
+
+              </div>
+          </div>
+          <div class="modal-footer float-right">
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="group-btnAdd">
+              Yes, submit it!
+              <i class="fa fa-check"></i>
+            </button>
+            <button type="submit" class="btn btn-info" id="group-btnUpdate">
+              Yes, update it!
+              <i class="fa fa-check"></i>
+            </button>
+          </div>
+          </form>
+
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <div id="confirmationModal"></div>
+  </div>
+</section>
+<!-- /.content -->
+
+{% endblock %}
+
+{% block scripts %}
+<script defer>
+  const lab_tests = JSON.parse(' {{lab_tests|tojson}} ');
+  const lab_results = JSON.parse(' {{lab_results|tojson}} ');
+  const patients = JSON.parse(' {{patients|tojson}} ');
 
   $(() => {
     $('#lab_test_id').select2();
@@ -220,4 +218,4 @@
   });
 </script>
 <script src="{{ url_for('static', path='/js/pages/lab_requests.js') }}"></script>
-  {% endblock %}
+{% endblock %}

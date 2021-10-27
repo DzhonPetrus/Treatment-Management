@@ -82,7 +82,9 @@ loadTable = () => {
 	$(dataTable).dataTable().fnDestroy();
 	$(dataTable).dataTable({
 		// BUTTONS FOR EXPORT
-        dom: 'Blfrtip',
+        dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
+"<'row'<'col-sm-12'tr>>" +
+"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 		buttons: [
 			{
 				extend: 'collection',
@@ -169,9 +171,9 @@ loadTable = () => {
 				const active_surgery_types = surgery_types.data.filter(types => types.is_active === 'ACTIVE')
 				const inactive_surgery_types = surgery_types.data.filter(types => types.is_active === 'INACTIVE')
 
-				$('#totalTypes').html(surgery_types.data.length)
-				$('#totalTypesActive').html(active_surgery_types.length)
-				$('#totalTypesInactive').html(inactive_surgery_types.length)
+				$('#totalSurgeryTypes').html(surgery_types.data.length)
+				$('#totalSurgeryTypesActive').html(active_surgery_types.length)
+				$('#totalSurgeryTypesInactive').html(inactive_surgery_types.length)
 			}
 		},
 	});

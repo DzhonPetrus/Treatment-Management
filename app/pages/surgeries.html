@@ -2,221 +2,220 @@
 {% set active_page = current_path.split('/')[2] %}
 {% set user_type = current_path.split('/')[1] %}
 {% block content %}
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          
-          <!-- Title -->
-          <div class="col-sm-6">
-            <h1>Surgeries</h1>
-          </div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
 
-          <!-- Breadcrumb -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Core</a></li>
-              <li class="breadcrumb-item active">Surgeries</li>
-            </ol>
-          </div>
-          <!-- / breadcrumb -->
-
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-
-        <!-- Info Boxes -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3 id="totalSurgeries">0</h3>
-
-                <p>Surgeries</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-procedures"></i>
-              </div>
-            </div>
-
-
-          </div>
-          <!-- ./col -->
-
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3 id="totalSurgeriesActive">0</h3>
-
-                <p>Active Surgeries</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-procedures"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3 id="totalSurgeriesInactive">0</h3>
-
-                <p>Inactive Surgeries</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-procedures"></i>
-              </div>
-            </div>
-          </div>
-
-
-          
-        </div>
-        
-        <!-- / Info Boxes -->
-
-        <!-- Card -->
-        <div class="card card-primary card-outline">
-
-          <!-- Card Header -->
-          <div class="card-header">
-            <h3 class="card-title">List of Surgeries</h3>
-
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery" onclick="newHandler()">
-              <i class="fa fa-plus"></i>
-              New Surgery
-            </button>
-            
-          </div>
-          <!-- /.card-header -->
-
-          <!-- Card Body -->
-          <div class="card-body">
-            <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
-              <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Room</th>
-                <th>Surgery Type</th>
-                <th>Schedule Start</th>
-                <th>Schedule End</th>
-                <th>Status</th>
-                <th>Is Active</th>
-                <th></th>
-              </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
-
-        </div>
-        <!-- /.card -->
-          
-
-
-        <div class="modal fade" id="modal-surgery" aria-modal="true" role="dialog">
-          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Surgery</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div class="modal-body">
-          <form id="form">
-            {% import 'templates/forms.html' as forms %}
-            <div class="card-body">
-
-            {{ forms.input('ID', 'id', 'text', '', '' )}}
-              <!-- SURGERY TYPE -->
-              <div class="form-group" id="group-surgery_type_id">
-                <label>
-                  Surgery Type
-                  <span style="color:red">*</span>
-                </label>
-                <select class="form-control select2" style="width: 100%;" id="surgery_type_id" name="surgery_type_id">
-              {% for surgery_type in surgery_types %}
-                    <option value="{{surgery_type['id']}}">{{surgery_type['name']}}</option>
-              {% endfor -%}
-                </select>
-              </div>
-              <!-- END SURGERY TYPE -->
-
-              <!-- PATIENT-->
-              <div class="form-group" id="group-patient_id">
-                <label>
-                  Patient
-                  <span style="color:red">*</span>
-                </label>
-                <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
-              {% for patient in patients %}
-                    <option value="{{patient['id']}}">{{patient['first_name']}}</option>
-              {% endfor -%}
-                </select>
-              </div>
-              <!-- END PATIENT -->
-
-              {{ forms.input('Room', 'room', 'text', 'required' ) }}
-              {{ forms.input('Schedule', 'start_time', 'text', 'required' ) }}
-              {{ forms.input('Surgery Ended', 'end_time', 'text' ) }}
-              {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-PROCESS', 'DONE', 'CANCELLED']) }}
-              {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
-              
-              <div class="form-group" id="group-nurse_in_charge">
-                <label>
-                  Surgical Nurse In Charge
-                  <span style="color:red">*</span>
-                </label>
-                <select class="form-control select2" style="width: 100%;" id="nurse_in_charge" name="nurse_in_charge" multiple="multiple"></select>
-              </div>
-              <div class="form-group" id="group-surgeon_in_charge">
-                <label>
-                  Surgeon In Charge
-                  <span style="color:red">*</span>
-                </label>
-                <select class="form-control select2" style="width: 100%;" id="surgeon_in_charge" name="surgeon_in_charge" multiple="multiple"></select>
-              </div>
-              
-            </div>
-          </div>
-            <div class="modal-footer float-right">
-                <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="group-btnAdd">
-                  Yes, submit it! 
-                  <i class="fa fa-check"></i>
-                </button>
-                <button type="submit" class="btn btn-info" id="group-btnUpdate">
-                  Yes, update it!
-                  <i class="fa fa-check"></i>
-                </button>
-              </div>
-            </form> 
-              
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        
-        <div id="confirmationModal"></div>
+      <!-- Title -->
+      <div class="col-sm-6">
+        <h1>Surgeries</h1>
       </div>
-    </section>
-    <!-- /.content -->
-  
-  {% endblock %}
-  
-  {% block scripts %}
-  <script defer>
-    const surgery_types = JSON.parse(' {{surgery_types|tojson}} ');
-    const patients = JSON.parse(' {{patients|tojson}} ');
+
+      <!-- Breadcrumb -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Core</a></li>
+          <li class="breadcrumb-item active">Surgeries</li>
+        </ol>
+      </div>
+      <!-- / breadcrumb -->
+
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <!-- Info Boxes -->
+
+    <div class="row">
+
+      <div class="col-md-4 col-sm-6 col-12">
+
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="far fa-procedures"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Surgeries</span>
+            <span class="info-box-number" id="totalSurgeries">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success"><i class="far fa-procedures"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Active Surgeries</span>
+            <span class="info-box-number" id="totalSurgeriesActive">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-danger"><i class="far fa-procedures"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Inactive Surgeries</span>
+            <span class="info-box-number" id="totalSurgeriesInactive">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+    </div>
+    <!-- / Info Boxes -->
+
+    <!-- Card -->
+    <div class="card card-primary card-outline">
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <h3 class="card-title">List of Surgeries</h3>
+
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery"
+          onclick="newHandler()">
+          <i class="fa fa-plus"></i>
+          New Surgery
+        </button>
+
+      </div>
+      <!-- /.card-header -->
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Room</th>
+              <th>Surgery Type</th>
+              <th>Schedule Start</th>
+              <th>Schedule End</th>
+              <th>Status</th>
+              <th>Is Active</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+
+
+    <div class="modal fade" id="modal-surgery" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Surgery</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form">
+              {% import 'templates/forms.html' as forms %}
+              <div class="card-body">
+
+                {{ forms.input('ID', 'id', 'text', '', '' )}}
+                <!-- SURGERY TYPE -->
+                <div class="form-group" id="group-surgery_type_id">
+                  <label>
+                    Surgery Type
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="surgery_type_id" name="surgery_type_id">
+                    {% for surgery_type in surgery_types %}
+                    <option value="{{surgery_type['id']}}">{{surgery_type['name']}}</option>
+                    {% endfor -%}
+                  </select>
+                </div>
+                <!-- END SURGERY TYPE -->
+
+                <!-- PATIENT-->
+                <div class="form-group" id="group-patient_id">
+                  <label>
+                    Patient
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
+                    {% for patient in patients %}
+                    <option value="{{patient['id']}}">{{patient['first_name']}}</option>
+                    {% endfor -%}
+                  </select>
+                </div>
+                <!-- END PATIENT -->
+
+                {{ forms.input('Room', 'room', 'text', 'required' ) }}
+                {{ forms.input('Schedule', 'start_time', 'text', 'required' ) }}
+                {{ forms.input('Surgery Ended', 'end_time', 'text' ) }}
+                {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-PROCESS', 'DONE', 'CANCELLED']) }}
+                {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+
+                <div class="form-group" id="group-nurse_in_charge">
+                  <label>
+                    Surgical Nurse In Charge
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="nurse_in_charge" name="nurse_in_charge"
+                    multiple="multiple"></select>
+                </div>
+                <div class="form-group" id="group-surgeon_in_charge">
+                  <label>
+                    Surgeon In Charge
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="surgeon_in_charge"
+                    name="surgeon_in_charge" multiple="multiple"></select>
+                </div>
+
+              </div>
+          </div>
+          <div class="modal-footer float-right">
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="group-btnAdd">
+              Yes, submit it!
+              <i class="fa fa-check"></i>
+            </button>
+            <button type="submit" class="btn btn-info" id="group-btnUpdate">
+              Yes, update it!
+              <i class="fa fa-check"></i>
+            </button>
+          </div>
+          </form>
+
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <div id="confirmationModal"></div>
+  </div>
+</section>
+<!-- /.content -->
+
+{% endblock %}
+
+{% block scripts %}
+<script defer>
+  const surgery_types = JSON.parse(' {{surgery_types|tojson}} ');
+  const patients = JSON.parse(' {{patients|tojson}} ');
 
   $(() => {
     $('#surgeon_in_charge').select2();
@@ -245,4 +244,4 @@
   });
 </script>
 <script src="{{ url_for('static', path='/js/pages/surgeries.js') }}"></script>
-  {% endblock %}
+{% endblock %}

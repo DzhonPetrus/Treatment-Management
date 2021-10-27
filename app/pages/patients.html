@@ -2,193 +2,192 @@
 {% set active_page = current_path.split('/')[2] %}
 {% set user_type = current_path.split('/')[1] %}
 {% block content %}
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          
-          <!-- Title -->
-          <div class="col-sm-6">
-            <h1>Patients</h1>
-          </div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
 
-          <!-- Breadcrumb -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Core</a></li>
-              <li class="breadcrumb-item active">Patients</li>
-            </ol>
-          </div>
-          <!-- / breadcrumb -->
+      <!-- Title -->
+      <div class="col-sm-6">
+        <h1>Patients</h1>
+      </div>
 
+      <!-- Breadcrumb -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Core</a></li>
+          <li class="breadcrumb-item active">Patients</li>
+        </ol>
+      </div>
+      <!-- / breadcrumb -->
+
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <!-- Info Boxes -->
+    <div class="row">
+
+      <div class="col-md-4 col-sm-6 col-12">
+
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="far fa-address-book"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Patients</span>
+            <span class="info-box-number" id="totalPatients">0</span>
+          </div>
+          <!-- /.info-box-content -->
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content-header -->
+        <!-- ./col -->
+      </div>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success"><i class="far fa-address-card"></i></span>
 
-        <!-- Info Boxes -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3 id="totalPatients">0</h3>
-
-                <p>Patients</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-address-book"></i>
-              </div>
-            </div>
-
-
+          <div class="info-box-content">
+            <span class="info-box-text">Active Patients</span>
+            <span class="info-box-number" id="totalPatientsActive">0</span>
           </div>
-          <!-- ./col -->
-
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3 id="totalPatientsActive">0</h3>
-
-                <p>Active Patients</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-address-book"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-6">
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3 id="totalPatientsInactive">0</h3>
-
-                <p>Inactive Patients</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-address-book"></i>
-              </div>
-            </div>
-          </div>
-
-
-          
+          <!-- /.info-box-content -->
         </div>
-        <!-- / Info Boxes -->
+        <!-- ./col -->
+      </div>
 
-        <!-- Card -->
-        <div class="card card-primary card-outline">
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-danger"><i class="far fa-address-book"></i></span>
 
-          <!-- Card Header -->
-          <div class="card-header">
-            <h3 class="card-title">List of Patients</h3>
+          <div class="info-box-content">
+            <span class="info-box-text">Inactive Patients</span>
+            <span class="info-box-number" id="totalPatientsInactive">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
 
-            
-            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-patient" onclick="newHandler()">
-              <i class="fa fa-plus"></i>
-              New Patient
+    </div>
+
+    <!-- / Info Boxes -->
+
+    <!-- Card -->
+    <div class="card card-primary card-outline">
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <h3 class="card-title">List of Patients</h3>
+
+
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-patient"
+          onclick="newHandler()">
+          <i class="fa fa-plus"></i>
+          New Patient
+        </button>
+      </div>
+      <!-- /.card-header -->
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              <th>Type</th>
+              <th>Gender</th>
+              <th>Blood Type</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+
+    <div class="modal fade" id="modal-patient" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Patient</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
             </button>
           </div>
-          <!-- /.card-header -->
+          <div class="modal-body">
+            <form id="form">
+              {% import 'templates/forms.html' as forms %}
+              <div class="card-body">
+                {{ forms.input('ID', 'id', 'text', '', '' )}}
+                {{ forms.select('Type', 'type', 'required', ['Outpatient', 'Inpatient']) }}
+                {{ forms.input('First Name', 'first_name', 'text', 'required') }}
+                {{ forms.input('Middle Name', 'middle_name', 'text', '') }}
+                {{ forms.input('Last Name', 'last_name', 'text', 'required') }}
+                {{ forms.input('Suffix Name', 'suffix_name', 'text', '') }}
+                {{ forms.input('Birth Date', 'birth_date', 'text', 'required') }}
+                {{ forms.select('Gender', 'gender', 'text',['Male', 'Female']) }}
+                {{ forms.input('Contact Number', 'contact_no', 'text', 'required') }}
+                {{ forms.input('Email', 'email', 'email', 'required') }}
+                {{ forms.select('Blood Type', 'blood_type', 'text', ['O-', 'O+', 'B-', 'B+', 'A-', 'A+', 'AB-', 'AB+'])
+                }}
+                <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
+                {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
 
-          <!-- Card Body -->
-          <div class="card-body">
-            <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
-              <thead>
-                <tr>
-                  <th>Full Name</th>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Last Name</th>
-                  <th>Type</th>
-                  <th>Gender</th>
-                  <th>Blood Type</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
-
-        </div>
-        <!-- /.card -->
-          
-
-        <div class="modal fade" id="modal-patient" aria-modal="true" role="dialog">
-          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Patient</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
               </div>
-              <div class="modal-body">
-          <form id="form">
-            {% import 'templates/forms.html' as forms %}
-            <div class="card-body">
-              {{ forms.input('ID', 'id', 'text', '', '' )}}
-              {{ forms.select('Type', 'type', 'required', ['Outpatient', 'Inpatient']) }}
-              {{ forms.input('First Name', 'first_name', 'text', 'required') }}
-              {{ forms.input('Middle Name', 'middle_name', 'text', '') }}
-              {{ forms.input('Last Name', 'last_name', 'text', 'required') }}
-              {{ forms.input('Suffix Name', 'suffix_name', 'text', '') }}
-              {{ forms.input('Birth Date', 'birth_date', 'text', 'required') }}
-              {{ forms.select('Gender', 'gender', 'text',['Male', 'Female']) }}
-              {{ forms.input('Contact Number', 'contact_no', 'text', 'required') }}
-              {{ forms.input('Email', 'email', 'email', 'required') }}
-              {{ forms.select('Blood Type', 'blood_type', 'text', ['O-', 'O+', 'B-', 'B+', 'A-', 'A+', 'AB-', 'AB+']) }}
-              <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
-              {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
-              
-            </div>
-            </div>
-            <div class="modal-footer float-right">
-              <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" id="group-btnAdd">
-                Yes, submit it! 
-                <i class="fa fa-check"></i>
-              </button>
-              <button type="submit" class="btn btn-info" id="group-btnUpdate">
-                Yes, update it!
-                <i class="fa fa-check"></i>
-              </button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </form> 
           </div>
-          <!-- /.modal-dialog -->
+          <div class="modal-footer float-right">
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="group-btnAdd">
+              Yes, submit it!
+              <i class="fa fa-check"></i>
+            </button>
+            <button type="submit" class="btn btn-info" id="group-btnUpdate">
+              Yes, update it!
+              <i class="fa fa-check"></i>
+            </button>
+          </div>
         </div>
-
-        <div id="confirmationModal"></div>
-        
+        <!-- /.modal-content -->
+        </form>
       </div>
-    </section>
-    <!-- /.content -->
-  
-  {% endblock %}
-  
-  {% block scripts %}
+      <!-- /.modal-dialog -->
+    </div>
 
-  <script defer>
-    $("#birth_date").daterangepicker({
-      singleDatePicker: true,
-      showDropdowns: true,
-      locale: {
-        format: 'YYYY-MM-DD'
-      },
-      minYear: 1901,
-      maxYear: parseInt(moment().format('YYYY'),10)
-    });
+    <div id="confirmationModal"></div>
 
-  </script>
+  </div>
+</section>
+<!-- /.content -->
+
+{% endblock %}
+
+{% block scripts %}
+
+<script defer>
+  $("#birth_date").daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    locale: {
+      format: 'YYYY-MM-DD'
+    },
+    minYear: 1901,
+    maxYear: parseInt(moment().format('YYYY'), 10)
+  });
+
+</script>
 
 <script src="{{ url_for('static', path='/js/pages/patients.js') }}"></script>
-  {% endblock %}
+{% endblock %}

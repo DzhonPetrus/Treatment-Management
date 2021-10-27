@@ -114,7 +114,9 @@ loadTable = () => {
 	$(dataTable).dataTable().fnDestroy();
 	$(dataTable).dataTable({
 		// BUTTONS FOR EXPORT
-        dom: 'Blfrtip',
+        dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
+"<'row'<'col-sm-12'tr>>" +
+"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 		buttons: [
 			{
 				extend: 'collection',
@@ -189,7 +191,7 @@ loadTable = () => {
 				data: "end_time",
 				name: "end_time",
 				searchable: true,
-				render: data => data == null ? `<div class=”text-secondary font-italic”>No data</div>` : formatDateTime(data) + `<div class="text-secondary fomt-italic">${moment(data).fromNow()}</div>`
+				render: data => data == null ? `<div class='text-secondary font-italic'>No data</div>` : formatDateTime(data) + `<div class='font-italic text-secondary'>${moment(data).fromNow()}</div>`
 			},
 			{
 				data: "status",
