@@ -87,6 +87,7 @@ loadTable = () => {
 		buttons: [
 			{
 				extend: 'collection',
+className: 'btn-sm',
 				text: '<i class="fa fa-file-export"></i> Export',
 				buttons: [
 					{

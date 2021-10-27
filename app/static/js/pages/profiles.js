@@ -83,12 +83,13 @@ loadTable = () => {
 	$(dataTable).dataTable().fnDestroy();
 	$(dataTable).dataTable({
 		// BUTTONS FOR EXPORT
-        dom: "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
+        dom: "<'row'<'col-sm-12 col-md-6'Bl><'col-sm-12 col-md-6'f>>" +
 "<'row'<'col-sm-12'tr>>" +
 "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
 		buttons: [
 			{
 				extend: 'collection',
+className: 'btn-sm',
 				text: '<i class="fa fa-file-export"></i> Export',
 				buttons: [
 					{
