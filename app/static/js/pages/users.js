@@ -192,7 +192,7 @@ loadTable = () => {
 			},
 			{
 				data: null,
-				render: (aData) => renderButtons(aData, "Surgery", renderAdditionalButtons(aData)),
+				render: (aData) => renderButtons(aData, "User", renderAdditionalButtons(aData)),
 				// render:(data) => console.log(data.user_type)
 			},
 		],
