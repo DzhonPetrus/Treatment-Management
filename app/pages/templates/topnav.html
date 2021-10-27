@@ -1,14 +1,85 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
+
+{% if user_type == 'admin' -%}
+<!-- Left navbar links -->
+<div class="collapse navbar-collapse order-3" id="navbarCollapse">
+  <ul class="navbar-nav">
+
+      <!-- Sidebar Toggler -->
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+              <i class="fas fa-bars"></i>
+          </a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="/{{user_type}}" class="nav-link">Dashboard</a>
+
+      <!-- Hospital Core -->
+      <li class="nav-item dropdown">
+          <a 
+              href="#" 
+              data-toggle="dropdown" 
+              class="nav-link dropdown-toggle text-primary"
+          >Hospital Core</a>
+          
+          <ul class="dropdown-menu dropdown-menu-left">
+              <li><a href="#" class="dropdown-item">Patient Management</a></li>
+              <li><a href="#" class="dropdown-item active">Treatment Management</a></li>
+              <li><a href="#" class="dropdown-item">Pharmacy</a></li>
+              <li><a href="#" class="dropdown-item">Medical Record</a></li>
+              <li><a href="#" class="dropdown-item">Doctors Management</a></li>
+              <li><a href="#" class="dropdown-item">Visitors Management</a></li>
+          </ul>
       </li>
-    </ul>
-    <!-- /.navbar-nav -->
+
+      <!-- Human Resource -->
+      <li class="nav-item dropdown">
+          <a 
+              href="#" 
+              data-toggle="dropdown" 
+              class="nav-link dropdown-toggle"
+          >Human Resource</a>
+          
+          <ul class="dropdown-menu dropdown-menu-left">
+              <li><a href="#" class="dropdown-item">Core Human Capital Management</a></li>
+              <li><a href="#" class="dropdown-item">Recruitment Management</a></li>
+              <li><a href="#" class="dropdown-item">Time & Attendance</a></li>
+              <li><a href="#" class="dropdown-item">Performance Management</a></li>
+          </ul>
+      </li>
+
+      <!-- Finance -->
+      <li class="nav-item dropdown">
+          <a 
+              href="#" 
+              data-toggle="dropdown" 
+              class="nav-link dropdown-toggle"
+          >Finance</a>
+          
+          <ul class="dropdown-menu dropdown-menu-left">
+              <li><a href="#" class="dropdown-item">General Ledger</a></li>
+              <li><a href="#" class="dropdown-item">Accounts Payable/Receivable</a></li>
+              <li><a href="#" class="dropdown-item">Collection/Disbursement</a></li>
+          </ul>
+      </li>
+
+      <!-- Logistics -->
+      <li class="nav-item dropdown">
+          <a 
+              href="#" 
+              data-toggle="dropdown" 
+              class="nav-link dropdown-toggle"
+          >Logistics</a>
+          
+          <ul class="dropdown-menu dropdown-menu-left">
+              <li><a href="#" class="dropdown-item">Procurement Management</a></li>
+              <li><a href="#" class="dropdown-item">Warehousing Management</a></li>
+              <li><a href="#" class="dropdown-item">Asset Management</a></li>
+              <li><a href="#" class="dropdown-item">Project Management</a></li>
+          </ul>
+      </li>
+  </ul>
+</div>  
+{% endif -%}
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
