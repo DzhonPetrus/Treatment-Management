@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="app/pages")
 
 router = APIRouter(
     # prefix="/lab_request",
-    tags=['Home / Index']
+    tags=['Dashboard / Index']
 )
 
 get_db = database.get_db
