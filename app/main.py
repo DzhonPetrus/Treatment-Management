@@ -22,6 +22,11 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.include_router(routes.authentication.router)
 
 
+
+app.include_router(roles.public.router)
+
+
+
 app.include_router(roles.admin.router)
 
 

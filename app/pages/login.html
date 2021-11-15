@@ -33,7 +33,7 @@
       <form id="form">
         <label>Email</label>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+          <input type="email" class="form-control" placeholder="Email" name="email" id="email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -45,7 +45,7 @@
         </p>
         <label>Password</label>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+          <input type="password" class="form-control" placeholder="Password" name="password" id="password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -80,3 +80,36 @@
 
 <script src="{{ url_for('static', path='/js/token.js') }}"></script>
 <script src="{{ url_for('static', path='/js/pages/login.js') }}"></script>
+
+<script>
+$('#form').validate({
+  rules: {
+      email: {
+          required: true,
+          email: true
+      },
+      password: {
+          required: true
+      },
+  },
+  messages: {
+      email: {
+          required: 'Please fill-out email',
+          email: 'Please enter valid email. ex. user@email.com',
+      },
+      password: {
+          required: 'Please fill-out password'
+      },
+  },
+  errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+  },
+  highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+  },
+  unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+  }
+});
+</script>
