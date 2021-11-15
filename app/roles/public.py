@@ -8,3 +8,4 @@ router = APIRouter(
 )
 
 router.include_router(routes.public.landing.router)
+router.include_router(routes.public.find_doctor.router)

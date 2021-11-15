@@ -18,7 +18,7 @@ router = APIRouter()
 
 get_db = database.get_db
 
-@router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
+@router.get('/find_doctor', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return user.get_all(db)
-    return templates.TemplateResponse("landing.html", {"request":request, 'current_path': request.url.path})
+    return templates.TemplateResponse("find_doctor.html", {"request":request, 'current_path': request.url.path})

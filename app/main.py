@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from . import models, routes, roles
 from .database import engine
@@ -17,8 +18,14 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+router = APIRouter()
+@router.get('/')
+def redirect():
+    return RedirectResponse("http://127.0.0.1:8000/public")
+
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
+app.include_router(router)
 app.include_router(routes.authentication.router)
 
 
