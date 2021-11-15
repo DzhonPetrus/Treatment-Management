@@ -30,6 +30,14 @@
   ] -%}
 {% endif -%}
 
+<!-- {% if user_type == 'admin' -%}
+{% set navigation_core = [
+  ('/', 'index', 'Dashboard', 'fa-home'),
+  ('/user', 'user', 'Users', 'fa-users'),
+  ('/profile', 'profile', 'User Profiles', 'fa-address-card'),
+  ('/patient', 'patient', 'Patients', 'fa-address-book')
+  ] -%} -->
+
 {% if user_type == 'admin' -%}
 {% set navigation_core = [
   ('/', 'index', 'Dashboard', 'fa-home'),
