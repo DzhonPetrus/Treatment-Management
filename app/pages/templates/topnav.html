@@ -1,3 +1,6 @@
+{% set isSysAdmin = request.url.path.split('/')[2] == 'sysadmin' -%}
+
+
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 
 {% if user_type == 'admin' -%}
@@ -11,18 +14,24 @@
               <i class="fas fa-bars"></i>
           </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin" role="button">
+            <i class="fas fa-home"></i>
+            <span class="d-inline-block d-md-none ml-1 ml-md-0">Home</span>
+        </a>
+      </li>
 
       <!-- Hospital Core -->
       <li class="nav-item dropdown">
           <a 
               href="#" 
               data-toggle="dropdown" 
-              class="nav-link dropdown-toggle text-primary"
+              class="nav-link dropdown-toggle {{'text-primary' if not isSysAdmin}}"
           >Hospital Core</a>
           
           <ul class="dropdown-menu dropdown-menu-left">
               <li><a href="#" class="dropdown-item">Patient Management</a></li>
-              <li><a href="#" class="dropdown-item active">Treatment Management</a></li>
+              <li><a href="/admin" class="dropdown-item {{'active' if not isSysAdmin}}">Treatment Management</a></li>
               <li><a href="#" class="dropdown-item">Pharmacy</a></li>
               <li><a href="#" class="dropdown-item">Medical Record</a></li>
               <li><a href="#" class="dropdown-item">Doctors Management</a></li>
@@ -75,6 +84,14 @@
               <li><a href="#" class="dropdown-item">Asset Management</a></li>
               <li><a href="#" class="dropdown-item">Project Management</a></li>
           </ul>
+      </li>
+
+
+      <!-- SysAdmin -->
+      <li class="nav-item">
+        <a class="nav-link {{'text-primary' if isSysAdmin}}" href="/admin/sysadmin" role="button">
+            <span>SysAdmin</span>
+        </a>
       </li>
   </ul>
 </div>  
@@ -150,21 +167,42 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li> -->
+
+      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            
+        <!-- User Menu -->
+        <li class="nav-item dropdown show">
+            <a href="#" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="true">
+                <i class="fas fa-user-circle"></i>
+                <!-- <span class="badge badge-warning navbar-badge">15</span> -->
+            </a>
+    
+            <div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px;">
+                <a role="button" class="dropdown-item d-flex align-items-center" onclick="location.replace(`${BASE_URL}${user_type}/me`)">
+                    <div class="mr-3" style="width: 1.25rem">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+                <a href="#" class="dropdown-item d-flex align-items-center">
+                    <div class="mr-3" style="width: 1.25rem">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <span>Settings</span>
+                </a>
+    
+                <div class="dropdown-divider"></div>
+                
+                <a role="button" class="dropdown-item d-flex align-items-center" onclick="logout()">
+                    <div class="mr-3" style="width: 1.25rem">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </li>
+    </ul>
       
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user"></i>
-          <!-- <span class="badge badge-warning navbar-badge">15</span> -->
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" role="button" onclick="location.replace(`${BASE_URL}${user_type}/me`)">
-            <i class="fas fa-user-circle"></i> Profile
-            <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a  class="dropdown-item" role="button" onclick="logout()"><i class="fa fa-sign-out-alt"></i> Log out</a>
-        </div>
-      </li>
     </ul>
     <!-- /.navbar-nav -->
   </nav>

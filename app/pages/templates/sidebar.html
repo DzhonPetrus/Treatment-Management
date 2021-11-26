@@ -69,14 +69,17 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ url_for('static', path='/img/user2-160x160.jpg') }}" class="img-fluid rounded-circle-2" alt="User Image" id="sidebar_picture">
+          <img src="{{ url_for('static', path='/img/user2-160x160.jpg') }}" class="img-circle border" alt="User Image" id="sidebar_picture">
         </div>
         <div class="info mr-1">
-          <a href="/{{user_type}}/me" class="d-block text-truncate" id="sidebar_full_name"></a>
-          <div class="text-secondary" id="sidebar_user_type"></div>
-          <div class="text-secondary" id="sidebar_user_department"></div>
+          <a href="/{{user_type}}/me" class="nav-item text-truncate" id="sidebar_full_name"></a>
+          <div class="small text-secondary text-truncate" id="sidebar_user_type"></div>
+          <div class="small text-secondary text-truncate" id="sidebar_user_department"></div>
         </div>
       </div>
+
+      
+
 
       <!-- SidebarSearch Form -->
       <!-- <div class="form-inline">

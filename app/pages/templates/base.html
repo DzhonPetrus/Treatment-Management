@@ -1,3 +1,5 @@
+{% set isSysAdmin = request.url.path.split('/')[2] == 'sysadmin' -%}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,9 +63,13 @@
   {% include "templates/topnav.html" %} 
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  {% include "templates/sidebar.html" %} 
-  <!-- /.main-sidebar -->
+  {% if isSysAdmin -%}
+    {% include "templates/sysadmin.sidebar.html" %} 
+  {% else -%}
+    <!-- Main Sidebar Container -->
+    {% include "templates/sidebar.html" %} 
+    <!-- /.main-sidebar -->
+  {% endif -%}
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

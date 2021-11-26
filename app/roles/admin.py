@@ -24,3 +24,7 @@ router.include_router(routes.user.router)
 router.include_router(routes.profile.router)
 
 router.include_router(routes.me.router)
+
+
+
+router.include_router(routes.sysadmin.router)
