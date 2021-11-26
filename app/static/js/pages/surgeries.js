@@ -184,9 +184,15 @@ className: 'btn-sm',
 			},
 			{
 				data: "start_time",
+				visible: false,
+				searchable: true,
+				render: data => moment(data).format('YYYY-MM-DD'),
+			},
+			{
+				data: "start_time",
 				name: "start_time",
 				searchable: true,
-				render: data => formatDateTime(data) + `<div class="text-secondary fomt-italic">${moment(data).fromNow()}</div>`
+				render: data => formatDateTime(data) + `<div class="text-secondary fomt-italic">${moment(data).fromNow()}</div><div class="d-none text-secondary fomt-italic">${moment(data).format('YYYY-MM-DD hh:mm:ss')}</div>`
 			},
 			{
 				data: "end_time",
@@ -259,6 +265,11 @@ className: 'btn-sm',
 		},
 		error: (data) => notification("error", data.responseJSON.detail),
 	});
+
+
+	let tbl = $(dataTable).DataTable();
+	$('#filter_date').on('change', () => tbl.draw());
+	tbl.column(3).visible(false);
 };
 
 // VIEW DATA
