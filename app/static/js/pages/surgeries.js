@@ -268,7 +268,39 @@ className: 'btn-sm',
 
 
 	let tbl = $(dataTable).DataTable();
+	$('#filter_date').hide();
 	$('#filter_date').on('change', () => tbl.draw());
+	$('#filter_select').on('change', function() {
+		$('#filter_date').hide();
+		let selected = this.value;
+		switch(selected) {
+			case 'ALL': filter_all(); break;
+			case 'TODAY': filter_today(); break;
+			case 'THIS WEEK': filter_week(); break;
+			case 'THIS MONTH': filter_month(); break;
+			case 'THIS YEAR': filter_year(); break;
+			case 'CUSTOM': filter_custom(); break;
+		}
+		tbl.draw();
+	});
+
+	filter_all = () => $("#filter_date").val(`${moment().subtract(30, 'year').startOf('month').format('YYYY-MM-DD')} - ${moment().endOf('month').format('YYYY-MM-DD')}`);
+
+	filter_today = () => $("#filter_date").val(`${moment().format('YYYY-MM-DD')} - ${moment().format('YYYY-MM-DD')}`);
+
+	filter_week = () => $("#filter_date").val(`${moment().subtract(6, 'days').format('YYYY-MM-DD')} - ${moment().format('YYYY-MM-DD')}`);
+
+	filter_month = () => $("#filter_date").val(`${moment().startOf('month').format('YYYY-MM-DD')} - ${moment().endOf('month').format('YYYY-MM-DD')}`);
+
+	filter_year = () => $("#filter_date").val(`${moment().startOf('year').format('YYYY-MM-DD')} - ${moment().endOf('year').format('YYYY-MM-DD')}`);
+
+	filter_custom = () => {
+		$('#filter_date').show();
+
+	};
+
+
+
 	tbl.column(3).visible(false);
 };
 
