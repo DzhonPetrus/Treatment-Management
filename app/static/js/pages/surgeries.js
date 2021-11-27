@@ -274,7 +274,6 @@ className: 'btn-sm',
 	$('#filter_select').on('select2:select', function() {
 		// $('#filter_date').hide();
 		let selected = this.value;
-		console.log(selected);
 		switch(selected) {
 			case 'ALL': filter_all(); break;
 			case 'TODAY': filter_today(); break;
