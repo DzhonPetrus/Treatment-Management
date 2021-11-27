@@ -296,6 +296,7 @@ className: 'btn-sm',
 
 	filter_custom = () => {
 		$('#filter_date').show();
+		$('#filter_date').focus();
 
 	};
 
