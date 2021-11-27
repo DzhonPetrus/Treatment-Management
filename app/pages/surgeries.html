@@ -97,18 +97,25 @@
       <!-- Card Body -->
       <div class="card-body">
 
-        <div class="form-group align-right">
-        Filter Date:
-        <select class="form-control" id="filter_select">
-          <option value="ALL">ALL</option>
-          <option value="TODAY">TODAY</option>
-          <option value="THIS WEEK">THIS WEEK</option>
-          <option value="THIS MONTH">THIS MONTH</option>
-          <option value="THIS YEAR">THIS YEAR</option>
-          <option value="CUSTOM">CUSTOM</option>
-        </select>
+        <div class="row">
+          <div class="col-9"></div>
 
-        <input class="form-control" type="text" id="filter_date">
+          <div class="col-3">
+            <div class="form-group">
+              Filter Date:
+              <select class="form-control" id="filter_select">
+                <option value="ALL">ALL</option>
+                <option value="TODAY">TODAY</option>
+                <option value="THIS WEEK">THIS WEEK</option>
+                <option value="THIS MONTH">THIS MONTH</option>
+                <option value="THIS YEAR">THIS YEAR</option>
+                <option value="CUSTOM">CUSTOM</option>
+              </select>
+
+              <input class="form-control" type="text" id="filter_date">
+
+            </div>
+          </div>
         </div>
 
         <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
@@ -268,53 +275,53 @@
       startDate: moment().startOf('year'),
       endDate: moment().endOf('year'),
       locale: {
-          format: 'YYYY-MM-DD',
-          firstDay: 1,
+        format: 'YYYY-MM-DD',
+        firstDay: 1,
       },
       minYear: 1901,
       ranges: {
-          'All time': [moment().subtract(30, 'year').startOf('month'), moment().endOf('month')],
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-          'This Year': [moment().startOf('year'), moment().endOf('year')],
-          'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+        'All time': [moment().subtract(30, 'year').startOf('month'), moment().endOf('month')],
+        'Today': [moment(), moment()],
+        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+        'This Year': [moment().startOf('year'), moment().endOf('year')],
+        'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
       }
     });
 
     let dateInterval = $("#filter_date").val();
     if (dateInterval) {
-        dateInterval = dateInterval.split(' - ');
-        start = dateInterval[0];
-        end = dateInterval[1];
+      dateInterval = dateInterval.split(' - ');
+      start = dateInterval[0];
+      end = dateInterval[1];
     }
 
     $.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
+      function (settings, data, dataIndex) {
         let dateInterval = $("#filter_date").val();
         if (dateInterval) {
-            dateInterval = dateInterval.split(' - ');
-            start = dateInterval[0];
-            end = dateInterval[1];
+          dateInterval = dateInterval.split(' - ');
+          start = dateInterval[0];
+          end = dateInterval[1];
         }
         var min = new Date(start);
         var max = new Date(end);
-        var date = new Date( data[3] );
- 
+        var date = new Date(data[3]);
+
         if (
-            ( min === null && max === null ) ||
-            ( min === null && date <= max ) ||
-            ( min <= date   && max === null ) ||
-            ( min <= date   && date <= max )
+          (min === null && max === null) ||
+          (min === null && date <= max) ||
+          (min <= date && max === null) ||
+          (min <= date && date <= max)
         ) {
-            return true;
+          return true;
         }
         return false;
-    }
-  );
+      }
+    );
 
 
 
