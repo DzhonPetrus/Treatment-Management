@@ -268,18 +268,20 @@ className: 'btn-sm',
 
 
 	let tbl = $(dataTable).DataTable();
-	$('#filter_date').hide();
+	// $('#filter_date').hide();
 	$('#filter_date').on('change', () => tbl.draw());
-	$('#filter_select').on('change', function() {
-		$('#filter_date').hide();
+	$('#filter_select').select2();
+	$('#filter_select').on('select2:select', function() {
+		// $('#filter_date').hide();
 		let selected = this.value;
+		console.log(selected);
 		switch(selected) {
 			case 'ALL': filter_all(); break;
 			case 'TODAY': filter_today(); break;
 			case 'THIS WEEK': filter_week(); break;
 			case 'THIS MONTH': filter_month(); break;
 			case 'THIS YEAR': filter_year(); break;
-			case 'CUSTOM': filter_custom(); break;
+			case 'CUSTOM': filter_custom(); this.value=null; break;
 		}
 		tbl.draw();
 	});
@@ -295,7 +297,7 @@ className: 'btn-sm',
 	filter_year = () => $("#filter_date").val(`${moment().startOf('year').format('YYYY-MM-DD')} - ${moment().endOf('year').format('YYYY-MM-DD')}`);
 
 	filter_custom = () => {
-		$('#filter_date').show();
+		// $('#filter_date').show();
 		$('#filter_date').focus();
 
 	};
