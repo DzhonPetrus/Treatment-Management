@@ -5,7 +5,7 @@
 	window.modal = "#modal-treatment_type";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "name", "room", "description", "price", "is_active", "btnAdd", "btnUpdate"];
+	window.fields = ["id", "name", "room", "description", "fee", "is_active", "btnAdd", "btnUpdate"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
 	window.readOnlyFields = ["id", "is_active"];
 
@@ -152,8 +152,8 @@ className: 'btn-sm',
 				searchable: true,
 			},
 			{
-				data: "price",
-				name: "price",
+				data: "fee",
+				name: "fee",
 				searchable: true,
 			},
 			{

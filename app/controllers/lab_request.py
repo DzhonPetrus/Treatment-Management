@@ -1,5 +1,6 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
+from uuid import uuid4
 
 from .. import models
 
@@ -23,6 +24,16 @@ def get_one(id, db: Session):
     }
 
 def create(lab_request, db: Session):
+    # TODO:
+    # ADD LAB_REQUEST
+    # REMOVE INPATIENT_ID
+    # ADD INPATIENT_ID
+    # ADD OUTPATIENT_ID
+
+
+    request_no = 'LR-' + (str(uuid4()).split('-')[0]).upper()
+    print(request_no)
+
     new_lab_request = models.LabRequest(
         lab_test_id = lab_request.lab_test_id,
         lab_result_id = lab_request.lab_result_id,

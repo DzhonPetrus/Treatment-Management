@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from ..utils.schemaHelper import Base, as_form
 
 class LabResultBase(Base):
+    lab_request_id: str
     specimen : Optional[str] = None
     result : Optional[str] = None
     reference : Optional[str] = None

@@ -5,7 +5,7 @@
 	window.modal = "#modal-lab_result";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "specimen", "result", "reference", "unit", "detailed_result", "status", "is_active", "btnAdd", "btnUpdate", "file", "detailed_result_placeholder"];
+	window.fields = ["id", "lab_request_id", "specimen", "result", "reference", "unit", "detailed_result", "status", "is_active", "btnAdd", "btnUpdate", "file", "detailed_result_placeholder"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active", "detailed_result_placeholder"];
 	window.readOnlyFields = ["id", "is_active"];
 
@@ -138,6 +138,11 @@ className: 'btn-sm',
 			{ sClass: "text-center" },
 		],
 		columns: [
+			{
+				data: "lab_request_id",
+				name: "lab_request_id",
+				searchable: true,
+			},
 			{
 				data: "specimen",
 				name: "specimen",

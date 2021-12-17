@@ -23,6 +23,7 @@ def get_one(id, db: Session):
 
 def create(lab_result, db: Session):
     new_lab_result = models.LabResult(
+        lab_request_id = lab_result.lab_request_id,
         specimen = lab_result.specimen,
         result = lab_result.result,
         reference = lab_result.reference,
@@ -58,6 +59,7 @@ def update(id, LabResult, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'LabResult with id {id} not found')
     else:
         lab_result.update({
+            "lab_request_id" : LabResult.lab_request_id,
             "specimen" : LabResult.specimen,
             "result" : LabResult.result,
             "reference" : LabResult.reference,

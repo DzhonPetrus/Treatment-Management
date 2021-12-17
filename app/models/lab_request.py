@@ -4,13 +4,18 @@ from sqlalchemy.orm import relationship
 
 from ..database import Base
 
+# TODO:
+# ADD LAB_REQUEST
+# REMOVE INPATIENT_ID
+# ADD INPATIENT_ID
+# ADD OUTPATIENT_ID
 
 class LabRequest(Base):
     __tablename__ = "lab_requests"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     lab_test_id = Column(String(36), ForeignKey("lab_tests.id"))
-    lab_result_id = Column(String(36), ForeignKey("lab_results.id"))
+    # lab_result_id = Column(String(36), ForeignKey("lab_results.id"))
     patient_id = Column(String(36), ForeignKey("patients.id"))
     
 

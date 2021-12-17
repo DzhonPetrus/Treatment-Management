@@ -11,7 +11,7 @@ class LabTest(Base):
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     name = Column(String(100), unique=True)
     description = Column(Text)
-    price = Column(Numeric(15,2))
+    fee = Column(Numeric(15,2))
 
     is_active = Column(String(100), default='ACTIVE')
     created_at = Column(DateTime, default=text('NOW()'))

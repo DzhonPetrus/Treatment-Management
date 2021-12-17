@@ -7,7 +7,7 @@ from ..utils.schemaHelper import Base, as_form
 class LabTestBase(Base):  
     name: str
     description: str
-    price: float
+    fee: float
 
     is_active: Optional[str] = None
 

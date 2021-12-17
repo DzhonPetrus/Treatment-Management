@@ -30,7 +30,7 @@ def create(treatment_type, db: Session):
             name = treatment_type.name,
             room = treatment_type.room,
             description = treatment_type.description,
-            price = treatment_type.price
+            fee = treatment_type.fee
         )
         db.add(new_treatment_type)
         db.commit()
@@ -63,7 +63,7 @@ def update(id, Treatment_Type, db: Session):
             "name": Treatment_Type.name,
             "room": Treatment_Type.room,
             "description": Treatment_Type.description,
-            "price": Treatment_Type.price,
+            "fee": Treatment_Type.fee,
             "is_active": Treatment_Type.is_active
         })
         db.commit()

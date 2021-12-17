@@ -8,7 +8,7 @@ class TreatmentTypeBase(Base):
     name: str
     room: str
     description: str
-    price: float
+    fee: float
 
     is_active: Optional[str] = None
     

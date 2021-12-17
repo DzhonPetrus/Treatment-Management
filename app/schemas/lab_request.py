@@ -8,7 +8,7 @@ from .patient import *
 
 class LabRequestBase(Base):
     patient_id: str
-    lab_test_id: str
+    # lab_test_id: str
     lab_result_id: str
 
     status: Optional[str] = None

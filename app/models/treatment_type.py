@@ -12,7 +12,7 @@ class TreatmentType(Base):
     name = Column(String(100), unique=True)
     room = Column(String(100))
     description = Column(Text)
-    price = Column(Numeric(15,2))
+    fee = Column(Numeric(15,2))
 
 
     is_active = Column(String(100), default='ACTIVE')

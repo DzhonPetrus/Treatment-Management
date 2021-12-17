@@ -9,6 +9,7 @@ class LabResult(Base):
     __tablename__ = "lab_results"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
+    lab_request_id = Column(String(36), ForeignKey("lab_requests.id"))
     specimen = Column(String(100))
     result = Column(Text)
     reference = Column(String(100))

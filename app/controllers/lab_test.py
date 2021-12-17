@@ -29,7 +29,7 @@ def create(lab_test, db: Session):
         new_lab_test = models.LabTest(
             name = lab_test.name,
             description = lab_test.description,
-            price = lab_test.price
+            fee = lab_test.fee
         )
         db.add(new_lab_test)
         db.commit()
@@ -61,7 +61,7 @@ def update(id, Surgery_Type, db: Session):
         lab_test.update({
             "name": Surgery_Type.name,
             "description": Surgery_Type.description,
-            "price": Surgery_Type.price,
+            "fee": Surgery_Type.fee,
             "is_active": Surgery_Type.is_active
         })
         db.commit()

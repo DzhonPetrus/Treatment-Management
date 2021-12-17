@@ -99,6 +99,7 @@
         <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
           <thead>
             <tr>
+              <th>Lab Request</th>
               <th>Specimen</th>
               <th>Result</th>
               <th>Reference</th>
@@ -132,6 +133,7 @@
               {% import 'templates/forms.html' as forms %}
               <div class="card-body">
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
+                {{ forms.input('Lab Request', 'lab_request_id', 'text', 'required') }}
                 {{ forms.input('Specimen', 'specimen', 'text', 'required') }}
                 {{ forms.input('Result', 'result', 'text', 'required') }}
                 {{ forms.input('Reference', 'reference', 'text', 'required') }}

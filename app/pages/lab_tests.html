@@ -101,7 +101,7 @@
             <tr>
               <th>Name</th>
               <th>Description</th>
-              <th>Price</th>
+              <th>Fee</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -131,7 +131,7 @@
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
                 {{ forms.input('Name', 'name', 'text', 'required') }}
                 {{ forms.textarea('Description', 'description', 'required') }}
-                {{ forms.input('Price', 'price', 'number', 'required' ) }}
+                {{ forms.input('Fee', 'fee', 'number', 'required' ) }}
                 {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'Active' ) }}
 
               </div>
@@ -167,14 +167,14 @@
 <script defer>
 
 
-  $('input[name="price"]').on(
+  $('input[name="fee"]').on(
     'blur',
     function (event) {
       if (document.querySelector('form')) {
-        var price_to_2_decimals =
-          parseFloat($('input[name="price"]').val()).toFixed(2);
+        var fee_to_2_decimals =
+          parseFloat($('input[name="fee"]').val()).toFixed(2);
 
-        $('input[name="price"]').val(price_to_2_decimals);
+        $('input[name="fee"]').val(fee_to_2_decimals);
 
       }
     }
