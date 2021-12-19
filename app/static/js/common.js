@@ -63,6 +63,11 @@ formReset = () => {
 const showModal = () => $(modal).modal("show");
 const hideModal = () => $(modal).modal("hide");
 const setInputValue = (data) =>{
+	if(Object.keys(data).includes('lab_request')){
+		data.lab_request_no = data.lab_request.lab_request_no;
+		if(!fields.includes('lab_request_no'))
+			fields.push('lab_request_no');
+	}
 	if(Object.keys(data).includes('lab_test')){
 		data.lab_test_name = data.lab_test.name;
 		if(!fields.includes('lab_test_name'))
@@ -130,6 +135,7 @@ const setState = (state, data) => {
 	}
 	showAllFields();
 	setInputValue(data);
+	console.log(data);
 
 	$("#group-btnAdd").hide();
 
