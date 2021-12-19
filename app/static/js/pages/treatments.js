@@ -5,9 +5,10 @@
 	window.modal = "#modal-treatment";
 	window.dataTable = "#dataTable";
 
+	window.patient_fields = ["id", "type", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "is_active", "btnAdd", "btnUpdate"];
 	window.fields = ["id", "treatment_no", "treatment_type_id", "user_id", "patient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate"];
-	window.fieldsHidden = ["id", "btnUpdate", "is_active", "end_time", "treatment_no"];
-	window.readOnlyFields = ["id", "is_active", "end_time", "treatment_no"];
+	window.fieldsHidden = ["btnUpdate", "is_active", "end_time", "treatment_no", "id"];
+	window.readOnlyFields = ["is_active", "end_time", "treatment_no", "id"];
 
 	const renderAdditionalButtons = (aData) => {
 		let buttons = '';
@@ -226,6 +227,7 @@ className: 'btn-sm',
 
 // VIEW DATA
 viewData = (id) => {
+	window.modal = "#modal-treatment-view";
 	{
 		$.ajax({
 			url: BASE_URL + `${endpoint}/${id}`,
@@ -240,6 +242,7 @@ viewData = (id) => {
 
 // Edit DATA
 editData = (id) => {
+	window.modal = "#modal-treatment";
 	{
 		$.ajax({
 			url: BASE_URL + `${endpoint}/${id}`,

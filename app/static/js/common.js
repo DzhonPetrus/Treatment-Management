@@ -63,6 +63,16 @@ formReset = () => {
 const showModal = () => $(modal).modal("show");
 const hideModal = () => $(modal).modal("hide");
 const setInputValue = (data) =>{
+	if(Object.keys(data).includes('treatment_type')){
+		data.treatment_type_name = data.treatment_type.name;
+		if(!fields.includes('treatment_type_name'))
+			fields.push('treatment_type_name');
+	}
+	if(Object.keys(data).includes('physician')){
+		data.physician_name = `${data.physician.user_profile.last_name}, ${data.physician.user_profile.first_name} ${data.physician.user_profile.middle_name || ''} ${data.physician.user_profile.suffix_name ? ', ' + data.physician.user_profile.suffix_name : ''}`
+		if(!fields.includes('physician_name'))
+			fields.push('physician_name');
+	}
 	if(fields.includes('last_name') && fields.includes('first_name')){
 		data.full_name = `${data.last_name}, ${data.first_name} ${data.middle_name || ''} ${data.suffix_name ? ', ' + data.suffix_name : ''}`
 		if(!fields.includes('full_name'))
@@ -106,6 +116,15 @@ const setState = (state, data) => {
 
 	showAllFields();
 	setInputValue(data);
+	if(Object.keys(data).includes('patient')){
+		if(patient_fields !== undefined){
+			window.temp_fields = window.fields
+			window.fields = window.patient_fields
+		}
+		setInputValue(data.patient);
+		window.fields = window.temp_fields
+	}
+
 	$("#group-btnAdd").hide();
 
 	if (state === "view") {

@@ -1,3 +1,4 @@
+{% import 'templates/forms.html' as forms %}
 {% extends "templates/base.html" %}
 {% set active_page = current_path.split('/')[2] %}
 {% set user_type = current_path.split('/')[1] %}
@@ -118,9 +119,9 @@
     <!-- /.card -->
 
 
-
-    <div class="modal fade" id="modal-treatment" aria-modal="true" role="dialog">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <!-- MODAL VIEW -->
+    <div class="modal fade" id="modal-treatment-view" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Treatment</h4>
@@ -130,10 +131,104 @@
           </div>
           <div class="modal-body">
             <form id="form">
-              {% import 'templates/forms.html' as forms %}
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12">
+    <div class="card card-primary card-outline">
+                        <h6 class="card-header">Patient Information</h6>
+                        <div class="card-body">
+          
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Name','full_name') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Gender','gender') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Birth Date','birth_date') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Blood Type','blood_type') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Contact Number','contact_no') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Email','email') }}
+                            </div>
+                          </div><div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Status','is_active') }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div><div class="row">
+                  <div class="col-sm-12">
+    <div class="card card-primary card-outline">
+                        <h6 class="card-header">Treatment Information</h6>
+                        <div class="card-body">
+          
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Treatment No','treatment_no') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Treatment Type','treatment_type_name') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Physician','physician_name') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Description','description') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Status','status') }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer float-right">
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+        </form>
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- END OF MODAL VIEW -->
+
+
+
+    <div class="modal fade" id="modal-treatment" aria-modal="true" role="dialog">
+      <div class="modal-dialog  modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Treatment</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form">
               <div class="card-body">
 
-                {{ forms.input('ID', 'id', 'text', '', '' )}}
+                {{ forms.input('ID', 'id', 'text', 'hidden', '' )}}
                 {{ forms.input('Treatment No', 'treatment_no', 'text', '', '' )}}
 
                 <!-- TREATMENT TYPE -->
