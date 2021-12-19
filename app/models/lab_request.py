@@ -19,6 +19,8 @@ class LabRequest(Base):
     patient_id = Column(String(36), ForeignKey("patients.id"))
     
 
+    lab_request_no = Column(String(100))
+
     is_active = Column(String(100), default='ACTIVE')
     status = Column(String(100), default='PENDING')
     created_at = Column(DateTime, default=text('NOW()'))

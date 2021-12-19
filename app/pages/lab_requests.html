@@ -99,9 +99,9 @@
         <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
           <thead>
             <tr>
+              <th>Lab Request No</th>
               <th>Patient</th>
               <th>Lab Test</th>
-              <th>Lab Request</th>
               <th>Status</th>
               <th>Is Active</th>
               <th></th>
@@ -132,6 +132,7 @@
               <div class="card-body">
 
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
+                {{ forms.input('Lab Request No', 'lab_request_no', 'text', '', '' )}}
                 <!-- PATIENT -->
                 <div class="form-group" id="group-patient_id">
                   <label>
@@ -161,7 +162,7 @@
                 <!-- END LAB TEST -->
 
                 <!-- LAB RESULT -->
-                <div class="form-group" id="group-patient_id">
+                <!-- <div class="form-group" id="group-patient_id">
                   <label>
                     Lab Request
                     <span style="color:red">*</span>
@@ -171,7 +172,7 @@
                     <option value="{{lab_result['id']}}">{{lab_result['specimen']}} | {{lab_result['result']}}</option>
                     {% endfor -%}
                   </select>
-                </div>
+                </div> -->
                 <!-- END LAB RESULT -->
                 {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED'])
                 }}

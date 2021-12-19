@@ -5,9 +5,9 @@
 	window.modal = "#modal-lab_request";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "lab_test_id", "lab_result_id", "status", "is_active", "btnAdd", "btnUpdate"];
-	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
-	window.readOnlyFields = ["id", "is_active"];
+	window.fields = ["id", "lab_test_id", "lab_result_id", "status", "is_active", "btnAdd", "btnUpdate", "lab_request_no"];
+	window.fieldsHidden = ["id", "btnUpdate", "is_active", "lab_request_no"];
+	window.readOnlyFields = ["id", "is_active", "lab_request_no"];
 
 	const renderAdditionalButtons = (aData) => {
 		let buttons = '';
@@ -159,6 +159,11 @@ className: 'btn-sm',
 		],
 		columns: [
 			{
+				data: "lab_request_no",
+				name: "lab_request_no",
+				searchable: true,
+			},
+			{
 				data: "patient",
 				name: "patient",
 				searchable: true,
@@ -169,11 +174,11 @@ className: 'btn-sm',
 				name: "lab_test.name",
 				searchable: true,
 			},
-			{
-				data: "lab_result.result",
-				name: "lab_result.result",
-				searchable: true,
-			},
+			// {
+			// 	data: "lab_result.result",
+			// 	name: "lab_result.result",
+			// 	searchable: true,
+			// },
 			{
 				data: "status",
 				name: "status",
