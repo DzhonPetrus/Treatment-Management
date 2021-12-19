@@ -139,8 +139,8 @@ className: 'btn-sm',
 		],
 		columns: [
 			{
-				data: "lab_request_id",
-				name: "lab_request_id",
+				data: "lab_request.lab_request_no",
+				name: "lab_request.lab_request_no",
 				searchable: true,
 			},
 			{

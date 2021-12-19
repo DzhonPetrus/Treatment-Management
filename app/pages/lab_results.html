@@ -133,7 +133,20 @@
               {% import 'templates/forms.html' as forms %}
               <div class="card-body">
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
-                {{ forms.input('Lab Request', 'lab_request_id', 'text', 'required') }}
+                <!-- LAB REQUEST -->
+                <div class="form-group" id="group-lab_request_id">
+                  <label>
+                    Lab Request
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="lab_request_id" name="lab_request_id">
+                    {% for lab_request in lab_requests %}
+                    <option value="{{lab_request['id']}}">{{lab_request['lab_request_no']}}</option>
+                    {% endfor -%}
+                  </select>
+                </div>
+                <!-- END LAB REQUEST -->
+                <!-- {{ forms.input('Lab Request', 'lab_request_id', 'text', 'required') }} -->
                 {{ forms.input('Specimen', 'specimen', 'text', 'required') }}
                 {{ forms.input('Result', 'result', 'text', 'required') }}
                 {{ forms.input('Reference', 'reference', 'text', 'required') }}
@@ -181,7 +194,11 @@
 
 {% block scripts %}
 
-<script defer></script>
+<script defer>
+  // const lab_requests = JSON.parse(' {{lab_requests|tojson}} ');
+    $('#lab_request_id').select2();
+
+</script>
 
 <script src="{{ url_for('static', path='/js/pages/lab_results.js') }}"></script>
 {% endblock %}

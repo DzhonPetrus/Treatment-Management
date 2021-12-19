@@ -9,7 +9,10 @@ from .patient import *
 class LabRequestBase(Base):
     patient_id: str
     # lab_test_id: str
-    lab_result_id: str
+    # lab_result_id: str
+
+    lab_test_id: Optional[str] = None
+    lab_request_no: Optional[str] = None
 
     status: Optional[str] = None
     is_active: Optional[str] = None
@@ -24,7 +27,7 @@ class LabRequest(LabRequestBase):
     id: str
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
-    lab_result: Optional[LabResultBase] = None
+    # lab_result: Optional[LabResultBase] = None
     lab_test: Optional[LabTestBase] = None
     patient: Optional[PatientBase] = None
 

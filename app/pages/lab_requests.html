@@ -161,19 +161,6 @@
                 </div>
                 <!-- END LAB TEST -->
 
-                <!-- LAB RESULT -->
-                <!-- <div class="form-group" id="group-patient_id">
-                  <label>
-                    Lab Request
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="lab_result_id" name="lab_result_id">
-                    {% for lab_result in lab_results %}
-                    <option value="{{lab_result['id']}}">{{lab_result['specimen']}} | {{lab_result['result']}}</option>
-                    {% endfor -%}
-                  </select>
-                </div> -->
-                <!-- END LAB RESULT -->
                 {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED'])
                 }}
                 {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
@@ -210,12 +197,10 @@
 {% block scripts %}
 <script defer>
   const lab_tests = JSON.parse(' {{lab_tests|tojson}} ');
-  const lab_results = JSON.parse(' {{lab_results|tojson}} ');
   const patients = JSON.parse(' {{patients|tojson}} ');
 
   $(() => {
     $('#lab_test_id').select2();
-    $('#lab_result_id').select2();
     $('#patient_id').select2();
   });
 </script>

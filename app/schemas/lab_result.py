@@ -2,10 +2,12 @@ from datetime import datetime as dt
 from typing import Optional, List
 from pydantic import BaseModel
 
+from .lab_request import *
+
 from ..utils.schemaHelper import Base, as_form
 
 class LabResultBase(Base):
-    lab_request_id: str
+    lab_request_id : Optional[str] = None
     specimen : Optional[str] = None
     result : Optional[str] = None
     reference : Optional[str] = None
@@ -25,6 +27,7 @@ class LabResult(LabResultBase):
     id: str
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
+    lab_request: Optional[LabRequestBase] = None
 
 class OutLabResults(Base):
     data: List[LabResult]
