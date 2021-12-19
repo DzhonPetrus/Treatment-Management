@@ -5,8 +5,8 @@
 	window.dataTable = "#dataTable";
 
 	window.fields = ["id", "email", "password", "user_profile_id", "user_type", "is_active", "btnAdd", "btnUpdate"];
-	window.fieldsHidden = ["id", "btnUpdate", "is_active", "user_profile_id"];
-	window.readOnlyFields = ["id", "is_active", "user_profile_id"];
+	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
+	window.readOnlyFields = ["id", "is_active"];
 
 	const renderAdditionalButtons = (aData) => {
 		let buttons = '';

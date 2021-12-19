@@ -7,7 +7,7 @@ from .patient import *
 from ..utils.schemaHelper import Base, as_form
 
 class TreatmentBase(Base):
-    treatment_no: str
+    treatment_no: Optional[str] = None
     patient_id: str
     user_id: str
     treatment_type_id: str

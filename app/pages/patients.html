@@ -1,3 +1,4 @@
+{% import 'templates/forms.html' as forms %}
 {% extends "templates/base.html" %}
 {% set active_page = current_path.split('/')[2] %}
 {% set user_type = current_path.split('/')[1] %}
@@ -119,8 +120,9 @@
     <!-- /.card -->
 
 
-    <div class="modal fade" id="modal-patient" aria-modal="true" role="dialog">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <!-- MODAL VIEW -->
+    <div class="modal fade" id="modal-patient-view" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Patient</h4>
@@ -130,23 +132,95 @@
           </div>
           <div class="modal-body">
             <form id="form">
-              {% import 'templates/forms.html' as forms %}
-              <div class="card-body">
-                {{ forms.input('ID', 'id', 'text', '', '' )}}
-                {{ forms.select('Type', 'type', 'required', ['Outpatient', 'Inpatient']) }}
-                {{ forms.input('First Name', 'first_name', 'text', 'required') }}
-                {{ forms.input('Middle Name', 'middle_name', 'text', '') }}
-                {{ forms.input('Last Name', 'last_name', 'text', 'required') }}
-                {{ forms.input('Suffix Name', 'suffix_name', 'text', '') }}
-                {{ forms.input('Birth Date', 'birth_date', 'text', 'required') }}
-                {{ forms.select('Gender', 'gender', 'text',['Male', 'Female']) }}
-                {{ forms.input('Contact Number', 'contact_no', 'text', 'required') }}
-                {{ forms.input('Email', 'email', 'email', 'required') }}
-                {{ forms.select('Blood Type', 'blood_type', 'text', ['O-', 'O+', 'B-', 'B+', 'A-', 'A+', 'AB-', 'AB+'])
-                }}
-                <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
-                {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12">
+    <div class="card card-primary card-outline">
+                        <h6 class="card-header">Patient Information</h6>
+                        <div class="card-body">
+          
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Name','full_name') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Gender','gender') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Birth Date','birth_date') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Blood Type','blood_type') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Contact Number','contact_no') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Email','email') }}
+                            </div>
+                          </div><div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Status','is_active') }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer float-right">
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+        </form>
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- END OF MODAL FORM -->
 
+    <!-- MODAL FORM -->
+    <div class="modal fade" id="modal-patient" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Patient</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form">
+              <div class="container-fluid">
+                <div class="row">
+                    {{ forms.input('ID', 'id', 'text', '', '', 'col-md-6' )}}
+                    {{ forms.select('Type', 'type', 'required', ['Outpatient', 'Inpatient'], 'col-md-6') }}
+                </div>
+                <div class="row">
+                    {{ forms.input('First Name', 'first_name', 'text', 'required','', 'col-md-4') }}
+                    {{ forms.input('Middle Name', 'middle_name', 'text', '', '', 'col-md-3') }}
+                    {{ forms.input('Last Name', 'last_name', 'text', 'required', '', 'col-md-4') }}
+                    {{ forms.input('Suffix', 'suffix_name', 'text', '', '', 'col-md-1') }}
+                </div>
+                <div class="row">
+                    {{ forms.input('Birth Date', 'birth_date', 'text', 'required', '', 'col-md-3') }}
+                    {{ forms.select('Gender', 'gender', 'text',['Male', 'Female'], 'col-md-2') }}
+                    {{ forms.select('Blood Type', 'blood_type', 'text', ['O-', 'O+', 'B-', 'B+', 'A-', 'A+', 'AB-', 'AB+'], 'col-md-3')
+                    }}
+                </div>
+                <div class="row">
+                    {{ forms.input('Contact Number', 'contact_no', 'text', 'required', '', 'col-md-3') }}
+                    {{ forms.input('Email', 'email', 'email', 'required', '', 'col-md-3') }}
+                </div>
+                    <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
+                    {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+
+                  <!-- </div> -->
               </div>
           </div>
           <div class="modal-footer float-right">
@@ -166,6 +240,7 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
+    <!-- END OF MODAL FORM -->
 
     <div id="confirmationModal"></div>
 

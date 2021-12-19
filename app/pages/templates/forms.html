@@ -1,5 +1,5 @@
-{% macro input(title, name, type='text', attr="", value='') -%}
-<div class="form-group" id="group-{{ name }}" {{attr}}>
+{% macro input(title, name, type='text', attr="", value='', group_class='') -%}
+<div class="form-group {{group_class}} " id="group-{{ name }}" {{attr}}>
   <label>
     {{ title }}
     {% if attr=='required' -%}
@@ -18,9 +18,9 @@
 </div>
 {%- endmacro %} 
 
-{% macro textarea(title, name, attr='', value='') -%}
+{% macro textarea(title, name, attr='', value='', group_class='') -%}
     <!-- textarea -->
-    <div class="form-group" id="group-{{ name }}" {{attr}}>
+    <div class="form-group {{group_class}} " id="group-{{ name }}" {{attr}}>
       <label>
         {{ title }}
         {% if attr=='required' -%}
@@ -31,9 +31,9 @@
     </div>
 {%- endmacro %} 
 
-{% macro select(title, name, attr='', options=[]) -%}
+{% macro select(title, name, attr='', options=[], group_class='') -%}
     <!-- select -->
-    <div class="form-group" id="group-{{ name }}" {{attr}}>
+    <div class="form-group {{group_class}} " id="group-{{ name }}" {{attr}}>
       <label>
         {{ title }}
         <span style="color:red">*</span>
@@ -48,4 +48,18 @@
         {% endfor -%}
       </select>
     </div>
+{%- endmacro %} 
+
+
+
+
+{% macro viewItem(title, name) -%}
+<div class="d-flex align-items-baseline">
+  <div>
+    <label>{{title}}:&nbsp;</label>
+  </div>
+  <div>
+    <p id="{{name}}View">None</p>
+  </div>
+</div>
 {%- endmacro %} 

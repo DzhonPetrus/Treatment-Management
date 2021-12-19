@@ -117,7 +117,7 @@
 
 
     <div class="modal fade" id="modal-user" aria-modal="true" role="dialog">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">User</h4>
@@ -130,11 +130,11 @@
               {% import 'templates/forms.html' as forms %}
               <div class="card-body">
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
+                {{ forms.input('User Profile ID', 'user_profile_id', 'text', '', '' )}}
                 {{ forms.input('Email', 'email', 'email', 'required') }}
                 {{ forms.select('User Type', 'user_type', 'text', ['Admin', 'Surgery_Scheduler', 'Surgeon',
                 'Lab_Technician', 'Lab_Receptionist', 'Medical_Specialist', 'Surgical_Nurse']) }}
                 {{ forms.input('Password', 'password', 'password', 'required' ) }}
-                {{ forms.input('User Profile ID', 'user_profile_id', 'text', '', '' )}}
                 {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
 
               </div>

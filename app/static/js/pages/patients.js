@@ -200,6 +200,8 @@ className: 'btn-sm',
 
 // VIEW DATA
 viewData = (id) => {
+	window.modal = "#modal-patient-view";
+
 	{
 		$.ajax({
 			url: BASE_URL + `${endpoint}/${id}`,
@@ -214,6 +216,7 @@ viewData = (id) => {
 
 // Edit DATA
 editData = (id) => {
+	window.modal = "#modal-patient";
 	{
 		$.ajax({
 			url: BASE_URL + `${endpoint}/${id}`,

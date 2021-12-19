@@ -63,9 +63,21 @@ formReset = () => {
 const showModal = () => $(modal).modal("show");
 const hideModal = () => $(modal).modal("hide");
 const setInputValue = (data) =>{
-	fields.forEach((field) => $(`#${field}`).val(data[field]));
-
+	if(fields.includes('last_name') && fields.includes('first_name')){
+		data.full_name = `${data.last_name}, ${data.first_name} ${data.middle_name || ''} ${data.suffix_name ? ', ' + data.suffix_name : ''}`
+		if(!fields.includes('full_name'))
+			fields.push('full_name');
+	}
+	fields.forEach((field) => {
+		$(`#${field}`).val(data[field]);
+		$(`#${field}View`).html(data[field]);
+	});
 }
+const setFieldsPlainText = (bool) => {
+	fields.forEach((field) => $(`#${field}`).toggleClass("form-control-plaintext", bool));
+	fields.forEach((field) => $(`#${field}`).toggleClass("form-control", !bool));
+}
+
 const setFieldsReadOnly = (bool) =>
 	fields.forEach((field) => $(`#${field}`).prop("disabled", bool));
 const setReadOnlyFields = () =>
@@ -85,7 +97,6 @@ const newHandler = () => {
 
 const setState = (state, data) => {
 
-
 	$("#photo_url_placeholder").attr("src", `${BASE_URL}static/upload/${data.photo_url}`);
 	$("#detailed_result_placeholder").hide();
 	if(data.detailed_result !== undefined){
@@ -98,11 +109,13 @@ const setState = (state, data) => {
 	$("#group-btnAdd").hide();
 
 	if (state === "view") {
+		setFieldsPlainText(true);
 		setFieldsReadOnly(true);
 		$("#group-btnUpdate").hide();
 	}
 
 	if (state === "edit") {
+		setFieldsPlainText(false);
 		setFieldsReadOnly(false);
 		setReadOnlyFields();
 

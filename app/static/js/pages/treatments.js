@@ -43,6 +43,7 @@ $(function () {
 		if ($(form).validate()) {
 			var form_data = new FormData(this);
 
+			form_data.append('treatment_no', $("#treatment_no").val())
 			form_data.append('id', $("#id").val())
 			form_data.append('status', $("#status").val())
 			form_data.append('is_active', $("#is_active").val())
