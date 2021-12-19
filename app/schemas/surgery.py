@@ -8,6 +8,7 @@ from .patient import *
 from ..utils.schemaHelper import Base, as_form
 
 class SurgeryBase(Base):
+    surgery_no: Optional[str] = None
     room: Optional[str] = None
     patient_id: Optional[str] = None
     surgery_type_id: Optional[str] = None

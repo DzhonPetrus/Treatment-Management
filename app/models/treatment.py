@@ -9,6 +9,7 @@ class Treatment(Base):
     __tablename__ = "treatments"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
+    treatment_no = Column(String(100))
     patient_id = Column(String(36), ForeignKey("patients.id"))
     treatment_type_id = Column(String(36), ForeignKey("treatment_types.id"))
     user_id = Column(String(36), ForeignKey("users.id")) # DOCTOR IN CHARGE

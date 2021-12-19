@@ -7,6 +7,7 @@ from .patient import *
 from ..utils.schemaHelper import Base, as_form
 
 class TreatmentBase(Base):
+    treatment_no: str
     patient_id: str
     user_id: str
     treatment_type_id: str

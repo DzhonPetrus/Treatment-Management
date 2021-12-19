@@ -123,6 +123,7 @@
         <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
           <thead>
             <tr>
+              <th>Surgery No</th>
               <th>Patient</th>
               <th>Room</th>
               <th>Surgery Type</th>
@@ -159,6 +160,7 @@
               <div class="card-body">
 
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
+                {{ forms.input('Surgery No', 'surgery_no', 'text', '', '' )}}
                 <!-- SURGERY TYPE -->
                 <div class="form-group" id="group-surgery_type_id">
                   <label>

@@ -9,6 +9,7 @@ class Surgery(Base):
     __tablename__ = "surgeries"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
+    surgery_no = Column(String(100))
     patient_id = Column(String(36), ForeignKey("patients.id"))
     room = Column(String(100))
     surgery_type_id = Column(String(36), ForeignKey("surgery_types.id"))

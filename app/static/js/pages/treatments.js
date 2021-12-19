@@ -5,9 +5,9 @@
 	window.modal = "#modal-treatment";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "treatment_type_id", "user_id", "patient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate"];
-	window.fieldsHidden = ["id", "btnUpdate", "is_active", "end_time"];
-	window.readOnlyFields = ["id", "is_active", "end_time"];
+	window.fields = ["id", "treatment_no", "treatment_type_id", "user_id", "patient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate"];
+	window.fieldsHidden = ["id", "btnUpdate", "is_active", "end_time", "treatment_no"];
+	window.readOnlyFields = ["id", "is_active", "end_time", "treatment_no"];
 
 	const renderAdditionalButtons = (aData) => {
 		let buttons = '';
@@ -158,6 +158,11 @@ className: 'btn-sm',
 			{ sClass: "text-center" },
 		],
 		columns: [
+			{
+				data: "treatment_no",
+				name: "treatment_no",
+				searchable: true,
+			},
 			{
 				data: "patient",
 				name: "patient",

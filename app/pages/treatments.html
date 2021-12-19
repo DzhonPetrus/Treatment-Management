@@ -99,6 +99,7 @@
         <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
           <thead>
             <tr>
+              <th>Treatment No</th>
               <th>Patient</th>
               <th>Treatment Type</th>
               <th>Physician</th>
@@ -133,6 +134,7 @@
               <div class="card-body">
 
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
+                {{ forms.input('Treatment No', 'treatment_no', 'text', '', '' )}}
 
                 <!-- TREATMENT TYPE -->
                 <div class="form-group" id="group-treatment_type_id">

@@ -1,5 +1,6 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
+from uuid import uuid4
 
 from .. import models
 
@@ -23,7 +24,9 @@ def get_one(id, db: Session):
     }
 
 def create(surgery, db: Session):
+    _surgery_no = 'SN-' + (str(uuid4()).split('-')[0]).upper()
     new_surgery = models.Surgery(
+        surgery_no = _surgery_no,
         patient_id = surgery.patient_id,
         surgery_type_id = surgery.surgery_type_id,
         room = surgery.room,
@@ -72,6 +75,7 @@ def update(id, Surgery, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Surgery with id {id} not found')
     else:
         surgery.update({
+            "surgery_no" : Surgery.surgery_no,
             "patient_id" : Surgery.patient_id,
             "surgery_type_id" : Surgery.surgery_type_id,
             "room" : Surgery.room,

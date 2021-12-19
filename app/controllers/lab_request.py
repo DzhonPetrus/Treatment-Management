@@ -25,7 +25,6 @@ def get_one(id, db: Session):
 
 def create(lab_request, db: Session):
     # TODO:
-    # ADD LAB_REQUEST
     # REMOVE INPATIENT_ID
     # ADD INPATIENT_ID
     # ADD OUTPATIENT_ID
