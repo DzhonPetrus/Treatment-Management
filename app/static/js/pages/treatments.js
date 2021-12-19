@@ -5,7 +5,6 @@
 	window.modal = "#modal-treatment";
 	window.dataTable = "#dataTable";
 
-	window.patient_fields = ["id", "type", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "is_active", "btnAdd", "btnUpdate"];
 	window.fields = ["id", "treatment_no", "treatment_type_id", "user_id", "patient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate"];
 	window.fieldsHidden = ["btnUpdate", "is_active", "end_time", "treatment_no", "id"];
 	window.readOnlyFields = ["is_active", "end_time", "treatment_no", "id"];
