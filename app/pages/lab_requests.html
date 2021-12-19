@@ -1,3 +1,4 @@
+{% import 'templates/forms.html' as forms %}
 {% extends "templates/base.html" %}
 {% set active_page = current_path.split('/')[2] %}
 {% set user_type = current_path.split('/')[1] %}
@@ -116,6 +117,90 @@
     <!-- /.card -->
 
 
+    <!-- MODAL VIEW -->
+    <div class="modal fade" id="modal-lab_request-view" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Lab Requests</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12">
+    <div class="card card-primary card-outline">
+                        <h6 class="card-header">Patient Information</h6>
+                        <div class="card-body">
+          
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Name','full_name') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Gender','gender') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Birth Date','birth_date') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Blood Type','blood_type') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Contact Number','contact_no') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Email','email') }}
+                            </div>
+                          </div><div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Status','is_active') }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div><div class="row">
+                  <div class="col-sm-12">
+    <div class="card card-primary card-outline">
+                        <h6 class="card-header">Lab Request Information</h6>
+                        <div class="card-body">
+          
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Lab Request No','lab_request_no') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Lab Test','lab_test_name') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Status','status') }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer float-right">
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- END OF MODAL VIEW -->
+
 
     <div class="modal fade" id="modal-lab_request" aria-modal="true" role="dialog">
       <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
@@ -128,7 +213,6 @@
           </div>
           <div class="modal-body">
             <form id="form">
-              {% import 'templates/forms.html' as forms %}
               <div class="card-body">
 
                 {{ forms.input('ID', 'id', 'text', '', '' )}}

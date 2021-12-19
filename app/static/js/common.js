@@ -63,6 +63,11 @@ formReset = () => {
 const showModal = () => $(modal).modal("show");
 const hideModal = () => $(modal).modal("hide");
 const setInputValue = (data) =>{
+	if(Object.keys(data).includes('lab_test')){
+		data.lab_test_name = data.lab_test.name;
+		if(!fields.includes('lab_test_name'))
+			fields.push('lab_test_name');
+	}
 	if(Object.keys(data).includes('treatment_type')){
 		data.treatment_type_name = data.treatment_type.name;
 		if(!fields.includes('treatment_type_name'))
@@ -115,8 +120,6 @@ const setState = (state, data) => {
 		$("#detailed_result_placeholder").show();
 	}
 
-	showAllFields();
-	setInputValue(data);
 	if(Object.keys(data).includes('patient')){
 		if(patient_fields !== undefined){
 			window.temp_fields = window.fields
@@ -125,6 +128,8 @@ const setState = (state, data) => {
 		setInputValue(data.patient);
 		window.fields = window.temp_fields
 	}
+	showAllFields();
+	setInputValue(data);
 
 	$("#group-btnAdd").hide();
 
