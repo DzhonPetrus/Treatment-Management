@@ -14,6 +14,8 @@ class SurgeryBase(Base):
     surgery_type_id: Optional[str] = None
 
     in_charge: Optional[Any] = None
+    description: Optional[str] = None
+    head_surgeon_id: Optional[str] = None
 
     start_time: Optional[dt] = None
     end_time: Optional[dt] = None

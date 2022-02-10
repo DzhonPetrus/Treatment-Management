@@ -16,6 +16,8 @@ class Surgery(Base):
     start_time = Column(DateTime)
     end_time = Column(DateTime)
 
+    head_surgeon_id = Column(String(36), ForeignKey("users.id"))
+    description = Column(String(255))
 
     is_active = Column(String(100), default='ACTIVE')
     status = Column(String(100), default='PENDING')

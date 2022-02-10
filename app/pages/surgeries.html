@@ -188,6 +188,7 @@
                   </select>
                 </div>
                 <!-- END PATIENT -->
+                {{ forms.textarea('Description', 'description') }}
 
                 {{ forms.input('Room', 'room', 'text', 'required' ) }}
                 {{ forms.input('Schedule', 'start_time', 'text', 'required' ) }}
@@ -211,6 +212,9 @@
                   <select class="form-control select2" style="width: 100%;" id="surgeon_in_charge"
                     name="surgeon_in_charge" multiple="multiple"></select>
                 </div>
+
+                <!-- TODO: fix head surgeon UI, only selected in surgeon can be selected  -->
+                {{ forms.input('Head Surgeon', 'head_surgeon_id', 'text') }}
 
               </div>
           </div>
