@@ -15,6 +15,12 @@ class LabResult(Base):
     reference = Column(String(100))
     unit = Column(String(100))
     detailed_result = Column(String(100))
+    
+
+    ordered = Column(String(150))
+    dt_requested = Column(DateTime)
+    dt_received = Column(DateTime)
+    dt_reported = Column(DateTime)
 
 
     status = Column(String(100), default='PROCESSING')

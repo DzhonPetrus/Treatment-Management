@@ -228,6 +228,22 @@
                               {{ forms.viewItem('Specimen','specimen') }}
                             </div>
                             <div class="col-sm-6">
+                              {{ forms.viewItem('Ordered','ordered') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Date/Time Requested','dt_requested') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Date/Time Received','dt_received') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Date/Time Reported','dt_reported') }}
+                            </div>
+                            <div class="col-sm-6">
                               {{ forms.viewItem('Result','result') }}
                             </div>
                           </div>
@@ -289,6 +305,12 @@
                 <!-- END LAB REQUEST -->
                 <!-- {{ forms.input('Lab Request', 'lab_request_id', 'text', 'required') }} -->
                 {{ forms.input('Specimen', 'specimen', 'text', 'required') }}
+
+                {{ forms.input('Ordered', 'ordered', 'text', 'required') }}
+                {{ forms.input('Date/Time Requested', 'dt_requested', 'datetime-local') }}
+                {{ forms.input('Date/Time Received', 'dt_received', 'datetime-local') }}
+                {{ forms.input('Date/Time Reported', 'dt_reported', 'datetime-local') }}
+
                 {{ forms.input('Result', 'result', 'text', 'required') }}
                 {{ forms.input('Reference', 'reference', 'text', 'required') }}
                 {{ forms.input('Unit', 'unit', 'text', 'required') }}

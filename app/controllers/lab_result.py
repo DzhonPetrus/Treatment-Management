@@ -27,6 +27,10 @@ def create(lab_result, db: Session):
         specimen = lab_result.specimen,
         result = lab_result.result,
         reference = lab_result.reference,
+        ordered = lab_result.ordered,
+        dt_requested = lab_result.dt_requested,
+        dt_received = lab_result.dt_received,
+        dt_reported = lab_result.dt_reported,
         unit = lab_result.unit,
         detailed_result = lab_result.detailed_result,
         status = lab_result.status
