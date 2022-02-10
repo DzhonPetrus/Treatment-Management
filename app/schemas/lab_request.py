@@ -13,7 +13,6 @@ class LabRequestBase(Base):
 
     lab_test_id: Optional[str] = None
     lab_request_no: Optional[str] = None
-    professional_fee: Optional[int] = None
 
     status: Optional[str] = None
     is_active: Optional[str] = None

@@ -38,7 +38,6 @@ def create(lab_request, db: Session):
         lab_request_no = request_no,
         # lab_result_id = lab_request.lab_result_id,
         patient_id = lab_request.patient_id,
-        professional_fee = lab_request.professional_fee,
         status = lab_request.status,
         is_active = lab_request.is_active
     )
@@ -86,7 +85,6 @@ def update(id, LabRequest, db: Session):
             "lab_test_id" : LabRequest.lab_test_id,
             "lab_request_no" : LabRequest.lab_request_no,
             "patient_id" : LabRequest.patient_id,
-            "professional_fee" : LabRequest.professional_fee,
             "status" : LabRequest.status,
             "is_active" : LabRequest.is_active
         })
