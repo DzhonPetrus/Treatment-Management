@@ -244,6 +244,11 @@
 <script defer>
   const surgery_types = JSON.parse(' {{surgery_types|tojson}} ');
   const patients = JSON.parse(' {{patients|tojson}} ');
+  const surgeons = JSON.parse(' {{surgeons|tojson}} ');
+  const nurses = JSON.parse(' {{nurses|tojson}} ');
+
+  console.log(surgeons)
+  console.log(nurses)
 
   $(() => {
     $('#surgeon_in_charge').select2();

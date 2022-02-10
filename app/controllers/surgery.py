@@ -24,6 +24,7 @@ def get_one(id, db: Session):
     }
 
 def create(surgery, db: Session):
+    print(surgery)
     _surgery_no = 'SN-' + (str(uuid4()).split('-')[0]).upper()
     new_surgery = models.Surgery(
         surgery_no = _surgery_no,
@@ -34,7 +35,28 @@ def create(surgery, db: Session):
         status = surgery.status,
         is_active = surgery.is_active
     )
+
     db.add(new_surgery)
+    db.flush()
+    db.commit()
+    # db.refresh(new_surgery)
+    print(new_surgery.id)
+
+    in_charge = surgery.in_charge
+    
+    if(in_charge.find(',') != -1):
+        in_charge = in_charge.split(',')
+
+    print(in_charge)
+
+    in_charges = []
+    for _id in in_charge:
+        in_charges.append(models.SurgeryInCharge(in_charge_id=_id, surgery_id=new_surgery.id))
+    
+    # print(in_charges)
+    # new_surgery.in_charges = in_charges
+
+    db.add_all(in_charges)
     db.commit()
     db.refresh(new_surgery)
     return {

@@ -68,6 +68,8 @@ $(function () {
 					processData: false,
 					cache: false,
 					success: function (data) {
+						console.log(data)
+
 						if (data.error == false) {
 							loadTable();
 							formReset();

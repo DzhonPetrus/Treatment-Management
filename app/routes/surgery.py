@@ -43,9 +43,7 @@ def show(request: Request, id, db: Session = Depends(get_db),  current_user: sch
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(Surgery: schemas.CreateSurgery = Depends(schemas.CreateSurgery.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
-    in_charge = Surgery.in_charge
-    print(in_charge)
-    print(in_charge.split(','))
+    # print(Surgery)
     return surgery.create(Surgery, db)
 
 @router.put('/cancel/{id}', status_code=status.HTTP_200_OK)

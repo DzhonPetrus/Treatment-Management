@@ -1,5 +1,5 @@
 from datetime import datetime as dt
-from typing import Optional, List
+from typing import Optional, List, Any
 from pydantic import BaseModel
 
 from .user import UserBase
@@ -13,7 +13,7 @@ class SurgeryBase(Base):
     patient_id: Optional[str] = None
     surgery_type_id: Optional[str] = None
 
-    in_charge: Optional[str] = None
+    in_charge: Optional[Any] = None
 
     start_time: Optional[dt] = None
     end_time: Optional[dt] = None
@@ -26,12 +26,19 @@ class CreateSurgery(SurgeryBase):
     pass
 
 
+class InCharge(Base):
+    in_charge_id: Optional[Any] = None
+    surgery_id: Optional[Any] = None
+    professional_fee: Optional[Any] = None
+    in_charge: Optional[UserBase] = None
+
+
 class Surgery(SurgeryBase):
     id: str
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
     surgery_type: Optional[SurgeryTypeBase] = None
-    in_charge: Optional[UserBase] = None
+    in_charge: Optional[List[InCharge]] = None
     patient: Optional[PatientBase] = None
 
 
