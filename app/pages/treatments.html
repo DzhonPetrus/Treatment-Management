@@ -192,6 +192,30 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-6">
+                              {{ forms.viewItem('Session No.','session_no') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Session Date/Time','session_datetime') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Drug','drug') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Dose','dose') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Next Schedule','next_schedule') }}
+                            </div>
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Comments','comments') }}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
                               {{ forms.viewItem('Status','status') }}
                             </div>
                           </div>
@@ -273,6 +297,13 @@
                 </div>
                 <!-- END PHYSICIAN  -->
 
+
+                {{ forms.input('Session No.', 'session_no', 'number', 'required', 1 ) }}
+                {{ forms.input('Session Date/Time', 'session_datetime', 'datetime-local', 'required') }}
+                {{ forms.input('Drug', 'drug', 'text') }}
+                {{ forms.input('Dose', 'dose', 'text') }}
+                {{ forms.input('Next Schedule', 'next_schedule', 'datetime-local') }}
+                {{ forms.textarea('Comments', 'comments', 'required' ) }}
 
                 {{ forms.textarea('Description', 'description', 'required' ) }}
                 {{ forms.select('Status', 'status', 'text', ['PENDING', 'ON-GOING', 'FINISHED', 'CANCELLED']) }}

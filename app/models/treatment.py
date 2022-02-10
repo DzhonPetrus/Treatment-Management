@@ -14,6 +14,13 @@ class Treatment(Base):
     treatment_type_id = Column(String(36), ForeignKey("treatment_types.id"))
     user_id = Column(String(36), ForeignKey("users.id")) # DOCTOR IN CHARGE
     description = Column(Text)
+
+    session_no = Column(Text)
+    session_datetime = Column(DateTime)
+    drug = Column(Text)
+    dose = Column(Text)
+    next_schedule = Column(DateTime)
+    comments = Column(Text)
     
 
 

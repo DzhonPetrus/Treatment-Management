@@ -32,7 +32,13 @@ def create(treatment, db: Session):
         patient_id = treatment.patient_id,
         treatment_type_id = treatment.treatment_type_id,
         user_id = treatment.user_id,
-        description = treatment.description
+        description = treatment.description,
+        session_no = treatment.session_no,
+        session_datetime = treatment.session_datetime,
+        drug = treatment.drug,
+        dose = treatment.dose,
+        next_schedule = treatment.next_schedule,
+        comments = treatment.comments
     )
     db.add(new_treatment)
     db.commit()
@@ -80,6 +86,12 @@ def update(id, Treatment, db: Session):
             "treatment_type_id" : Treatment.treatment_type_id,
             "user_id" : Treatment.user_id,
             "description" : Treatment.description,
+            "session_no" : Treatment.session_no,
+            "session_datetime" : Treatment.session_datetime,
+            "drug" : Treatment.drug,
+            "dose" : Treatment.dose,
+            "next_schedule" : Treatment.next_schedule,
+            "comments" : Treatment.comments,
             "status" : Treatment.status,
             "is_active" : Treatment.is_active
         })

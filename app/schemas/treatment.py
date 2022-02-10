@@ -1,5 +1,5 @@
 from datetime import datetime as dt
-from typing import Optional
+from typing import Optional, Any
 
 from .treatment_type import *
 from .user import *
@@ -12,6 +12,13 @@ class TreatmentBase(Base):
     user_id: str
     treatment_type_id: str
     description: str
+
+    session_no: Optional[int] = None
+    session_datetime: Optional[dt] = None
+    drug: Optional[str] = None
+    dose: Optional[str] = None
+    next_schedule: Optional[dt] = None
+    comments: Optional[str] = None
 
     status: Optional[str] = None
     is_active: Optional[str] = None
