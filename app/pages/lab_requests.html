@@ -182,6 +182,9 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-6">
+                              {{ forms.viewItem('Professional Fee','professional_fee') }}
+                            </div>
+                            <div class="col-sm-6">
                               {{ forms.viewItem('Status','status') }}
                             </div>
                           </div>
@@ -245,6 +248,7 @@
                 </div>
                 <!-- END LAB TEST -->
 
+                {{ forms.input('Professional Fee', 'professional_fee', 'number', 'required min=0') }}
                 {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED'])
                 }}
                 {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}

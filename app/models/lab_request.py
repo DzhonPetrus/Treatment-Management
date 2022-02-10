@@ -20,6 +20,7 @@ class LabRequest(Base):
     
 
     lab_request_no = Column(String(100))
+    professional_fee = Column(Numeric(15,2))
 
     is_active = Column(String(100), default='ACTIVE')
     status = Column(String(100), default='PENDING')

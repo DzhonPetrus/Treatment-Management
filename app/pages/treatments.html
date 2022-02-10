@@ -216,6 +216,9 @@
                           </div>
                           <div class="row">
                             <div class="col-sm-6">
+                              {{ forms.viewItem('Professional Fee','professional_fee') }}
+                            </div>
+                            <div class="col-sm-6">
                               {{ forms.viewItem('Status','status') }}
                             </div>
                           </div>
@@ -298,7 +301,8 @@
                 <!-- END PHYSICIAN  -->
 
 
-                {{ forms.input('Session No.', 'session_no', 'number', 'required', 1 ) }}
+                {{ forms.input('Professional Fee', 'professional_fee', 'number', 'required min=0', 0 ) }}
+                {{ forms.input('Session No.', 'session_no', 'number', 'required min=1', 1 ) }}
                 {{ forms.input('Session Date/Time', 'session_datetime', 'datetime-local', 'required') }}
                 {{ forms.input('Drug', 'drug', 'text') }}
                 {{ forms.input('Dose', 'dose', 'text') }}
