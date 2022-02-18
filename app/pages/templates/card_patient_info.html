@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card card-primary card-outline">
+      <h6 class="card-header">Patient Information</h6>
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-sm-6">
+            {{ forms.viewItem('Name','full_name') }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            {{ forms.viewItem('Birth Date','birth_date') }}
+          </div>
+          <div class="col-sm-6">
+            {{ forms.viewItem('Age','age') }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            {{ forms.viewItem('Gender','gender') }}
+          </div>
+          <div class="col-sm-6">
+            {{ forms.viewItem('Blood Type','blood_type') }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            {{ forms.viewItem('Contact Number','contact_no') }}
+          </div>
+          <div class="col-sm-6">
+            {{ forms.viewItem('Email','email') }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            {{ forms.viewItem('Status','is_active') }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

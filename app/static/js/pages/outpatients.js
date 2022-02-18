@@ -1,10 +1,10 @@
-	window.endpoint = (window.user_type).toLowerCase() + '/' + 'patient'
+	window.endpoint = (window.user_type).toLowerCase() + '/' + 'outpatient'
 
 	window.form = "#form"
-	window.modal = "#modal-patient";
+	window.modal = "#modal-outpatient";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "type", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "is_active", "btnAdd", "btnUpdate"];
+	window.fields = ["id", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "is_active", "btnAdd", "btnUpdate"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
 	window.readOnlyFields = ["id", "is_active"];
 
@@ -153,11 +153,6 @@ className: 'btn-sm',
 				searchable: true,
 			},
 			{
-				data: "type",
-				name: "type",
-				searchable: true,
-			},
-			{
 				data: "gender",
 				name: "gender",
 				searchable: true,
@@ -175,7 +170,7 @@ className: 'btn-sm',
 			},
 			{
 				data: null,
-				render: (aData) => renderButtons(aData, "Patient"),
+				render: (aData) => renderButtons(aData, "OutPatient"),
 			},
 		],
 		ajax: {
@@ -185,14 +180,14 @@ className: 'btn-sm',
 		},
 		drawCallback: function (settings) {
 			// POPULATE ANALYTIC CARDS
-			let patients = settings.json;
-			if(patients !== undefined){
-				const active_patients = patients.data.filter(types => types.is_active === 'ACTIVE')
-				const inactive_patients = patients.data.filter(types => types.is_active === 'INACTIVE')
+			let outpatients = settings.json;
+			if(outpatients !== undefined){
+				// const active_outpatients = outpatients.data.filter(types => types.is_active === 'ACTIVE')
+				// const inactive_outpatients = outpatients.data.filter(types => types.is_active === 'INACTIVE')
+				// $('#totalOutPatientsActive').html(active_outpatients.length)
+				// $('#totalOutPatientsInactive').html(inactive_outpatients.length)
 
-				$('#totalPatients').html(patients.data.length)
-				$('#totalPatientsActive').html(active_patients.length)
-				$('#totalPatientsInactive').html(inactive_patients.length)
+				$('#totalOutPatients').html(outpatients.data.length)
 			}
 		},
 	});
@@ -200,7 +195,7 @@ className: 'btn-sm',
 
 // VIEW DATA
 viewData = (id) => {
-	window.modal = "#modal-patient-view";
+	window.modal = "#modal-outpatient-view";
 
 	{
 		$.ajax({
@@ -216,7 +211,7 @@ viewData = (id) => {
 
 // Edit DATA
 editData = (id) => {
-	window.modal = "#modal-patient";
+	window.modal = "#modal-outpatient";
 	{
 		$.ajax({
 			url: BASE_URL + `${endpoint}/${id}`,

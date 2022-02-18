@@ -10,7 +10,7 @@ class Surgery(Base):
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     surgery_no = Column(String(100))
-    patient_id = Column(String(36), ForeignKey("patients.id"))
+    inpatient_id = Column(String(36), ForeignKey("inpatients.id"))
     room = Column(String(100))
     surgery_type_id = Column(String(36), ForeignKey("surgery_types.id"))
     start_time = Column(DateTime)
@@ -25,7 +25,7 @@ class Surgery(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
 
-    patient = relationship('Patient', back_populates='surgeries')
+    inpatient = relationship('InPatient', back_populates='surgeries')
     surgery_type = relationship("SurgeryType", back_populates="surgeries")
 
     in_charge = relationship('SurgeryInCharge', back_populates="surgery")

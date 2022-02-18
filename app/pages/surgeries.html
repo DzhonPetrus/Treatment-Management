@@ -174,20 +174,19 @@
                   </select>
                 </div>
                 <!-- END SURGERY TYPE -->
-
-                <!-- PATIENT-->
-                <div class="form-group" id="group-patient_id">
+                <!-- INPATIENT -->
+                <div class="form-group" id="group-inpatient_id">
                   <label>
-                    Patient
+                    InPatient
                     <span style="color:red">*</span>
                   </label>
-                  <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
-                    {% for patient in patients %}
-                    <option value="{{patient['id']}}">{{patient['first_name']}}</option>
+                  <select class="form-control select2" style="width: 100%;" id="inpatient_id" name="inpatient_id">
+                    {% for inpatient in inpatients %}
+                    <option value="{{inpatient['id']}}">{{inpatient['last_name']}}, {{inpatient['first_name']}}</option>
                     {% endfor -%}
                   </select>
                 </div>
-                <!-- END PATIENT -->
+                <!-- END INPATIENT -->
                 {{ forms.textarea('Description', 'description') }}
 
                 {{ forms.input('Room', 'room', 'text', 'required' ) }}
@@ -246,19 +245,12 @@
 
 {% block scripts %}
 <script defer>
-  const surgery_types = JSON.parse(' {{surgery_types|tojson}} ');
-  const patients = JSON.parse(' {{patients|tojson}} ');
-  const surgeons = JSON.parse(' {{surgeons|tojson}} ');
-  const nurses = JSON.parse(' {{nurses|tojson}} ');
-
-  console.log(surgeons)
-  console.log(nurses)
 
   $(() => {
     $('#surgeon_in_charge').select2();
     $('#nurse_in_charge').select2();
     $('#surgery_type_id').select2();
-    $('#patient_id').select2();
+    $('#inpatient_id').select2();
     $("#end_time").daterangepicker({
       singleDatePicker: true,
       timePicker: true,

@@ -125,17 +125,35 @@ const setState = (state, data) => {
 		$("#detailed_result_placeholder").show();
 	}
 
-	if(Object.keys(data).includes('patient')){
+	if(Object.keys(data).includes('outpatient')){
 		if(patient_fields !== undefined){
 			window.temp_fields = window.fields
 			window.fields = window.patient_fields
 		}
-		setInputValue(data.patient);
+		if(data.outpatient != null){
+			setInputValue(data.outpatient);
+			let age = Math.floor(moment().diff(data.outpatient.birth_date, 'years', true));
+			$('#ageView').html(age);
+		}
 		window.fields = window.temp_fields
 	}
+	if(Object.keys(data).includes('inpatient')){
+		if(patient_fields !== undefined){
+			window.temp_fields = window.fields
+			window.fields = window.patient_fields
+		}
+		if(data.inpatient != null){
+			setInputValue(data.inpatient);
+			let age = Math.floor(moment().diff(data.inpatient.birth_date, 'years', true));
+			$('#ageView').html(age);
+
+		}
+		window.fields = window.temp_fields
+	}
+	// TODO: REFACTOR
+
 	showAllFields();
 	setInputValue(data);
-	console.log(data);
 
 	$("#group-btnAdd").hide();
 

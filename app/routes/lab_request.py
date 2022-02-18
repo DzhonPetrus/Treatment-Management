@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 
 from .. import database
 
-from ..controllers import lab_request, lab_test, lab_result, patient
+from ..controllers import lab_request, lab_test, lab_result, inpatient, outpatient
 from .. import schemas, oauth2
 
 
@@ -35,7 +35,7 @@ def show(request: Request, db: Session = Depends(get_db),  current_user: schemas
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return lab_request.get_all(db)
-    return templates.TemplateResponse("lab_requests.html", {"request":request, 'current_path': request.url.path, "lab_tests":jsonable_encoder(lab_test.get_all(db,'ACTIVE')['data']), 'patients':jsonable_encoder(patient.get_all(db,'ACTIVE')['data'])})
+    return templates.TemplateResponse("lab_requests.html", {"request":request, 'current_path': request.url.path, "lab_tests":jsonable_encoder(lab_test.get_all(db,'ACTIVE')['data']), 'inpatients':jsonable_encoder(inpatient.get_all(db,'ACTIVE')['data']), 'outpatients':jsonable_encoder(outpatient.get_all(db,'ACTIVE')['data'])})
 
     # 'lab_results':jsonable_encoder(lab_result.get_all(db,'ACTIVE')['data']),
 

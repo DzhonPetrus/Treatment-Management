@@ -9,7 +9,7 @@ from fastapi.templating import Jinja2Templates
 
 from .. import database
 
-from ..controllers import treatment, user, patient, treatment_type
+from ..controllers import treatment, user, inpatient, outpatient, treatment_type
 from .. import schemas, oauth2
 
 
@@ -38,7 +38,7 @@ def all(request: Request, db: Session = Depends(get_db)):
     role_path = request.url.path.split('/')[1]
     physicians = httpx.get(f'http://127.0.0.1:8000/{role_path}/user/all').json()['data']
 
-    return templates.TemplateResponse("treatments.html", {"request":request, 'current_path': request.url.path, "treatment_types":jsonable_encoder(treatment_type.get_all(db,'ACTIVE')['data']), "patients":jsonable_encoder(patient.get_all(db,'ACTIVE')['data']), "physicians":jsonable_encoder(physicians)})
+    return templates.TemplateResponse("treatments.html", {"request":request, 'current_path': request.url.path, "treatment_types":jsonable_encoder(treatment_type.get_all(db,'ACTIVE')['data']), "inpatients":jsonable_encoder(inpatient.get_all(db,'ACTIVE')['data']), "outpatients":jsonable_encoder(outpatient.get_all(db,'ACTIVE')['data']), "physicians":jsonable_encoder(physicians)})
 
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutTreatment)
 def show(request: Request, id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):

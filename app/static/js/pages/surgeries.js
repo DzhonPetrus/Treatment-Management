@@ -5,7 +5,7 @@
 	window.modal = "#modal-surgery";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "surgery_type_id", "room", "patient_id", "start_time", "end_time", "status", "is_active", "btnAdd", "btnUpdate", "surgery_no", "head_surgeon_id", "description"];
+	window.fields = ["id", "surgery_type_id", "room", "inpatient_id", "start_time", "end_time", "status", "is_active", "btnAdd", "btnUpdate", "surgery_no", "head_surgeon_id", "description"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active", "end_time", "surgery_no"];
 	window.readOnlyFields = ["id", "is_active", "end_time", "surgery_no"];
 
@@ -169,8 +169,8 @@ className: 'btn-sm',
 		],
 		columns: [
 			{
-				data: "patient",
-				name: "patient",
+				data: "inpatient",
+				name: "inpatient",
 				searchable: true,
 				render: (aData) => `${aData.last_name}, ${aData.first_name} ${aData.middle_name || ''} ${aData.suffix_name ? ', ' + aData.suffix_name : ''}`
 			},

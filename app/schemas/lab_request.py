@@ -4,10 +4,13 @@ from pydantic import BaseModel
 from ..utils.schemaHelper import Base, as_form
 from .lab_result import *
 from .lab_test import *
-from .patient import *
+
+from .inpatient import *
+from .outpatient import *
 
 class LabRequestBase(Base):
-    patient_id: str
+    inpatient_id: Optional[str] = None
+    outpatient_id: Optional[str] = None
     # lab_test_id: str
     # lab_result_id: str
 
@@ -29,7 +32,8 @@ class LabRequest(LabRequestBase):
     updated_at: Optional[dt] = None
     # lab_result: Optional[LabResultBase] = None
     lab_test: Optional[LabTestBase] = None
-    patient: Optional[PatientBase] = None
+    inpatient: Optional[InPatientBase] = None
+    outpatient: Optional[OutPatientBase] = None
 
 
 class OutLabRequests(Base):

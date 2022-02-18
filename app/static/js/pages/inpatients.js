@@ -1,33 +1,12 @@
-	window.endpoint = (window.user_type).toLowerCase() + '/' + 'lab_request'
-	
+	window.endpoint = (window.user_type).toLowerCase() + '/' + 'inpatient'
 
 	window.form = "#form"
-	window.modal = "#modal-lab_request";
+	window.modal = "#modal-inpatient";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "lab_test_id", "lab_result_id", "status", "is_active", "btnAdd", "btnUpdate", "lab_request_no", "inpatient_id", "outpatient_id"];
-	window.fieldsHidden = ["id", "btnUpdate", "is_active", "lab_request_no", 'inpatient_id'];
-	window.readOnlyFields = ["id", "is_active", "lab_request_no"];
-
-	const renderAdditionalButtons = (aData) => {
-		let buttons = '';
-		if(aData.status === 'PENDING'){
-			buttons += `
-				<div 
-					class="dropdown-item d-flex" 
-					role="button" 
-					onClick="return cancelData('${aData.id}')
-				">
-					<div style="width:2rem">
-						<i class="fa fa-trash-alt"> </i>
-					</div>
-					<div>Cancel Lab Request</div>
-				</div>
-			`
-		}
-
-		return buttons;
-	}
+	window.fields = ["id", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "is_active", "btnAdd", "btnUpdate"];
+	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
+	window.readOnlyFields = ["id", "is_active"];
 
 $(function () {
 
@@ -39,13 +18,8 @@ $(function () {
 		e.preventDefault();
 		trimInputFields();
 
-
 		if ($(form).validate()) {
 			var form_data = new FormData(this);
-
-			form_data.append('id', $("#id").val())
-			form_data.append('status', $("#status").val())
-			form_data.append('is_active', $("#is_active").val())
 
 			var id = $("#id").val();
 			if (id == "") {
@@ -159,42 +133,44 @@ className: 'btn-sm',
 		],
 		columns: [
 			{
-				data: "lab_request_no",
-				name: "lab_request_no",
-				searchable: true,
-			},
-			{
 				data: null,
-				render: (data) => {
-					let patient = (data.inpatient == null) ? data.outpatient : data.inpatient;
-					return  `${patient.last_name}, ${patient.first_name} ${patient.middle_name || ''} ${patient.suffix_name ? ', ' + patient.suffix_name : ''}`
-				}
+				render: (aData) => `${aData.last_name}, ${aData.first_name} ${aData.middle_name || ''} ${aData.suffix_name ? ', ' + aData.suffix_name : ''}`
 			},
 			{
-				data: "lab_test.name",
-				name: "lab_test.name",
+				data: "first_name",
+				name: "first_name",
 				searchable: true,
 			},
-			// {
-			// 	data: "lab_result.result",
-			// 	name: "lab_result.result",
-			// 	searchable: true,
-			// },
 			{
-				data: "status",
-				name: "status",
+				data: "middle_name",
+				name: "middle_name",
+				searchable: true,
+				render: (aData) => aData || `<span class='font-italic text-secondary'>No data</span>`
+			},
+			{
+				data: "last_name",
+				name: "last_name",
+				searchable: true,
+			},
+			{
+				data: "gender",
+				name: "gender",
+				searchable: true,
+			},
+			{
+				data: "blood_type",
+				name: "blood_type",
 				searchable: true,
 			},
 			{
 				data: "is_active",
-				render: (aData) => aData.toUpperCase() == "ACTIVE" ? `<span class="p-2 w-100 badge badge-primary">${aData}</span>` : `<span class="p-2 w-100 badge badge-danger">${aData}</span>`,
+				render: (aData) => aData.toUpperCase() == "ACTIVE" ? `<span class='p-2 w-100 badge badge-primary'>${aData}</span>` : `<span class='p-2 w-100 badge badge-danger'>${aData}</span>`,
 				// name: "status",
 				// searchable: true,
 			},
 			{
 				data: null,
-				render: (aData) => renderButtons(aData, "Lab Request", renderAdditionalButtons(aData)),
-				// render:(data) => console.log(data.lab_request_type)
+				render: (aData) => renderButtons(aData, "InPatient"),
 			},
 		],
 		ajax: {
@@ -204,14 +180,14 @@ className: 'btn-sm',
 		},
 		drawCallback: function (settings) {
 			// POPULATE ANALYTIC CARDS
-			let lab_requests = settings.json;
-			if(lab_requests !== undefined){
-				const active_lab_requests = lab_requests.data.filter(lab_request => lab_request.is_active === 'ACTIVE')
-				const inactive_lab_requests = lab_requests.data.filter(lab_request => lab_request.is_active === 'INACTIVE')
+			let inpatients = settings.json;
+			if(inpatients !== undefined){
+				// const active_inpatients = inpatients.data.filter(types => types.is_active === 'ACTIVE')
+				// const inactive_inpatients = inpatients.data.filter(types => types.is_active === 'INACTIVE')
+				// $('#totalInPatientsActive').html(active_inpatients.length)
+				// $('#totalInPatientsInactive').html(inactive_inpatients.length)
 
-				$('#totalLabRequests').html(lab_requests.data.length)
-				$('#totalLabRequestsActive').html(active_lab_requests.length)
-				$('#totalLabRequestsInactive').html(inactive_lab_requests.length)
+				$('#totalInPatients').html(inpatients.data.length)
 			}
 		},
 	});
@@ -219,7 +195,8 @@ className: 'btn-sm',
 
 // VIEW DATA
 viewData = (id) => {
-	window.modal = "#modal-lab_request-view";
+	window.modal = "#modal-inpatient-view";
+
 	{
 		$.ajax({
 			url: BASE_URL + `${endpoint}/${id}`,
@@ -234,7 +211,7 @@ viewData = (id) => {
 
 // Edit DATA
 editData = (id) => {
-	window.modal = "#modal-lab_request";
+	window.modal = "#modal-inpatient";
 	{
 		$.ajax({
 			url: BASE_URL + `${endpoint}/${id}`,
@@ -296,33 +273,6 @@ reactivateData = (id, confirmed = false) => {
 		});
 	} else {
 		confirmationModal('reactivate', id);
-	}
-};
-
-
-
-// function to cancel lab_request
-cancelData = (id, confirmed = false) => {
-	if (confirmed) {
-		$.ajax({
-			url: BASE_URL + endpoint + `/cancel/${id}`,
-			type: "PUT",
-			data: { id },
-			dataType: "json",
-
-			success: function (data) {
-				if (data.error == false) {
-					$('#confirmModal').modal("hide");
-					notification("info", "Info!", data.message);
-					loadTable();
-				} else {
-					notification("error", "Error!", data.message);
-				}
-			},
-			error: (data) => notification("error", data.responseJSON.detail),
-		});
-	} else {
-		confirmationModal('cancel', id);
 	}
 };
 

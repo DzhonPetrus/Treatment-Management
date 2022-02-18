@@ -1,0 +1,228 @@
+{% import 'templates/forms.html' as forms %}
+{% extends "templates/base.html" %}
+{% set active_page = current_path.split('/')[2] %}
+{% set user_type = current_path.split('/')[1] %}
+{% block content %}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+
+      <!-- Title -->
+      <div class="col-sm-6">
+        <h1>OutPatients</h1>
+        <p class="text-muted">List of OutPatients</p>
+      </div>
+
+      <!-- Breadcrumb -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Core</a></li>
+          <li class="breadcrumb-item active">OutPatients</li>
+        </ol>
+      </div>
+      <!-- / breadcrumb -->
+
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <!-- Info Boxes -->
+    <div class="row">
+
+      <div class="col-md-4 col-sm-6 col-12">
+
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="far fa-address-book"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">OutPatients</span>
+            <span class="info-box-number" id="totalOutPatients">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success"><i class="far fa-address-card"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Active OutPatients</span>
+            <span class="info-box-number" id="totalOutPatientsActive">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+      <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-danger"><i class="far fa-address-book"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Inactive OutPatients</span>
+            <span class="info-box-number" id="totalOutPatientsInactive">0</span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- ./col -->
+      </div>
+
+    </div>
+
+    <!-- / Info Boxes -->
+
+    <!-- Card -->
+    <div class="card card-primary card-outline">
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <h3 class="card-title">List of OutPatients</h3>
+
+
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-outpatient"
+          onclick="newHandler()">
+          <i class="fa fa-plus"></i>
+          New OutPatient
+        </button>
+      </div>
+      <!-- /.card-header -->
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <table id="dataTable" class="table table-bordered table-hover" style="width:100%">
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              <th>Gender</th>
+              <th>Blood Type</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+
+    <!-- MODAL VIEW -->
+    <div class="modal fade" id="modal-outpatient-view" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">OutPatient</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="container-fluid">
+                  {% include 'templates/card_patient_info.html' %}
+              </div>
+          </div>
+          <div class="modal-footer float-right">
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- END OF MODAL VIEW -->
+
+    <!-- MODAL FORM -->
+    <div class="modal fade" id="modal-outpatient" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">OutPatient</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form">
+              <div class="container-fluid">
+                <div class="row">
+                    {{ forms.input('ID', 'id', 'text', '', '', 'col-md-6' )}}
+                </div>
+                <div class="row">
+                    {{ forms.input('First Name', 'first_name', 'text', 'required','', 'col-md-4') }}
+                    {{ forms.input('Middle Name', 'middle_name', 'text', '', '', 'col-md-3') }}
+                    {{ forms.input('Last Name', 'last_name', 'text', 'required', '', 'col-md-4') }}
+                    {{ forms.input('Suffix', 'suffix_name', 'text', '', '', 'col-md-1') }}
+                </div>
+                <div class="row">
+                    {{ forms.input('Birth Date', 'birth_date', 'text', 'required', '', 'col-md-3') }}
+                    {{ forms.select('Gender', 'gender', 'text',['Male', 'Female'], 'col-md-2') }}
+                    {{ forms.select('Blood Type', 'blood_type', 'text', ['O-', 'O+', 'B-', 'B+', 'A-', 'A+', 'AB-', 'AB+'], 'col-md-3')
+                    }}
+                </div>
+                <div class="row">
+                    {{ forms.input('Contact Number', 'contact_no', 'text', 'required', '', 'col-md-3') }}
+                    {{ forms.input('Email', 'email', 'email', 'required', '', 'col-md-3') }}
+                </div>
+                    <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
+                    {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+
+                  <!-- </div> -->
+              </div>
+          </div>
+          <div class="modal-footer float-right">
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" id="group-btnAdd">
+              Yes, submit it!
+              <i class="fa fa-check"></i>
+            </button>
+            <button type="submit" class="btn btn-info" id="group-btnUpdate">
+              Yes, update it!
+              <i class="fa fa-check"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+        </form>
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- END OF MODAL FORM -->
+
+    <div id="confirmationModal"></div>
+
+  </div>
+</section>
+<!-- /.content -->
+
+{% endblock %}
+
+{% block scripts %}
+
+<script defer>
+  $("#birth_date").daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    locale: {
+      format: 'YYYY-MM-DD'
+    },
+    minYear: 1901,
+    maxYear: parseInt(moment().format('YYYY'), 10)
+  });
+
+</script>
+
+<script src="{{ url_for('static', path='/js/pages/outpatients.js') }}"></script>
+{% endblock %}

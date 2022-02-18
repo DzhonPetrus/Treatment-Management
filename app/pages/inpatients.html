@@ -10,15 +10,15 @@
 
       <!-- Title -->
       <div class="col-sm-6">
-        <h1>Patients</h1>
-        <p class="text-muted">List of Patients</p>
+        <h1>InPatients</h1>
+        <p class="text-muted">List of InPatients</p>
       </div>
 
       <!-- Breadcrumb -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Core</a></li>
-          <li class="breadcrumb-item active">Patients</li>
+          <li class="breadcrumb-item active">InPatients</li>
         </ol>
       </div>
       <!-- / breadcrumb -->
@@ -41,8 +41,8 @@
           <span class="info-box-icon bg-info"><i class="far fa-address-book"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Patients</span>
-            <span class="info-box-number" id="totalPatients">0</span>
+            <span class="info-box-text">InPatients</span>
+            <span class="info-box-number" id="totalInPatients">0</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -54,8 +54,8 @@
           <span class="info-box-icon bg-success"><i class="far fa-address-card"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Active Patients</span>
-            <span class="info-box-number" id="totalPatientsActive">0</span>
+            <span class="info-box-text">Active InPatients</span>
+            <span class="info-box-number" id="totalInPatientsActive">0</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -67,8 +67,8 @@
           <span class="info-box-icon bg-danger"><i class="far fa-address-book"></i></span>
 
           <div class="info-box-content">
-            <span class="info-box-text">Inactive Patients</span>
-            <span class="info-box-number" id="totalPatientsInactive">0</span>
+            <span class="info-box-text">Inactive InPatients</span>
+            <span class="info-box-number" id="totalInPatientsInactive">0</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -84,13 +84,13 @@
 
       <!-- Card Header -->
       <div class="card-header">
-        <h3 class="card-title">List of Patients</h3>
+        <h3 class="card-title">List of InPatients</h3>
 
 
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-patient"
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-inpatient"
           onclick="newHandler()">
           <i class="fa fa-plus"></i>
-          New Patient
+          New InPatient
         </button>
       </div>
       <!-- /.card-header -->
@@ -104,7 +104,6 @@
               <th>First Name</th>
               <th>Middle Name</th>
               <th>Last Name</th>
-              <th>Type</th>
               <th>Gender</th>
               <th>Blood Type</th>
               <th>Status</th>
@@ -121,55 +120,18 @@
 
 
     <!-- MODAL VIEW -->
-    <div class="modal fade" id="modal-patient-view" aria-modal="true" role="dialog">
+    <div class="modal fade" id="modal-inpatient-view" aria-modal="true" role="dialog">
       <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Patient</h4>
+            <h4 class="modal-title">InPatient</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
           <div class="modal-body">
               <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-12">
-    <div class="card card-primary card-outline">
-                        <h6 class="card-header">Patient Information</h6>
-                        <div class="card-body">
-          
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Name','full_name') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Gender','gender') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Birth Date','birth_date') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Blood Type','blood_type') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Contact Number','contact_no') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Email','email') }}
-                            </div>
-                          </div><div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Status','is_active') }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
+                {% include 'templates/card_patient_info.html' %}
               </div>
           </div>
           <div class="modal-footer float-right">
@@ -183,11 +145,11 @@
     <!-- END OF MODAL VIEW -->
 
     <!-- MODAL FORM -->
-    <div class="modal fade" id="modal-patient" aria-modal="true" role="dialog">
+    <div class="modal fade" id="modal-inpatient" aria-modal="true" role="dialog">
       <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Patient</h4>
+            <h4 class="modal-title">InPatient</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -197,7 +159,6 @@
               <div class="container-fluid">
                 <div class="row">
                     {{ forms.input('ID', 'id', 'text', '', '', 'col-md-6' )}}
-                    {{ forms.select('Type', 'type', 'required', ['Outpatient', 'Inpatient'], 'col-md-6') }}
                 </div>
                 <div class="row">
                     {{ forms.input('First Name', 'first_name', 'text', 'required','', 'col-md-4') }}
@@ -218,7 +179,6 @@
                     <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
                     {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
 
-                  <!-- </div> -->
               </div>
           </div>
           <div class="modal-footer float-right">
@@ -263,5 +223,5 @@
 
 </script>
 
-<script src="{{ url_for('static', path='/js/pages/patients.js') }}"></script>
+<script src="{{ url_for('static', path='/js/pages/inpatients.js') }}"></script>
 {% endblock %}

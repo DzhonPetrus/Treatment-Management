@@ -7,7 +7,8 @@ from .profile import *
 from .treatment import *
 from .treatment_type import *
 
-from .patient import *
+from .inpatient import *
+from .outpatient import *
 from .user import *
 
 from .token import *

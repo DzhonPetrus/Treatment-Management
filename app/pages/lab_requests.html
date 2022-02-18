@@ -129,44 +129,8 @@
           </div>
           <div class="modal-body">
               <div class="container-fluid">
+                {% include 'templates/card_patient_info.html' %}
                 <div class="row">
-                  <div class="col-sm-12">
-    <div class="card card-primary card-outline">
-                        <h6 class="card-header">Patient Information</h6>
-                        <div class="card-body">
-          
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Name','full_name') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Gender','gender') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Birth Date','birth_date') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Blood Type','blood_type') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Contact Number','contact_no') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Email','email') }}
-                            </div>
-                          </div><div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Status','is_active') }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div><div class="row">
                   <div class="col-sm-12">
     <div class="card card-primary card-outline">
                         <h6 class="card-header">Lab Request Information</h6>
@@ -203,7 +167,7 @@
 
 
     <div class="modal fade" id="modal-lab_request" aria-modal="true" role="dialog">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Lab Request</h4>
@@ -214,25 +178,45 @@
           <div class="modal-body">
             <form id="form">
               <div class="card-body">
+                <div class="container-fluid">
+                  <div class="row">
 
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
                 {{ forms.input('Lab Request No', 'lab_request_no', 'text', '', '' )}}
-                <!-- PATIENT -->
-                <div class="form-group" id="group-patient_id">
-                  <label>
-                    Patient
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
-                    {% for patient in patients %}
-                    <option value="{{patient['id']}}">{{patient['last_name']}}, {{patient['first_name']}}</option>
-                    {% endfor -%}
-                  </select>
-                </div>
-                <!-- END PATIENT -->
+                    {{ forms.select('Patient Type', 'patient_type', 'text', ['Outpatient', 'Inpatient'], 'col-md-6') }}
+                    <!-- INPATIENT -->
+                    <div class="form-group col-md-6" id="group-inpatient_id">
+                      <label>
+                        InPatient
+                        <span style="color:red">*</span>
+                      </label>
+                      <select class="form-control select2" style="width: 100%;" id="inpatient_id" name="inpatient_id">
+                        {% for inpatient in inpatients %}
+                        <option value="{{inpatient['id']}}">{{inpatient['last_name']}}, {{inpatient['first_name']}}
+                        </option>
+                        {% endfor -%}
+                      </select>
+                    </div>
+                    <!-- END INPATIENT -->
+                    <!-- OUTPATIENT -->
+                    <div class="form-group col-md-6" id="group-outpatient_id">
+                      <label>
+                        OutPatient
+                        <span style="color:red">*</span>
+                      </label>
+                      <select class="form-control select2" style="width: 100%;" id="outpatient_id" name="outpatient_id">
+                        {% for outpatient in outpatients %}
+                        <option value="{{outpatient['id']}}">{{outpatient['last_name']}}, {{outpatient['first_name']}}
+                        </option>
+                        {% endfor -%}
+                      </select>
+                    </div>
+                    <!-- END OUTPATIENT -->
+                    </div>
 
+                    <div class="row">
                 <!-- LAB TEST -->
-                <div class="form-group" id="group-lab_request_type_id">
+                <div class="form-group col-md-6" id="group-lab_request_type_id">
                   <label>
                     Lab Test
                     <span style="color:red">*</span>
@@ -245,11 +229,12 @@
                 </div>
                 <!-- END LAB TEST -->
 
-                {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED'])
+                {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED'], 'col-md-6')
                 }}
                 {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
 
 
+              </div>
               </div>
           </div>
           <div class="modal-footer float-right">
@@ -280,12 +265,27 @@
 
 {% block scripts %}
 <script defer>
-  const lab_tests = JSON.parse(' {{lab_tests|tojson}} ');
-  const patients = JSON.parse(' {{patients|tojson}} ');
+  $('#group-inpatient_id').hide();
+  $('#inpatient_id').val('');
+  $('#outpatient_id').val('');
 
   $(() => {
     $('#lab_test_id').select2();
-    $('#patient_id').select2();
+    $('#inpatient_id').select2();
+    $('#outpatient_id').select2();
+
+    $('#patient_type').on('change', (e) => {
+      $('#group-inpatient_id').show();
+      $('#group-outpatient_id').show();
+
+      if(e.target.value == 'Outpatient'){
+        $('#inpatient_id').val('');
+        $('#group-inpatient_id').hide();
+      }else{
+        $('#outpatient_id').val('');
+        $('#group-outpatient_id').hide();
+      }
+    })
   });
 </script>
 <script src="{{ url_for('static', path='/js/pages/lab_requests.js') }}"></script>

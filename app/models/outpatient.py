@@ -5,11 +5,10 @@ from sqlalchemy.orm import relationship
 from ..database import Base
 
 
-class Patient(Base):
-    __tablename__ = "patients"
+class OutPatient(Base):
+    __tablename__ = "outpatients"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
-    type = Column(String(100))
     first_name = Column(String(100))
     middle_name = Column(String(100))
     last_name = Column(String(100))
@@ -27,6 +26,5 @@ class Patient(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
 
-    surgeries = relationship('Surgery', back_populates='patient')
-    treatments = relationship('Treatment', back_populates='patient')
-    lab_requests = relationship('LabRequest', back_populates='patient')
+    treatments = relationship('Treatment', back_populates='outpatient')
+    lab_requests = relationship('LabRequest', back_populates='outpatient')

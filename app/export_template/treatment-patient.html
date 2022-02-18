@@ -1,0 +1,181 @@
+﻿<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' >
+  <title>Treatment Report</title>
+  <!-- pdfmake files: -->
+  <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js'></script>
+  <!-- html-to-pdfmake file: -->
+  <script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>
+
+
+</head>
+<body>
+  
+  <script>
+
+//var htmlToPdfmake = require("html-to-pdfmake");
+// or:
+//import htmlToPdfmake from "html-to-pdfmake"
+
+    var val = htmlToPdfmake(`
+
+
+
+
+<div class="header" style="text-align:center;" >
+
+
+    	<h6> <font color="green" style="font-size:36px;"> HoMIES </font> <br><u>
+MEDICAL CENTER</u></h6>
+	<p style="font-size: 14px;"> Don Fabian, Quezon City, Metro Manila <br>Tel: 6969-00000   Phone: 09696969690 <br> homiesmedical@gmail.com <br>
+<u>                                                                                                                                                                                             </u></p>
+
+</div>
+<h6 style="text-align:center;"><em>TREATMENT DEPARTMENT</em></h6>
+
+
+<div class="patient">
+<h6 style="font-size: 18px;"> Patient Information</h6>
+<table style="font-size: 16px;">
+<tr>
+<td style="background-color:#BFEEB7;">Name:</td>
+<td> Juan Dela Cruz </td>
+<td style="background-color:#BFEEB7;"> Sex: </td>
+<td> M </td>
+<td style="background-color:#BFEEB7;"> Age: </td>
+<td> 69 years old </td>
+</tr>
+
+<tr>
+<td style="background-color:#BFEEB7;"> Birthdate: </td>
+<td> November 1, 1995 </td>
+<td style="background-color:#BFEEB7;"> Blood Type: </td>
+<td> O+ </td>
+<td style="background-color:#BFEEB7;">Contact No: </td>
+<td> 09125476321 </td>
+</tr>
+
+
+<tr>
+<td style="background-color:#BFEEB7;"> E-mail: </td>
+<td> jdc@gmail.com </td>
+<td style="background-color:#BFEEB7;"> Initial Diagnosis: </td>
+<td> sore eyes </td>
+<td style="background-color:#BFEEB7;"> Diagnosis: </td>
+<td> cataract </td>
+</tr>
+
+
+
+<tr>
+<td style="background-color:#BFEEB7;"> Past Treatments: </td>
+<td> Lasik Surgery </td>
+<td style="background-color:#BFEEB7;"> Previous Therapy: </td>
+<td> N/A </td>
+<td style="background-color:#BFEEB7;"> Status: </td>
+<td> Active </td>
+</tr>
+
+</table>
+</div>
+<br>
+<p> ============================================================================== </p>
+<br>
+<div class="treatment">
+<h6 style="font-size: 18px;"> Treatment Information</h6>
+<table style="font-size: 16px;">
+<tr>
+<td style="background-color:#BFEEB7;">Treatment No.:</td>
+<td> 002204 </td>
+<td style="background-color:#BFEEB7;"> Treatment Type: </td>
+<td> Cardiac Rehabilitation </td>
+</tr>
+
+<tr>
+
+<td style="background-color:#BFEEB7;"> Treatment Service: </td>
+<td> Inpatient Phase (Phase I) </td>
+<td style="background-color:#BFEEB7;"> Treatment Description </td>
+<td> eklavu eklavu mahaba HAHA ajdakldjalkdjlksjdlaksjflksjflakjglkgjs;lgkvmxcnv </td>
+</tr>
+
+
+<tr>
+<td style="background-color:#BFEEB7;"> Session No.: </td>
+<td> 1 </td>
+<td style="background-color:#BFEEB7;"> Session Date/Time: </td>
+<td> February 18, 2022 17:23 </td>
+</tr>
+
+
+
+<tr>
+
+<td style="background-color:#BFEEB7;"> Drug: </td>
+<td> N/A </td>
+<td style="background-color:#BFEEB7;"> Dose: </td>
+<td> N/A </td>
+
+</tr>
+
+<tr>
+<td style="background-color:#BFEEB7;"> Next Schedule: </td>
+<td> february 24, 2022 </td>
+<td style="background-color:#BFEEB7;"> Status: </td>
+<td> Active </td>
+</tr>
+
+<tr>
+<td style="background-color:#BFEEB7;"> Physician: </td>
+<td> Dr. John Peter Narzoles </td>
+
+<td style="background-color:#BFEEB7;"> Comments: </td>
+<td>  mahaba dapat to talaga eh</td>
+
+</tr>
+
+
+</table>
+</div>
+<br>
+<p> ============================================================================== </p>
+<br>
+
+</div>
+
+`);
+
+    var dd = {
+/*footer: 
+
+	function(currentPage, pageCount) {return currentPage.toString() + ' of ' + pageCount; 
+   
+    // you can apply any logic and return any valid pdfmake element
+
+    return [
+      { canvas: [ { type: 'rect', x: 170, y: 32, w: pageSize.width - 170, ': 40 } ]  }
+    ]
+  },
+*/
+
+footer: 
+          { text:'\n HoMIES MEDICAL CENTER \n 2022', alignment: 'center', fontSize: 9}
+
+
+
+
+
+,
+
+watermark: { text: 'HoMIES', color: 'gray', opacity: 0.15, bold: true},
+
+
+content: val};
+	
+
+    pdfMake.createPdf(dd).open();
+  </script>
+</body>
+</html>

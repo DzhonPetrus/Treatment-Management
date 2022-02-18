@@ -5,8 +5,8 @@
 	window.modal = "#modal-treatment";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "treatment_no", "treatment_type_id", "user_id", "patient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate", "session_no", "session_datetime", "drug", "dose", "next_schedule", "comments", "professional_fee"];
-	window.fieldsHidden = ["btnUpdate", "is_active", "end_time", "treatment_no", "id"];
+	window.fields = ["id", "treatment_no", "treatment_type_id", "user_id", "inpatient_id", "outpatient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate", "session_no", "session_datetime", "drug", "dose", "next_schedule", "comments", "professional_fee"];
+	window.fieldsHidden = ["btnUpdate", "is_active", "end_time", "treatment_no", "id", "inpatient_id"];
 	window.readOnlyFields = ["is_active", "end_time", "treatment_no", "id"];
 
 	const renderAdditionalButtons = (aData) => {
@@ -165,10 +165,11 @@ className: 'btn-sm',
 				searchable: true,
 			},
 			{
-				data: "patient",
-				name: "patient",
-				searchable: true,
-				render: (aData) => `${aData.last_name}, ${aData.first_name} ${aData.middle_name || ''} ${aData.suffix_name ? ', ' + aData.suffix_name : ''}`
+				data: null,
+				render: (data) => {
+					let patient = (data.inpatient == null) ? data.outpatient : data.inpatient;
+					return  `${patient.last_name}, ${patient.first_name} ${patient.middle_name || ''} ${patient.suffix_name ? ', ' + patient.suffix_name : ''}`
+				}
 			},
 			{
 				data: "treatment_type",

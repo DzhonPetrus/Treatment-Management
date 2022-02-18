@@ -3,12 +3,14 @@ from typing import Optional, Any
 
 from .treatment_type import *
 from .user import *
-from .patient import *
+from .inpatient import *
+from .outpatient import *
 from ..utils.schemaHelper import Base, as_form
 
 class TreatmentBase(Base):
     treatment_no: Optional[str] = None
-    patient_id: str
+    inpatient_id: Optional[str] = None
+    outpatient_id: Optional[str] = None
     user_id: str
     treatment_type_id: str
     description: str
@@ -35,7 +37,8 @@ class Treatment(TreatmentBase):
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
     treatment_type: Optional[TreatmentTypeBase] = None
-    patient: Optional[PatientBase] = None
+    inpatient: Optional[InPatientBase] = None
+    outpatient: Optional[OutPatientBase] = None
     physician: Optional[User] = None
 
 

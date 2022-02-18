@@ -6,8 +6,7 @@ from ..utils.schemaHelper import Base, as_form
 
 
 
-class PatientBase(Base):
-    type : str
+class InPatientBase(Base):
     first_name : str
     middle_name : Optional[str] = None
     last_name : str
@@ -23,21 +22,21 @@ class PatientBase(Base):
 
 
 @as_form
-class CreatePatient(PatientBase):
+class CreateInPatient(InPatientBase):
     pass
 
 
-class Patient(PatientBase):
+class InPatient(InPatientBase):
     id: str
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
 
-class OutPatients(Base):
-    data: List[Patient]
+class OutInPatients(Base):
+    data: List[InPatient]
     error: bool
     message: str
 
-class OutPatient(Base):
-    data: Patient
+class OutInPatient(Base):
+    data: InPatient
     error: bool
     message: str

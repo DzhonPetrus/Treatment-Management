@@ -33,7 +33,8 @@
 {% if user_type == 'admin' -%}
 {% set navigation_core = [
   ('/', 'index', 'Dashboard', 'fa-home'),
-  ('/patient', 'patient', 'Patients', 'fa-address-book')
+  ('/inpatient', 'inpatient', 'InPatients', 'fa-address-book'),
+  ('/outpatient', 'outpatient', 'OutPatients', 'fa-address-book')
   ] -%}
 
 {% set navigation_surgery = [

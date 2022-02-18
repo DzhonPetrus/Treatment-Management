@@ -4,13 +4,13 @@ from pydantic import BaseModel
 
 from .user import UserBase
 from .surgery_type import *
-from .patient import *
+from .inpatient import *
 from ..utils.schemaHelper import Base, as_form
 
 class SurgeryBase(Base):
     surgery_no: Optional[str] = None
     room: Optional[str] = None
-    patient_id: Optional[str] = None
+    inpatient_id: Optional[str] = None
     surgery_type_id: Optional[str] = None
 
     in_charge: Optional[Any] = None
@@ -41,7 +41,7 @@ class Surgery(SurgeryBase):
     updated_at: Optional[dt] = None
     surgery_type: Optional[SurgeryTypeBase] = None
     in_charge: Optional[List[InCharge]] = None
-    patient: Optional[PatientBase] = None
+    inpatient: Optional[InPatientBase] = None
 
 
 class OutSurgeries(Base):

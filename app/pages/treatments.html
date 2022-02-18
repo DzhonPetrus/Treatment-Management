@@ -130,103 +130,69 @@
             </button>
           </div>
           <div class="modal-body">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-12">
-    <div class="card card-primary card-outline">
-                        <h6 class="card-header">Patient Information</h6>
-                        <div class="card-body">
-          
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Name','full_name') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Gender','gender') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Birth Date','birth_date') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Blood Type','blood_type') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Contact Number','contact_no') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Email','email') }}
-                            </div>
-                          </div><div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Status','is_active') }}
-                            </div>
-                          </div>
+            <div class="container-fluid">
+
+            {% include 'templates/card_patient_info.html' %}
+              
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card card-primary card-outline">
+                    <h6 class="card-header">Treatment Information</h6>
+                    <div class="card-body">
+
+                      <div class="row">
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Treatment No','treatment_no') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Treatment Type','treatment_type_name') }}
                         </div>
                       </div>
-                  </div>
-                </div><div class="row">
-                  <div class="col-sm-12">
-    <div class="card card-primary card-outline">
-                        <h6 class="card-header">Treatment Information</h6>
-                        <div class="card-body">
-          
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Treatment No','treatment_no') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Treatment Type','treatment_type_name') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Physician','physician_name') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Description','description') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Session No.','session_no') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Session Date/Time','session_datetime') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Drug','drug') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Dose','dose') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Next Schedule','next_schedule') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Comments','comments') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Professional Fee','professional_fee') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Status','status') }}
-                            </div>
-                          </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Physician','physician_name') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Description','description') }}
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Session No.','session_no') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Session Date/Time','session_datetime') }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Drug','drug') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Dose','dose') }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Next Schedule','next_schedule') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Comments','comments') }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Professional Fee','professional_fee') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Status','status') }}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
           <div class="modal-footer float-right">
             <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
@@ -241,7 +207,7 @@
 
 
     <div class="modal fade" id="modal-treatment" aria-modal="true" role="dialog">
-      <div class="modal-dialog  modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-dialog modal-lg  modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Treatment</h4>
@@ -251,91 +217,119 @@
           </div>
           <div class="modal-body">
             <form id="form">
-              <div class="card-body">
+                <div class="container-fluid">
+                  <div class="row">
 
-                {{ forms.input('ID', 'id', 'text', 'hidden', '' )}}
-                {{ forms.input('Treatment No', 'treatment_no', 'text', '', '' )}}
+                    {{ forms.input('ID', 'id', 'text', 'hidden', '' )}}
+                    {{ forms.input('Treatment No', 'treatment_no', 'text', '', '' )}}
 
-                <!-- TREATMENT TYPE -->
-                <div class="form-group" id="group-treatment_type_id">
-                  <label>
-                    Treatment Type
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="treatment_type_id"
-                    name="treatment_type_id">
-                    {% for treatment_type in treatment_types %}
-                    <option value="{{treatment_type['id']}}">{{treatment_type['name']}}</option>
-                    {% endfor -%}
-                  </select>
+                    <!-- TREATMENT TYPE -->
+                    <div class="form-group col-md-12" id="group-treatment_type_id" class="col-md6">
+                      <label>
+                        Treatment Type
+                        <span style="color:red">*</span>
+                      </label>
+                      <select class="form-control select2" style="width: 100%;" id="treatment_type_id"
+                        name="treatment_type_id">
+                        {% for treatment_type in treatment_types %}
+                        <option value="{{treatment_type['id']}}">{{treatment_type['name']}}</option>
+                        {% endfor -%}
+                      </select>
+                    </div>
+                    <!-- END TREATMENT TYPE -->
+
+                  </div>
+
+                  <div class="row">
+                    {{ forms.select('Patient Type', 'patient_type', 'text', ['Outpatient', 'Inpatient'], 'col-md-6') }}
+                    <!-- INPATIENT -->
+                    <div class="form-group col-md-6" id="group-inpatient_id">
+                      <label>
+                        InPatient
+                        <span style="color:red">*</span>
+                      </label>
+                      <select class="form-control select2" style="width: 100%;" id="inpatient_id" name="inpatient_id">
+                        {% for inpatient in inpatients %}
+                        <option value="{{inpatient['id']}}">{{inpatient['last_name']}}, {{inpatient['first_name']}}
+                        </option>
+                        {% endfor -%}
+                      </select>
+                    </div>
+                    <!-- END INPATIENT -->
+                    <!-- OUTPATIENT -->
+                    <div class="form-group col-md-6" id="group-outpatient_id">
+                      <label>
+                        OutPatient
+                        <span style="color:red">*</span>
+                      </label>
+                      <select class="form-control select2" style="width: 100%;" id="outpatient_id" name="outpatient_id">
+                        {% for outpatient in outpatients %}
+                        <option value="{{outpatient['id']}}">{{outpatient['last_name']}}, {{outpatient['first_name']}}
+                        </option>
+                        {% endfor -%}
+                      </select>
+                    </div>
+                    <!-- END OUTPATIENT -->
+                  </div>
+                  <div class="row">
+                    <!-- PHYSICIAN -->
+                    <div class="form-group col-md-6" id="group-user_id">
+                      <label>
+                        Physician
+                        <span style="color:red">*</span>
+                      </label>
+                      <select class="form-control select2" style="width: 100%;" id="user_id" name="user_id">
+                        {% for physician in physicians %}
+                        <option value="{{physician['id']}}">{{physician['user_profile']['last_name']}},
+                          {{physician['user_profile']['first_name']}}</option>
+                        {% endfor -%}
+                      </select>
+                    </div>
+                    <!-- END PHYSICIAN  -->
+
+
+                    {{ forms.input('Professional Fee', 'professional_fee', 'number', 'required min=0', 0, 'col-md-6' ) }}
+                  </div>
+                  <div class="row">
+                    {{ forms.input('Session No.', 'session_no', 'number', 'required min=1', 1, 'col-md-6' ) }}
+                    {{ forms.input('Session Date/Time', 'session_datetime', 'datetime-local', 'required','', 'col-md-6') }}
+                  </div>
+                  <div class="row">
+                    {{ forms.input('Drug', 'drug', 'text','','','col-md-6') }}
+                    {{ forms.input('Dose', 'dose', 'text','','','col-md-6') }}
+                  </div>
+                  <div class="row">
+                    {{ forms.input('Next Schedule', 'next_schedule', 'datetime-local','','','col-md-6') }}
+                    {{ forms.textarea('Comments', 'comments', 'required', '', 'col-md-6' ) }}
+                  </div>
+                  <div class="row">
+                    {{ forms.textarea('Description', 'description', 'required','','col-md-6' ) }}
+                    {{ forms.select('Status', 'status', 'text', ['PENDING', 'ON-GOING', 'FINISHED', 'CANCELLED'], 'col-md-6') }}
+                  </div>
+
+                    {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE', 'col-md-4' ) }}
                 </div>
-                <!-- END TREATMENT TYPE -->
-
-                <!-- PATIENT-->
-                <div class="form-group" id="group-patient_id">
-                  <label>
-                    Patient
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="patient_id" name="patient_id">
-                    {% for patient in patients %}
-                    <option value="{{patient['id']}}">{{patient['last_name']}}, {{patient['first_name']}}</option>
-                    {% endfor -%}
-                  </select>
-                </div>
-                <!-- END PATIENT -->
-
-                <!-- PHYSICIAN -->
-                <div class="form-group" id="group-user_id">
-                  <label>
-                    Physician
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="user_id" name="user_id">
-                    {% for physician in physicians %}
-                    <option value="{{physician['id']}}">{{physician['user_profile']['last_name']}},
-                      {{physician['user_profile']['first_name']}}</option>
-                    {% endfor -%}
-                  </select>
-                </div>
-                <!-- END PHYSICIAN  -->
-
-
-                {{ forms.input('Professional Fee', 'professional_fee', 'number', 'required min=0', 0 ) }}
-                {{ forms.input('Session No.', 'session_no', 'number', 'required min=1', 1 ) }}
-                {{ forms.input('Session Date/Time', 'session_datetime', 'datetime-local', 'required') }}
-                {{ forms.input('Drug', 'drug', 'text') }}
-                {{ forms.input('Dose', 'dose', 'text') }}
-                {{ forms.input('Next Schedule', 'next_schedule', 'datetime-local') }}
-                {{ forms.textarea('Comments', 'comments', 'required' ) }}
-
-                {{ forms.textarea('Description', 'description', 'required' ) }}
-                {{ forms.select('Status', 'status', 'text', ['PENDING', 'ON-GOING', 'FINISHED', 'CANCELLED']) }}
-                {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
-
-
-              </div>
           </div>
-          <div class="modal-footer float-right">
-            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" id="group-btnAdd">
-              Yes, submit it!
-              <i class="fa fa-check"></i>
-            </button>
-            <button type="submit" class="btn btn-info" id="group-btnUpdate">
-              Yes, update it!
-              <i class="fa fa-check"></i>
-            </button>
-          </div>
-          </form>
-
+        <div class="modal-footer float-right">
+          <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="group-btnAdd">
+            Yes, submit it!
+            <i class="fa fa-check"></i>
+          </button>
+          <button type="submit" class="btn btn-info" id="group-btnUpdate">
+            Yes, update it!
+            <i class="fa fa-check"></i>
+          </button>
         </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
+        </form>
 
-    <div id="confirmationModal"></div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <div id="confirmationModal"></div>
   </div>
 </section>
 <!-- /.content -->
@@ -344,14 +338,30 @@
 
 {% block scripts %}
 <script defer>
-  const treatment_types = JSON.parse(' {{treatment_types|tojson}} ');
-  const patients = JSON.parse(' {{patients|tojson}} ');
-  const physicians = JSON.parse(' {{physicians|tojson}} ');
+
+  $('#group-inpatient_id').hide();
+  $('#inpatient_id').val('');
+  $('#outpatient_id').val('');
 
   $(() => {
     $('#treatment_type_id').select2();
-    $('#patient_id').select2();
+    $('#inpatient_id').select2();
+    $('#outpatient_id').select2();
     $('#user_id').select2();
+
+
+    $('#patient_type').on('change', (e) => {
+      $('#group-inpatient_id').show();
+      $('#group-outpatient_id').show();
+
+      if(e.target.value == 'Outpatient'){
+        $('#inpatient_id').val('');
+        $('#group-inpatient_id').hide();
+      }else{
+        $('#outpatient_id').val('');
+        $('#group-outpatient_id').hide();
+      }
+    })
   });
 </script>
 <script src="{{ url_for('static', path='/js/pages/treatments.js') }}"></script>

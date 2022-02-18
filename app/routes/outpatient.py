@@ -8,45 +8,45 @@ from fastapi.templating import Jinja2Templates
 
 from .. import database, schemas, oauth2
 
-from ..controllers import patient
+from ..controllers import outpatient
 
 
 
 templates = Jinja2Templates(directory="app/pages")
 
 router = APIRouter(
-    prefix="/patient",
-    # tags=['Patients']
+    prefix="/outpatient",
+    # tags=['OutPatients']
 )
 
 get_db = database.get_db
 
-@router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutPatients)
+@router.get('/all', status_code=status.HTTP_200_OK, response_model=schemas.OutOutPatients)
 def all(request: Request, db: Session = Depends(get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return patient.get_all(db)
+    return outpatient.get_all(db)
 
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
-    # return patient.get_all(db)
-    return templates.TemplateResponse("patients.html", {"request":request, 'current_path': request.url.path})
+    # return outpatient.get_all(db)
+    return templates.TemplateResponse("outpatients.html", {"request":request, 'current_path': request.url.path})
 
-@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutPatient)
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutOutPatient)
 def show(request: Request, id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return patient.get_one(id, db)
-    # return templates.TemplateResponse("patient.html", {"request":request, "patient": patient.get_one(id, db)})
+    return outpatient.get_one(id, db)
+    # return templates.TemplateResponse("outpatient.html", {"request":request, "outpatient": outpatient.get_one(id, db)})
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def create(Patient: schemas.CreatePatient = Depends(schemas.CreatePatient.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return patient.create(Patient, db)
+def create(OutPatient: schemas.CreateOutPatient = Depends(schemas.CreateOutPatient.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    return outpatient.create(OutPatient, db)
 
 @router.put('/reactivate/{id}', status_code=status.HTTP_200_OK)
 def update(id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return patient.reactivate(id, db)
+    return outpatient.reactivate(id, db)
 
 @router.put('/{id}', status_code=status.HTTP_200_OK)
-def update(id, Patient: schemas.CreatePatient = Depends(schemas.CreatePatient.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return patient.update(id, Patient, db)
+def update(id, OutPatient: schemas.CreateOutPatient = Depends(schemas.CreateOutPatient.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    return outpatient.update(id, OutPatient, db)
 
 @router.delete('/{id}', status_code=status.HTTP_200_OK)
 def destroy(id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
-    return patient.destroy(id, db)
+    return outpatient.destroy(id, db)

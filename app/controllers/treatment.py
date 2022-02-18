@@ -29,7 +29,8 @@ def create(treatment, db: Session):
 
     new_treatment = models.Treatment(
         treatment_no = _treatment_no,
-        patient_id = treatment.patient_id,
+        inpatient_id = treatment.inpatient_id,
+        outpatient_id = treatment.outpatient_id,
         treatment_type_id = treatment.treatment_type_id,
         user_id = treatment.user_id,
         description = treatment.description,
@@ -83,7 +84,8 @@ def update(id, Treatment, db: Session):
     else:
         treatment.update({
             "treatment_no" : Treatment.treatment_no,
-            "patient_id" : Treatment.patient_id,
+            "inpatient_id" : Treatment.inpatient_id,
+            "outpatient_id" : Treatment.outpatient_id,
             "treatment_type_id" : Treatment.treatment_type_id,
             "user_id" : Treatment.user_id,
             "description" : Treatment.description,

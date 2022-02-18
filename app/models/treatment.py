@@ -10,7 +10,8 @@ class Treatment(Base):
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     treatment_no = Column(String(100))
-    patient_id = Column(String(36), ForeignKey("patients.id"))
+    inpatient_id = Column(String(36), ForeignKey("inpatients.id"))
+    outpatient_id = Column(String(36), ForeignKey("outpatients.id"))
     treatment_type_id = Column(String(36), ForeignKey("treatment_types.id"))
     user_id = Column(String(36), ForeignKey("users.id")) # DOCTOR IN CHARGE
     description = Column(Text)
@@ -31,7 +32,8 @@ class Treatment(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
 
-    patient = relationship('Patient', back_populates='treatments')
+    inpatient = relationship('InPatient', back_populates='treatments')
+    outpatient = relationship('OutPatient', back_populates='treatments')
     physician = relationship('User', back_populates='treatments')
     treatment_type = relationship('TreatmentType', back_populates='treatments')
   

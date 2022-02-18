@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 
 from .. import database
 
-from ..controllers import surgery, surgery_type, patient, user
+from ..controllers import surgery, surgery_type, inpatient, outpatient, user
 from .. import schemas, oauth2
 
 
@@ -34,7 +34,7 @@ def show(request: Request, db: Session = Depends(get_db),  current_user: schemas
 @router.get('/', status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 def all(request: Request, db: Session = Depends(get_db)):
     # return surgery.get_all(db)
-    return templates.TemplateResponse("surgeries.html", {"request":request, 'current_path': request.url.path, "surgery_types":jsonable_encoder(surgery_type.get_all(db)['data']), "patients":jsonable_encoder(patient.get_all(db)['data']), "nurses":jsonable_encoder(user.get_all(db,'','Surgical_Nurse')['data']), "surgeons":jsonable_encoder(user.get_all(db, '', 'Surgeon')['data'])})
+    return templates.TemplateResponse("surgeries.html", {"request":request, 'current_path': request.url.path, "surgery_types":jsonable_encoder(surgery_type.get_all(db)['data']), "inpatients":jsonable_encoder(inpatient.get_all(db)['data']), "outpatients":jsonable_encoder(outpatient.get_all(db)['data']), "nurses":jsonable_encoder(user.get_all(db,'','Surgical_Nurse')['data']), "surgeons":jsonable_encoder(user.get_all(db, '', 'Surgeon')['data'])})
 
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=schemas.OutSurgery)
 def show(request: Request, id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):

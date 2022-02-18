@@ -28,7 +28,7 @@ def create(surgery, db: Session):
     _surgery_no = 'SN-' + (str(uuid4()).split('-')[0]).upper()
     new_surgery = models.Surgery(
         surgery_no = _surgery_no,
-        patient_id = surgery.patient_id,
+        inpatient_id = surgery.inpatient_id,
         surgery_type_id = surgery.surgery_type_id,
         head_surgeon_id = surgery.head_surgeon_id,
         description = surgery.description,
@@ -100,7 +100,7 @@ def update(id, Surgery, db: Session):
     else:
         surgery.update({
             "surgery_no" : Surgery.surgery_no,
-            "patient_id" : Surgery.patient_id,
+            "inpatient_id" : Surgery.inpatient_id,
             "surgery_type_id" : Surgery.surgery_type_id,
             "head_surgeon_id" : Surgery.head_surgeon_id,
             "description" : Surgery.description,
