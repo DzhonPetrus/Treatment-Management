@@ -13,6 +13,7 @@ class LabRequestBase(Base):
     outpatient_id: Optional[str] = None
     # lab_test_id: str
     # lab_result_id: str
+    quantity: Optional[float] = None
 
     lab_test_id: Optional[str] = None
     lab_request_no: Optional[str] = None

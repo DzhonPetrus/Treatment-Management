@@ -5,7 +5,7 @@
 	window.modal = "#modal-lab_request";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "lab_test_id", "lab_result_id", "status", "is_active", "btnAdd", "btnUpdate", "lab_request_no", "inpatient_id", "outpatient_id"];
+	window.fields = ["id", "lab_test_id", "lab_result_id", "status", "is_active", "btnAdd", "btnUpdate", "lab_request_no", "inpatient_id", "outpatient_id", "quantity"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active", "lab_request_no", 'inpatient_id'];
 	window.readOnlyFields = ["id", "is_active", "lab_request_no"];
 

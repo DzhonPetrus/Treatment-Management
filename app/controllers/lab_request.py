@@ -36,6 +36,7 @@ def create(lab_request, db: Session):
     new_lab_request = models.LabRequest(
         lab_test_id = lab_request.lab_test_id,
         lab_request_no = request_no,
+        quantity = lab_request.quantity,
         # lab_result_id = lab_request.lab_result_id,
         inpatient_id = lab_request.inpatient_id,
         outpatient_id = lab_request.outpatient_id,
@@ -83,8 +84,7 @@ def update(id, LabRequest, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'LabRequest with id {id} not found')
     else:
         lab_request.update({
-            "lab_test_id" : LabRequest.lab_test_id,
-            "lab_request_no" : LabRequest.lab_request_no,
+            "quantity" : LabRequest.quantity,
             "inpatient_id" : LabRequest.inpatient_id,
             "outpatient_id" : LabRequest.outpatient_id,
             "status" : LabRequest.status,

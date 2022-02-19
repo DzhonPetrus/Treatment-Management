@@ -18,7 +18,7 @@ class LabRequest(Base):
     # lab_result_id = Column(String(36), ForeignKey("lab_results.id"))
     inpatient_id = Column(String(36), ForeignKey("inpatients.id"))
     outpatient_id = Column(String(36), ForeignKey("outpatients.id"))
-    
+    quantity = Column(Numeric(15,2), nullable=False)
 
     lab_request_no = Column(String(100))
 
