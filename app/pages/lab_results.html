@@ -280,7 +280,7 @@
 
 
     <div class="modal fade" id="modal-lab_result" aria-modal="true" role="dialog">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Lab Result</h4>
@@ -290,44 +290,63 @@
           </div>
           <div class="modal-body">
             <form id="form">
-              <div class="card-body">
-                {{ forms.input('ID', 'id', 'text', '', '' )}}
+              <div class="container-fluid">
+                <div class="row">
+
+                {{ forms.input('ID', 'id', 'text', '', '', 'col-md-6' )}}
                 <!-- LAB REQUEST -->
-                <div class="form-group" id="group-lab_request_id">
+                <div class="form-group col-md-6" id="group-lab_request_id">
                   <label>
                     Lab Request
                     <span style="color:red">*</span>
                   </label>
-                  <select class="form-control select2" style="width: 100%;" id="lab_request_id" name="lab_request_id">
+                  <select class="form-control select2 col-md-6" style="width: 100%;" id="lab_request_id" name="lab_request_id">
                     {% for lab_request in lab_requests %}
                     <option value="{{lab_request['id']}}">{{lab_request['lab_request_no']}}</option>
                     {% endfor -%}
                   </select>
                 </div>
                 <!-- END LAB REQUEST -->
+                </div>
+
+                <div class="row">
+
                 <!-- {{ forms.input('Lab Request', 'lab_request_id', 'text', 'required') }} -->
-                {{ forms.input('Specimen', 'specimen', 'text', 'required') }}
+                {{ forms.input('Specimen', 'specimen', 'text', 'required' , '' ,'col-md-6') }}
 
-                {{ forms.input('Ordered', 'ordered', 'text', 'required') }}
-                {{ forms.input('Date/Time Requested', 'dt_requested', 'datetime-local') }}
-                {{ forms.input('Date/Time Received', 'dt_received', 'datetime-local') }}
-                {{ forms.input('Date/Time Reported', 'dt_reported', 'datetime-local') }}
+                {{ forms.input('Ordered', 'ordered', 'text', 'required','','col-md-6') }}
+                </div>
 
-                {{ forms.input('Result', 'result', 'text', 'required') }}
-                {{ forms.input('Reference', 'reference', 'text', 'required') }}
-                {{ forms.input('Unit', 'unit', 'text', 'required') }}
-                <div class="form-group">
+                <div class="row">
+
+                {{ forms.input('Date/Time Requested', 'dt_requested', 'datetime-local', '', '', 'col-md-4') }}
+                {{ forms.input('Date/Time Received', 'dt_received', 'datetime-local', '','', 'col-md-4') }}
+                {{ forms.input('Date/Time Reported', 'dt_reported', 'datetime-local' ,'', '', 'col-md-4')}}
+                </div>
+
+                <div class="row">
+
+                {{ forms.input('Result', 'result', 'text', 'required', '', 'col-md-4') }}
+                {{ forms.input('Reference', 'reference', 'text', 'required', '', 'col-md-4') }}
+                {{ forms.input('Unit', 'unit', 'text', 'required', '', 'col-md-4') }}
+                </div>
+                <div class="row">
+
+                <div class="form-group col-md-5">
                   <label for="image" class="form-label">Detailed Result</label>
 
                   <input class="form-control" type="file" id="file" name="file"
                     accept="image/*|.doc|.pdf|.docx|.xlsx|.csv|.xls">
                   <input type="hidden" name="detailed_result">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-1">
                   <a class="form-control" href="" id="detailed_result_placeholder" target="_blank">Detailed Result</a>
                 </div>
-                {{ forms.select('Status', 'status', 'text', ['PROCESSING', 'UNCLAIMED', 'CLAIMED']) }}
-                {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
+
+                {{ forms.select('Status', 'status', 'text', ['PROCESSING', 'UNCLAIMED', 'CLAIMED'], 'col-md-6') }}
+
+                {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE',  'col-md-6' ) }}
+                </div>
 
               </div>
           </div>
