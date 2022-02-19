@@ -11,11 +11,15 @@ class TreatmentBase(Base):
     treatment_no: Optional[str] = None
     inpatient_id: Optional[str] = None
     outpatient_id: Optional[str] = None
-    user_id: str
+
+    room: Optional[str] = None
+    quantity: Optional[float] = None
+    physician_id: str
+
     treatment_type_id: str
     description: str
 
-    professional_fee: Optional[int] = None
+    professional_fee: Optional[float] = None
     session_no: Optional[int] = None
     session_datetime: Optional[dt] = None
     drug: Optional[str] = None

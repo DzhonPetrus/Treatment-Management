@@ -150,6 +150,13 @@
                       </div>
                       <div class="row">
                         <div class="col-sm-6">
+                          {{ forms.viewItem('Room','room') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Quantity','quantity') }}
+                        </div>
+                      </div><div class="row">
+                        <div class="col-sm-6">
                           {{ forms.viewItem('Physician','physician_name') }}
                         </div>
                         <div class="col-sm-6">
@@ -224,7 +231,7 @@
                     {{ forms.input('Treatment No', 'treatment_no', 'text', '', '' )}}
 
                     <!-- TREATMENT TYPE -->
-                    <div class="form-group col-md-12" id="group-treatment_type_id" class="col-md6">
+                    <div class="form-group col-md-6" id="group-treatment_type_id">
                       <label>
                         Treatment Type
                         <span style="color:red">*</span>
@@ -237,7 +244,9 @@
                       </select>
                     </div>
                     <!-- END TREATMENT TYPE -->
-
+  
+                      {{ forms.input('Room', 'room', 'text', 'required', "", 'col-md-3' ) }}
+                      {{ forms.input('Quantity', 'quantity', 'number', 'required min=1',1, 'col-md-3') }}
                   </div>
 
                   <div class="row">
@@ -273,12 +282,12 @@
                   </div>
                   <div class="row">
                     <!-- PHYSICIAN -->
-                    <div class="form-group col-md-6" id="group-user_id">
+                    <div class="form-group col-md-6" id="group-physician_id">
                       <label>
                         Physician
                         <span style="color:red">*</span>
                       </label>
-                      <select class="form-control select2" style="width: 100%;" id="user_id" name="user_id">
+                      <select class="form-control select2" style="width: 100%;" id="physician_id" name="physician_id">
                         {% for physician in physicians %}
                         <option value="{{physician['id']}}">{{physician['user_profile']['last_name']}},
                           {{physician['user_profile']['first_name']}}</option>
@@ -347,7 +356,7 @@
     $('#treatment_type_id').select2();
     $('#inpatient_id').select2();
     $('#outpatient_id').select2();
-    $('#user_id').select2();
+    $('#physician_id').select2();
 
 
     $('#patient_type').on('change', (e) => {
