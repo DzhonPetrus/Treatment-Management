@@ -245,9 +245,11 @@
                             <div class="col-sm-6">
                               {{ forms.viewItem('Date/Time Reported','dt_reported') }}
                             </div>
-                            <div class="col-sm-6">
+
+                            <!-- <div class="col-sm-6">
                               {{ forms.viewItem('Result','result') }}
-                            </div>
+                            </div> -->
+
                           </div>
                           <div class="row">
                             <div class="col-sm-6">
@@ -255,12 +257,35 @@
                             </div>
                           </div>
                          <div class="row">
-                            <div class="col-sm-6">
+
+                          <div class="col-md-12">
+<table class="table table-striped">
+                            <thead>
+                            <tr>
+                            <th>Laboratory Test</th>
+                            <th style="width: 40px">Result</th>
+                            <th>Reference Range</th>
+                            <th style="width: 40px">Unit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <td id="lab_testView">Laboratory Test</td>
+                            <td id="resultView">None</td>
+                            <td id="referenceView">None</td>
+                            <td><span id="unitView">None</span></td>
+                            </tr>
+                            </tbody>
+                            </table>
+                          </div>
+                           
+                            <!-- <div class="col-sm-6">
                               {{ forms.viewItem('Reference','reference') }}
                             </div>
                             <div class="col-sm-6">
                               {{ forms.viewItem('Unit','unit') }}
-                            </div>
+                            </div> -->
+
                           </div> 
                           <div class="row">
                             <div class="col-sm-6">

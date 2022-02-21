@@ -34,7 +34,7 @@ class LabResult(LabResultBase):
     id: str
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
-    lab_request: Optional[LabRequestBase] = None
+    lab_request: Optional[LabRequest] = None
 
 class OutLabResults(Base):
     data: List[LabResult]

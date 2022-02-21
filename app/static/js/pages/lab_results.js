@@ -215,7 +215,15 @@ viewData = (id) => {
 			type: "GET",
 			dataType: "json",
 
-			success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
+			success: data => {
+				if (data.error == false) { 
+					setState("view", data.data);
+					lab_test_name = data.data?.lab_request?.lab_test?.name;
+					$('#lab_testView').html(lab_test_name);
+				} else {
+					notification("error", "Error!", data.message)
+				}
+			},
 			error: (data) => notification("error", data.responseJSON.detail),
 		});
 	}
