@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' >
+  <title> Surgery Schedules</title>
+  <!-- pdfmake files: -->
+  <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js'></script>
+  <!-- html-to-pdfmake file: -->
+  <script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>
+
+
+</head>
+<body>
+  
+  <script>
+
+//var htmlToPdfmake = require("html-to-pdfmake");
+// or:
+//import htmlToPdfmake from "html-to-pdfmake"
+
+    var val = htmlToPdfmake(`
+
+
+
+
+<div class="header" style="text-align:center;" >
+
+
+    	<h6> <font color="green" style="font-size:36px;"> HoMIES </font> <br><u>
+MEDICAL CENTER</u></h6>
+	<p style="font-size: 14px;"> Don Fabian, Quezon City, Metro Manila <br>Tel: 6969-00000   Phone: 09696969690 <br> homiesmedical@gmail.com <br>
+<u>                                                                                                                                                                                             </u></p>
+
+</div>
+<h6 style="text-align:center;"><em>SURGERY SCHEDULES</em></h6>
+
+`);
+
+    var dd = {
+/*footer: 
+
+	function(currentPage, pageCount) {return currentPage.toString() + ' of ' + pageCount; 
+   
+    // you can apply any logic and return any valid pdfmake element
+
+    return [
+      { canvas: [ { type: 'rect', x: 170, y: 32, w: pageSize.width - 170, ': 40 } ]  }
+    ]
+  },
+*/
+
+footer: 
+          { text:'\n HoMIES MEDICAL CENTER \n 2022', alignment: 'center', fontSize: 9}
+
+
+
+
+
+,
+
+watermark: { text: 'HoMIES', color: 'gray', opacity: 0.15, bold: true},
+
+
+content: val};
+	
+
+    pdfMake.createPdf(dd).open();
+  </script>
+</body>
+</html>
