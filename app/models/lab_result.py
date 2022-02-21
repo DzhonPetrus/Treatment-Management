@@ -16,6 +16,7 @@ class LabResult(Base):
     unit = Column(String(100))
     detailed_result = Column(String(100))
     
+    comments = Column(String(255))
 
     ordered = Column(String(150))
     dt_requested = Column(DateTime)

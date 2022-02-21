@@ -14,6 +14,8 @@ class LabResultBase(Base):
     unit : Optional[str] = None
     detailed_result : Optional[str] = None
 
+    comments : Optional[str] = None
+
     ordered : Optional[str] = None
     dt_requested: Optional[dt] = None
     dt_received: Optional[dt] = None

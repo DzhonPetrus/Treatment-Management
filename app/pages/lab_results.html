@@ -249,6 +249,11 @@
                               {{ forms.viewItem('Result','result') }}
                             </div>
                           </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Comments','comments') }}
+                            </div>
+                          </div>
                          <div class="row">
                             <div class="col-sm-6">
                               {{ forms.viewItem('Reference','reference') }}
@@ -324,6 +329,10 @@
                 {{ forms.input('Date/Time Reported', 'dt_reported', 'datetime-local' ,'', '', 'col-md-4')}}
                 </div>
 
+                <div class="row">
+
+                {{ forms.textarea('Comments', 'comments', '', '', 'col-md-6') }}
+                </div>
                 <div class="row">
 
                 {{ forms.input('Result', 'result', 'text', 'required', '', 'col-md-4') }}
