@@ -158,9 +158,22 @@ loadTable = () => {
               columns: ":not(:last-child)",
             },
           },
+		//   CLASSIC DIRECT
+        //   {
+        //     extend: "pdfHtml5",
+        //     text: '<i class="fa fa-file-pdf"></i> Export to PDF',
+        //     titleAttr: "PDF",
+        //     title: "Hospital Management System",
+        //     exportOptions: {
+        //       columns: ":not(:last-child)",
+        //     },
+        //   },
           {
-            extend: "pdfHtml5",
             text: '<i class="fa fa-file-pdf"></i> Export to PDF',
+			action: function(e, dt, button, config) {
+				let data = dt.buttons.exportData();
+				window.PrintLabRequestTable(data);
+			},
             titleAttr: "PDF",
             title: "Hospital Management System",
             exportOptions: {
@@ -169,6 +182,7 @@ loadTable = () => {
           },
         ],
       },
+	  'colvis'
     ],
     responsive: true,
     serverSide: false,
