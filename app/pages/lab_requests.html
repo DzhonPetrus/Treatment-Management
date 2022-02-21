@@ -3,6 +3,9 @@
 {% set active_page = current_path.split('/')[2] %}
 {% set user_type = current_path.split('/')[1] %}
 {% block content %}
+
+<div id="confirmationModal"></div>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
@@ -123,6 +126,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Lab Requests</h4>
+            
+            
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -159,6 +164,7 @@
               </div>
           </div>
           <div class="modal-footer float-right">
+            <a rel="noopener" onClick="PrintLabRequest()" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
             <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -262,7 +268,6 @@
       <!-- /.modal-dialog -->
     </div>
 
-    <div id="confirmationModal"></div>
   </div>
 </section>
 <!-- /.content -->
@@ -294,5 +299,6 @@
     })
   });
 </script>
+<script src="{{ url_for('static', path='/js/pages/print/print_lab_request.js') }}"></script>
 <script src="{{ url_for('static', path='/js/pages/lab_requests.js') }}"></script>
 {% endblock %}

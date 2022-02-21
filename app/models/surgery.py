@@ -11,7 +11,10 @@ class Surgery(Base):
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     surgery_no = Column(String(100))
     inpatient_id = Column(String(36), ForeignKey("inpatients.id"))
+
+    # TODO: room as FK to rooms table
     room = Column(String(100))
+
     surgery_type_id = Column(String(36), ForeignKey("surgery_types.id"))
     start_time = Column(DateTime)
     end_time = Column(DateTime)

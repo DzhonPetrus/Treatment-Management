@@ -15,6 +15,9 @@
   
   <script>
 
+const PrintLabRequest = JSON.parse(localStorage.getItem('PrintLabRequest'));
+console.log(PrintLabRequest);
+
 //var htmlToPdfmake = require("html-to-pdfmake");
 // or:
 //import htmlToPdfmake from "html-to-pdfmake"
@@ -40,24 +43,24 @@ MEDICAL CENTER</u></h6>
 <table style="font-size: 12px;">
 <tr>
 <td style="background-color:#BFEEB7;">Name:</td>
-<td> Juan Dela Cruz </td>
+<td>${PrintLabRequest.name}</td>
 <td style="background-color:#BFEEB7;"> Lab Request No. </td>
-<td> 0125-8484 </td>
+<td>${PrintLabRequest.request_number}</td>
 </tr>
 
 <tr>
 <td style="background-color:#BFEEB7;"> Lab Request Type: </td>
-<td> CHEMISTRY </td>
+<td>${PrintLabRequest.request_type}</td>
 <td style="background-color:#BFEEB7;"> Lab Request Service: </td>
-<td> BLOOD TEST (CBC) </td>
+<td>${PrintLabRequest.request_service}</td>
 </tr>
 
 
 <tr>
 <td style="background-color:#BFEEB7;"> Date/Time: Requested </td>
-<td> February 18, 2022 19:34 </td>
+<td>${PrintLabRequest.dt_requested}</td>
 <td style="background-color:#BFEEB7;"> Status: </td>
-<td> PENDING </td>
+<td>${PrintLabRequest.status}</td>
 </tr>
 </table>
 </div>
@@ -84,5 +87,6 @@ content: val};
 
     pdfMake.createPdf(dd).open();
   </script>
+    <button class = "btn btn-default" onclick="pdfMake.createPdf(dd).open()"> Open PDF </button>
 </body>
 </html>
