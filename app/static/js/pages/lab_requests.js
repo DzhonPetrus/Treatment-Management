@@ -268,6 +268,8 @@ loadTable = () => {
 };
 
 setPrintData = (LAB_REQUEST) => {
+localStorage.removeItem("PrintLabRequest");
+console.log(LAB_REQUEST)
   const patient =
     LAB_REQUEST?.inpatient == null
       ? LAB_REQUEST.outpatient
@@ -280,6 +282,8 @@ setPrintData = (LAB_REQUEST) => {
     request_number: LAB_REQUEST?.lab_request_no,
     request_type: LAB_REQUEST?.lab_test?.name,
     request_service: LAB_REQUEST?.lab_test?.name,
+    fee: LAB_REQUEST?.lab_test?.fee,
+    quantity: LAB_REQUEST?.quantity,
     dt_requested: moment(LAB_REQUEST?.created_at).format("llll"),
     status: LAB_REQUEST?.status,
   };
@@ -296,7 +300,6 @@ printData = (id) => {
 
       // success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
       success: (data) => {
-        localStorage.removeItem("PrintLabRequest");
         if (data.error == false) {
           // DATA FOR PRINTING
           setPrintData(data.data);
@@ -321,7 +324,6 @@ viewData = (id) => {
 
       // success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
       success: (data) => {
-        localStorage.removeItem("PrintLabRequest");
         if (data.error == false) {
           setPrintData(data.data);
           setState("view", data.data);

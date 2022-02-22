@@ -32,6 +32,13 @@ window.PrintLabRequest = () => {
 
 
     <tr>
+    <td style="background-color:#BFEEB7;">Fee:</td>
+    <td>${LabRequest.fee}</td>
+    <td style="background-color:#BFEEB7;">Quantity:</td>
+    <td>${LabRequest.quantity}</td>
+    </tr>
+
+    <tr>
     <td style="background-color:#BFEEB7;"> Date/Time: Requested </td>
     <td>${LabRequest.dt_requested}</td>
     <td style="background-color:#BFEEB7;"> Status: </td>
