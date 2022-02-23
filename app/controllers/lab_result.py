@@ -1,5 +1,6 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
+from uuid import uuid4
 
 from .. import models
 
@@ -22,8 +23,10 @@ def get_one(id, db: Session):
     }
 
 def create(lab_result, db: Session):
+    lab_result_no = (str(uuid4()).split('-')[0]).upper()
     new_lab_result = models.LabResult(
         lab_request_id = lab_result.lab_request_id,
+        lab_result_no = lab_result_no,
         specimen = lab_result.specimen,
         result = lab_result.result,
         reference = lab_result.reference,
@@ -65,6 +68,7 @@ def update(id, LabResult, db: Session):
     else:
         lab_result.update({
             "lab_request_id" : LabResult.lab_request_id,
+            "lab_result_no" : LabResult.lab_result_no,
             "specimen" : LabResult.specimen,
             "result" : LabResult.result,
             "reference" : LabResult.reference,

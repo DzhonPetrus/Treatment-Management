@@ -15,6 +15,8 @@ class LabResult(Base):
     reference = Column(String(100))
     unit = Column(String(100))
     detailed_result = Column(String(100))
+
+    lab_result_no = Column(String(100))
     
     comments = Column(String(255))
 

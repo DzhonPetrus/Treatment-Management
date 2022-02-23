@@ -24,11 +24,6 @@ def get_one(id, db: Session):
     }
 
 def create(lab_request, db: Session):
-    # TODO:
-    # REMOVE INPATIENT_ID
-    # ADD INPATIENT_ID
-    # ADD OUTPATIENT_ID
-
 
     request_no = 'LR-' + (str(uuid4()).split('-')[0]).upper()
     # print(request_no)
