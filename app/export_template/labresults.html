@@ -1,0 +1,177 @@
+﻿<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' >
+  <title>Laboratory Report</title>
+  <!-- pdfmake files: -->
+  <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/pdfmake.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/pdfmake@latest/build/vfs_fonts.min.js'></script>
+  <!-- html-to-pdfmake file: -->
+  <script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>
+
+
+</head>
+<body>
+  
+  <script>
+
+//var htmlToPdfmake = require("html-to-pdfmake");
+// or:
+//import htmlToPdfmake from "html-to-pdfmake"
+
+    var val = htmlToPdfmake(`
+
+
+
+
+<div class="header" style="text-align:center;" >
+
+
+    	<h6> <font color="green" style="font-size:36px;"> HoMIES </font> <br><u>
+MEDICAL CENTER</u></h6>
+	<p style="font-size: 14px;"> Don Fabian, Quezon City, Metro Manila <br>Tel: 6969-00000   Phone: 09696969690 <br> homiesmedical@gmail.com <br>
+<u>                                                                                                                                                                                             </u></p>
+
+</div>
+<h6 style="text-align:center;"><em>LABORATORY DEPARTMENT</em></h6>
+
+
+<div class="patient">
+<h6 style="font-size: 18px;"> Patient Information</h6>
+<table style="font-size: 16px;">
+<tr>
+<td style="background-color:#BFEEB7;">Name:</td>
+<td> Juan Dela Cruz </td>
+<td style="background-color:#BFEEB7;"> Sex: </td>
+<td> M </td>
+<td style="background-color:#BFEEB7;"> Age: </td>
+<td> 69 years old </td>
+</tr>
+
+<tr>
+<td style="background-color:#BFEEB7;"> Birthdate: </td>
+<td> November 1, 1995 </td>
+<td style="background-color:#BFEEB7;"> Blood Type: </td>
+<td> O+ </td>
+<td style="background-color:#BFEEB7;">Contact No: </td>
+<td> 09125476321 </td>
+</tr>
+
+
+<tr>
+<td style="background-color:#BFEEB7;"> E-mail: </td>
+<td> jdc@gmail.com </td>
+<td style="background-color:#BFEEB7;"> Initial Diagnosis: </td>
+<td> sore eyes </td>
+<td style="background-color:#BFEEB7;"> Status: </td>
+<td> Active </td>
+</tr>
+
+</table>
+</div>
+<br>
+<p> ============================================================================== </p>
+<br>
+<div class="lab-results">
+<h6 style="font-size: 18px;"> Laboratory Results</h6>
+<table style="font-size: 16px;">
+<tr>
+<td style="background-color:#BFEEB7;">Lab Request No.:</td>
+<td> 002204 </td>
+<td style="background-color:#BFEEB7;"> Lab Result No.: </td>
+<td> 65454-554 </td>
+</tr>
+
+<tr>
+
+<td style="background-color:#BFEEB7;"> Specimen: </td>
+<td> Swab, Throat </td>
+<td style="background-color:#BFEEB7;"> Ordered: </td>
+<td> Throat Culture for Beta Hemolytic Streptococci (Step Throat Test) </td>
+</tr>
+
+
+<tr>
+<td style="background-color:#BFEEB7;"> Date/Time Requested: </td>
+<td> February 19, 2022 00:27 </td>
+<td style="background-color:#BFEEB7;"> Date/Time Received: </td>
+<td> February 19, 2022 00:28 </td>
+</tr>
+
+
+
+<tr>
+
+<td style="background-color:#BFEEB7;"> Date/Time Reported: </td>
+<td> February 19, 2022 00:28 </td>
+<td style="background-color:#BFEEB7;"> Laboratory Technician: </td>
+<td> Charlotte Charlotte </td>
+
+</tr>
+
+<tr>
+<td style="background-color:#BFEEB7;"> Comments: </td>
+<td> sunflower cow chocolate pusheen ponytail perfume sugar high baby lips puff poweder cadbury hello kitty brush pink tumbler sweet bakery pink clip </td>
+<td style="background-color:#BFEEB7;"> Status: </td>
+<td> CLAIMED </td>
+</tr>
+
+</table>
+<br>
+<table style="font-size: 16px;">
+<tr>
+<td style="background-color:#BFEEB7;">Laboratory Types.:</td>
+<td style="background-color:#BFEEB7;">Laboratory Tests.:</td>
+<td style="background-color:#BFEEB7;"> Results: </td>
+<td style="background-color:#BFEEB7;"> Reference Range: </td>
+</tr>
+
+<tr>
+<td> CHEMISTRY </td>
+<td> STEP THROAT TEST</td>
+<td> Positive for group A streptococcus </td>
+<td> Negative for group A streptococcus
+</tr>
+</table>
+</div>
+<br>
+<p> ============================================================================== </p>
+<br>
+
+</div>
+
+`);
+
+    var dd = {
+/*footer: 
+
+	function(currentPage, pageCount) {return currentPage.toString() + ' of ' + pageCount; 
+   
+    // you can apply any logic and return any valid pdfmake element
+
+    return [
+      { canvas: [ { type: 'rect', x: 170, y: 32, w: pageSize.width - 170, ': 40 } ]  }
+    ]
+  },
+*/
+
+footer: 
+          { text:'\n HoMIES MEDICAL CENTER \n 2022', alignment: 'center', fontSize: 9}
+
+
+
+
+
+,
+
+watermark: { text: 'HoMIES', color: 'gray', opacity: 0.15, bold: true},
+
+
+content: val};
+	
+
+    pdfMake.createPdf(dd).open();
+  </script>
+    <button class = "btn btn-default" onclick="pdfMake.createPdf(dd).open()"> Open PDF </button>
+</body>
+</html>

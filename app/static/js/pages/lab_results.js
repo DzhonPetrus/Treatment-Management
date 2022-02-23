@@ -9,6 +9,24 @@
 	window.fieldsHidden = ["id", "btnUpdate", "is_active", "detailed_result_placeholder"];
 	window.readOnlyFields = ["id", "is_active"];
 
+const renderAdditionalButtons = (aData) => {
+  let buttons = `
+				<div 
+					class="dropdown-item d-flex" 
+					role="button" 
+					onClick="return printData('${aData.id}')
+				">
+					<div style="width:2rem">
+						<i class="fa fa-print"> </i>
+					</div>
+					<div>Print Lab Result</div>
+				</div>
+			`;
+
+  return buttons;
+};
+
+
 $(function () {
 
 	formReset();
@@ -111,12 +129,15 @@ className: 'btn-sm',
 						}
 					},
 					{
-						extend: 'pdfHtml5',
 						text: '<i class="fa fa-file-pdf"></i> Export to PDF',
-						titleAttr: 'PDF',
-						title: 'Hospital Management System',
+						action: function(e, dt, button, config) {
+							let data = dt.buttons.exportData();
+							window.PrintLabResultTable(data);
+						},
+						titleAttr: "PDF",
+						title: "Hospital Management System",
 						exportOptions: {
-							columns: ':not(:last-child)',
+						columns: ":not(:last-child)",
 						},
 					},
 				]
@@ -183,7 +204,7 @@ className: 'btn-sm',
 			},
 			{
 				data: null,
-				render: (aData) => renderButtons(aData, "Lab Result"),
+				render: (aData) => renderButtons(aData, "Lab Result", renderAdditionalButtons(aData)),
 			},
 		],
 		ajax: {
@@ -206,6 +227,88 @@ className: 'btn-sm',
 	});
 };
 
+setPrintData = (LAB_RESULT) => {
+localStorage.removeItem("PrintLabResult");
+console.log(LAB_RESULT)
+
+  const patient =
+    LAB_RESULT?.lab_request?.inpatient == null
+      ? LAB_RESULT.lab_request?.outpatient
+      : LAB_RESULT.lab_request?.inpatient;
+
+  const {birth_date, blood_type, gender, contact_no, email, is_active} = patient;
+  const age = Math.floor(moment().diff(birth_date, 'years', true));
+
+//   TODO: ADD LAB TECHNICIAN & INITIAL DIAGNOSIS
+  const lab_technician = "Temporary Technician";
+  const initial_diagnosis = "None";
+
+  const { lab_result_no, result, reference, specimen, ordered, dt_requested, dt_received, dt_reported, comments, status } = LAB_RESULT;
+
+  // TODO: CHANGE LAB_TYPE
+  const lab_type = LAB_RESULT?.lab_request?.lab_test?.name;
+  const lab_test = LAB_RESULT?.lab_request?.lab_test?.name;
+
+  const name = `${patient.last_name}, ${patient.first_name} ${
+    patient.middle_name || ""
+  } ${patient.suffix_name ? ", " + patient.suffix_name : ""}`;
+
+  let LabResult = {
+    name,
+	birth_date,
+	age,
+	blood_type,
+	gender,
+	contact_no,
+	email,
+	is_active,
+
+	lab_technician,
+	initial_diagnosis,
+
+	lab_result_no,
+	specimen,
+	ordered,
+	result,
+	reference,
+	dt_requested: moment(dt_requested).format("llll"),
+	dt_received: moment(dt_received).format("llll"),
+	dt_reported: moment(dt_reported).format("llll"),
+	comments,
+	status,
+
+	lab_type,
+	lab_test,
+
+	lab_request_no: LAB_RESULT?.lab_request?.lab_request_no,
+  };
+  localStorage.setItem("PrintLabResult", JSON.stringify(LabResult));
+};
+
+// PRINT DATA
+printData = (id) => {
+  {
+    $.ajax({
+      url: BASE_URL + `${endpoint}/${id}`,
+      type: "GET",
+      dataType: "json",
+
+      // success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
+      success: (data) => {
+        if (data.error == false) {
+          // DATA FOR PRINTING
+          setPrintData(data.data);
+          window.PrintLabResult();
+        } else {
+          notification("error", "Error!", data.message);
+        }
+      },
+      error: (data) => notification("error", data.responseJSON.detail),
+    });
+  }
+};
+
+
 // VIEW DATA
 viewData = (id) => {
 	window.modal = "#modal-lab_result-view";
@@ -217,6 +320,7 @@ viewData = (id) => {
 
 			success: data => {
 				if (data.error == false) { 
+					setPrintData(data.data);
 					setState("view", data.data);
 					lab_test_name = data.data?.lab_request?.lab_test?.name;
 					$('#lab_testView').html(lab_test_name);

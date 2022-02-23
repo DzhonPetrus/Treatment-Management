@@ -52,6 +52,18 @@ const renderAdditionalButtons = (aData) => {
 				</div>
 			`;
   }
+    buttons += `
+				<div 
+					class="dropdown-item d-flex" 
+					role="button" 
+					onClick="return printData('${aData.id}')
+				">
+					<div style="width:2rem">
+						<i class="fa fa-print"> </i>
+					</div>
+					<div>Print Lab Result</div>
+				</div>
+			`;
 
   return buttons;
 };
@@ -182,7 +194,6 @@ loadTable = () => {
           },
         ],
       },
-	  'colvis'
     ],
     responsive: true,
     serverSide: false,
