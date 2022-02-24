@@ -1,7 +1,7 @@
 window.PrintTreatment = () => {
   let Treatment = JSON.parse(localStorage.getItem('PrintTreatment'));
   const {
-    name,
+    patient_name,
     gender,
     age,
     birth_date,
@@ -9,24 +9,25 @@ window.PrintTreatment = () => {
     contact_no,
     email,
     is_active,
-    lab_request_no,
-    lab_result_no,
-    lab_test,
-    lab_type,
-    ordered,
-    reference,
-    result,
-    specimen,
     comments,
-    lab_technician,
     initial_diagnosis,
+    diagnosis,
+    previous_therapy,
+    past_treatments,
+    treatment_no,
+    treatment_service,
+    treatment_type,
+    treatment_description,
+    physician_name,
+    next_schedule,
+    dose,
+    drug,
+    session_datetime,
+    session_no,
     status,
-    dt_requested,
-    dt_received,
-    dt_reported,
   } = Treatment;
-  console.log(Treatment)
   let val = htmlToPdfmake(`
+
 <div class="header" style="text-align:center;" >
 
 
@@ -36,7 +37,7 @@ MEDICAL CENTER</u></h6>
 <u>                                                                                                                                                                                             </u></p>
 
 </div>
-<h6 style="text-align:center;"><em>LABORATORY DEPARTMENT</em></h6>
+<h6 style="text-align:center;"><em>TREATMENT DEPARTMENT</em></h6>
 
 
 <div class="patient">
@@ -44,7 +45,7 @@ MEDICAL CENTER</u></h6>
 <table style="font-size: 16px;">
 <tr>
 <td style="background-color:#BFEEB7;">Name:</td>
-<td>${name}</td>
+<td>${patient_name}</td>
 <td style="background-color:#BFEEB7;"> Sex: </td>
 <td>${gender}</td>
 <td style="background-color:#BFEEB7;"> Age: </td>
@@ -66,6 +67,17 @@ MEDICAL CENTER</u></h6>
 <td>${email}</td>
 <td style="background-color:#BFEEB7;"> Initial Diagnosis: </td>
 <td>${initial_diagnosis}</td>
+<td style="background-color:#BFEEB7;"> Diagnosis: </td>
+<td>${diagnosis}</td>
+</tr>
+
+
+
+<tr>
+<td style="background-color:#BFEEB7;"> Past Treatments: </td>
+<td>${past_treatments}</td>
+<td style="background-color:#BFEEB7;"> Previous Therapy: </td>
+<td>${previous_therapy}</td>
 <td style="background-color:#BFEEB7;"> Status: </td>
 <td>${is_active}</td>
 </tr>
@@ -75,66 +87,60 @@ MEDICAL CENTER</u></h6>
 <br>
 <p> ============================================================================== </p>
 <br>
-<div class="lab-results">
-<h6 style="font-size: 18px;"> Laboratory Results</h6>
+<div class="treatment">
+<h6 style="font-size: 18px;"> Treatment Information</h6>
 <table style="font-size: 16px;">
 <tr>
-<td style="background-color:#BFEEB7;">Lab Request No.:</td>
-<td>${lab_request_no}</td>
-<td style="background-color:#BFEEB7;"> Lab Result No.: </td>
-<td>${lab_result_no}</td>
+<td style="background-color:#BFEEB7;">Treatment No.:</td>
+<td>${treatment_no}</td>
+<td style="background-color:#BFEEB7;"> Treatment Type: </td>
+<td>${treatment_type}</td>
 </tr>
 
 <tr>
 
-<td style="background-color:#BFEEB7;"> Specimen: </td>
-<td>${specimen}</td>
-<td style="background-color:#BFEEB7;"> Ordered: </td>
-<td>${ordered}</td>
+<td style="background-color:#BFEEB7;"> Treatment Service: </td>
+<td>${treatment_service}</td>
+<td style="background-color:#BFEEB7;"> Treatment Description </td>
+<td>${treatment_description}</td>
 </tr>
 
 
 <tr>
-<td style="background-color:#BFEEB7;"> Date/Time Requested: </td>
-<td>${dt_requested}</td>
-<td style="background-color:#BFEEB7;"> Date/Time Received: </td>
-<td>${dt_received == 'Invalid date' ? '<i>Not yet received</i>' : dt_received}</td>
+<td style="background-color:#BFEEB7;"> Session No.: </td>
+<td>${session_no}</td>
+<td style="background-color:#BFEEB7;"> Session Date/Time: </td>
+<td>${session_datetime == 'Invalid date' ? '<i>No data</i>' : session_datetime}</td>
 </tr>
 
 
 
 <tr>
 
-<td style="background-color:#BFEEB7;"> Date/Time Reported: </td>
-<td>${dt_reported == 'Invalid date' ? '<i>Not yet reported</i>' : dt_reported}</td>
-<td style="background-color:#BFEEB7;"> Laboratory Technician: </td>
-<td>${lab_technician}</td>
+<td style="background-color:#BFEEB7;"> Drug: </td>
+<td>${drug}</td>
+<td style="background-color:#BFEEB7;"> Dose: </td>
+<td>${dose}</td>
 
 </tr>
 
 <tr>
-<td style="background-color:#BFEEB7;"> Comments: </td>
-<td>${comments}</td>
+<td style="background-color:#BFEEB7;"> Next Schedule: </td>
+<td>${next_schedule == 'Invalid date' ? '<i>Not yet scheduled</i>' : next_schedule}</td>
 <td style="background-color:#BFEEB7;"> Status: </td>
 <td>${status}</td>
 </tr>
 
-</table>
-<br>
-<table style="font-size: 16px;">
 <tr>
-<td style="background-color:#BFEEB7;">Laboratory Types.:</td>
-<td style="background-color:#BFEEB7;">Laboratory Tests.:</td>
-<td style="background-color:#BFEEB7;"> Results: </td>
-<td style="background-color:#BFEEB7;"> Reference Range: </td>
+<td style="background-color:#BFEEB7;"> Physician: </td>
+<td>${physician_name}</td>
+
+<td style="background-color:#BFEEB7;"> Comments: </td>
+<td>${comments}</td>
+
 </tr>
 
-<tr>
-<td>${lab_type}</td>
-<td>${lab_test}</td>
-<td>${result}</td>
-<td>${reference}</td>
-</tr>
+
 </table>
 </div>
 <br>

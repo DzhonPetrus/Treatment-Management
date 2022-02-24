@@ -25,6 +25,18 @@
 				</div>
 			`
 		}
+    buttons += `
+				<div 
+					class="dropdown-item d-flex" 
+					role="button" 
+					onClick="return printData('${aData.id}')
+				">
+					<div style="width:2rem">
+						<i class="fa fa-print"> </i>
+					</div>
+					<div>Print Treatment</div>
+				</div>
+			`;
 
 		return buttons;
 	}
@@ -230,118 +242,65 @@ className: 'btn-sm',
 
 setPrintData = (TREATMENT) => {
 localStorage.removeItem("PrintTreatment");
-console.log(TREATMENT)
-
-// comments: "comment"
-// created_at: "2022-02-19T11:07:45"
-// description: "desc"
-// dose: null
-// drug: null
-// id: "1c8a376c-9131-11ec-a80e-1c1b0ddb5781"
-// inpatient:
-// birth_date: "1994-01-05"
-// blood_type: "O-"
-// contact_no: "09123456789"
-// email: "in@patient.com"
-// first_name: "In"
-// full_name: "Patient, In  "
-// gender: "Male"
-// is_active: "ACTIVE"
-// last_name: "Patient"
-// middle_name: null
-// picture: null
-// suffix_name: null
-// [[Prototype]]: Object
-// inpatient_id: "8a09d9aa-90aa-11ec-a5f2-1c1b0ddb5781"
-// is_active: "ACTIVE"
-// next_schedule: null
-// outpatient: null
-// outpatient_id: null
-// physician:
-// created_at: "2022-02-06T23:25:32"
-// email: "surgeon2@surgeon.com"
-// handled_surgeries: {room: null, patient_id: null, surgery_type_id: null, in_charge: null, start_time: null, …}
-// id: "064f2fb8-8761-11ec-93ec-1c1b0ddb5781"
-// is_active: "ACTIVE"
-// password: "$2b$12$CmjBQe8ZKH9hZ/eeCIBWUePTesKYhoZsy5di0YURYhyDlyDJjwxOe"
-// updated_at: null
-// user_profile: {department: 'Emergency Room', position: 'Surgeon', first_name: 'surgeon', middle_name: null, last_name: 'last', …}
-// user_profile_id: "b4c98c92-8760-11ec-93ec-1c1b0ddb5781"
-// user_type: "Surgeon"
-// [[Prototype]]: Object
-// physician_id: "064f2fb8-8761-11ec-93ec-1c1b0ddb5781"
-// physician_name: "last, surgeon  "
-// professional_fee: 550
-// quantity: 1
-// room: "111"
-// session_datetime: "2022-02-19T11:07:00"
-// session_no: 1
-// status: "PENDING"
-// treatment_no: "TN-FA2205C1"
-// treatment_type:
-// description: "treatment3"
-// fee: 333
-// is_active: "ACTIVE"
-// name: "treatment3"
-// room: "333"
-// [[Prototype]]: Object
-// treatment_type_id: "1780df60-60a7-11ec-88bf-f0761c112d4e"
-// treatment_type_name: "treatment3"
-// updated_at: null
 
 
-//   const patient =
-//     TREATMENT?.lab_request?.inpatient == null
-//       ? TREATMENT.lab_request?.outpatient
-//       : TREATMENT.lab_request?.inpatient;
+  const patient =
+    TREATMENT?.inpatient == null
+      ? TREATMENT.outpatient
+      : TREATMENT.inpatient;
 
-//   const {birth_date, blood_type, gender, contact_no, email, is_active} = patient;
-//   const age = Math.floor(moment().diff(birth_date, 'years', true));
+  const {birth_date, blood_type, gender, contact_no, email, is_active} = patient;
+  const age = Math.floor(moment().diff(birth_date, 'years', true));
 
-// //   TODO: ADD LAB TECHNICIAN & INITIAL DIAGNOSIS
-//   const lab_technician = "Temporary Technician";
-//   const initial_diagnosis = "None";
+//   TODO: ADD  INITIAL DIAGNOSIS, DIAGNOSIS, PAST TREATMENTS, PREVIOUS THERAPY
+  const initial_diagnosis = "None";
+  const diagnosis = "None";
+  const past_treatments = "None";
+  const previous_therapy = "None";
 
-//   const { lab_result_no, result, reference, specimen, ordered, dt_requested, dt_received, dt_reported, comments, status } = TREATMENT;
+  const { treatment_no, session_no, session_datetime, drug, dose, next_schedule, status, comments } = TREATMENT;
+  const treatment_type = TREATMENT?.treatment_type?.name;
+  const treatment_service = TREATMENT?.treatment_type?.name;
+  const treatment_description = TREATMENT?.treatment_type?.description;
 
-//   // TODO: CHANGE LAB_TYPE
-//   const lab_type = TREATMENT?.lab_request?.lab_test?.name;
-//   const lab_test = TREATMENT?.lab_request?.lab_test?.name;
+  const patient_name = `${patient.last_name}, ${patient.first_name} ${
+    patient.middle_name || ""
+  } ${patient.suffix_name ? ", " + patient.suffix_name : ""}`;
 
-//   const name = `${patient.last_name}, ${patient.first_name} ${
-//     patient.middle_name || ""
-//   } ${patient.suffix_name ? ", " + patient.suffix_name : ""}`;
+  const physician = TREATMENT?.physician?.user_profile;
 
-//   let Treatment = {
-//     name,
-// 	birth_date,
-// 	age,
-// 	blood_type,
-// 	gender,
-// 	contact_no,
-// 	email,
-// 	is_active,
+  const physician_name = `${physician.last_name}, ${physician.first_name} ${
+    physician.middle_name || ""
+  } ${physician.suffix_name ? ", " + physician.suffix_name : ""}`;
 
-// 	lab_technician,
-// 	initial_diagnosis,
+  let Treatment = {
+ treatment_no, session_no, drug, dose, status, comments ,
 
-// 	lab_result_no,
-// 	specimen,
-// 	ordered,
-// 	result,
-// 	reference,
-// 	dt_requested: moment(dt_requested).format("llll"),
-// 	dt_received: moment(dt_received).format("llll"),
-// 	dt_reported: moment(dt_reported).format("llll"),
-// 	comments,
-// 	status,
+    physician_name,
+    patient_name,
+	birth_date,
+	age,
+	blood_type,
+	gender,
+	contact_no,
+	email,
+	is_active,
 
-// 	lab_type,
-// 	lab_test,
+	initial_diagnosis,
+	diagnosis,
+	past_treatments,
+	previous_therapy,
 
-// 	lab_request_no: TREATMENT?.lab_request?.lab_request_no,
-//   };
-//   localStorage.setItem("PrintTreatment", JSON.stringify(Treatment));
+	treatment_type,
+	treatment_service,
+	treatment_description,
+
+	next_schedule : moment(next_schedule).format("llll"),
+	session_datetime: moment(session_datetime).format("llll"),
+
+
+  };
+  localStorage.setItem("PrintTreatment", JSON.stringify(Treatment));
 };
 
 // PRINT DATA

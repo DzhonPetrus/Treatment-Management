@@ -229,7 +229,6 @@ className: 'btn-sm',
 
 setPrintData = (LAB_RESULT) => {
 localStorage.removeItem("PrintLabResult");
-console.log(LAB_RESULT)
 
   const patient =
     LAB_RESULT?.lab_request?.inpatient == null

@@ -25,7 +25,6 @@ window.PrintLabResult = () => {
     dt_received,
     dt_reported,
   } = LabResult;
-  console.log(LabResult)
   let val = htmlToPdfmake(`
 <div class="header" style="text-align:center;" >
 
