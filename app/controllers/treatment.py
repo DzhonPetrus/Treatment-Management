@@ -42,6 +42,7 @@ def create(treatment, db: Session):
         drug = treatment.drug,
         dose = treatment.dose,
         next_schedule = treatment.next_schedule,
+        created_by = treatment.created_by,
         comments = treatment.comments
     )
     db.add(new_treatment)
@@ -101,6 +102,7 @@ def update(id, Treatment, db: Session):
             "next_schedule" : Treatment.next_schedule,
             "comments" : Treatment.comments,
             "status" : Treatment.status,
+            "updated_by" : Treatment.updated_by,
             "is_active" : Treatment.is_active
         })
         db.commit()

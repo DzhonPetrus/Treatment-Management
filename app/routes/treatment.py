@@ -47,6 +47,7 @@ def show(request: Request, id, db: Session = Depends(get_db),  current_user: sch
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(Treatment: schemas.CreateTreatment = Depends(schemas.CreateTreatment.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    Treatment.created_by = current_user["id"]
     return treatment.create(Treatment, db)
 
 @router.put('/cancel/{id}', status_code=status.HTTP_200_OK)
@@ -59,6 +60,7 @@ def update(id, db: Session = Depends(get_db),  current_user: schemas.User = Depe
 
 @router.put('/{id}', status_code=status.HTTP_200_OK)
 def update(id, Treatment: schemas.CreateTreatment = Depends(schemas.CreateTreatment.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    Treatment.updated_by = current_user["id"]
     return treatment.update(id, Treatment, db)
 
 @router.delete('/{id}', status_code=status.HTTP_200_OK)

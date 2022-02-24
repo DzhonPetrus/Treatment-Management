@@ -30,6 +30,12 @@ class TreatmentBase(Base):
     status: Optional[str] = None
     is_active: Optional[str] = None
 
+    created_by: Optional[str] = None
+    updated_by: Optional[str] = None
+    creator: Optional[UserBase] = None
+    updator: Optional[UserBase] = None
+    created_at: Optional[dt] = None
+    updated_at: Optional[dt] = None
 
 @as_form
 class CreateTreatment(TreatmentBase):
@@ -38,8 +44,6 @@ class CreateTreatment(TreatmentBase):
 
 class Treatment(TreatmentBase):
     id: str
-    created_at: Optional[dt] = None
-    updated_at: Optional[dt] = None
     treatment_type: Optional[TreatmentTypeBase] = None
     inpatient: Optional[InPatientBase] = None
     outpatient: Optional[OutPatientBase] = None

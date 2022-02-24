@@ -33,9 +33,14 @@ class Treatment(Base):
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
+    created_by = Column(String(36), ForeignKey("users.id"))
+    updated_by = Column(String(36), ForeignKey("users.id"))
+
+    creator = relationship('User', back_populates='treatment_created', foreign_keys=[created_by])
+    updator = relationship('User', back_populates='treatment_updated', foreign_keys=[updated_by])
 
     inpatient = relationship('InPatient', back_populates='treatments')
     outpatient = relationship('OutPatient', back_populates='treatments')
-    physician = relationship('User', back_populates='treatments')
+    physician = relationship('User', back_populates='treatments', foreign_keys=[physician_id])
     treatment_type = relationship('TreatmentType', back_populates='treatments')
   

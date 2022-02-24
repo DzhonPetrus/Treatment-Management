@@ -21,11 +21,15 @@ class User(Base):
 
 
     user_profile = relationship("Profile", back_populates="user_account")
-    treatments = relationship("Treatment", back_populates="physician")
 
     handled_surgeries = relationship("SurgeryInCharge", back_populates="in_charge")
 
     lab_request_created = relationship("LabRequest", back_populates="creator", foreign_keys='LabRequest.created_by')
     lab_request_updated = relationship("LabRequest", back_populates="updator", foreign_keys='LabRequest.updated_by')
+
     lab_result_created = relationship("LabResult", back_populates="creator", foreign_keys='LabResult.created_by')
     lab_result_updated = relationship("LabResult", back_populates="updator", foreign_keys='LabResult.updated_by')
+
+    treatment_created = relationship("Treatment", back_populates="creator", foreign_keys='Treatment.created_by')
+    treatment_updated = relationship("Treatment", back_populates="updator", foreign_keys='Treatment.updated_by')
+    treatments = relationship("Treatment", back_populates="physician", foreign_keys='Treatment.physician_id')
