@@ -37,6 +37,7 @@ def create(lab_result, db: Session):
         dt_reported = lab_result.dt_reported,
         unit = lab_result.unit,
         detailed_result = lab_result.detailed_result,
+        created_by = lab_result.created_by,
         status = lab_result.status
     )
     db.add(new_lab_result)
@@ -80,6 +81,7 @@ def update(id, LabResult, db: Session):
             "dt_reported" : LabResult.dt_reported,
             "detailed_result" : LabResult.detailed_result,
             "status" : LabResult.status,
+            "updated_by" : LabResult.updated_by,
             "is_active" : LabResult.is_active
         })
         db.commit()

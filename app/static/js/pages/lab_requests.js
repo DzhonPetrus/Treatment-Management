@@ -40,16 +40,7 @@ const renderAdditionalButtons = (aData) => {
 					</div>
 					<div>Cancel Lab Request</div>
 				</div>
-				<div 
-					class="dropdown-item d-flex" 
-					role="button" 
-					onClick="return printData('${aData.id}')
-				">
-					<div style="width:2rem">
-						<i class="fa fa-print"> </i>
-					</div>
-					<div>Print Lab Request</div>
-				</div>
+				
 			`;
   }
     buttons += `
@@ -61,7 +52,7 @@ const renderAdditionalButtons = (aData) => {
 					<div style="width:2rem">
 						<i class="fa fa-print"> </i>
 					</div>
-					<div>Print Lab Result</div>
+					<div>Print Lab Request</div>
 				</div>
 			`;
 

@@ -46,6 +46,7 @@ def show(request: Request, id, db: Session = Depends(get_db),  current_user: sch
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(LabRequest: schemas.CreateLabRequest = Depends(schemas.CreateLabRequest.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    LabRequest.created_by = current_user["id"]
     return lab_request.create(LabRequest, db)
 
 @router.put('/cancel/{id}', status_code=status.HTTP_200_OK)
@@ -58,6 +59,7 @@ def update(id, db: Session = Depends(get_db),  current_user: schemas.User = Depe
 
 @router.put('/{id}', status_code=status.HTTP_200_OK)
 def update(id, LabRequest: schemas.CreateLabRequest = Depends(schemas.CreateLabRequest.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    LabRequest.updated_by = current_user["id"]
     return lab_request.update(id, LabRequest, db)
 
 @router.delete('/{id}', status_code=status.HTTP_200_OK)

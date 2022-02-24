@@ -11,6 +11,7 @@ class UserBase(Base):
     user_profile_id: Optional[str] = None
 
     is_active: Optional[str] = None
+    user_profile: Optional[Profile] = None
 
 
 @as_form

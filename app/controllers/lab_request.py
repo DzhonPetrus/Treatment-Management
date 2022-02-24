@@ -24,6 +24,7 @@ def get_one(id, db: Session):
     }
 
 def create(lab_request, db: Session):
+    print(lab_request)
 
     request_no = 'LR-' + (str(uuid4()).split('-')[0]).upper()
     # print(request_no)
@@ -36,6 +37,7 @@ def create(lab_request, db: Session):
         inpatient_id = lab_request.inpatient_id,
         outpatient_id = lab_request.outpatient_id,
         status = lab_request.status,
+        created_by = lab_request.created_by,
         is_active = lab_request.is_active
     )
     db.add(new_lab_request)
@@ -83,6 +85,7 @@ def update(id, LabRequest, db: Session):
             "inpatient_id" : LabRequest.inpatient_id,
             "outpatient_id" : LabRequest.outpatient_id,
             "status" : LabRequest.status,
+            "updated_by" : LabRequest.updated_by,
             "is_active" : LabRequest.is_active
         })
         db.commit()

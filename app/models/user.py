@@ -24,3 +24,8 @@ class User(Base):
     treatments = relationship("Treatment", back_populates="physician")
 
     handled_surgeries = relationship("SurgeryInCharge", back_populates="in_charge")
+
+    lab_request_created = relationship("LabRequest", back_populates="creator", foreign_keys='LabRequest.created_by')
+    lab_request_updated = relationship("LabRequest", back_populates="updator", foreign_keys='LabRequest.updated_by')
+    lab_result_created = relationship("LabResult", back_populates="creator", foreign_keys='LabResult.created_by')
+    lab_result_updated = relationship("LabResult", back_populates="updator", foreign_keys='LabResult.updated_by')

@@ -31,6 +31,11 @@ class LabResult(Base):
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
+    created_by = Column(String(36), ForeignKey("users.id"))
+    updated_by = Column(String(36), ForeignKey("users.id"))
+
+    creator = relationship('User', back_populates='lab_result_created', foreign_keys=[created_by])
+    updator = relationship('User', back_populates='lab_result_updated', foreign_keys=[updated_by])
 
     lab_request = relationship('LabRequest', back_populates='lab_result')
     

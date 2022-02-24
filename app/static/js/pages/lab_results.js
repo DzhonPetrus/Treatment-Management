@@ -229,17 +229,23 @@ className: 'btn-sm',
 
 setPrintData = (LAB_RESULT) => {
 localStorage.removeItem("PrintLabResult");
+console.log(LAB_RESULT)
 
   const patient =
     LAB_RESULT?.lab_request?.inpatient == null
       ? LAB_RESULT.lab_request?.outpatient
       : LAB_RESULT.lab_request?.inpatient;
 
-  const {birth_date, blood_type, gender, contact_no, email, is_active} = patient;
+  let {birth_date, blood_type, gender, contact_no, email, is_active} = patient;
   const age = Math.floor(moment().diff(birth_date, 'years', true));
 
 //   TODO: ADD LAB TECHNICIAN & INITIAL DIAGNOSIS
-  const lab_technician = "Temporary Technician";
+  const creator = LAB_RESULT?.creator?.user_profile;
+  const lab_technician = `${creator.last_name}, ${creator.first_name} ${
+    creator.middle_name || ""
+  } ${creator.suffix_name ? ", " + creator.suffix_name : ""}`;
+
+
   const initial_diagnosis = "None";
 
   const { lab_result_no, result, reference, specimen, ordered, dt_requested, dt_received, dt_reported, comments, status } = LAB_RESULT;

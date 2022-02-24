@@ -8,6 +8,8 @@ from .lab_test import *
 from .inpatient import *
 from .outpatient import *
 
+from .user import *
+
 class LabRequestBase(Base):
     inpatient_id: Optional[str] = None
     outpatient_id: Optional[str] = None
@@ -21,6 +23,10 @@ class LabRequestBase(Base):
     status: Optional[str] = None
     is_active: Optional[str] = None
 
+    creator: Optional[UserBase] = None
+    updator: Optional[UserBase] = None
+    created_at: Optional[dt] = None
+    updated_at: Optional[dt] = None
 
 @as_form
 class CreateLabRequest(LabRequestBase):
@@ -29,8 +35,6 @@ class CreateLabRequest(LabRequestBase):
 
 class LabRequest(LabRequestBase):
     id: str
-    created_at: Optional[dt] = None
-    updated_at: Optional[dt] = None
     # lab_result: Optional[LabResultBase] = None
     lab_test: Optional[LabTestBase] = None
     inpatient: Optional[InPatientBase] = None

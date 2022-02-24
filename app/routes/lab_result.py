@@ -40,11 +40,13 @@ def show(request: Request, id, db: Session = Depends(get_db),  current_user: sch
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 async def create(LabResult: schemas.CreateLabResult = Depends(schemas.CreateLabResult.as_form), file: UploadFile = File(...), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    LabResult.created_by = current_user["id"]
     LabResult.detailed_result = await file_upload(file)
     return lab_result.create(LabResult, db)
 
 @router.put('/reactivate/{id}', status_code=status.HTTP_200_OK)
 def update(id, db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    LabResult.updated_by = current_user["id"]
     return lab_result.reactivate(id, db)
 
 @router.put('/{id}', status_code=status.HTTP_200_OK)
