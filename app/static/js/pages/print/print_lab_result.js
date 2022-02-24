@@ -147,10 +147,10 @@ MEDICAL CENTER</u></h6>
     `);
 
   let dd = {
-    pageSize: "A6",
-    pageOrientation: "landscape",
+footer: 
+          { text:'\n HoMIES MEDICAL CENTER \n 2022', alignment: 'center', fontSize: 9} ,
+watermark: { text: 'HoMIES', color: 'gray', opacity: 0.15, bold: true},
 
-    watermark: { text: "HoMIES", color: "gray", opacity: 0.15, bold: true },
 
     content: val,
   };

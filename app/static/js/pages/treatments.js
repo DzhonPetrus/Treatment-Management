@@ -135,12 +135,15 @@ className: 'btn-sm',
 						}
 					},
 					{
-						extend: 'pdfHtml5',
 						text: '<i class="fa fa-file-pdf"></i> Export to PDF',
-						titleAttr: 'PDF',
-						title: 'Hospital Management System',
+						action: function(e, dt, button, config) {
+							let data = dt.buttons.exportData();
+							window.PrintTreatmentTable(data);
+						},
+						titleAttr: "PDF",
+						title: "Hospital Management System",
 						exportOptions: {
-							columns: ':not(:last-child)',
+						columns: ":not(:last-child)",
 						},
 					},
 				]
@@ -225,6 +228,147 @@ className: 'btn-sm',
 	});
 };
 
+setPrintData = (TREATMENT) => {
+localStorage.removeItem("PrintTreatment");
+console.log(TREATMENT)
+
+// comments: "comment"
+// created_at: "2022-02-19T11:07:45"
+// description: "desc"
+// dose: null
+// drug: null
+// id: "1c8a376c-9131-11ec-a80e-1c1b0ddb5781"
+// inpatient:
+// birth_date: "1994-01-05"
+// blood_type: "O-"
+// contact_no: "09123456789"
+// email: "in@patient.com"
+// first_name: "In"
+// full_name: "Patient, In  "
+// gender: "Male"
+// is_active: "ACTIVE"
+// last_name: "Patient"
+// middle_name: null
+// picture: null
+// suffix_name: null
+// [[Prototype]]: Object
+// inpatient_id: "8a09d9aa-90aa-11ec-a5f2-1c1b0ddb5781"
+// is_active: "ACTIVE"
+// next_schedule: null
+// outpatient: null
+// outpatient_id: null
+// physician:
+// created_at: "2022-02-06T23:25:32"
+// email: "surgeon2@surgeon.com"
+// handled_surgeries: {room: null, patient_id: null, surgery_type_id: null, in_charge: null, start_time: null, …}
+// id: "064f2fb8-8761-11ec-93ec-1c1b0ddb5781"
+// is_active: "ACTIVE"
+// password: "$2b$12$CmjBQe8ZKH9hZ/eeCIBWUePTesKYhoZsy5di0YURYhyDlyDJjwxOe"
+// updated_at: null
+// user_profile: {department: 'Emergency Room', position: 'Surgeon', first_name: 'surgeon', middle_name: null, last_name: 'last', …}
+// user_profile_id: "b4c98c92-8760-11ec-93ec-1c1b0ddb5781"
+// user_type: "Surgeon"
+// [[Prototype]]: Object
+// physician_id: "064f2fb8-8761-11ec-93ec-1c1b0ddb5781"
+// physician_name: "last, surgeon  "
+// professional_fee: 550
+// quantity: 1
+// room: "111"
+// session_datetime: "2022-02-19T11:07:00"
+// session_no: 1
+// status: "PENDING"
+// treatment_no: "TN-FA2205C1"
+// treatment_type:
+// description: "treatment3"
+// fee: 333
+// is_active: "ACTIVE"
+// name: "treatment3"
+// room: "333"
+// [[Prototype]]: Object
+// treatment_type_id: "1780df60-60a7-11ec-88bf-f0761c112d4e"
+// treatment_type_name: "treatment3"
+// updated_at: null
+
+
+//   const patient =
+//     TREATMENT?.lab_request?.inpatient == null
+//       ? TREATMENT.lab_request?.outpatient
+//       : TREATMENT.lab_request?.inpatient;
+
+//   const {birth_date, blood_type, gender, contact_no, email, is_active} = patient;
+//   const age = Math.floor(moment().diff(birth_date, 'years', true));
+
+// //   TODO: ADD LAB TECHNICIAN & INITIAL DIAGNOSIS
+//   const lab_technician = "Temporary Technician";
+//   const initial_diagnosis = "None";
+
+//   const { lab_result_no, result, reference, specimen, ordered, dt_requested, dt_received, dt_reported, comments, status } = TREATMENT;
+
+//   // TODO: CHANGE LAB_TYPE
+//   const lab_type = TREATMENT?.lab_request?.lab_test?.name;
+//   const lab_test = TREATMENT?.lab_request?.lab_test?.name;
+
+//   const name = `${patient.last_name}, ${patient.first_name} ${
+//     patient.middle_name || ""
+//   } ${patient.suffix_name ? ", " + patient.suffix_name : ""}`;
+
+//   let Treatment = {
+//     name,
+// 	birth_date,
+// 	age,
+// 	blood_type,
+// 	gender,
+// 	contact_no,
+// 	email,
+// 	is_active,
+
+// 	lab_technician,
+// 	initial_diagnosis,
+
+// 	lab_result_no,
+// 	specimen,
+// 	ordered,
+// 	result,
+// 	reference,
+// 	dt_requested: moment(dt_requested).format("llll"),
+// 	dt_received: moment(dt_received).format("llll"),
+// 	dt_reported: moment(dt_reported).format("llll"),
+// 	comments,
+// 	status,
+
+// 	lab_type,
+// 	lab_test,
+
+// 	lab_request_no: TREATMENT?.lab_request?.lab_request_no,
+//   };
+//   localStorage.setItem("PrintTreatment", JSON.stringify(Treatment));
+};
+
+// PRINT DATA
+printData = (id) => {
+  {
+    $.ajax({
+      url: BASE_URL + `${endpoint}/${id}`,
+      type: "GET",
+      dataType: "json",
+
+      // success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
+      success: (data) => {
+        if (data.error == false) {
+          // DATA FOR PRINTING
+          setPrintData(data.data);
+          window.PrintTreatment();
+        } else {
+          notification("error", "Error!", data.message);
+        }
+      },
+      error: (data) => notification("error", data.responseJSON.detail),
+    });
+  }
+};
+
+
+
 // VIEW DATA
 viewData = (id) => {
 	window.modal = "#modal-treatment-view";
@@ -234,7 +378,14 @@ viewData = (id) => {
 			type: "GET",
 			dataType: "json",
 
-			success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
+			success: data => {
+				if(data.error == false) {
+					 setPrintData(data.data);
+					 setState("view", data.data);
+				 }else{
+					notification("error", "Error!", data.message);
+				 }
+			},
 			error: (data) => notification("error", data.responseJSON.detail),
 		});
 	}
