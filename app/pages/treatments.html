@@ -103,6 +103,7 @@
               <th>Treatment No</th>
               <th>Patient</th>
               <th>Treatment Type</th>
+              <th>Treatment Service</th>
               <th>Physician</th>
               <th>Description</th>
               <th>Status</th>
@@ -141,13 +142,18 @@
                     <div class="card-body">
 
                       <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                           {{ forms.viewItem('Treatment No','treatment_no') }}
                         </div>
-                        <div class="col-sm-6">
-                          {{ forms.viewItem('Treatment Type','treatment_type_name') }}
-                        </div>
                       </div>
+<div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Treatment Type','treatment_type_name') }}
+                            </div><div class="col-sm-6">
+                              {{ forms.viewItem('Treatment Service','treatment_service_name') }}
+                            </div>
+                          </div>
+                      
                       <div class="row">
                         <div class="col-sm-12">
                           {{ forms.viewItem('Description','description') }}
@@ -228,26 +234,40 @@
           <div class="modal-body">
             <form id="form">
                 <div class="container-fluid">
+
+                  
                   <div class="row">
 
                     {{ forms.input('ID', 'id', 'text', 'hidden', '' )}}
                     {{ forms.input('Treatment No', 'treatment_no', 'text', '', '' )}}
-
-                    <!-- TREATMENT TYPE -->
-                    <div class="form-group col-md-6" id="group-treatment_type_id">
-                      <label>
-                        Treatment Type
-                        <span style="color:red">*</span>
-                      </label>
-                      <select class="form-control select2" style="width: 100%;" id="treatment_type_id"
-                        name="treatment_type_id">
-                        {% for treatment_type in treatment_types %}
-                        <option value="{{treatment_type['id']}}">{{treatment_type['name']}}</option>
-                        {% endfor -%}
-                      </select>
                     </div>
-                    <!-- END TREATMENT TYPE -->
-  
+
+<div class="row">
+                  <!-- TREATMENT TYPE -->
+                  <div class="form-group col-md-6" id="group-treatment_type_id">
+                    <label>
+                      Treatment Type
+                      <span style="color:red">*</span>
+                    </label>
+                    <select class="form-control select2" style="width: 100%;" id="treatment_type_id" name="treatment_type_id">
+                    </select>
+                  </div>
+                  <!-- END TREATMENT TYPE -->
+                  <!-- TREATMENT SERVICE -->
+                  <div class="form-group col-md-6" id="group-treatment_service_id">
+                    <label>
+                      Treatment Service
+                      <span style="color:red">*</span>
+                    </label>
+                    <select class="form-control select2" style="width: 100%;" id="treatment_service_id" name="treatment_service_id">
+                    </select>
+                  </div>
+                  <!-- END TREATMENT SERVICE -->
+
+                    </div>
+
+                    <div class="row">
+
                       {{ forms.input('Room', 'room', 'text', 'required', "", 'col-md-3' ) }}
                       {{ forms.input('Quantity', 'quantity', 'number', 'required min=1',1, 'col-md-3') }}
                   </div>
@@ -314,6 +334,9 @@
                     {{ forms.input('Next Schedule', 'next_schedule', 'datetime-local','','','col-md-6') }}
                     {{ forms.textarea('Comments', 'comments', 'required', '', 'col-md-6' ) }}
                   </div>
+
+                  
+
                   <div class="row">
                     {{ forms.textarea('Description', 'description', 'required','','col-md-6' ) }}
                     {{ forms.select('Status', 'status', 'text', ['PENDING', 'ON-GOING', 'FINISHED', 'CANCELLED'], 'col-md-6') }}
@@ -374,6 +397,57 @@
       }
     })
   });
+
+// FOR UI
+getTreatmentTypes = () => {
+  {
+    $.ajax({
+      url: BASE_URL + `${window.user_type.toLowerCase()}/treatment_type/all`,
+      type: "GET",
+      dataType: "json",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        ContentType: "application/x-www-form-urlencoded",
+      },
+      success: (data) => {
+        if (data.error == false) {
+          setTreatmentTypes(data.data);
+        } else {
+          notification("error", "Error!", data.message);
+        }
+      },
+      error: (data) => notification("error", data.responseJSON.detail),
+    });
+  }
+};
+
+setTreatmentTypes = (_data) => {
+  window.treatments = {};
+  let treatment_types_options = ``;
+  _data.forEach(_type => {
+    let services = [];
+    treatment_types_options += `<option value='${_type?.name}'>${_type?.name}</option>`;
+    
+    _services = _type?.treatment_services;
+    _services.forEach(_service => services.push({id:_service?.id, name:_service?.name}))
+
+    window.treatments[_type?.name] = services;
+  });
+
+
+  $('#treatment_type_id').html(treatment_types_options);
+  $('#treatment_type_id').on("change", function(){
+    let selectedType = $(this).val();
+    let treatment_service_options = ``;
+    treatments[selectedType].forEach(service => treatment_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
+
+    $('#treatment_service_id').html(treatment_service_options);
+  } )
+  
+}
+
+getTreatmentTypes();
 </script>
 <script src="{{ url_for('static', path='/js/pages/print/print_treatment_table.js') }}"></script>
 <script src="{{ url_for('static', path='/js/pages/print/print_treatment.js') }}"></script>

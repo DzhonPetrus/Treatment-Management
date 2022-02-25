@@ -5,7 +5,7 @@
 	window.modal = "#modal-treatment";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "treatment_no", "treatment_type_id", "physician_id", "inpatient_id", "outpatient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate", "session_no", "session_datetime", "drug", "dose", "next_schedule", "comments", "professional_fee", "room", "quantity"];
+	window.fields = ["id", "treatment_no", "treatment_service_id", "physician_id", "inpatient_id", "outpatient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate", "session_no", "session_datetime", "drug", "dose", "next_schedule", "comments", "professional_fee", "room", "quantity"];
 	window.fieldsHidden = ["btnUpdate", "is_active", "end_time", "treatment_no", "id", "inpatient_id"];
 	window.readOnlyFields = ["is_active", "end_time", "treatment_no", "id"];
 
@@ -186,12 +186,16 @@ className: 'btn-sm',
 					return  `${patient.last_name}, ${patient.first_name} ${patient.middle_name || ''} ${patient.suffix_name ? ', ' + patient.suffix_name : ''}`
 				}
 			},
-			{
-				data: "treatment_type",
-				name: "treatment_type",
-				searchable: true,
-				render: aData => aData.name
-			},
+      {
+        data: "treatment_service.treatment_type.name",
+        name: "treatment_service.treatment_type.name",
+        searchable: true,
+      },
+      {
+        data: "treatment_service.name",
+        name: "treatment_service.name",
+        searchable: true,
+      },
 			{
 				data: "physician",
 				name: "physician",
@@ -259,9 +263,9 @@ localStorage.removeItem("PrintTreatment");
   const previous_therapy = "None";
 
   const { treatment_no, session_no, session_datetime, drug, dose, next_schedule, status, comments } = TREATMENT;
-  const treatment_type = TREATMENT?.treatment_type?.name;
-  const treatment_service = TREATMENT?.treatment_type?.name;
-  const treatment_description = TREATMENT?.treatment_type?.description;
+  const treatment_type = TREATMENT?.treatment_service?.treatment_type?.name;
+  const treatment_service = TREATMENT?.treatment_service?.name;
+  const treatment_description = TREATMENT?.treatment_service?.description;
 
   const patient_name = `${patient.last_name}, ${patient.first_name} ${
     patient.middle_name || ""
@@ -341,6 +345,12 @@ viewData = (id) => {
 				if(data.error == false) {
 					 setPrintData(data.data);
 					 setState("view", data.data);
+					const currentTreatment = data.data;
+					setPrintData(currentTreatment);
+					setState("view", currentTreatment);
+
+					$('#treatment_type_nameView').html(currentTreatment?.treatment_service?.treatment_type?.name);
+					$('#treatment_service_nameView').html(currentTreatment?.treatment_service?.name);
 				 }else{
 					notification("error", "Error!", data.message);
 				 }
