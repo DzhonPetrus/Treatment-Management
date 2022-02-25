@@ -6,8 +6,7 @@ window.dataTable = "#dataTable";
 
 window.fields = [
   "id",
-  "lab_test_id",
-  "lab_result_id",
+  "lab_service_id",
   "status",
   "is_active",
   "btnAdd",
@@ -215,8 +214,13 @@ loadTable = () => {
         },
       },
       {
-        data: "lab_test.name",
-        name: "lab_test.name",
+        data: "laboratory_service.laboratory_type.name",
+        name: "laboratory_service.laboratory_type.name",
+        searchable: true,
+      },
+      {
+        data: "laboratory_service.name",
+        name: "laboratory_service.name",
         searchable: true,
       },
       // {
@@ -271,7 +275,6 @@ loadTable = () => {
 
 setPrintData = (LAB_REQUEST) => {
 localStorage.removeItem("PrintLabRequest");
-console.log(LAB_REQUEST)
   const patient =
     LAB_REQUEST?.inpatient == null
       ? LAB_REQUEST.outpatient
@@ -282,9 +285,9 @@ console.log(LAB_REQUEST)
   let LabRequest = {
     name,
     request_number: LAB_REQUEST?.lab_request_no,
-    request_type: LAB_REQUEST?.lab_test?.name,
-    request_service: LAB_REQUEST?.lab_test?.name,
-    fee: LAB_REQUEST?.lab_test?.fee,
+    request_type: LAB_REQUEST?.laboratory_service?.laboratory_type?.name,
+    request_service: LAB_REQUEST?.laboratory_service?.name,
+    fee: LAB_REQUEST?.laboratory_service?.fee,
     quantity: LAB_REQUEST?.quantity,
     dt_requested: moment(LAB_REQUEST?.created_at).format("llll"),
     status: LAB_REQUEST?.status,
@@ -327,8 +330,13 @@ viewData = (id) => {
       // success: data => (data.error == false) ? setState("view", data.data) : notification("error", "Error!", data.message),
       success: (data) => {
         if (data.error == false) {
-          setPrintData(data.data);
-          setState("view", data.data);
+          const currentLabRequest = data.data;
+          setPrintData(currentLabRequest);
+          setState("view", currentLabRequest);
+
+          $('#lab_type_nameView').html(currentLabRequest?.laboratory_service?.laboratory_type?.name);
+          $('#lab_service_nameView').html(currentLabRequest?.laboratory_service?.name);
+
         } else {
           notification("error", "Error!", data.message);
         }

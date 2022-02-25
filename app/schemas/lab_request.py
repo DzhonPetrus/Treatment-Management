@@ -20,7 +20,7 @@ class LabRequestBase(Base):
     quantity: Optional[float] = None
 
     # lab_test_id: Optional[str] = None
-    laboratory_service_id: Optional[str] = None
+    lab_service_id: Optional[str] = None
 
     lab_request_no: Optional[str] = None
 

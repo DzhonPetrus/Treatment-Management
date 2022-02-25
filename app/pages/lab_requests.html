@@ -105,7 +105,8 @@
             <tr>
               <th>Lab Request No</th>
               <th>Patient</th>
-              <th>Lab Test</th>
+              <th>Lab Type</th>
+              <th>Lab Service</th>
               <th>Status</th>
               <th>Is Active</th>
               <th></th>
@@ -145,8 +146,12 @@
                             <div class="col-sm-6">
                               {{ forms.viewItem('Lab Request No','lab_request_no') }}
                             </div>
+                            
+                          </div><div class="row">
                             <div class="col-sm-6">
-                              {{ forms.viewItem('Lab Test','lab_test_name') }}
+                              {{ forms.viewItem('Laboratory Type','lab_type_name') }}
+                            </div><div class="col-sm-6">
+                              {{ forms.viewItem('Laboratory Service','lab_service_name') }}
                             </div>
                           </div>
                           <div class="row">
@@ -224,21 +229,29 @@
                     </div>
 
                     <div class="row">
-                <!-- LAB TEST -->
-                <div class="form-group col-md-6" id="group-lab_request_type_id">
+
+                <!-- LAB TYPE -->
+                <div class="form-group col-md-5" id="group-lab_type_id">
                   <label>
-                    Lab Test
+                    Lab Type
                     <span style="color:red">*</span>
                   </label>
-                  <select class="form-control select2" style="width: 100%;" id="lab_test_id" name="lab_test_id">
-                    {% for lab_test in lab_tests %}
-                    <option value="{{lab_test['id']}}">{{lab_test['name']}}</option>
-                    {% endfor -%}
+                  <select class="form-control select2" style="width: 100%;" id="lab_type_id" name="lab_type_id">
                   </select>
                 </div>
-                <!-- END LAB TEST -->
+                <!-- END LAB TYPE -->
+                <!-- LAB SERVICE -->
+                <div class="form-group col-md-5" id="group-lab_service_id">
+                  <label>
+                    Lab Service
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="lab_service_id" name="lab_service_id">
+                  </select>
+                </div>
+                <!-- END LAB SERVICE -->
 
-                {{ forms.input('Quantity', 'quantity', 'number', 'required min=1', 1, 'col-md-6' ) }}
+                {{ forms.input('Quantity', 'quantity', 'number', 'required min=1', 1, 'col-md-2' ) }}
 
 
               </div>
@@ -276,11 +289,13 @@
 
 {% block scripts %}
 <script defer>
+
   $('#group-inpatient_id').hide();
   $('#inpatient_id').val('');
+  
 
   $(() => {
-    $('#lab_test_id').select2();
+    $('#lab_service_id').select2();
     $('#inpatient_id').select2();
     $('#outpatient_id').select2();
 
@@ -297,6 +312,57 @@
       }
     })
   });
+
+// FOR UI
+getLaboratoryTypes = () => {
+  {
+    $.ajax({
+      url: BASE_URL + `${window.user_type.toLowerCase()}/laboratory_type/all`,
+      type: "GET",
+      dataType: "json",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        ContentType: "application/x-www-form-urlencoded",
+      },
+      success: (data) => {
+        if (data.error == false) {
+          setLaboratoryTypes(data.data);
+        } else {
+          notification("error", "Error!", data.message);
+        }
+      },
+      error: (data) => notification("error", data.responseJSON.detail),
+    });
+  }
+};
+
+setLaboratoryTypes = (_data) => {
+  window.laboratories = {};
+  let lab_types_options = ``;
+  _data.forEach(_type => {
+    let services = [];
+    lab_types_options += `<option value='${_type?.name}'>${_type?.name}</option>`;
+    
+    _services = _type?.laboratory_services;
+    _services.forEach(_service => services.push({id:_service?.id, name:_service?.name}))
+
+    window.laboratories[_type?.name] = services;
+  });
+
+
+  $('#lab_type_id').html(lab_types_options);
+  $('#lab_type_id').on("change", function(){
+    let selectedType = $(this).val();
+    let lab_service_options = ``;
+    laboratories[selectedType].forEach(service => lab_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
+
+    $('#lab_service_id').html(lab_service_options);
+  } )
+  
+}
+
+getLaboratoryTypes();
 </script>
 <script src="{{ url_for('static', path='/js/pages/print/print_lab_request_table.js') }}"></script>
 <script src="{{ url_for('static', path='/js/pages/print/print_lab_request.js') }}"></script>

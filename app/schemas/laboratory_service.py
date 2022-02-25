@@ -20,6 +20,7 @@ class Laboratory_serviceBase(Base):
     updator: Optional[UserBase] = None
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
+    laboratory_type: Optional[Laboratory_typeBase] = None
 
 @as_form
 class CreateLaboratory_service(Laboratory_serviceBase):
@@ -28,7 +29,6 @@ class CreateLaboratory_service(Laboratory_serviceBase):
 
 class Laboratory_service(Laboratory_serviceBase):
     id: str
-    laboratory_type: Optional[Laboratory_typeBase] = None
 
 
 class OutLaboratory_services(Base):

@@ -30,7 +30,7 @@ def create(lab_request, db: Session):
     # print(request_no)
 
     new_lab_request = models.LabRequest(
-        lab_test_id = lab_request.lab_test_id,
+        lab_service_id = lab_request.lab_service_id,
         lab_request_no = request_no,
         quantity = lab_request.quantity,
         # lab_result_id = lab_request.lab_result_id,
