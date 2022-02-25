@@ -1,15 +1,17 @@
 from datetime import datetime as dt
-from typing import Optional, List, Any
+from typing import Optional, List
 from pydantic import BaseModel
 from ..utils.schemaHelper import Base, as_form
 
 
 from .user import *
-# from .treatment_service import *
+from .treatment_type import *
 
-class Treatment_typeBase(Base):
+class Treatment_serviceBase(Base):
+    treatment_type_id: Optional[str] = None
     name: Optional[str] = None
     description: Optional[str] = None
+    fee: Optional[float] = None
     is_active: Optional[str] = None
 
     created_by: Optional[str] = None
@@ -18,24 +20,23 @@ class Treatment_typeBase(Base):
     updator: Optional[UserBase] = None
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
+    treatment_type: Optional[Treatment_typeBase] = None
 
 @as_form
-class CreateTreatment_type(Treatment_typeBase):
+class CreateTreatment_service(Treatment_serviceBase):
     pass
 
 
-class Treatment_type(Treatment_typeBase):
+class Treatment_service(Treatment_serviceBase):
     id: str
-    # treatment_services: Optional[List[Treatment_serviceBase]] = None
-    treatment_services: Optional[List[Any]] = None
 
 
-class OutTreatment_types(Base):
-    data: List[Treatment_type]
+class OutTreatment_services(Base):
+    data: List[Treatment_service]
     error: bool
     message: str
 
-class OutTreatment_type(Base):
-    data: Treatment_type
+class OutTreatment_service(Base):
+    data: Treatment_service
     error: bool
     message: str

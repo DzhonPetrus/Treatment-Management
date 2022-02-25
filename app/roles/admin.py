@@ -21,6 +21,7 @@ router.include_router(routes.lab_request.router)
 
 router.include_router(routes.treatment.router)
 router.include_router(routes.treatment_type.router)
+router.include_router(routes.treatment_service.router)
 
 router.include_router(routes.inpatient.router)
 router.include_router(routes.outpatient.router)

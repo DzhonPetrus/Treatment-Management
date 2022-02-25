@@ -21,6 +21,7 @@ MEDICAL CENTER</u></h6>
       <th>${data.header[1]}</th>
       <th>${data.header[2]}</th>
       <th>${data.header[3]}</th>
+      <th>${data.header[4]}</th>
     </tr>
   </thead>
   <tbody>
@@ -33,6 +34,7 @@ data.body.forEach(_data => {
     <td>${_data[1]}</td>
     <td>${_data[2]}</td>
     <td>${_data[3]}</td>
+    <td>${_data[4]}</td>
   </tr>
   `;
 });

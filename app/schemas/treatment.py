@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from typing import Optional, Any
 
-from .treatment_type import *
+from .treatment_service import *
 from .user import *
 from .inpatient import *
 from .outpatient import *
@@ -16,7 +16,7 @@ class TreatmentBase(Base):
     quantity: Optional[float] = None
     physician_id: str
 
-    treatment_type_id: str
+    treatment_service_id: str
     description: str
 
     professional_fee: Optional[float] = None
@@ -44,7 +44,7 @@ class CreateTreatment(TreatmentBase):
 
 class Treatment(TreatmentBase):
     id: str
-    treatment_type: Optional[TreatmentTypeBase] = None
+    treatment_service: Optional[Treatment_serviceBase] = None
     inpatient: Optional[InPatientBase] = None
     outpatient: Optional[OutPatientBase] = None
     physician: Optional[User] = None

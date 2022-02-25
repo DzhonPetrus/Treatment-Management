@@ -35,6 +35,10 @@ class User(Base):
     laboratory_type_created = relationship("Laboratory_type", back_populates="creator", foreign_keys='Laboratory_type.created_by')
     laboratory_type_updated = relationship("Laboratory_type", back_populates="updator", foreign_keys='Laboratory_type.updated_by')
 
+    treatment_service_created = relationship("Treatment_service", back_populates="creator", foreign_keys='Treatment_service.created_by')
+    treatment_service_updated = relationship("Treatment_service", back_populates="updator", foreign_keys='Treatment_service.updated_by')
+    treatment_type_created = relationship("Treatment_type", back_populates="creator", foreign_keys='Treatment_type.created_by')
+    treatment_type_updated = relationship("Treatment_type", back_populates="updator", foreign_keys='Treatment_type.updated_by')
 
 
     treatment_created = relationship("Treatment", back_populates="creator", foreign_keys='Treatment.created_by')

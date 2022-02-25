@@ -11,6 +11,8 @@ from .lab_test import *
 from .lab_result import *
 from .lab_request import *
 from .profile import *
+
+from .treatment_service import *
 from .treatment import *
 from .treatment_type import *
 
