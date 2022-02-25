@@ -338,7 +338,9 @@
                   </label>
                   <select class="form-control select2 col-md-6" style="width: 100%;" id="lab_request_id" name="lab_request_id">
                     {% for lab_request in lab_requests %}
-                    <option value="{{lab_request['id']}}">{{lab_request['lab_request_no']}}</option>
+                      {% if lab_request['status'] != 'CANCELLED' %}
+                        <option value="{{lab_request['id']}}">{{lab_request['lab_request_no']}}</option>
+                      {% endif -%}
                     {% endfor -%}
                   </select>
                 </div>
