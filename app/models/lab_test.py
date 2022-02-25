@@ -17,4 +17,4 @@ class LabTest(Base):
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
-    lab_requests = relationship('LabRequest', back_populates='lab_test')
+    # lab_requests = relationship('LabRequest', back_populates='lab_test')

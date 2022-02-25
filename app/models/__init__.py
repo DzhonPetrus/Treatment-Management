@@ -3,6 +3,10 @@ from ..database import Base
 from .surgery_in_charge import *
 from .surgery import *
 from .surgery_type import *
+
+from .laboratory_service import *
+from .laboratory_type import *
+
 from .lab_test import *
 from .lab_result import *
 from .lab_request import *

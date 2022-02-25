@@ -30,6 +30,13 @@ class User(Base):
     lab_result_created = relationship("LabResult", back_populates="creator", foreign_keys='LabResult.created_by')
     lab_result_updated = relationship("LabResult", back_populates="updator", foreign_keys='LabResult.updated_by')
 
+    laboratory_service_created = relationship("Laboratory_service", back_populates="creator", foreign_keys='Laboratory_service.created_by')
+    laboratory_service_updated = relationship("Laboratory_service", back_populates="updator", foreign_keys='Laboratory_service.updated_by')
+    laboratory_type_created = relationship("Laboratory_type", back_populates="creator", foreign_keys='Laboratory_type.created_by')
+    laboratory_type_updated = relationship("Laboratory_type", back_populates="updator", foreign_keys='Laboratory_type.updated_by')
+
+
+
     treatment_created = relationship("Treatment", back_populates="creator", foreign_keys='Treatment.created_by')
     treatment_updated = relationship("Treatment", back_populates="updator", foreign_keys='Treatment.updated_by')
     treatments = relationship("Treatment", back_populates="physician", foreign_keys='Treatment.physician_id')

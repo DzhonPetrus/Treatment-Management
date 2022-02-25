@@ -14,8 +14,10 @@ class LabRequest(Base):
     __tablename__ = "lab_requests"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
-    lab_test_id = Column(String(36), ForeignKey("lab_tests.id"))
-    # lab_result_id = Column(String(36), ForeignKey("lab_results.id"))
+
+    # lab_test_id = Column(String(36), ForeignKey("lab_tests.id"))
+    lab_service_id = Column(String(36), ForeignKey("laboratory_services.id"))
+
     inpatient_id = Column(String(36), ForeignKey("inpatients.id"))
     outpatient_id = Column(String(36), ForeignKey("outpatients.id"))
     quantity = Column(Numeric(15,2), nullable=False)
@@ -34,7 +36,9 @@ class LabRequest(Base):
     updator = relationship('User', back_populates='lab_request_updated', foreign_keys=[updated_by])
 
     lab_result = relationship('LabResult', back_populates='lab_request')
-    lab_test = relationship('LabTest', back_populates='lab_requests')
+
+    # lab_test = relationship('LabTest', back_populates='lab_requests')
+    laboratory_service = relationship('Laboratory_service', back_populates='lab_requests')
 
     inpatient = relationship('InPatient', back_populates='lab_requests')
     outpatient = relationship('OutPatient', back_populates='lab_requests')
