@@ -11,7 +11,7 @@ window.PrintLabResult = () => {
     is_active,
     lab_request_no,
     lab_result_no,
-    lab_test,
+    lab_service,
     lab_type,
     ordered,
     reference,
@@ -122,15 +122,15 @@ MEDICAL CENTER</u></h6>
 <br>
 <table style="font-size: 16px;">
 <tr>
-<td style="background-color:#BFEEB7;">Laboratory Types.:</td>
-<td style="background-color:#BFEEB7;">Laboratory Tests.:</td>
+<td style="background-color:#BFEEB7;">Laboratory Type:</td>
+<td style="background-color:#BFEEB7;">Laboratory Test:</td>
 <td style="background-color:#BFEEB7;"> Results: </td>
 <td style="background-color:#BFEEB7;"> Reference Range: </td>
 </tr>
 
 <tr>
 <td>${lab_type}</td>
-<td>${lab_test}</td>
+<td>${lab_service}</td>
 <td>${result}</td>
 <td>${reference}</td>
 </tr>

@@ -229,7 +229,6 @@ className: 'btn-sm',
 
 setPrintData = (LAB_RESULT) => {
 localStorage.removeItem("PrintLabResult");
-console.log(LAB_RESULT)
 
   const patient =
     LAB_RESULT?.lab_request?.inpatient == null
@@ -239,7 +238,7 @@ console.log(LAB_RESULT)
   let {birth_date, blood_type, gender, contact_no, email, is_active} = patient;
   const age = Math.floor(moment().diff(birth_date, 'years', true));
 
-//   TODO: ADD LAB TECHNICIAN & INITIAL DIAGNOSIS
+//   TODO:  INITIAL DIAGNOSIS
   const creator = LAB_RESULT?.creator?.user_profile;
   const lab_technician = `${creator.last_name}, ${creator.first_name} ${
     creator.middle_name || ""
@@ -250,9 +249,8 @@ console.log(LAB_RESULT)
 
   const { lab_result_no, result, reference, specimen, ordered, dt_requested, dt_received, dt_reported, comments, status } = LAB_RESULT;
 
-  // TODO: CHANGE LAB_TYPE
-  const lab_type = LAB_RESULT?.lab_request?.lab_test?.name;
-  const lab_test = LAB_RESULT?.lab_request?.lab_test?.name;
+  const lab_type = LAB_RESULT?.lab_request?.laboratory_service?.laboratory_type?.name;
+  const lab_service = LAB_RESULT?.lab_request?.laboratory_service?.name;
 
   const name = `${patient.last_name}, ${patient.first_name} ${
     patient.middle_name || ""
@@ -283,7 +281,7 @@ console.log(LAB_RESULT)
 	status,
 
 	lab_type,
-	lab_test,
+	lab_service,
 
 	lab_request_no: LAB_RESULT?.lab_request?.lab_request_no,
   };
@@ -327,8 +325,11 @@ viewData = (id) => {
 				if (data.error == false) { 
 					setPrintData(data.data);
 					setState("view", data.data);
-					lab_test_name = data.data?.lab_request?.lab_test?.name;
-					$('#lab_testView').html(lab_test_name);
+
+					currentLabRequest = data.data?.lab_request;
+
+					$('#lab_type_nameView').html(currentLabRequest?.laboratory_service?.laboratory_type?.name);
+					$('#lab_service_nameView').html(currentLabRequest?.laboratory_service?.name);
 				} else {
 					notification("error", "Error!", data.message)
 				}
