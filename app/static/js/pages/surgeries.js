@@ -152,6 +152,7 @@ className: 'btn-sm',
 							columns: ':not(:last-child)',
 						},
 					},
+					"colvis"
 				]
 			}
 		],
@@ -168,6 +169,11 @@ className: 'btn-sm',
 			{ sClass: "text-center" },
 		],
 		columns: [
+			{
+				data: "surgery_no",
+				name: "surgery_no",
+				searchable: true,
+			},
 			{
 				data: "inpatient",
 				name: "inpatient",
@@ -186,7 +192,6 @@ className: 'btn-sm',
 			},
 			{
 				data: "start_time",
-				visible: false,
 				searchable: true,
 				render: data => moment(data).format('YYYY-MM-DD'),
 			},
@@ -303,9 +308,8 @@ className: 'btn-sm',
 
 	};
 
+	tbl.column(4).visible(false);
 
-
-	tbl.column(3).visible(false);
 };
 
 // VIEW DATA

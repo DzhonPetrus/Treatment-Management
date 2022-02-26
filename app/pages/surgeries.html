@@ -132,7 +132,7 @@
               <th>Schedule End</th>
               <th>Status</th>
               <th>Is Active</th>
-              <th></th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -213,7 +213,16 @@
                 </div>
 
                 <!-- TODO: fix head surgeon UI, only selected in surgeon can be selected  -->
-                {{ forms.input('Head Surgeon', 'head_surgeon_id', 'text') }}
+                <!-- {{ forms.input('Head Surgeon', 'head_surgeon_id', 'text') }} -->
+              <div class="form-group" id="group-head_surgeon_id">
+                  <label>
+                    Head Surgeon
+                    <span style="color:red">*</span>
+                  </label>
+                  <select class="form-control select2" style="width: 100%;" id="head_surgeon_id"
+                    name="head_surgeon_id"></select>
+              </div>
+
 
               </div>
           </div>
@@ -314,7 +323,7 @@
         }
         var min = new Date(start);
         var max = new Date(end);
-        var date = new Date(data[3]);
+        var date = new Date(data[4]);
 
         if (
           (min === null && max === null) ||
@@ -331,6 +340,15 @@
 
 
   });
+
+
+$('#surgeon_in_charge').on('change', function(e) {
+  surgeons_data = $('#surgeon_in_charge').select2('data');
+  head_surgeon_options = ``;
+  surgeons_data.forEach(s => head_surgeon_options+=`<option value="${s.id}">${s.text}</option>`);
+
+  $('#head_surgeon_id').html(head_surgeon_options);
+})
 </script>
 <script src="{{ url_for('static', path='/js/pages/surgeries.js') }}"></script>
 {% endblock %}
