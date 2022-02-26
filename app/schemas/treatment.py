@@ -19,7 +19,6 @@ class TreatmentBase(Base):
     treatment_service_id: str
     description: str
 
-    professional_fee: Optional[float] = None
     session_no: Optional[int] = None
     session_datetime: Optional[dt] = None
     drug: Optional[str] = None

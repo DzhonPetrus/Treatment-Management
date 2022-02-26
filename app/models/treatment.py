@@ -18,7 +18,6 @@ class Treatment(Base):
     physician_id = Column(String(36), ForeignKey("users.id")) # DOCTOR IN CHARGE
     description = Column(Text)
 
-    professional_fee = Column(Numeric(15,2))
     session_no = Column(Text)
     session_datetime = Column(DateTime)
     drug = Column(Text)

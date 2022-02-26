@@ -169,9 +169,6 @@
                         <div class="col-sm-6">
                           {{ forms.viewItem('Physician','physician_name') }}
                         </div>
-                        <div class="col-sm-6">
-                          {{ forms.viewItem('Professional Fee','professional_fee') }}
-                        </div>
                       </div>
                       <div class="row">
                         <div class="col-sm-6">
@@ -320,7 +317,6 @@
                     <!-- END PHYSICIAN  -->
 
 
-                    {{ forms.input('Professional Fee', 'professional_fee', 'number', 'required min=0', 0, 'col-md-6' ) }}
                   </div>
                   <div class="row">
                     {{ forms.input('Session No.', 'session_no', 'number', 'required min=1', 1, 'col-md-6' ) }}
@@ -383,7 +379,7 @@
     let status_outpatient=['PENDING', 'ONGOING', 'DONE'];
     let status_inpatient=['PENDING', 'ONGOING', 'DONE - FOR BILLING'];
 
-    $('#treatment_type_id').select2();
+    $('#treatment_service_id').select2();
     $('#inpatient_id').select2();
     $('#outpatient_id').select2();
     $('#physician_id').select2();
