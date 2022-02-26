@@ -424,6 +424,61 @@
   // const lab_requests = JSON.parse(' {{lab_requests|tojson}} ');
     $('#lab_request_id').select2();
 
+// FOR UI
+getLabRequests = () => {
+  {
+    $.ajax({
+      url: BASE_URL + `${window.user_type.toLowerCase()}/lab_request/all`,
+      type: "GET",
+      dataType: "json",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+        ContentType: "application/x-www-form-urlencoded",
+      },
+      success: (data) => {
+        if (data.error == false) {
+          setLabRequests(data.data);
+          // console.log(data.data)
+        } else {
+          notification("error", "Error!", data.message);
+        }
+      },
+      error: (data) => notification("error", data.responseJSON.detail),
+    });
+  }
+};
+
+setLabRequests = (_data) => {
+    // STATUS PER PATIENT TYPE
+    let status_outpatient=['PROCESSING', 'UNCLAIMED', 'CLAIMED'];
+    let status_inpatient=['PROCESSING', 'UNFORWARDED', 'FORWARDED'];
+
+  window.requests = {};
+  let lab_requests_options = ``;
+  _data.forEach(_r => {
+    lab_requests_options += `<option value='${_r?.id}'>${_r?.lab_request_no}</option>`;
+      _request_patient_type = _r?.outpatient == null ? 'inpatient' : 'outpatient';
+      requests[_r?.id] = _request_patient_type;
+    });
+
+    // window.lab_requests[_request?.name] = requests;
+
+
+  $('#lab_request_id').html(lab_requests_options);
+  $('#lab_request_id').on("change", function(){
+    let selectedRequest = $(this).val();
+    if(requests[selectedRequest] == 'inpatient')
+      $('#status').html(arrToOptions(status_inpatient));
+    else
+      $('#status').html(arrToOptions(status_outpatient));
+    
+
+  } )
+  
+}
+
+getLabRequests();
 </script>
 <script src="{{ url_for('static', path='/js/pages/print/print_lab_result_table.js') }}"></script>
 <script src="{{ url_for('static', path='/js/pages/print/print_lab_result.js') }}"></script>

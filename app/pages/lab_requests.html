@@ -256,7 +256,7 @@
 
               </div>
               <div class="row">
-                {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-QUEUE', 'IN-PROCESS', 'DONE', 'DECLINED', 'CANCELLED'], 'col-md-6') }}
+                {{ forms.select('Status', 'status', 'text', ['PENDING', 'CANCELLED', 'PAID - IN-QUEUE', 'PROCESSING', 'DONE'], 'col-md-6') }}
                 {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE', 'col-md-6' ) }}
 
               </div>
@@ -295,6 +295,10 @@
   
 
   $(() => {
+    // STATUS PER PATIENT TYPE
+    let status_outpatient=['PENDING', 'CANCELLED', 'PAID - IN-QUEUE', 'PROCESSING', 'DONE'];
+    let status_inpatient=['IN-QUEUE', 'PROCESSING', 'DONE - FOR BILLING'];
+
     $('#lab_service_id').select2();
     $('#inpatient_id').select2();
     $('#outpatient_id').select2();
@@ -306,10 +310,16 @@
       if(e.target.value == 'Outpatient'){
         $('#inpatient_id').val('');
         $('#group-inpatient_id').hide();
+
+        $('#status').html(arrToOptions(status_outpatient));
       }else{
         $('#outpatient_id').val('');
         $('#group-outpatient_id').hide();
+
+        $('#status').html(arrToOptions(status_inpatient));
       }
+
+
     })
   });
 
