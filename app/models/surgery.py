@@ -29,6 +29,6 @@ class Surgery(Base):
 
 
     inpatient = relationship('InPatient', back_populates='surgeries')
-    surgery_service = relationship("Surgery_type", back_populates="surgeries")
+    surgery_service = relationship("Surgery_service", back_populates="surgeries")
 
     in_charge = relationship('SurgeryInCharge', back_populates="surgery")

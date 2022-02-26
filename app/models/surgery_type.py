@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship
 from ..database import Base
 
 
-# LABORATORY
 class Surgery_type(Base):
     __tablename__ = "surgery_types"    
     id = Column(String(36), primary_key=True, default=text('UUID()'))
