@@ -197,9 +197,9 @@
 
                 {{ forms.input('ID', 'id', 'text', '', '', 'col-md-6' )}}
                 {{ forms.input('Lab Request No', 'lab_request_no', 'text', '', '', 'col-md-6' )}}
-                    {{ forms.select('Patient Type', 'patient_type', 'text', ['Outpatient', 'Inpatient'], 'col-md-6') }}
+                    {{ forms.select('Patient Type', 'patient_type', 'required', ['','Outpatient', 'Inpatient'], 'col-md-6') }}
                     <!-- INPATIENT -->
-                    <div class="form-group col-md-6" id="group-inpatient_id">
+                    <div class="form-group col-md-6" id="group-inpatient">
                       <label>
                         InPatient
                         <span style="color:red">*</span>
@@ -213,7 +213,7 @@
                     </div>
                     <!-- END INPATIENT -->
                     <!-- OUTPATIENT -->
-                    <div class="form-group col-md-6" id="group-outpatient_id">
+                    <div class="form-group col-md-6" id="group-outpatient">
                       <label>
                         OutPatient
                         <span style="color:red">*</span>
@@ -246,7 +246,7 @@
                     Lab Service
                     <span style="color:red">*</span>
                   </label>
-                  <select class="form-control select2" style="width: 100%;" id="lab_service_id" name="lab_service_id">
+                  <select class="form-control select2" style="width: 100%;" id="lab_service_id" name="lab_service_id" required>
                   </select>
                 </div>
                 <!-- END LAB SERVICE -->
@@ -290,8 +290,10 @@
 {% block scripts %}
 <script defer>
 
-  $('#group-inpatient_id').hide();
+  $('#group-outpatient').hide();
+  $('#group-inpatient').hide();
   $('#inpatient_id').val('');
+  $('#outpatient_id').val('');
   
 
   $(() => {
@@ -304,21 +306,27 @@
     $('#outpatient_id').select2();
 
     $('#patient_type').on('change', (e) => {
-      $('#group-inpatient_id').show();
-      $('#group-outpatient_id').show();
+      $('#group-inpatient').show();
+      $('#group-outpatient').show();
 
       if(e.target.value == 'Outpatient'){
         $('#inpatient_id').val('');
-        $('#group-inpatient_id').hide();
+        $('#group-inpatient').hide();
 
         $('#status').html(arrToOptions(status_outpatient));
-      }else{
+      }else if(e.target.value == 'Inpatient'){
         $('#outpatient_id').val('');
-        $('#group-outpatient_id').hide();
+        $('#group-outpatient').hide();
 
         $('#status').html(arrToOptions(status_inpatient));
-      }
+      }else{
+        $('#outpatient_id').val('');
+        $('#group-outpatient').hide();
+        $('#inpatient_id').val('');
+        $('#group-inpatient').hide();
 
+        $('#status').html('');
+      }
 
     })
   });
@@ -349,7 +357,7 @@ getLaboratoryTypes = () => {
 
 setLaboratoryTypes = (_data) => {
   window.laboratories = {};
-  let lab_types_options = ``;
+  let lab_types_options = `<option></option>`;
   _data.forEach(_type => {
     let services = [];
     lab_types_options += `<option value='${_type?.name}'>${_type?.name}</option>`;
@@ -365,7 +373,8 @@ setLaboratoryTypes = (_data) => {
   $('#lab_type_id').on("change", function(){
     let selectedType = $(this).val();
     let lab_service_options = ``;
-    laboratories[selectedType].forEach(service => lab_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
+    if(selectedType != '')
+      laboratories[selectedType].forEach(service => lab_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
 
     $('#lab_service_id').html(lab_service_options);
   } )

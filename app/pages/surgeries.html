@@ -263,7 +263,7 @@
                       <span style="color:red">*</span>
                     </label>
                     <select class="form-control select2" style="width: 100%;" id="surgery_service_id"
-                      name="surgery_service_id">
+                      name="surgery_service_id" required>
                     </select>
                   </div>
                   <!-- END SURGERY SERVICE -->
@@ -492,7 +492,7 @@
 
   setSurgeryTypes = (_data) => {
     window.surgeries = {};
-    let surgery_types_options = ``;
+    let surgery_types_options = `<option></option>`;
     _data.forEach(_type => {
       let services = [];
       surgery_types_options += `<option value='${_type?.name}'>${_type?.name}</option>`;
@@ -508,7 +508,8 @@
     $('#surgery_type_id').on("change", function () {
       let selectedType = $(this).val();
       let surgery_service_options = ``;
-      surgeries[selectedType].forEach(service => surgery_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
+      if(selectedType != '')
+        surgeries[selectedType].forEach(service => surgery_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
 
       $('#surgery_service_id').html(surgery_service_options);
     })
