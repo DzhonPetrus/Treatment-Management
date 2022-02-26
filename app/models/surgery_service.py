@@ -10,7 +10,6 @@ class Surgery_service(Base):
     surgery_type_id = Column(String(36), ForeignKey("surgery_types.id"),nullable=False)
     name = Column(String(255),nullable=False,unique=True)
     description = Column(Text,nullable=False)
-    fee = Column(Numeric(15,2),nullable=False)
 
     is_active = Column(String(255), nullable=False, default="ACTIVE")
 

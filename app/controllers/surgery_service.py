@@ -30,7 +30,6 @@ def create(surgery_service, db: Session):
             surgery_type_id = surgery_service.surgery_type_id,
             name = surgery_service.name,
             description = surgery_service.description,
-            fee = surgery_service.fee,
             created_by = surgery_service.created_by,
         )
         db.add(new_surgery_service)
@@ -63,7 +62,6 @@ def update(id, Surgery_Type, db: Session):
         surgery_service.update({
             "name": Surgery_Type.name,
             "description": Surgery_Type.description,
-            "fee": Surgery_Type.fee,
             "updated_by": Surgery_Type.updated_by,
             "is_active": Surgery_Type.is_active
         })

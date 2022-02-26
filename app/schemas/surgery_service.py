@@ -11,7 +11,6 @@ class Surgery_serviceBase(Base):
     surgery_type_id: Optional[str] = None
     name: Optional[str] = None
     description: Optional[str] = None
-    fee: Optional[float] = None
     is_active: Optional[str] = None
 
     created_by: Optional[str] = None
