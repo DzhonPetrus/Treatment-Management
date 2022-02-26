@@ -11,5 +11,6 @@ router.include_router(routes.index.router)
 
 router.include_router(routes.surgery.router)
 router.include_router(routes.surgery_type.router)
+router.include_router(routes.surgery_service.router)
 
 router.include_router(routes.me.router)
