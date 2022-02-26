@@ -43,7 +43,8 @@ def show(request: Request, id, db: Session = Depends(get_db),  current_user: sch
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(Surgery: schemas.CreateSurgery = Depends(schemas.CreateSurgery.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
-    # print(Surgery)
+    print(Surgery)
+    Surgery.created_by = current_user["id"]
     return surgery.create(Surgery, db)
 
 @router.put('/cancel/{id}', status_code=status.HTTP_200_OK)
@@ -56,6 +57,7 @@ def update(id, db: Session = Depends(get_db),  current_user: schemas.User = Depe
 
 @router.put('/{id}', status_code=status.HTTP_200_OK)
 def update(id, Surgery: schemas.CreateSurgery = Depends(schemas.CreateSurgery.as_form), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+    Surgery.updated_by = current_user["id"]
     return surgery.update(id, Surgery, db)
 
 @router.delete('/{id}', status_code=status.HTTP_200_OK)

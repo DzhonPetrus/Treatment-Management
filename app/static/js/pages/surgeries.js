@@ -51,10 +51,12 @@ $(function () {
 			in_charge = $('#surgeon_in_charge').val()
 			in_charge = [...in_charge, ...$('#nurse_in_charge').val()]
 			form_data.append('in_charge', in_charge)
-			console.log(form_data.get('in_charge'))
-			console.log(in_charge)
+
+			// console.log(form_data.get('in_charge'))
+			// console.log(in_charge)
 
 			console.table([...form_data])
+			console.log(form_data)
 			var id = $("#id").val();
 			if (id == "") {
 
@@ -185,11 +187,16 @@ className: 'btn-sm',
 				name: "room",
 				searchable: true,
 			},
-			{
-				data: "surgery_type.name",
-				name: "surgery_type.name",
-				searchable: true,
-			},
+      {
+        data: "surgery_service.surgery_type.name",
+        name: "surgery_service.surgery_type.name",
+        searchable: true,
+      },
+      {
+        data: "surgery_service.name",
+        name: "surgery_service.name",
+        searchable: true,
+      },
 			{
 				data: "start_time",
 				searchable: true,
@@ -308,7 +315,7 @@ className: 'btn-sm',
 
 	};
 
-	tbl.column(4).visible(false);
+	tbl.column(5).visible(false);
 
 };
 

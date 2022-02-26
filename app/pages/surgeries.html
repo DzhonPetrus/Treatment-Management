@@ -127,12 +127,13 @@
               <th>Patient</th>
               <th>Room</th>
               <th>Surgery Type</th>
+              <th>Surgery Service</th>
               <th>Schedule Start(DATE)</th>
               <th>Schedule Start</th>
               <th>Schedule End</th>
               <th>Status</th>
               <th>Is Active</th>
-              <th>Actions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -146,7 +147,7 @@
 
 
     <div class="modal fade" id="modal-surgery" aria-modal="true" role="dialog">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Surgery</h4>
@@ -157,74 +158,108 @@
           <div class="modal-body">
             <form id="form">
               {% import 'templates/forms.html' as forms %}
-              <div class="card-body">
+              <div class="container-fluid">
 
-                {{ forms.input('ID', 'id', 'text', '', '' )}}
-                {{ forms.input('Surgery No', 'surgery_no', 'text', '', '' )}}
-                <!-- SURGERY TYPE -->
-                <div class="form-group" id="group-surgery_type_id">
-                  <label>
-                    Surgery Type
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="surgery_type_id" name="surgery_type_id">
-                    {% for surgery_type in surgery_types %}
-                    <option value="{{surgery_type['id']}}">{{surgery_type['name']}}</option>
-                    {% endfor -%}
-                  </select>
+                <div class="row">
+                  {{ forms.input('ID', 'id', 'text', '', '', 'col-md-6' )}}
+                  {{ forms.input('Surgery No', 'surgery_no', 'text', '', '', 'col-md-6' )}}
                 </div>
-                <!-- END SURGERY TYPE -->
-                <!-- INPATIENT -->
-                <div class="form-group" id="group-inpatient_id">
-                  <label>
-                    InPatient
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="inpatient_id" name="inpatient_id">
-                    {% for inpatient in inpatients %}
-                    <option value="{{inpatient['id']}}">{{inpatient['last_name']}}, {{inpatient['first_name']}}</option>
-                    {% endfor -%}
-                  </select>
-                </div>
-                <!-- END INPATIENT -->
-                {{ forms.textarea('Description', 'description') }}
+                <div class="row">
+                  <!-- SURGERY TYPE -->
+                  <div class="form-group col-md-6" id="group-surgery_type_id">
+                    <label>
+                      Surgery Type
+                      <span style="color:red">*</span>
+                    </label>
+                    <select class="form-control select2" style="width: 100%;" id="surgery_type_id"
+                      name="surgery_type_id">
+                    </select>
+                  </div>
+                  <!-- END SURGERY TYPE -->
+                  <!-- SURGERY SERVICE -->
+                  <div class="form-group col-md-6" id="group-surgery_service_id">
+                    <label>
+                      Surgery Service
+                      <span style="color:red">*</span>
+                    </label>
+                    <select class="form-control select2" style="width: 100%;" id="surgery_service_id"
+                      name="surgery_service_id">
+                    </select>
+                  </div>
+                  <!-- END SURGERY SERVICE -->
 
-                {{ forms.input('Room', 'room', 'text', 'required' ) }}
-                {{ forms.input('Schedule', 'start_time', 'text', 'required' ) }}
-                {{ forms.input('Surgery Ended', 'end_time', 'text' ) }}
-                {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-PROCESS', 'DONE', 'CANCELLED']) }}
-                {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
-
-                <div class="form-group" id="group-nurse_in_charge">
-                  <label>
-                    Surgical Nurse In Charge
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="nurse_in_charge" name="nurse_in_charge"
-                    multiple="multiple"></select>
                 </div>
-                <div class="form-group" id="group-surgeon_in_charge">
-                  <label>
-                    Surgeon In Charge
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="surgeon_in_charge"
-                    name="surgeon_in_charge" multiple="multiple"></select>
+                <div class="row">
+                  <!-- INPATIENT -->
+                  <div class="form-group col-md-6" id="group-inpatient_id">
+                    <label>
+                      InPatient
+                      <span style="color:red">*</span>
+                    </label>
+                    <select class="form-control select2" style="width: 100%;" id="inpatient_id" name="inpatient_id">
+                      {% for inpatient in inpatients %}
+                      <option value="{{inpatient['id']}}">{{inpatient['last_name']}}, {{inpatient['first_name']}}
+                      </option>
+                      {% endfor -%}
+                    </select>
+                  </div>
+                  <!-- END INPATIENT -->
+                  {{ forms.textarea('Description', 'description', '','', 'col-md-6') }}
+
                 </div>
 
-                <!-- TODO: fix head surgeon UI, only selected in surgeon can be selected  -->
-                <!-- {{ forms.input('Head Surgeon', 'head_surgeon_id', 'text') }} -->
-              <div class="form-group" id="group-head_surgeon_id">
-                  <label>
-                    Head Surgeon
-                    <span style="color:red">*</span>
-                  </label>
-                  <select class="form-control select2" style="width: 100%;" id="head_surgeon_id"
-                    name="head_surgeon_id"></select>
+                <div class="row">
+                  {{ forms.input('Room', 'room', 'text', 'required', '', 'col-md-2' ) }}
+                  {{ forms.input('Schedule', 'start_time', 'text', 'required', '', 'col-md-5' ) }}
+                  {{ forms.input('Surgery Ended', 'end_time', 'text','','', 'col-md-5' ) }}
+
+                </div>
+
+
+
+                <div class="row">
+
+                  <div class="form-group col-md-4" id="group-nurse_in_charge">
+                    <label>
+                      Surgical Nurse In Charge
+                      <span style="color:red">*</span>
+                    </label>
+                    <select class="form-control select2" style="width: 100%;" id="nurse_in_charge"
+                      name="nurse_in_charge" multiple="multiple"></select>
+                  </div>
+                  <div class="form-group col-md-4" id="group-surgeon_in_charge">
+                    <label>
+                      Surgeon In Charge
+                      <span style="color:red">*</span>
+                    </label>
+                    <select class="form-control select2" style="width: 100%;" id="surgeon_in_charge"
+                      name="surgeon_in_charge" multiple="multiple"></select>
+                  </div>
+
+                  <!-- TODO: fix head surgeon UI, only selected in surgeon can be selected  -->
+                  <!-- {{ forms.input('Head Surgeon', 'head_surgeon_id', 'text') }} -->
+                  <div class="form-group col-md-4" id="group-head_surgeon_id">
+                    <label>
+                      Head Surgeon
+                      <span style="color:red">*</span>
+                    </label>
+                    <select class="form-control select2" style="width: 100%;" id="head_surgeon_id"
+                      name="head_surgeon_id"></select>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  {{ forms.select('Status', 'status', 'text', ['PENDING', 'IN-PROCESS', 'DONE', 'CANCELLED'],
+                  'col-md-6') }}
+                  {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE', 'col-md-6' ) }}
+
+                </div>
+
               </div>
 
 
-              </div>
+
           </div>
           <div class="modal-footer float-right">
             <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
@@ -258,7 +293,7 @@
   $(() => {
     $('#surgeon_in_charge').select2();
     $('#nurse_in_charge').select2();
-    $('#surgery_type_id').select2();
+    $('#surgery_service_id').select2();
     $('#inpatient_id').select2();
     $("#end_time").daterangepicker({
       singleDatePicker: true,
@@ -323,7 +358,7 @@
         }
         var min = new Date(start);
         var max = new Date(end);
-        var date = new Date(data[4]);
+        var date = new Date(data[5]);
 
         if (
           (min === null && max === null) ||
@@ -342,13 +377,65 @@
   });
 
 
-$('#surgeon_in_charge').on('change', function(e) {
-  surgeons_data = $('#surgeon_in_charge').select2('data');
-  head_surgeon_options = ``;
-  surgeons_data.forEach(s => head_surgeon_options+=`<option value="${s.id}">${s.text}</option>`);
+  $('#surgeon_in_charge').on('change', function (e) {
+    surgeons_data = $('#surgeon_in_charge').select2('data');
+    head_surgeon_options = ``;
+    surgeons_data.forEach(s => head_surgeon_options += `<option value="${s.id}">${s.text}</option>`);
 
-  $('#head_surgeon_id').html(head_surgeon_options);
-})
+    $('#head_surgeon_id').html(head_surgeon_options);
+  })
+
+
+  // FOR UI
+  getSurgeryTypes = () => {
+    {
+      $.ajax({
+        url: BASE_URL + `${window.user_type.toLowerCase()}/surgery_type/all`,
+        type: "GET",
+        dataType: "json",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+          ContentType: "application/x-www-form-urlencoded",
+        },
+        success: (data) => {
+          if (data.error == false) {
+            setSurgeryTypes(data.data);
+          } else {
+            notification("error", "Error!", data.message);
+          }
+        },
+        error: (data) => notification("error", data.responseJSON.detail),
+      });
+    }
+  };
+
+  setSurgeryTypes = (_data) => {
+    window.surgeries = {};
+    let surgery_types_options = ``;
+    _data.forEach(_type => {
+      let services = [];
+      surgery_types_options += `<option value='${_type?.name}'>${_type?.name}</option>`;
+
+      _services = _type?.surgery_services;
+      _services.forEach(_service => services.push({ id: _service?.id, name: _service?.name }))
+
+      window.surgeries[_type?.name] = services;
+    });
+
+
+    $('#surgery_type_id').html(surgery_types_options);
+    $('#surgery_type_id').on("change", function () {
+      let selectedType = $(this).val();
+      let surgery_service_options = ``;
+      surgeries[selectedType].forEach(service => surgery_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
+
+      $('#surgery_service_id').html(surgery_service_options);
+    })
+
+  }
+
+  getSurgeryTypes();
 </script>
 <script src="{{ url_for('static', path='/js/pages/surgeries.js') }}"></script>
 {% endblock %}

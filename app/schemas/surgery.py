@@ -22,6 +22,13 @@ class SurgeryBase(Base):
     status: Optional[str] = None
     is_active: Optional[str] = None
 
+    created_by: Optional[str] = None
+    updated_by: Optional[str] = None
+    creator: Optional[UserBase] = None
+    updator: Optional[UserBase] = None
+    created_at: Optional[dt] = None
+    updated_at: Optional[dt] = None
+    surgery_service: Optional[Surgery_serviceBase] = None
 
 @as_form
 class CreateSurgery(SurgeryBase):
@@ -37,9 +44,6 @@ class InCharge(Base):
 
 class Surgery(SurgeryBase):
     id: str
-    created_at: Optional[dt] = None
-    updated_at: Optional[dt] = None
-    surgery_service: Optional[Surgery_serviceBase] = None
     in_charge: Optional[List[InCharge]] = None
     inpatient: Optional[InPatientBase] = None
 
