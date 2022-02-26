@@ -1,8 +1,10 @@
 from ..database import Base
 
 from .surgery_in_charge import *
-from .surgery import *
+
+from .surgery_service import *
 from .surgery_type import *
+from .surgery import *
 
 from .laboratory_service import *
 from .laboratory_type import *

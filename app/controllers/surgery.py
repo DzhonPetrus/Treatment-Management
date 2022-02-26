@@ -29,7 +29,7 @@ def create(surgery, db: Session):
     new_surgery = models.Surgery(
         surgery_no = _surgery_no,
         inpatient_id = surgery.inpatient_id,
-        surgery_type_id = surgery.surgery_type_id,
+        surgery_service_id = surgery.surgery_service_id,
         head_surgeon_id = surgery.head_surgeon_id,
         description = surgery.description,
         room = surgery.room,
@@ -101,7 +101,7 @@ def update(id, Surgery, db: Session):
         surgery.update({
             "surgery_no" : Surgery.surgery_no,
             "inpatient_id" : Surgery.inpatient_id,
-            "surgery_type_id" : Surgery.surgery_type_id,
+            "surgery_service_id" : Surgery.surgery_service_id,
             "head_surgeon_id" : Surgery.head_surgeon_id,
             "description" : Surgery.description,
             "room" : Surgery.room,

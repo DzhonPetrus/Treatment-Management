@@ -41,6 +41,12 @@ class User(Base):
     treatment_type_updated = relationship("Treatment_type", back_populates="updator", foreign_keys='Treatment_type.updated_by')
 
 
+    surgery_service_created = relationship("Surgery_service", back_populates="creator", foreign_keys='Surgery_service.created_by')
+    surgery_service_updated = relationship("Surgery_service", back_populates="updator", foreign_keys='Surgery_service.updated_by')
+    surgery_type_created = relationship("Surgery_type", back_populates="creator", foreign_keys='Surgery_type.created_by')
+    surgery_type_updated = relationship("Surgery_type", back_populates="updator", foreign_keys='Surgery_type.updated_by')
+
+
     treatment_created = relationship("Treatment", back_populates="creator", foreign_keys='Treatment.created_by')
     treatment_updated = relationship("Treatment", back_populates="updator", foreign_keys='Treatment.updated_by')
     treatments = relationship("Treatment", back_populates="physician", foreign_keys='Treatment.physician_id')

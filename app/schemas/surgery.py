@@ -3,7 +3,7 @@ from typing import Optional, List, Any
 from pydantic import BaseModel
 
 from .user import UserBase
-from .surgery_type import *
+from .surgery_service import *
 from .inpatient import *
 from ..utils.schemaHelper import Base, as_form
 
@@ -11,7 +11,7 @@ class SurgeryBase(Base):
     surgery_no: Optional[str] = None
     room: Optional[str] = None
     inpatient_id: Optional[str] = None
-    surgery_type_id: Optional[str] = None
+    surgery_service_id: Optional[str] = None
 
     in_charge: Optional[Any] = None
     description: Optional[str] = None
@@ -39,7 +39,7 @@ class Surgery(SurgeryBase):
     id: str
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
-    surgery_type: Optional[SurgeryTypeBase] = None
+    surgery_service: Optional[Surgery_serviceBase] = None
     in_charge: Optional[List[InCharge]] = None
     inpatient: Optional[InPatientBase] = None
 

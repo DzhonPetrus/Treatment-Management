@@ -6,6 +6,7 @@ from .laboratory_service import *
 from .laboratory_type import *
 
 
+from .surgery_service import *
 from .surgery_type import *
 from .lab_result import *
 from .lab_request import *

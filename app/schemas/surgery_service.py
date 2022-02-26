@@ -1,15 +1,17 @@
 from datetime import datetime as dt
-from typing import Optional, List, Any
+from typing import Optional, List
 from pydantic import BaseModel
 from ..utils.schemaHelper import Base, as_form
 
 
 from .user import *
-# from .surgery_service import *
+from .surgery_type import *
 
-class Surgery_typeBase(Base):
+class Surgery_serviceBase(Base):
+    surgery_type_id: Optional[str] = None
     name: Optional[str] = None
     description: Optional[str] = None
+    fee: Optional[float] = None
     is_active: Optional[str] = None
 
     created_by: Optional[str] = None
@@ -18,24 +20,23 @@ class Surgery_typeBase(Base):
     updator: Optional[UserBase] = None
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
+    surgery_type: Optional[Surgery_typeBase] = None
 
 @as_form
-class CreateSurgery_type(Surgery_typeBase):
+class CreateSurgery_service(Surgery_serviceBase):
     pass
 
 
-class Surgery_type(Surgery_typeBase):
+class Surgery_service(Surgery_serviceBase):
     id: str
-    # surgery_services: Optional[List[Surgery_serviceBase]] = None
-    surgery_services: Optional[List[Any]] = None
 
 
-class OutSurgery_types(Base):
-    data: List[Surgery_type]
+class OutSurgery_services(Base):
+    data: List[Surgery_service]
     error: bool
     message: str
 
-class OutSurgery_type(Base):
-    data: Surgery_type
+class OutSurgery_service(Base):
+    data: Surgery_service
     error: bool
     message: str

@@ -15,7 +15,7 @@ class Surgery(Base):
     # TODO: room as FK to rooms table
     room = Column(String(100))
 
-    surgery_type_id = Column(String(36), ForeignKey("surgery_types.id"))
+    surgery_service_id = Column(String(36), ForeignKey("surgery_services.id"))
     start_time = Column(DateTime)
     end_time = Column(DateTime)
 
@@ -29,6 +29,6 @@ class Surgery(Base):
 
 
     inpatient = relationship('InPatient', back_populates='surgeries')
-    surgery_type = relationship("SurgeryType", back_populates="surgeries")
+    surgery_service = relationship("Surgery_type", back_populates="surgeries")
 
     in_charge = relationship('SurgeryInCharge', back_populates="surgery")

@@ -5,18 +5,21 @@ from sqlalchemy.orm import relationship
 from ..database import Base
 
 
-class SurgeryType(Base):
-    __tablename__ = "surgery_types"
-
+# LABORATORY
+class Surgery_type(Base):
+    __tablename__ = "surgery_types"    
     id = Column(String(36), primary_key=True, default=text('UUID()'))
-    name = Column(String(100), unique=True)
-    description = Column(Text)
-    price = Column(Numeric(15,2))
+    name = Column(String(255),nullable=False,unique=True)
+    description = Column(Text,nullable=False)
 
-
-    is_active = Column(String(100), default='ACTIVE')
+    is_active = Column(String(255), nullable=False, default="ACTIVE")
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
+    created_by = Column(String(36), ForeignKey("users.id"))
+    updated_by = Column(String(36), ForeignKey("users.id"))
 
-    surgeries = relationship("Surgery", back_populates="surgery_type")
+    creator = relationship('User', back_populates='surgery_type_created', foreign_keys=[created_by])
+    updator = relationship('User', back_populates='surgery_type_updated', foreign_keys=[updated_by])
+
+    surgery_services = relationship("Surgery_service", back_populates="surgery_type")
