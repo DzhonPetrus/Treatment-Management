@@ -27,6 +27,12 @@ class Surgery(Base):
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
+    created_by = Column(String(36), ForeignKey("users.id"))
+    updated_by = Column(String(36), ForeignKey("users.id"))
+
+    creator = relationship('User', back_populates='surgery_created', foreign_keys=[created_by])
+    updator = relationship('User', back_populates='surgery_updated', foreign_keys=[updated_by])
+    head_surgeon = relationship('User', back_populates='head_surgeries', foreign_keys=[head_surgeon_id])
 
     inpatient = relationship('InPatient', back_populates='surgeries')
     surgery_service = relationship("Surgery_service", back_populates="surgeries")

@@ -343,8 +343,6 @@ viewData = (id) => {
 
 			success: data => {
 				if(data.error == false) {
-					 setPrintData(data.data);
-					 setState("view", data.data);
 					const currentTreatment = data.data;
 					setPrintData(currentTreatment);
 					setState("view", currentTreatment);

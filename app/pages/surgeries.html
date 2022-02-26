@@ -1,3 +1,4 @@
+{% import 'templates/forms.html' as forms %}
 {% extends "templates/base.html" %}
 {% set active_page = current_path.split('/')[2] %}
 {% set user_type = current_path.split('/')[1] %}
@@ -144,6 +145,86 @@
     </div>
     <!-- /.card -->
 
+    <!-- MODAL VIEW -->
+    <div class="modal fade" id="modal-surgery-view" aria-modal="true" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Surgery</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+
+            {% include 'templates/card_patient_info.html' %}
+              
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card card-primary card-outline">
+                    <h6 class="card-header">Surgery Information</h6>
+                    <div class="card-body">
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                          {{ forms.viewItem('Surgery No','surgery_no') }}
+                        </div>
+                      </div>
+<div class="row">
+                            <div class="col-sm-6">
+                              {{ forms.viewItem('Surgery Type','surgery_type_name') }}
+                            </div><div class="col-sm-6">
+                              {{ forms.viewItem('Surgery Service','surgery_service_name') }}
+                            </div>
+                          </div>
+                      
+                      <div class="row">
+                        <div class="col-sm-12">
+                          {{ forms.viewItem('Description','description') }}
+                        </div>
+                      </div><div class="row">
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Head Surgeon','head_surgeon_name') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Room','room') }}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Surgery Start','start_time') }}
+                        </div>
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Surgery End','end_time') }}
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        
+                        <div class="col-sm-6">
+                          {{ forms.viewItem('Status','status') }}
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer float-right">
+            <!-- <a rel="noopener" onClick="PrintSurgery()" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
+            <button type="button" class="btn btn-secondary" onClick="formReset()" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- END OF MODAL VIEW -->
+
+
 
 
     <div class="modal fade" id="modal-surgery" aria-modal="true" role="dialog">
@@ -157,7 +238,6 @@
           </div>
           <div class="modal-body">
             <form id="form">
-              {% import 'templates/forms.html' as forms %}
               <div class="container-fluid">
 
                 <div class="row">

@@ -22,7 +22,6 @@ class User(Base):
 
     user_profile = relationship("Profile", back_populates="user_account")
 
-    handled_surgeries = relationship("SurgeryInCharge", back_populates="in_charge")
 
     lab_request_created = relationship("LabRequest", back_populates="creator", foreign_keys='LabRequest.created_by')
     lab_request_updated = relationship("LabRequest", back_populates="updator", foreign_keys='LabRequest.updated_by')
@@ -46,6 +45,11 @@ class User(Base):
     surgery_type_created = relationship("Surgery_type", back_populates="creator", foreign_keys='Surgery_type.created_by')
     surgery_type_updated = relationship("Surgery_type", back_populates="updator", foreign_keys='Surgery_type.updated_by')
 
+    surgery_created = relationship("Surgery", back_populates="creator", foreign_keys='Surgery.created_by')
+    surgery_updated = relationship("Surgery", back_populates="updator", foreign_keys='Surgery.updated_by')
+    head_surgeries = relationship("Surgery", back_populates="head_surgeon", foreign_keys='Surgery.head_surgeon_id')
+
+    handled_surgeries = relationship("SurgeryInCharge", back_populates="in_charge")
 
     treatment_created = relationship("Treatment", back_populates="creator", foreign_keys='Treatment.created_by')
     treatment_updated = relationship("Treatment", back_populates="updator", foreign_keys='Treatment.updated_by')

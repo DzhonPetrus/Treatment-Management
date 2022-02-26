@@ -29,6 +29,7 @@ class SurgeryBase(Base):
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
     surgery_service: Optional[Surgery_serviceBase] = None
+    head_surgeon: Optional[UserBase] = None
 
 @as_form
 class CreateSurgery(SurgeryBase):
