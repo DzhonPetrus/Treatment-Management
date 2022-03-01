@@ -187,13 +187,13 @@ className: 'btn-sm',
 				}
 			},
       {
-        data: "treatment_service.treatment_type.name",
-        name: "treatment_service.treatment_type.name",
+        data: "treatment_service.treatment_type_info.treatment_type_name",
+        name: "treatment_service.treatment_type_info.treatment_type_name",
         searchable: true,
       },
       {
-        data: "treatment_service.name",
-        name: "treatment_service.name",
+        data: "treatment_service.treatment_service_name",
+        name: "treatment_service.treatment_service_name",
         searchable: true,
       },
 			{
@@ -263,8 +263,8 @@ localStorage.removeItem("PrintTreatment");
   const previous_therapy = "None";
 
   const { treatment_no, session_no, session_datetime, drug, dose, next_schedule, status, comments } = TREATMENT;
-  const treatment_type = TREATMENT?.treatment_service?.treatment_type?.name;
-  const treatment_service = TREATMENT?.treatment_service?.name;
+  const treatment_type = TREATMENT?.treatment_service?.treatment_type_info?.treatment_type_name;
+  const treatment_service = TREATMENT?.treatment_service?.treatment_service_name;
   const treatment_description = TREATMENT?.treatment_service?.description;
 
   const patient_name = `${patient.last_name}, ${patient.first_name} ${
@@ -347,8 +347,8 @@ viewData = (id) => {
 					setPrintData(currentTreatment);
 					setState("view", currentTreatment);
 
-					$('#treatment_type_nameView').html(currentTreatment?.treatment_service?.treatment_type?.name);
-					$('#treatment_service_nameView').html(currentTreatment?.treatment_service?.name);
+					$('#treatment_type_nameView').html(currentTreatment?.treatment_service?.treatment_type_info?.treatment_type_name);
+					$('#treatment_service_nameView').html(currentTreatment?.treatment_service?.treatment_service_name);
 				 }else{
 					notification("error", "Error!", data.message);
 				 }

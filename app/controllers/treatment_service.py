@@ -22,15 +22,15 @@ def get_one(id, db: Session):
     }
 
 def create(treatment_service, db: Session):
-    check = db.query(models.Treatment_service).filter(models.Treatment_service.name == treatment_service.name)
+    check = db.query(models.Treatment_service).filter(models.Treatment_service.treatment_service_name == treatment_service.treatment_service_name)
     if check.first():
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Treatment_service with name {treatment_service.name} already exist.')
+        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Treatment_service with treatment_service_name {treatment_service.treatment_service_name} already exist.')
     else:
         new_treatment_service = models.Treatment_service(
-            treatment_type_id = treatment_service.treatment_type_id,
-            name = treatment_service.name,
+            treatment_types_id = treatment_service.treatment_types_id,
+            treatment_service_name = treatment_service.treatment_service_name,
             description = treatment_service.description,
-            fee = treatment_service.fee,
+            unit_price = treatment_service.unit_price,
             created_by = treatment_service.created_by,
         )
         db.add(new_treatment_service)
@@ -61,9 +61,9 @@ def update(id, Surgery_Type, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Treatment_service with id {id} not found')
     else:
         treatment_service.update({
-            "name": Surgery_Type.name,
+            "treatment_service_name": Surgery_Type.treatment_service_name,
             "description": Surgery_Type.description,
-            "fee": Surgery_Type.fee,
+            "unit_price": Surgery_Type.unit_price,
             "updated_by": Surgery_Type.updated_by,
             "is_active": Surgery_Type.is_active
         })

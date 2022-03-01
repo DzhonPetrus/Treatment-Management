@@ -7,10 +7,10 @@ from ..database import Base
 class Treatment_service(Base):
     __tablename__ = "treatment_services"    
     id = Column(String(36), primary_key=True, default=text('UUID()'))
-    treatment_type_id = Column(String(36), ForeignKey("treatment_types.id"),nullable=False)
-    name = Column(String(255),nullable=False,unique=True)
+    treatment_types_id = Column(String(36), ForeignKey("treatment_types.id"),nullable=False)
+    treatment_service_name = Column(String(255),nullable=False,unique=True)
     description = Column(Text,nullable=False)
-    fee = Column(Numeric(15,2),nullable=False)
+    unit_price = Column(Numeric(15,2),nullable=False)
 
     is_active = Column(String(255), nullable=False, default="ACTIVE")
 
@@ -23,8 +23,9 @@ class Treatment_service(Base):
     creator = relationship('User', back_populates='treatment_service_created', foreign_keys=[created_by])
     updator = relationship('User', back_populates='treatment_service_updated', foreign_keys=[updated_by])
 
-    treatment_type = relationship('Treatment_type', back_populates="treatment_services")
     treatments = relationship('Treatment', back_populates="treatment_service")
+
+    treatment_type_info = relationship('Treatment_type', back_populates="treatment_services")
 
 # ============================================================================================
 

@@ -8,10 +8,10 @@ from .user import *
 from .treatment_type import *
 
 class Treatment_serviceBase(Base):
-    treatment_type_id: Optional[str] = None
-    name: Optional[str] = None
+    treatment_types_id: Optional[str] = None
+    treatment_service_name: Optional[str] = None
     description: Optional[str] = None
-    fee: Optional[float] = None
+    unit_price: Optional[float] = None
     is_active: Optional[str] = None
 
     created_by: Optional[str] = None
@@ -20,7 +20,7 @@ class Treatment_serviceBase(Base):
     updator: Optional[UserBase] = None
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
-    treatment_type: Optional[Treatment_typeBase] = None
+    treatment_type_info: Optional[Treatment_typeBase] = None
 
 @as_form
 class CreateTreatment_service(Treatment_serviceBase):

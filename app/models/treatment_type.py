@@ -9,7 +9,7 @@ from ..database import Base
 class Treatment_type(Base):
     __tablename__ = "treatment_types"    
     id = Column(String(36), primary_key=True, default=text('UUID()'))
-    name = Column(String(255),nullable=False,unique=True)
+    treatment_type_name = Column(String(255),nullable=False,unique=True)
     description = Column(Text,nullable=False)
 
     is_active = Column(String(255), nullable=False, default="ACTIVE")
@@ -22,4 +22,4 @@ class Treatment_type(Base):
     creator = relationship('User', back_populates='treatment_type_created', foreign_keys=[created_by])
     updator = relationship('User', back_populates='treatment_type_updated', foreign_keys=[updated_by])
 
-    treatment_services = relationship("Treatment_service", back_populates="treatment_type")
+    treatment_services = relationship("Treatment_service", back_populates="treatment_type_info")

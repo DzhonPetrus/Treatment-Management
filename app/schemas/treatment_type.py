@@ -8,7 +8,7 @@ from .user import *
 # from .treatment_service import *
 
 class Treatment_typeBase(Base):
-    name: Optional[str] = None
+    treatment_type_name: Optional[str] = None
     description: Optional[str] = None
     is_active: Optional[str] = None
 
