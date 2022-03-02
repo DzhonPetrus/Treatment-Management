@@ -447,10 +447,41 @@ editData = (id) => {
       data: { id },
       dataType: "json",
 
-      success: (data) =>
-        data.error == false
-          ? setState("edit", data.data)
-          : notification("error", "Error!", data.message),
+      success: (data) =>{
+        if(data.error == false){
+					const currentSurgery = data.data;
+          setState("edit", currentSurgery);
+
+          // TODO: CLARIFY/FINALIZE
+          // IN_CHARGES
+          const in_charge = currentSurgery?.in_charge;
+          let _surgeons = [];
+          let _surgical_nurses = [];
+          in_charge.forEach(v => {
+            let position = v?.in_charge?.user_type.toLowerCase();
+
+            if(position == 'surgeon')
+              _surgeons.push(v?.in_charge_id);
+
+            if(position == 'surgical_nurse')
+              _surgical_nurses.push(v?.in_charge_id);
+          });
+
+          $('#surgeon_in_charge').val(_surgeons).trigger('change');
+          $('#nurse_in_charge').val(_surgical_nurses).trigger('change');
+
+          $('#head_surgeon_id').val(currentSurgery?.head_surgeon_id).trigger('change');
+
+
+					$(`#inpatient_id`).val(currentSurgery?.inpatient_id).trigger('change');
+
+					$("#surgery_types_id").val(currentSurgery?.surgery_service?.surgery_type_info?.surgery_type_name).trigger('change');
+
+					$("#surgery_service_id").val(currentSurgery?.surgery_service_id).trigger('change');
+        }else{
+          notification("error", "Error!", data.message);
+        }
+      },
       error: (data) => notification("error", data.responseJSON.detail),
     });
   }

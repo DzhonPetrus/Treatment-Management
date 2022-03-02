@@ -356,10 +356,24 @@ editData = (id) => {
       data: { id },
       dataType: "json",
 
-      success: (data) =>
-        data.error == false
-          ? setState("edit", data.data)
-          : notification("error", "Error!", data.message),
+      success: (data) =>{
+        if(data.error == false){
+					const currentLabRequest = data.data;
+          setState("edit", currentLabRequest);
+          console.log(currentLabRequest)
+
+					const patientType = currentLabRequest?.outpatient ? 'Outpatient' : 'Inpatient';
+					$("#patient_type").val(patientType).trigger('change');
+					$(`#${patientType.toLowerCase()}_id`).val(currentLabRequest[`${patientType.toLowerCase()}_id`]).trigger('change');
+
+
+					$("#lab_test_types_id").val(currentLabRequest?.laboratory_service?.laboratory_type_info?.lab_test_type_name).trigger('change');
+
+					$("#lab_service_id").val(currentLabRequest?.lab_service_id).trigger('change');
+        }else{
+          notification("error", "Error!", data.message);
+        }
+      },
       error: (data) => notification("error", data.responseJSON.detail),
     });
   }

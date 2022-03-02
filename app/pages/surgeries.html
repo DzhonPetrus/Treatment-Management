@@ -246,13 +246,13 @@
                 </div>
                 <div class="row">
                   <!-- SURGERY TYPE -->
-                  <div class="form-group col-md-6" id="group-surgery_type_id">
+                  <div class="form-group col-md-6" id="group-surgery_types_id">
                     <label>
                       Surgery Type
                       <span style="color:red">*</span>
                     </label>
-                    <select class="form-control select2" style="width: 100%;" id="surgery_type_id"
-                      name="surgery_type_id">
+                    <select class="form-control select2" style="width: 100%;" id="surgery_types_id"
+                      name="surgery_types_id">
                     </select>
                   </div>
                   <!-- END SURGERY TYPE -->
@@ -504,8 +504,8 @@
     });
 
 
-    $('#surgery_type_id').html(surgery_types_options);
-    $('#surgery_type_id').on("change", function () {
+    $('#surgery_types_id').html(surgery_types_options);
+    $('#surgery_types_id').on("change", function () {
       let selectedType = $(this).val();
       let surgery_service_options = `<option selected disabled hidden>Select an Option</option>`;
       if(selectedType != '')

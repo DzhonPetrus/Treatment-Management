@@ -457,9 +457,13 @@ setLabRequests = (_data) => {
   window.requests = {};
   let lab_requests_options = ``;
   _data.forEach(_r => {
-    lab_requests_options += `<option value='${_r?.id}'>${_r?.lab_request_no}</option>`;
-      _request_patient_type = _r?.outpatient == null ? 'inpatient' : 'outpatient';
-      requests[_r?.id] = _request_patient_type;
+    // TODO: clarify request status to create result
+    const requestStatusCondition = ['IN-QUEUE', 'PAID - IN-QUEUE'];
+    if(requestStatusCondition.includes(_r?.status))
+      lab_requests_options += `<option value='${_r?.id}'>${_r?.lab_request_no}</option>`;
+    
+        _request_patient_type = _r?.outpatient == null ? 'inpatient' : 'outpatient';
+        requests[_r?.id] = _request_patient_type;
     });
 
     // window.lab_requests[_request?.name] = requests;

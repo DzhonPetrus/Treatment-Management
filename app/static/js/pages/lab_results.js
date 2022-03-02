@@ -349,7 +349,22 @@ editData = (id) => {
 			data: { id },
 			dataType: "json",
 
-			success: data => (data.error == false) ? setState("edit", data.data) : notification("error", "Error!", data.message),
+			success: data => {
+				if(data.error == false) {
+					//  TODO: double check implementation of lab request in result
+					 const currentLabResult = data.data;
+					 setState("edit", currentLabResult)
+					 console.log(currentLabResult)
+
+					 let _labRequestOptions = $('#lab_request_id').html();
+					 _labRequestOptions += `
+					 <option selected value=${currentLabResult?.lab_request_id}>${currentLabResult?.lab_request_no}</option>
+					 `;
+					 $('#lab_request_id').html(_labRequestOptions);
+				 }else{
+					notification("error", "Error!", data.message)
+				 }
+			},
 			error: (data) => notification("error", data.responseJSON.detail),
 		});
 	}

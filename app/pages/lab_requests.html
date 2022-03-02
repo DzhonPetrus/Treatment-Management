@@ -232,12 +232,12 @@
                     <div class="row">
 
                 <!-- LAB TYPE -->
-                <div class="form-group col-md-5" id="group-lab_type_id">
+                <div class="form-group col-md-5" id="group-lab_test_types_id">
                   <label>
                     Lab Type
                     <span style="color:red">*</span>
                   </label>
-                  <select class="form-control select2" style="width: 100%;" id="lab_type_id" name="lab_type_id">
+                  <select class="form-control select2" style="width: 100%;" id="lab_test_types_id" name="lab_test_types_id">
                   </select>
                 </div>
                 <!-- END LAB TYPE -->
@@ -371,8 +371,8 @@ setLaboratoryTypes = (_data) => {
   });
 
 
-  $('#lab_type_id').html(lab_types_options);
-  $('#lab_type_id').on("change", function(){
+  $('#lab_test_types_id').html(lab_types_options);
+  $('#lab_test_types_id').on("change", function(){
     let selectedType = $(this).val();
     let lab_service_options = `<option selected disabled hidden>Select an Option</option>`;
     if(selectedType != '')

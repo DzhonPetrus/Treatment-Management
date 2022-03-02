@@ -376,12 +376,14 @@ editData = (id) => {
 					const currentTreatment = data.data;
 					setState("edit", currentTreatment) 
 
-					console.log(currentTreatment)
+					const patientType = currentTreatment?.outpatient ? 'Outpatient' : 'Inpatient';
+					$("#patient_type").val(patientType).trigger('change');
+					$(`#${patientType.toLowerCase()}_id`).val(currentTreatment[`${patientType.toLowerCase()}_id`]).trigger('change');
 
 
-					$("#treatment_types_id").val(currentTreatment?.treatment_service?.treatment_type_info?.treatment_type_name).trigger('change')
+					$("#treatment_types_id").val(currentTreatment?.treatment_service?.treatment_type_info?.treatment_type_name).trigger('change');
 
-					$("#treatment_service_id").val(currentTreatment?.treatment_service?.treatment_service_name).trigger('change')
+					$("#treatment_service_id").val(currentTreatment?.treatment_service_id).trigger('change');
 				}else{
 					notification("error", "Error!", data.message)
 				}
