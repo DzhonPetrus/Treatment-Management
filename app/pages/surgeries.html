@@ -492,7 +492,7 @@
 
   setSurgeryTypes = (_data) => {
     window.surgeries = {};
-    let surgery_types_options = `<option></option>`;
+    let surgery_types_options = `<option selected disabled hidden>Select an Option</option>`;
     _data.forEach(_type => {
       let services = [];
       surgery_types_options += `<option value='${_type?.surgery_type_name}'>${_type?.surgery_type_name}</option>`;
@@ -507,7 +507,7 @@
     $('#surgery_type_id').html(surgery_types_options);
     $('#surgery_type_id').on("change", function () {
       let selectedType = $(this).val();
-      let surgery_service_options = ``;
+      let surgery_service_options = `<option selected disabled hidden>Select an Option</option>`;
       if(selectedType != '')
         surgeries[selectedType].forEach(service => surgery_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
 

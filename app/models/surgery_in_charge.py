@@ -9,7 +9,7 @@ class SurgeryInCharge(Base):
     __tablename__ = "surgery_in_charge"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
-    professional_fee = Column(Numeric(15,2))
+    # professional_fee = Column(Numeric(15,2))
     # is_head_surgeon = Column(Boolean)
 
 

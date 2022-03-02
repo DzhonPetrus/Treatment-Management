@@ -72,8 +72,8 @@ $(function () {
       // console.log(form_data.get('in_charge'))
       // console.log(in_charge)
 
-      console.table([...form_data]);
-      console.log(form_data);
+      // console.table([...form_data]);
+      // console.log(form_data);
       var id = $("#id").val();
       if (id == "") {
         // add record
@@ -86,7 +86,6 @@ $(function () {
           processData: false,
           cache: false,
           success: function (data) {
-            console.log(data);
 
             if (data.error == false) {
               loadTable();
