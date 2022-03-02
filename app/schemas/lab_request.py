@@ -18,6 +18,7 @@ class LabRequestBase(Base):
     # lab_test_id: str
     # lab_result_id: str
     quantity: Optional[float] = None
+    cancellation_return: Optional[float] = None
 
     # lab_test_id: Optional[str] = None
     lab_service_id: Optional[str] = None

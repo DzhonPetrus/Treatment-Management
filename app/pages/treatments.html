@@ -241,12 +241,12 @@
 
 <div class="row">
                   <!-- TREATMENT TYPE -->
-                  <div class="form-group col-md-6" id="group-treatment_type_id">
+                  <div class="form-group col-md-6" id="group-treatment_types_id">
                     <label>
                       Treatment Type
                       <span style="color:red">*</span>
                     </label>
-                    <select class="form-control select2" style="width: 100%;" id="treatment_type_id" name="treatment_type_id">
+                    <select class="form-control select2" style="width: 100%;" id="treatment_types_id" name="treatment_types_id">
                     </select>
                   </div>
                   <!-- END TREATMENT TYPE -->
@@ -381,7 +381,7 @@
     let status_outpatient=['PENDING', 'ONGOING', 'DONE'];
     let status_inpatient=['PENDING', 'ONGOING', 'DONE - FOR BILLING'];
 
-    $('#treatment_service_id').select2();
+    // $('#treatment_service_id').select2();
     $('#inpatient_id').select2();
     $('#outpatient_id').select2();
     $('#physician_id').select2();
@@ -438,7 +438,7 @@ getTreatmentTypes = () => {
 
 setTreatmentTypes = (_data) => {
   window.treatments = {};
-  let treatment_types_options = `<option></option>`;
+  let treatment_types_options = `<option selected disabled hidden>Select an Option</option>`;
   _data.forEach(_type => {
     let services = [];
     treatment_types_options += `<option value='${_type?.treatment_type_name}'>${_type?.treatment_type_name}</option>`;
@@ -450,8 +450,8 @@ setTreatmentTypes = (_data) => {
   });
 
 
-  $('#treatment_type_id').html(treatment_types_options);
-  $('#treatment_type_id').on("change", function(){
+  $('#treatment_types_id').html(treatment_types_options);
+  $('#treatment_types_id').on("change", function(){
     let selectedType = $(this).val();
     let treatment_service_options = ``;
     if(selectedType != '')

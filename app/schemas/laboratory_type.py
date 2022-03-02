@@ -8,7 +8,7 @@ from .user import *
 # from .laboratory_service import *
 
 class Laboratory_typeBase(Base):
-    name: Optional[str] = None
+    lab_test_type_name: Optional[str] = None
     description: Optional[str] = None
     is_active: Optional[str] = None
 

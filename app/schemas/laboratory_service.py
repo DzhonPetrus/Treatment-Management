@@ -8,10 +8,10 @@ from .user import *
 from .laboratory_type import *
 
 class Laboratory_serviceBase(Base):
-    laboratory_type_id: Optional[str] = None
-    name: Optional[str] = None
+    lab_test_types_id: Optional[str] = None
+    lab_service_name: Optional[str] = None
     description: Optional[str] = None
-    fee: Optional[float] = None
+    unit_price: Optional[float] = None
     is_active: Optional[str] = None
 
     created_by: Optional[str] = None
@@ -20,7 +20,7 @@ class Laboratory_serviceBase(Base):
     updator: Optional[UserBase] = None
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
-    laboratory_type: Optional[Laboratory_typeBase] = None
+    laboratory_type_info: Optional[Laboratory_typeBase] = None
 
 @as_form
 class CreateLaboratory_service(Laboratory_serviceBase):

@@ -344,11 +344,14 @@ viewData = (id) => {
 			success: data => {
 				if(data.error == false) {
 					const currentTreatment = data.data;
+					$("#treatment_type select").val(currentTreatment?.treatment_service?.treatment_types_id)
+					$("#treatment_service select").val(currentTreatment?.treatment_service?.treatment_service_name)
 					setPrintData(currentTreatment);
 					setState("view", currentTreatment);
 
 					$('#treatment_type_nameView').html(currentTreatment?.treatment_service?.treatment_type_info?.treatment_type_name);
 					$('#treatment_service_nameView').html(currentTreatment?.treatment_service?.treatment_service_name);
+
 				 }else{
 					notification("error", "Error!", data.message);
 				 }
@@ -368,7 +371,21 @@ editData = (id) => {
 			data: { id },
 			dataType: "json",
 
-			success: data => (data.error == false) ? setState("edit", data.data) : notification("error", "Error!", data.message),
+			success: data => {
+				if (data.error == false) {
+					const currentTreatment = data.data;
+					setState("edit", currentTreatment) 
+
+					console.log(currentTreatment)
+
+
+					$("#treatment_types_id").val(currentTreatment?.treatment_service?.treatment_type_info?.treatment_type_name).trigger('change')
+
+					$("#treatment_service_id").val(currentTreatment?.treatment_service?.treatment_service_name).trigger('change')
+				}else{
+					notification("error", "Error!", data.message)
+				}
+			},
 			error: (data) => notification("error", data.responseJSON.detail),
 		});
 	}

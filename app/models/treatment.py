@@ -1,5 +1,5 @@
 from uuid import uuid4
-from sqlalchemy import Column, String, DateTime, text, ForeignKey, Text, Numeric
+from sqlalchemy import Column, String, DateTime, text, ForeignKey, Text, Numeric, Float
 from sqlalchemy.orm import relationship
 
 from ..database import Base
@@ -17,6 +17,7 @@ class Treatment(Base):
     treatment_service_id = Column(String(36), ForeignKey("treatment_services.id"))
     physician_id = Column(String(36), ForeignKey("users.id")) # DOCTOR IN CHARGE
     description = Column(Text)
+    cancellation_return = Column(Float)
 
     session_no = Column(Text)
     session_datetime = Column(DateTime)

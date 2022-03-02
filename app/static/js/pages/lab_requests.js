@@ -214,13 +214,13 @@ loadTable = () => {
         },
       },
       {
-        data: "laboratory_service.laboratory_type.name",
-        name: "laboratory_service.laboratory_type.name",
+        data: "laboratory_service.laboratory_type_info.lab_test_type_name",
+        name: "laboratory_service.laboratory_type_info.lab_test_type_name",
         searchable: true,
       },
       {
-        data: "laboratory_service.name",
-        name: "laboratory_service.name",
+        data: "laboratory_service.lab_service_name",
+        name: "laboratory_service.lab_service_name",
         searchable: true,
       },
       // {
@@ -285,9 +285,9 @@ localStorage.removeItem("PrintLabRequest");
   let LabRequest = {
     name,
     request_number: LAB_REQUEST?.lab_request_no,
-    request_type: LAB_REQUEST?.laboratory_service?.laboratory_type?.name,
-    request_service: LAB_REQUEST?.laboratory_service?.name,
-    fee: LAB_REQUEST?.laboratory_service?.fee,
+    request_type: LAB_REQUEST?.laboratory_service?.laboratory_type_info?.lab_test_type_name,
+    request_service: LAB_REQUEST?.laboratory_service?.lab_service_name,
+    fee: LAB_REQUEST?.laboratory_service?.unit_price,
     quantity: LAB_REQUEST?.quantity,
     dt_requested: moment(LAB_REQUEST?.created_at).format("llll"),
     status: LAB_REQUEST?.status,
@@ -334,8 +334,8 @@ viewData = (id) => {
           setPrintData(currentLabRequest);
           setState("view", currentLabRequest);
 
-          $('#lab_type_nameView').html(currentLabRequest?.laboratory_service?.laboratory_type?.name);
-          $('#lab_service_nameView').html(currentLabRequest?.laboratory_service?.name);
+          $('#lab_type_nameView').html(currentLabRequest?.laboratory_service?.laboratory_type_info?.lab_test_type_name);
+          $('#lab_service_nameView').html(currentLabRequest?.laboratory_service?.lab_service_name);
 
         } else {
           notification("error", "Error!", data.message);

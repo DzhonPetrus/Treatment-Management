@@ -360,12 +360,13 @@ setLaboratoryTypes = (_data) => {
   let lab_types_options = `<option></option>`;
   _data.forEach(_type => {
     let services = [];
-    lab_types_options += `<option value='${_type?.name}'>${_type?.name}</option>`;
+    lab_types_options += `<option value='${_type?.lab_test_type_name}'>${_type?.lab_test_type_name}</option>`;
     
     _services = _type?.laboratory_services;
-    _services.forEach(_service => services.push({id:_service?.id, name:_service?.name}))
+    _services.forEach(_service => services.push({id:_service?.id, name:_service?.lab_service_name}))
 
-    window.laboratories[_type?.name] = services;
+    window.laboratories[_type?.lab_test_type_name] = services;
+
   });
 
 
@@ -375,6 +376,7 @@ setLaboratoryTypes = (_data) => {
     let lab_service_options = ``;
     if(selectedType != '')
       laboratories[selectedType].forEach(service => lab_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
+    
 
     $('#lab_service_id').html(lab_service_options);
   } )

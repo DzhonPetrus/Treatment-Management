@@ -14,6 +14,7 @@ class TreatmentBase(Base):
 
     room: Optional[str] = None
     quantity: Optional[float] = None
+    cancellation_return: Optional[float] = None
     physician_id: str
 
     treatment_service_id: str

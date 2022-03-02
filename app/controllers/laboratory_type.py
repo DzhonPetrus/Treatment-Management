@@ -22,12 +22,12 @@ def get_one(id, db: Session):
     }
 
 def create(laboratory_type, db: Session):
-    check = db.query(models.Laboratory_type).filter(models.Laboratory_type.name == laboratory_type.name)
+    check = db.query(models.Laboratory_type).filter(models.Laboratory_type.lab_test_type_name == laboratory_type.lab_test_type_name)
     if check.first():
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Laboratory_type with name {laboratory_type.name} already exist.')
+        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Laboratory_type with name {laboratory_type.lab_test_type_name} already exist.')
     else:
         new_laboratory_type = models.Laboratory_type(
-            name = laboratory_type.name,
+            lab_test_type_name = laboratory_type.lab_test_type_name,
             description = laboratory_type.description,
             created_by = laboratory_type.created_by
         )
@@ -59,7 +59,7 @@ def update(id, Surgery_Type, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Laboratory_type with id {id} not found')
     else:
         laboratory_type.update({
-            "name": Surgery_Type.name,
+            "lab_test_type_name": Surgery_Type.lab_test_type_name,
             "description": Surgery_Type.description,
             "updated_by": Surgery_Type.updated_by,
             "is_active": Surgery_Type.is_active
