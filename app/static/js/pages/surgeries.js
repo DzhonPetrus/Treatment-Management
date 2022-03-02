@@ -208,13 +208,13 @@ loadTable = () => {
         searchable: true,
       },
       {
-        data: "surgery_service.surgery_type.name",
-        name: "surgery_service.surgery_type.name",
+        data: "surgery_service.surgery_type_info.surgery_type_name",
+        name: "surgery_service.surgery_type_info.surgery_type_name",
         searchable: true,
       },
       {
-        data: "surgery_service.name",
-        name: "surgery_service.name",
+        data: "surgery_service.surgery_service_name",
+        name: "surgery_service.surgery_service_name",
         searchable: true,
       },
       {
@@ -413,10 +413,10 @@ viewData = (id) => {
 
 
           $("#surgery_type_nameView").html(
-            currentSurgery?.surgery_service?.surgery_type?.name
+            currentSurgery?.surgery_service?.surgery_type_info?.surgery_type_name
           );
           $("#surgery_service_nameView").html(
-            currentSurgery?.surgery_service?.name
+            currentSurgery?.surgery_service?.surgery_service_name
           );
 
 			const head_surgeon = currentSurgery?.head_surgeon?.user_profile;

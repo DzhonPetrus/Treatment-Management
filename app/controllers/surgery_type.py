@@ -22,12 +22,12 @@ def get_one(id, db: Session):
     }
 
 def create(surgery_type, db: Session):
-    check = db.query(models.Surgery_type).filter(models.Surgery_type.name == surgery_type.name)
+    check = db.query(models.Surgery_type).filter(models.Surgery_type.surgery_type_name == surgery_type.surgery_type_name)
     if check.first():
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Surgery_type with name {surgery_type.name} already exist.')
+        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Surgery_type with surgery_type_name {surgery_type.surgery_type_name} already exist.')
     else:
         new_surgery_type = models.Surgery_type(
-            name = surgery_type.name,
+            surgery_type_name = surgery_type.surgery_type_name,
             description = surgery_type.description,
             created_by = surgery_type.created_by
         )
@@ -59,7 +59,7 @@ def update(id, Surgery_Type, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Surgery_type with id {id} not found')
     else:
         surgery_type.update({
-            "name": Surgery_Type.name,
+            "surgery_type_name": Surgery_Type.surgery_type_name,
             "description": Surgery_Type.description,
             "updated_by": Surgery_Type.updated_by,
             "is_active": Surgery_Type.is_active

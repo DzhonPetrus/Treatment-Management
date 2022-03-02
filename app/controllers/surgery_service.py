@@ -22,13 +22,13 @@ def get_one(id, db: Session):
     }
 
 def create(surgery_service, db: Session):
-    check = db.query(models.Surgery_service).filter(models.Surgery_service.name == surgery_service.name)
+    check = db.query(models.Surgery_service).filter(models.Surgery_service.surgery_service_name == surgery_service.surgery_service_name)
     if check.first():
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Surgery_service with name {surgery_service.name} already exist.')
+        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Surgery_service with surgery_service_name {surgery_service.surgery_service_name} already exist.')
     else:
         new_surgery_service = models.Surgery_service(
-            surgery_type_id = surgery_service.surgery_type_id,
-            name = surgery_service.name,
+            surgery_types_id = surgery_service.surgery_types_id,
+            surgery_service_name = surgery_service.surgery_service_name,
             description = surgery_service.description,
             created_by = surgery_service.created_by,
         )
@@ -60,7 +60,8 @@ def update(id, Surgery_Type, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Surgery_service with id {id} not found')
     else:
         surgery_service.update({
-            "name": Surgery_Type.name,
+            "surgery_types_id": Surgery_Type.surgery_types_id,
+            "surgery_service_name": Surgery_Type.surgery_service_name,
             "description": Surgery_Type.description,
             "updated_by": Surgery_Type.updated_by,
             "is_active": Surgery_Type.is_active

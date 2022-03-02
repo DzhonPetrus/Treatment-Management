@@ -8,8 +8,8 @@ from .user import *
 from .surgery_type import *
 
 class Surgery_serviceBase(Base):
-    surgery_type_id: Optional[str] = None
-    name: Optional[str] = None
+    surgery_types_id: Optional[str] = None
+    surgery_service_name: Optional[str] = None
     description: Optional[str] = None
     is_active: Optional[str] = None
 
@@ -19,7 +19,7 @@ class Surgery_serviceBase(Base):
     updator: Optional[UserBase] = None
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
-    surgery_type: Optional[Surgery_typeBase] = None
+    surgery_type_info: Optional[Surgery_typeBase] = None
 
 @as_form
 class CreateSurgery_service(Surgery_serviceBase):

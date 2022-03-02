@@ -8,7 +8,7 @@ from .user import *
 # from .surgery_service import *
 
 class Surgery_typeBase(Base):
-    name: Optional[str] = None
+    surgery_type_name: Optional[str] = None
     description: Optional[str] = None
     is_active: Optional[str] = None
 

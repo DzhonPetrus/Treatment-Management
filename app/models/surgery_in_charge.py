@@ -1,5 +1,5 @@
 from uuid import uuid4
-from sqlalchemy import Column, String, DateTime, text, ForeignKey, Numeric
+from sqlalchemy import Column, String, DateTime, text, ForeignKey, Numeric, Boolean
 from sqlalchemy.orm import relationship
 
 from ..database import Base
@@ -10,6 +10,7 @@ class SurgeryInCharge(Base):
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     professional_fee = Column(Numeric(15,2))
+    # is_head_surgeon = Column(Boolean)
 
 
     in_charge_id = Column(ForeignKey('users.id'))

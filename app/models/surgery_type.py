@@ -8,7 +8,7 @@ from ..database import Base
 class Surgery_type(Base):
     __tablename__ = "surgery_types"    
     id = Column(String(36), primary_key=True, default=text('UUID()'))
-    name = Column(String(255),nullable=False,unique=True)
+    surgery_type_name = Column(String(255),nullable=False,unique=True)
     description = Column(Text,nullable=False)
 
     is_active = Column(String(255), nullable=False, default="ACTIVE")
@@ -21,4 +21,4 @@ class Surgery_type(Base):
     creator = relationship('User', back_populates='surgery_type_created', foreign_keys=[created_by])
     updator = relationship('User', back_populates='surgery_type_updated', foreign_keys=[updated_by])
 
-    surgery_services = relationship("Surgery_service", back_populates="surgery_type")
+    surgery_services = relationship("Surgery_service", back_populates="surgery_type_info")
