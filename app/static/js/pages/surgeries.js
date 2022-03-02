@@ -440,6 +440,7 @@ viewData = (id) => {
 
 // Edit DATA
 editData = (id) => {
+	window.modal = "#modal-surgery";
   {
     $.ajax({
       url: BASE_URL + `${endpoint}/${id}`,
