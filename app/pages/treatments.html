@@ -270,7 +270,7 @@
                   </div>
 
                   <div class="row">
-                    {{ forms.select('Patient Type', 'patient_type', 'required', ['','Outpatient', 'Inpatient'], 'col-md-6') }}
+                    {{ forms.select('Patient Type', 'patient_type', 'required', ['Outpatient', 'Inpatient'], 'col-md-6') }}
                     <!-- OUTPATIENT -->
                     <div class="form-group col-md-6" id="group-outpatient">
                       <label>
@@ -278,6 +278,7 @@
                         <span style="color:red">*</span>
                       </label>
                       <select class="form-control select2" style="width: 100%;" id="outpatient_id" name="outpatient_id">
+                        <option selected disabled hidden>Select an Option</option>
                         {% for outpatient in outpatients %}
                         <option value="{{outpatient['id']}}">{{outpatient['last_name']}}, {{outpatient['first_name']}}
                         </option>
@@ -292,6 +293,7 @@
                         <span style="color:red">*</span>
                       </label>
                       <select class="form-control select2" style="width: 100%;" id="inpatient_id" name="inpatient_id">
+                        <option selected disabled hidden>Select an Option</option>
                         {% for inpatient in inpatients %}
                         <option value="{{inpatient['id']}}">{{inpatient['last_name']}}, {{inpatient['first_name']}}
                         </option>
@@ -453,7 +455,7 @@ setTreatmentTypes = (_data) => {
   $('#treatment_types_id').html(treatment_types_options);
   $('#treatment_types_id').on("change", function(){
     let selectedType = $(this).val();
-    let treatment_service_options = ``;
+    let treatment_service_options = `<option selected disabled hidden>Select an Option</option>`;
     if(selectedType != '')
       treatments[selectedType].forEach(service => treatment_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
 

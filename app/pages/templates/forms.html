@@ -39,12 +39,9 @@
         <span style="color:red">*</span>
       </label>
       <select class="form-control select2" style="width: 100%;" id="{{name}}" name={{name}}>
+        <option selected disabled hidden>Select an Option</option>
         {% for option in options -%}
-          {% if option == options[0] -%}
-            <option selected="selected" value="{{option}}">{{option}}</option>
-          {% else -%}
             <option value="{{option}}">{{option}}</option>
-          {% endif -%}
         {% endfor -%}
       </select>
     </div>

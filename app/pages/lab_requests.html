@@ -197,7 +197,7 @@
 
                 {{ forms.input('ID', 'id', 'text', '', '', 'col-md-6' )}}
                 {{ forms.input('Lab Request No', 'lab_request_no', 'text', '', '', 'col-md-6' )}}
-                    {{ forms.select('Patient Type', 'patient_type', 'required', ['','Outpatient', 'Inpatient'], 'col-md-6') }}
+                    {{ forms.select('Patient Type', 'patient_type', 'required', ['Outpatient', 'Inpatient'], 'col-md-6') }}
                     <!-- INPATIENT -->
                     <div class="form-group col-md-6" id="group-inpatient">
                       <label>
@@ -205,6 +205,7 @@
                         <span style="color:red">*</span>
                       </label>
                       <select class="form-control select2" style="width: 100%;" id="inpatient_id" name="inpatient_id">
+                      <option selected disabled hidden>Select an Option</option>
                         {% for inpatient in inpatients %}
                         <option value="{{inpatient['id']}}">{{inpatient['last_name']}}, {{inpatient['first_name']}}
                         </option>
@@ -357,7 +358,7 @@ getLaboratoryTypes = () => {
 
 setLaboratoryTypes = (_data) => {
   window.laboratories = {};
-  let lab_types_options = `<option></option>`;
+  let lab_types_options = `<option selected disabled hidden>Select an Option</option>`;
   _data.forEach(_type => {
     let services = [];
     lab_types_options += `<option value='${_type?.lab_test_type_name}'>${_type?.lab_test_type_name}</option>`;
@@ -373,7 +374,7 @@ setLaboratoryTypes = (_data) => {
   $('#lab_type_id').html(lab_types_options);
   $('#lab_type_id').on("change", function(){
     let selectedType = $(this).val();
-    let lab_service_options = ``;
+    let lab_service_options = `<option selected disabled hidden>Select an Option</option>`;
     if(selectedType != '')
       laboratories[selectedType].forEach(service => lab_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
     
