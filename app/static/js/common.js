@@ -176,6 +176,8 @@ const setState = (state, data) => {
 };
 
 const renderButtons = (aData, title, additionalButtons = '') => {
+	const disabledCriteria = ['INACTIVE', 'DONE - FOR BILLING', 'DONE', 'CLAIMED']
+
 	let buttons =
 		`
 		<div class="text-center dropdown">
@@ -192,7 +194,7 @@ const renderButtons = (aData, title, additionalButtons = '') => {
 			<div>View ${title}</div>
 		</div>
 
-        <div class="dropdown-item d-flex" role="button" onClick="return editData('${aData.id}')">
+        <div class="${disabledCriteria.includes(aData?.status) ? 'disabled' : ''} dropdown-item d-flex" role="button" onClick="return editData('${aData.id}') ">
 			<div style="width:2rem">
 				<i class="fa fa-edit"> </i>
 			</div>
