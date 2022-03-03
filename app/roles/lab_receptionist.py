@@ -10,8 +10,8 @@ router = APIRouter(
 router.include_router(routes.index.router)
 
 router.include_router(routes.lab_test.router)
-router.include_router(routes.laboratory_type.router)
-router.include_router(routes.laboratory_service.router)
+router.include_router(routes.lab_test_type.router)
+router.include_router(routes.lab_service_name.router)
 
 router.include_router(routes.lab_result.router)
 router.include_router(routes.lab_request.router)

@@ -6,8 +6,8 @@ from .surgery_service import *
 from .surgery_type import *
 from .surgery import *
 
-from .laboratory_service import *
-from .laboratory_type import *
+from .lab_service_name import *
+from .lab_test_type import *
 
 from .lab_test import *
 from .lab_result import *

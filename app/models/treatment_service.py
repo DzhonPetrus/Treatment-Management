@@ -4,15 +4,15 @@ from sqlalchemy.orm import relationship
 
 from ..database import Base
 
-class Treatment_service(Base):
-    __tablename__ = "treatment_services"    
+class TreatmentServiceName(Base):
+    __tablename__ = "treatment_service_name"    
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     treatment_types_id = Column(String(36), ForeignKey("treatment_types.id"),nullable=False)
     treatment_service_name = Column(String(255),nullable=False,unique=True)
     description = Column(Text,nullable=False)
     unit_price = Column(Numeric(15,2),nullable=False)
 
-    is_active = Column(String(255), nullable=False, default="ACTIVE")
+    status = Column(String(255), nullable=False, default="ACTIVE")
 
     created_at = Column(DateTime, default=text('NOW()'))
     updated_at = Column(DateTime, onupdate=text('NOW()'))
@@ -25,7 +25,7 @@ class Treatment_service(Base):
 
     treatments = relationship('Treatment', back_populates="treatment_service")
 
-    treatment_type_info = relationship('Treatment_type', back_populates="treatment_services")
+    treatment_type_info = relationship('Treatment_type', back_populates="treatment_service_name")
 
 # ============================================================================================
 

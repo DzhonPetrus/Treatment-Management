@@ -3,50 +3,50 @@ from sqlalchemy.orm import Session
 
 from .. import models
 
-def get_all(db: Session, is_active = ''):
-    laboratory_types = db.query(models.Laboratory_type).all()  if is_active == '' else db.query(models.Laboratory_type).filter(models.Laboratory_type.is_active == is_active).all()
+def get_all(db: Session, status = ''):
+    lab_test_types = db.query(models.Laboratory_type).all()  if status == '' else db.query(models.Laboratory_type).filter(models.Laboratory_type.status == status).all()
     return {
-        "data": laboratory_types,
+        "data": lab_test_types,
         "error": False,
         "message": "Laboratory_ types has been successfully retrieved."
     }
 
 def get_one(id, db: Session):
-    laboratory_type = db.query(models.Laboratory_type).filter(models.Laboratory_type.id == id).first()
-    if not laboratory_type:
+    lab_test_type = db.query(models.Laboratory_type).filter(models.Laboratory_type.id == id).first()
+    if not lab_test_type:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Laboratory_type with id {id} not found')
     return {
-        "data": laboratory_type,
+        "data": lab_test_type,
         "error": False,
         "message": f" Laboratory_ type with id = {id} has been successfully retrieved."
     }
 
-def create(laboratory_type, db: Session):
-    check = db.query(models.Laboratory_type).filter(models.Laboratory_type.lab_test_type_name == laboratory_type.lab_test_type_name)
+def create(lab_test_type, db: Session):
+    check = db.query(models.Laboratory_type).filter(models.Laboratory_type.lab_test_type_name == lab_test_type.lab_test_type_name)
     if check.first():
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Laboratory_type with name {laboratory_type.lab_test_type_name} already exist.')
+        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail=f'Laboratory_type with name {lab_test_type.lab_test_type_name} already exist.')
     else:
-        new_laboratory_type = models.Laboratory_type(
-            lab_test_type_name = laboratory_type.lab_test_type_name,
-            description = laboratory_type.description,
-            created_by = laboratory_type.created_by
+        new_lab_test_type = models.Laboratory_type(
+            lab_test_type_name = lab_test_type.lab_test_type_name,
+            description = lab_test_type.description,
+            created_by = lab_test_type.created_by
         )
-        db.add(new_laboratory_type)
+        db.add(new_lab_test_type)
         db.commit()
-        db.refresh(new_laboratory_type)
+        db.refresh(new_lab_test_type)
         return {
-            "data": new_laboratory_type,
+            "data": new_lab_test_type,
             "error": False,
-            "message": f"New Laboratory_ type with id '{new_laboratory_type.id}' has been successfully created."
+            "message": f"New Laboratory_ type with id '{new_lab_test_type.id}' has been successfully created."
         }
 
 def reactivate(id, db: Session):
-    laboratory_type = db.query(models.Laboratory_type).filter(models.Laboratory_type.id == id)
-    if not laboratory_type.first():
+    lab_test_type = db.query(models.Laboratory_type).filter(models.Laboratory_type.id == id)
+    if not lab_test_type.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Laboratory_type with id {id} not found')
     else:
-        laboratory_type.update({
-            "is_active": "ACTIVE"
+        lab_test_type.update({
+            "status": "ACTIVE"
         })
         db.commit()
         res = get_one(id, db)
@@ -54,15 +54,15 @@ def reactivate(id, db: Session):
         return res
 
 def update(id, Surgery_Type, db: Session):
-    laboratory_type = db.query(models.Laboratory_type).filter(models.Laboratory_type.id == id)
-    if not laboratory_type.first():
+    lab_test_type = db.query(models.Laboratory_type).filter(models.Laboratory_type.id == id)
+    if not lab_test_type.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Laboratory_type with id {id} not found')
     else:
-        laboratory_type.update({
+        lab_test_type.update({
             "lab_test_type_name": Surgery_Type.lab_test_type_name,
             "description": Surgery_Type.description,
             "updated_by": Surgery_Type.updated_by,
-            "is_active": Surgery_Type.is_active
+            "status": Surgery_Type.status
         })
         db.commit()
         return {
@@ -72,12 +72,12 @@ def update(id, Surgery_Type, db: Session):
         }
 
 def destroy(id, db: Session):
-    laboratory_type = db.query(models.Laboratory_type).filter(models.Laboratory_type.id == id)
-    if not laboratory_type.first():
+    lab_test_type = db.query(models.Laboratory_type).filter(models.Laboratory_type.id == id)
+    if not lab_test_type.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Laboratory_type with id {id} not found')
     else:
-        laboratory_type.update({
-            "is_active": "INACTIVE"
+        lab_test_type.update({
+            "status": "INACTIVE"
         })
         db.commit()
         res = get_one(id, db)

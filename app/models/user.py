@@ -29,13 +29,13 @@ class User(Base):
     lab_result_created = relationship("LabResult", back_populates="creator", foreign_keys='LabResult.created_by')
     lab_result_updated = relationship("LabResult", back_populates="updator", foreign_keys='LabResult.updated_by')
 
-    laboratory_service_created = relationship("Laboratory_service", back_populates="creator", foreign_keys='Laboratory_service.created_by')
-    laboratory_service_updated = relationship("Laboratory_service", back_populates="updator", foreign_keys='Laboratory_service.updated_by')
-    laboratory_type_created = relationship("Laboratory_type", back_populates="creator", foreign_keys='Laboratory_type.created_by')
-    laboratory_type_updated = relationship("Laboratory_type", back_populates="updator", foreign_keys='Laboratory_type.updated_by')
+    lab_service_name_created = relationship("LabServiceName", back_populates="creator", foreign_keys='LabServiceName.created_by')
+    lab_service_name_updated = relationship("LabServiceName", back_populates="updator", foreign_keys='LabServiceName.updated_by')
+    lab_test_type_created = relationship("Laboratory_type", back_populates="creator", foreign_keys='Laboratory_type.created_by')
+    lab_test_type_updated = relationship("Laboratory_type", back_populates="updator", foreign_keys='Laboratory_type.updated_by')
 
-    treatment_service_created = relationship("Treatment_service", back_populates="creator", foreign_keys='Treatment_service.created_by')
-    treatment_service_updated = relationship("Treatment_service", back_populates="updator", foreign_keys='Treatment_service.updated_by')
+    treatment_service_created = relationship("TreatmentServiceName", back_populates="creator", foreign_keys='TreatmentServiceName.created_by')
+    treatment_service_updated = relationship("TreatmentServiceName", back_populates="updator", foreign_keys='TreatmentServiceName.updated_by')
     treatment_type_created = relationship("Treatment_type", back_populates="creator", foreign_keys='Treatment_type.created_by')
     treatment_type_updated = relationship("Treatment_type", back_populates="updator", foreign_keys='Treatment_type.updated_by')
 

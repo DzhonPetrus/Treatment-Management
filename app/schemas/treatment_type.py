@@ -10,7 +10,7 @@ from .user import *
 class Treatment_typeBase(Base):
     treatment_type_name: Optional[str] = None
     description: Optional[str] = None
-    is_active: Optional[str] = None
+    status: Optional[str] = None
 
     created_by: Optional[str] = None
     updated_by: Optional[str] = None
@@ -26,8 +26,8 @@ class CreateTreatment_type(Treatment_typeBase):
 
 class Treatment_type(Treatment_typeBase):
     id: str
-    # treatment_services: Optional[List[Treatment_serviceBase]] = None
-    treatment_services: Optional[List[Any]] = None
+    # treatment_service_name: Optional[List[TreatmentServiceNameBase]] = None
+    treatment_service_name: Optional[List[Any]] = None
 
 
 class OutTreatment_types(Base):

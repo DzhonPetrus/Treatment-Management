@@ -44,7 +44,7 @@ class CreateTreatment(TreatmentBase):
 
 class Treatment(TreatmentBase):
     id: str
-    treatment_service: Optional[Treatment_serviceBase] = None
+    treatment_service: Optional[TreatmentServiceNameBase] = None
     inpatient: Optional[InPatientBase] = None
     outpatient: Optional[OutPatientBase] = None
     physician: Optional[User] = None

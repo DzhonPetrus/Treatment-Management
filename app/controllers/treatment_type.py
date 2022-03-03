@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 
 from .. import models
 
-def get_all(db: Session, is_active = ''):
-    treatment_types = db.query(models.Treatment_type).all()  if is_active == '' else db.query(models.Treatment_type).filter(models.Treatment_type.is_active == is_active).all()
+def get_all(db: Session, status = ''):
+    treatment_types = db.query(models.Treatment_type).all()  if status == '' else db.query(models.Treatment_type).filter(models.Treatment_type.status == status).all()
     return {
         "data": treatment_types,
         "error": False,
@@ -46,7 +46,7 @@ def reactivate(id, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Treatment_type with id {id} not found')
     else:
         treatment_type.update({
-            "is_active": "ACTIVE"
+            "status": "ACTIVE"
         })
         db.commit()
         res = get_one(id, db)
@@ -62,7 +62,7 @@ def update(id, Surgery_Type, db: Session):
             "treatment_type_name": Surgery_Type.treatment_type_name,
             "description": Surgery_Type.description,
             "updated_by": Surgery_Type.updated_by,
-            "is_active": Surgery_Type.is_active
+            "status": Surgery_Type.status
         })
         db.commit()
         return {
@@ -77,7 +77,7 @@ def destroy(id, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Treatment_type with id {id} not found')
     else:
         treatment_type.update({
-            "is_active": "INACTIVE"
+            "status": "INACTIVE"
         })
         db.commit()
         res = get_one(id, db)

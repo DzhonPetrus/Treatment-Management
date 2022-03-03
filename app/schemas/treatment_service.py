@@ -7,12 +7,12 @@ from ..utils.schemaHelper import Base, as_form
 from .user import *
 from .treatment_type import *
 
-class Treatment_serviceBase(Base):
+class TreatmentServiceNameBase(Base):
     treatment_types_id: Optional[str] = None
     treatment_service_name: Optional[str] = None
     description: Optional[str] = None
     unit_price: Optional[float] = None
-    is_active: Optional[str] = None
+    status: Optional[str] = None
 
     created_by: Optional[str] = None
     updated_by: Optional[str] = None
@@ -23,20 +23,20 @@ class Treatment_serviceBase(Base):
     treatment_type_info: Optional[Treatment_typeBase] = None
 
 @as_form
-class CreateTreatment_service(Treatment_serviceBase):
+class CreateTreatmentServiceName(TreatmentServiceNameBase):
     pass
 
 
-class Treatment_service(Treatment_serviceBase):
+class TreatmentServiceName(TreatmentServiceNameBase):
     id: str
 
 
-class OutTreatment_services(Base):
-    data: List[Treatment_service]
+class OutTreatmentServiceNames(Base):
+    data: List[TreatmentServiceName]
     error: bool
     message: str
 
-class OutTreatment_service(Base):
-    data: Treatment_service
+class OutTreatmentServiceName(Base):
+    data: TreatmentServiceName
     error: bool
     message: str

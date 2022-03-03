@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 
 from .. import database
 
-from ..controllers import lab_request, lab_test, lab_result, inpatient, outpatient, laboratory_type
+from ..controllers import lab_request, lab_test, lab_result, inpatient, outpatient, lab_test_type
 from .. import schemas, oauth2
 
 

@@ -14,7 +14,7 @@ class Treatment(Base):
     quantity = Column(Numeric(15,2), nullable=False)
     inpatient_id = Column(String(36), ForeignKey("inpatients.id"))
     outpatient_id = Column(String(36), ForeignKey("outpatients.id"))
-    treatment_service_id = Column(String(36), ForeignKey("treatment_services.id"))
+    treatment_service_id = Column(String(36), ForeignKey("treatment_service_name.id"))
     physician_id = Column(String(36), ForeignKey("users.id")) # DOCTOR IN CHARGE
     description = Column(Text)
     cancellation_return = Column(Float)
@@ -43,5 +43,5 @@ class Treatment(Base):
     outpatient = relationship('OutPatient', back_populates='treatments')
     physician = relationship('User', back_populates='treatments', foreign_keys=[physician_id])
 
-    treatment_service = relationship('Treatment_service', back_populates='treatments')
+    treatment_service = relationship('TreatmentServiceName', back_populates='treatments')
   

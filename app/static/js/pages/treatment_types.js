@@ -5,9 +5,9 @@
 	window.modal = "#modal-treatment_type";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "name", "room", "description", "fee", "is_active", "btnAdd", "btnUpdate"];
-	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
-	window.readOnlyFields = ["id", "is_active"];
+	window.fields = ["id", "name", "room", "description", "fee", "status", "btnAdd", "btnUpdate"];
+	window.fieldsHidden = ["id", "btnUpdate", "status"];
+	window.readOnlyFields = ["id", "status"];
 
 $(function () {
 
@@ -22,7 +22,7 @@ $(function () {
 
 		if ($(form).validate()) {
 			var form_data = new FormData(this);
-			form_data.append('is_active', $('#is_active').val())
+			form_data.append('status', $('#status').val())
 
 			var id = $("#id").val();
 			if (id == "") {
@@ -157,7 +157,7 @@ className: 'btn-sm',
 				searchable: true,
 			},
 			{
-				data: "is_active",
+				data: "status",
 				render: (aData) => aData.toUpperCase() == "ACTIVE" ? `<span class="p-2 w-100 badge badge-primary">${aData}</span>` : `<span class="p-2 w-100 badge badge-danger">${aData}</span>`,
 				// name: "status",
 				// searchable: true,
@@ -176,8 +176,8 @@ className: 'btn-sm',
 			// POPULATE ANALYTIC CARDS
 			let treatment_types = settings.json;
 			if(treatment_types !== undefined){
-				const active_treatment_types = treatment_types.data.filter(types => types.is_active === 'ACTIVE')
-				const inactive_treatment_types = treatment_types.data.filter(types => types.is_active === 'INACTIVE')
+				const active_treatment_types = treatment_types.data.filter(types => types.status === 'ACTIVE')
+				const inactive_treatment_types = treatment_types.data.filter(types => types.status === 'INACTIVE')
 
 				$('#totalTypes').html(treatment_types.data.length)
 				$('#totalTypesActive').html(active_treatment_types.length)

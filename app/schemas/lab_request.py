@@ -8,7 +8,7 @@ from .lab_test import *
 from .inpatient import *
 from .outpatient import *
 
-from .laboratory_service import *
+from .lab_service_name import *
 
 from .user import *
 
@@ -44,7 +44,7 @@ class LabRequest(LabRequestBase):
     id: str
     # lab_result: Optional[LabResultBase] = None
     # lab_test: Optional[LabTestBase] = None
-    laboratory_service: Optional[Laboratory_serviceBase] = None
+    lab_service_name: Optional[LabServiceNameBase] = None
     inpatient: Optional[InPatientBase] = None
     outpatient: Optional[OutPatientBase] = None
 

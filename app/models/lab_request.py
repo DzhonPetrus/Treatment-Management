@@ -16,7 +16,7 @@ class LabRequest(Base):
     id = Column(String(36), primary_key=True, default=text('UUID()'))
 
     # lab_test_id = Column(String(36), ForeignKey("lab_tests.id"))
-    lab_service_id = Column(String(36), ForeignKey("laboratory_services.id"))
+    lab_service_id = Column(String(36), ForeignKey("lab_service_name.id"))
 
     inpatient_id = Column(String(36), ForeignKey("inpatients.id"))
     outpatient_id = Column(String(36), ForeignKey("outpatients.id"))
@@ -39,7 +39,7 @@ class LabRequest(Base):
     lab_result = relationship('LabResult', back_populates='lab_request')
 
     # lab_test = relationship('LabTest', back_populates='lab_requests')
-    laboratory_service = relationship('Laboratory_service', back_populates='lab_requests')
+    lab_service_name = relationship('LabServiceName', back_populates='lab_requests')
 
     inpatient = relationship('InPatient', back_populates='lab_requests')
     outpatient = relationship('OutPatient', back_populates='lab_requests')

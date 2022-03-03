@@ -5,12 +5,12 @@ from ..utils.schemaHelper import Base, as_form
 
 
 from .user import *
-# from .laboratory_service import *
+# from .lab_service_name import *
 
 class Laboratory_typeBase(Base):
     lab_test_type_name: Optional[str] = None
     description: Optional[str] = None
-    is_active: Optional[str] = None
+    status: Optional[str] = None
 
     created_by: Optional[str] = None
     updated_by: Optional[str] = None
@@ -26,8 +26,8 @@ class CreateLaboratory_type(Laboratory_typeBase):
 
 class Laboratory_type(Laboratory_typeBase):
     id: str
-    # laboratory_services: Optional[List[Laboratory_serviceBase]] = None
-    laboratory_services: Optional[List[Any]] = None
+    # lab_service_name: Optional[List[LabServiceNameBase]] = None
+    lab_service_name: Optional[List[Any]] = None
 
 
 class OutLaboratory_types(Base):

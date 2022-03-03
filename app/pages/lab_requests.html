@@ -336,7 +336,7 @@
 getLaboratoryTypes = () => {
   {
     $.ajax({
-      url: BASE_URL + `${window.user_type.toLowerCase()}/laboratory_type/all`,
+      url: BASE_URL + `${window.user_type.toLowerCase()}/lab_test_type/all`,
       type: "GET",
       dataType: "json",
       headers: {
@@ -363,7 +363,7 @@ setLaboratoryTypes = (_data) => {
     let services = [];
     lab_types_options += `<option value='${_type?.lab_test_type_name}'>${_type?.lab_test_type_name}</option>`;
     
-    _services = _type?.laboratory_services;
+    _services = _type?.lab_service_name;
     _services.forEach(_service => services.push({id:_service?.id, name:_service?.lab_service_name}))
 
     window.laboratories[_type?.lab_test_type_name] = services;

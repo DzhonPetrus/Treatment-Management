@@ -5,14 +5,14 @@ from ..utils.schemaHelper import Base, as_form
 
 
 from .user import *
-from .laboratory_type import *
+from .lab_test_type import *
 
-class Laboratory_serviceBase(Base):
+class LabServiceNameBase(Base):
     lab_test_types_id: Optional[str] = None
     lab_service_name: Optional[str] = None
     description: Optional[str] = None
     unit_price: Optional[float] = None
-    is_active: Optional[str] = None
+    status: Optional[str] = None
 
     created_by: Optional[str] = None
     updated_by: Optional[str] = None
@@ -20,23 +20,23 @@ class Laboratory_serviceBase(Base):
     updator: Optional[UserBase] = None
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
-    laboratory_type_info: Optional[Laboratory_typeBase] = None
+    lab_test_type_info: Optional[Laboratory_typeBase] = None
 
 @as_form
-class CreateLaboratory_service(Laboratory_serviceBase):
+class CreateLabServiceName(LabServiceNameBase):
     pass
 
 
-class Laboratory_service(Laboratory_serviceBase):
+class LabServiceName(LabServiceNameBase):
     id: str
 
 
-class OutLaboratory_services(Base):
-    data: List[Laboratory_service]
+class OutLabServiceNames(Base):
+    data: List[LabServiceName]
     error: bool
     message: str
 
-class OutLaboratory_service(Base):
-    data: Laboratory_service
+class OutLabServiceName(Base):
+    data: LabServiceName
     error: bool
     message: str

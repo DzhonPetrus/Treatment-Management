@@ -445,7 +445,7 @@ setTreatmentTypes = (_data) => {
     let services = [];
     treatment_types_options += `<option value='${_type?.treatment_type_name}'>${_type?.treatment_type_name}</option>`;
     
-    _services = _type?.treatment_services;
+    _services = _type?.treatment_service_name;
     _services.forEach(_service => services.push({id:_service?.id, name:_service?.treatment_service_name}))
 
     window.treatments[_type?.treatment_type_name] = services;
