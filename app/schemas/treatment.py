@@ -17,7 +17,7 @@ class TreatmentBase(Base):
     cancellation_return: Optional[float] = None
     physician_id: str
 
-    treatment_service_id: str
+    treatment_service_name_id: str
     description: str
 
     session_no: Optional[int] = None

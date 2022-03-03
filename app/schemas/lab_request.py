@@ -21,7 +21,7 @@ class LabRequestBase(Base):
     cancellation_return: Optional[float] = None
 
     # lab_test_id: Optional[str] = None
-    lab_service_id: Optional[str] = None
+    lab_service_name_id: Optional[str] = None
 
     lab_request_no: Optional[str] = None
 

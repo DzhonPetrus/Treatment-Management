@@ -5,7 +5,7 @@
 	window.modal = "#modal-treatment";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "treatment_no", "treatment_service_id", "physician_id", "inpatient_id", "outpatient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate", "session_no", "session_datetime", "drug", "dose", "next_schedule", "comments", "room", "quantity"];
+	window.fields = ["id", "treatment_no", "treatment_service_name_id", "physician_id", "inpatient_id", "outpatient_id", "start_time", "description", "status", "is_active", "btnAdd", "btnUpdate", "session_no", "session_datetime", "drug", "dose", "next_schedule", "comments", "room", "quantity"];
 	window.fieldsHidden = ["btnUpdate", "is_active", "end_time", "treatment_no", "id", "inpatient_id"];
 	window.readOnlyFields = ["is_active", "end_time", "treatment_no", "id"];
 
@@ -383,7 +383,7 @@ editData = (id) => {
 
 					$("#treatment_types_id").val(currentTreatment?.treatment_service?.treatment_type_info?.treatment_type_name).trigger('change');
 
-					$("#treatment_service_id").val(currentTreatment?.treatment_service_id).trigger('change');
+					$("#treatment_service_name_id").val(currentTreatment?.treatment_service_name_id).trigger('change');
 				}else{
 					notification("error", "Error!", data.message)
 				}

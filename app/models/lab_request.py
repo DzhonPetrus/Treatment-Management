@@ -16,7 +16,7 @@ class LabRequest(Base):
     id = Column(String(36), primary_key=True, default=text('UUID()'))
 
     # lab_test_id = Column(String(36), ForeignKey("lab_tests.id"))
-    lab_service_id = Column(String(36), ForeignKey("lab_service_name.id"))
+    lab_service_name_id = Column(String(36), ForeignKey("lab_service_name.id"))
 
     inpatient_id = Column(String(36), ForeignKey("inpatients.id"))
     outpatient_id = Column(String(36), ForeignKey("outpatients.id"))

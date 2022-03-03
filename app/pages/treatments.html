@@ -251,12 +251,12 @@
                   </div>
                   <!-- END TREATMENT TYPE -->
                   <!-- TREATMENT SERVICE -->
-                  <div class="form-group col-md-6" id="group-treatment_service_id">
+                  <div class="form-group col-md-6" id="group-treatment_service_name_id">
                     <label>
                       Treatment Service
                       <span style="color:red">*</span>
                     </label>
-                    <select class="form-control select2" style="width: 100%;" id="treatment_service_id" name="treatment_service_id" required>
+                    <select class="form-control select2" style="width: 100%;" id="treatment_service_name_id" name="treatment_service_name_id" required>
                     </select>
                   </div>
                   <!-- END TREATMENT SERVICE -->
@@ -383,7 +383,7 @@
     let status_outpatient=['PENDING', 'ONGOING', 'DONE'];
     let status_inpatient=['PENDING', 'ONGOING', 'DONE - FOR BILLING'];
 
-    // $('#treatment_service_id').select2();
+    // $('#treatment_service_name_id').select2();
     $('#inpatient_id').select2();
     $('#outpatient_id').select2();
     $('#physician_id').select2();
@@ -459,7 +459,7 @@ setTreatmentTypes = (_data) => {
     if(selectedType != '')
       treatments[selectedType].forEach(service => treatment_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
 
-    $('#treatment_service_id').html(treatment_service_options);
+    $('#treatment_service_name_id').html(treatment_service_options);
   } )
   
 }

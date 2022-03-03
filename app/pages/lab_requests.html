@@ -242,12 +242,12 @@
                 </div>
                 <!-- END LAB TYPE -->
                 <!-- LAB SERVICE -->
-                <div class="form-group col-md-5" id="group-lab_service_id">
+                <div class="form-group col-md-5" id="group-lab_service_name_id">
                   <label>
                     Lab Service
                     <span style="color:red">*</span>
                   </label>
-                  <select class="form-control select2" style="width: 100%;" id="lab_service_id" name="lab_service_id" required>
+                  <select class="form-control select2" style="width: 100%;" id="lab_service_name_id" name="lab_service_name_id" required>
                   </select>
                 </div>
                 <!-- END LAB SERVICE -->
@@ -302,7 +302,7 @@
     let status_outpatient=['PENDING', 'CANCELLED', 'PAID - IN-QUEUE', 'PROCESSING', 'DONE'];
     let status_inpatient=['IN-QUEUE', 'PROCESSING', 'DONE - FOR BILLING'];
 
-    $('#lab_service_id').select2();
+    $('#lab_service_name_id').select2();
     $('#inpatient_id').select2();
     $('#outpatient_id').select2();
 
@@ -379,7 +379,7 @@ setLaboratoryTypes = (_data) => {
       laboratories[selectedType].forEach(service => lab_service_options += `<option value='${service?.id}'>${service?.name}</option>`)
     
 
-    $('#lab_service_id').html(lab_service_options);
+    $('#lab_service_name_id').html(lab_service_options);
   } )
   
 }

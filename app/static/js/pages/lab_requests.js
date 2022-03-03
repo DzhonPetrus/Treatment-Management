@@ -6,7 +6,7 @@ window.dataTable = "#dataTable";
 
 window.fields = [
   "id",
-  "lab_service_id",
+  "lab_service_name_id",
   "status",
   "is_active",
   "btnAdd",
@@ -369,7 +369,7 @@ editData = (id) => {
 
 					$("#lab_test_types_id").val(currentLabRequest?.lab_service_name?.lab_test_type_info?.lab_test_type_name).trigger('change');
 
-					$("#lab_service_id").val(currentLabRequest?.lab_service_id).trigger('change');
+					$("#lab_service_name_id").val(currentLabRequest?.lab_service_name_id).trigger('change');
         }else{
           notification("error", "Error!", data.message);
         }
