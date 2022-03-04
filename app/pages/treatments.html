@@ -311,8 +311,10 @@
                       </label>
                       <select class="form-control select2" style="width: 100%;" id="physician_id" name="physician_id">
                         {% for physician in physicians %}
-                        <option value="{{physician['id']}}">{{physician['user_profile']['last_name']}},
-                          {{physician['user_profile']['first_name']}}</option>
+                        {% if physician['user_type'] == 'Medical_Specialist' %}
+                          <option value="{{physician['id']}}">{{physician['user_profile']['last_name']}},
+                            {{physician['user_profile']['first_name']}}</option>
+                          {% endif -%}
                         {% endfor -%}
                       </select>
                     </div>
