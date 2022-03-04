@@ -458,7 +458,7 @@ setLabRequests = (_data) => {
   let lab_requests_options = ``;
   _data.forEach(_r => {
     // TODO: clarify request status to create result
-    const requestStatusCondition = ['IN-QUEUE', 'PAID - IN-QUEUE'];
+    const requestStatusCondition = ['IN-QUEUE', 'PAID - IN-QUEUE', 'PAID'];
     if(requestStatusCondition.includes(_r?.status))
       lab_requests_options += `<option value='${_r?.id}'>${_r?.lab_request_no}</option>`;
     
