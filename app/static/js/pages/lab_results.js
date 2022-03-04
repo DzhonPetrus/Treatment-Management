@@ -5,7 +5,7 @@
 	window.modal = "#modal-lab_result";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "lab_request_id", "specimen", "result", "reference", "unit", "detailed_result", "status", "is_active", "btnAdd", "btnUpdate", "file", "detailed_result_placeholder", "ordered", "dt_requested", "dt_received", "dt_reported", "comments", 'lab_result_no'];
+	window.fields = ["id", "lab_request_id", "specimen", "result", "reference", "unit", "detailed_result", "status", "is_active", "btnAdd", "btnUpdate", "file", "detailed_result_placeholder", "ordered", "dt_requested", "dt_received", "dt_reported", "comments", 'lab_result_no', 'patient_name'];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active", "detailed_result_placeholder"];
 	window.readOnlyFields = ["id", "is_active"];
 
@@ -333,6 +333,7 @@ viewData = (id) => {
 					setState("view", data.data);
 
 					currentLabRequest = data.data?.lab_request;
+					setPatientInfo(currentLabRequest);
 
 					$('#lab_type_nameView').html(currentLabRequest?.lab_service_name?.lab_test_type_info?.lab_test_type_name);
 					$('#lab_service_nameView').html(currentLabRequest?.lab_service_name?.lab_service_name);
@@ -369,6 +370,16 @@ editData = (id) => {
 
 					$("#status").val(currentLabResult?.status).trigger('change');
 					window.temp_dt_reported = $('#dt_reported').val();
+					
+					const lab_request = currentLabResult?.lab_request;
+					const patient =
+					lab_request?.inpatient == null
+						? lab_request?.outpatient
+						: lab_request?.inpatient;
+					const patient_name = `${patient.last_name}, ${patient.first_name} ${
+					patient.middle_name || ""
+					} ${patient.suffix_name ? ", " + patient.suffix_name : ""}`;
+					$('#patient_name').val(patient_name);
 				 }else{
 					notification("error", "Error!", data.message)
 				 }

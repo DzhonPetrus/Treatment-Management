@@ -252,7 +252,7 @@
               <div class="container-fluid">
                 <div class="row">
 
-                {{ forms.input('ID', 'id', 'text', '', '', 'col-md-6' )}}
+                {{ forms.input('ID', 'id', 'text', '', '', 'col-md-3' )}}
                 <!-- LAB REQUEST -->
                 <div class="form-group col-md-6" id="group-lab_request_id">
                   <label>
@@ -260,14 +260,10 @@
                     <span style="color:red">*</span>
                   </label>
                   <select class="form-control select2 col-md-6" style="width: 100%;" id="lab_request_id" name="lab_request_id">
-                    {% for lab_request in lab_requests %}
-                      {% if lab_request['status'] != 'CANCELLED' %}
-                        <option value="{{lab_request['id']}}">{{lab_request['lab_request_no']}}</option>
-                      {% endif -%}
-                    {% endfor -%}
                   </select>
                 </div>
                 <!-- END LAB REQUEST -->
+                {{ forms.input('Patient Name', 'patient_name', 'text', 'readonly', '', 'col-md-3' )}}
                 </div>
 
                 <div class="row">
@@ -398,6 +394,17 @@ setLabRequests = (_data) => {
   $('#lab_request_id').html(lab_requests_options);
   $('#lab_request_id').on("change", function(){
     let selectedRequest = $(this).val();
+
+    let lab_request = requests2[selectedRequest];
+    const patient =
+      lab_request?.inpatient == null
+        ? lab_request?.outpatient
+        : lab_request?.inpatient;
+    const patient_name = `${patient.last_name}, ${patient.first_name} ${
+      patient.middle_name || ""
+    } ${patient.suffix_name ? ", " + patient.suffix_name : ""}`;
+    $('#patient_name').val(patient_name);
+
     if(requests[selectedRequest] == 'inpatient')
       $('#status').html(arrToOptions(status_inpatient));
     else
