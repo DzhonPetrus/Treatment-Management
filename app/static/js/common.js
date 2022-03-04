@@ -152,7 +152,8 @@ const setState = (state, data) => {
 };
 
 const renderButtons = (aData, title, additionalButtons = '') => {
-	const disabledCriteria = ['INACTIVE', 'DONE - FOR BILLING', 'DONE', 'CLAIMED']
+	const disabledCriteria = ['INACTIVE', 'DONE - FOR BILLING', 'DONE', 'CLAIMED', 'CANCELLED']
+	let _is_active = aData?.is_active == 'ACTIVE';
 
 	let buttons =
 		`
@@ -170,14 +171,14 @@ const renderButtons = (aData, title, additionalButtons = '') => {
 			<div>View ${title}</div>
 		</div>
 
-        <div class="${disabledCriteria.includes(aData?.status) ? 'disabled' : ''} dropdown-item d-flex" role="button" onClick="return editData('${aData.id}') ">
+        <div class="${disabledCriteria.includes(aData?.status) || !_is_active ? 'disabled' : ''} dropdown-item d-flex" role="button" onClick="return editData('${aData.id}') ">
 			<div style="width:2rem">
 				<i class="fa fa-edit"> </i>
 			</div>
 			<div>Edit ${title}</div>
 		</div>
 		`;
-		buttons += aData.is_active == "ACTIVE" 
+		buttons += _is_active
 			? `
 				<div 
 					class="dropdown-item d-flex" 

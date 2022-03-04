@@ -282,7 +282,7 @@
 
                 {{ forms.input('Date/Time Requested', 'dt_requested', 'datetime-local', 'readonly', '', 'col-md-4') }}
                 {{ forms.input('Date/Time Received', 'dt_received', 'datetime-local', 'readonly','', 'col-md-4') }}
-                {{ forms.input('Date/Time Reported', 'dt_reported', 'datetime-local' ,'', '', 'col-md-4')}}
+                {{ forms.input('Date/Time Reported', 'dt_reported', 'datetime-local' ,'readonly', '', 'col-md-4')}}
                 </div>
 
                 <div class="row">
@@ -405,9 +405,18 @@ setLabRequests = (_data) => {
     
     $('#dt_requested').val(requests2[selectedRequest]?.created_at)
     $('#dt_received').val(getTodayDateTimeLocal())
+  });
 
-  } )
-  
+  $('#status').on("change", function(){
+    let status_reported=['UNFORWARDED', 'UNCLAIMED'];
+    let selectedStatus = $(this).val();
+    if(status_reported.includes(selectedStatus)){
+      $('#dt_reported').val(getTodayDateTimeLocal())
+    } else{
+      $('#dt_reported').val((window.temp_dt_reported))
+    }
+  });
+
 }
 $('#dt_reported').attr("min", getTodayDateTimeLocal())
 

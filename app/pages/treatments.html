@@ -324,7 +324,7 @@
                   </div>
                   <div class="row">
                     {{ forms.input('Session No.', 'session_no', 'number', 'required min=1', 1, 'col-md-6' ) }}
-                    {{ forms.input('Session Date/Time', 'session_datetime', 'datetime-local', 'required','', 'col-md-6') }}
+                    {{ forms.input('Session Date/Time', 'session_datetime', 'datetime-local', 'required readonly','', 'col-md-6') }}
                   </div>
                   <div class="row">
                     {{ forms.input('Drug', 'drug', 'text','','','col-md-6') }}
@@ -456,6 +456,8 @@ setTreatmentTypes = (_data) => {
 
   $('#treatment_types_id').html(treatment_types_options);
   $('#treatment_types_id').on("change", function(){
+    $('#next_schedule').attr("min", getTodayDateTimeLocal())
+    $('#session_datetime').val(getTodayDateTimeLocal())
     let selectedType = $(this).val();
     let treatment_service_options = `<option selected disabled hidden>Select an Option</option>`;
     if(selectedType != '')

@@ -18,6 +18,8 @@ window.fields = [
   "surgery_no",
   "head_surgeon_id",
   "description",
+  "surgeon_in_charge",
+  "nurse_in_charge",
 ];
 window.fieldsHidden = [
   "id",
@@ -58,13 +60,18 @@ $(function () {
     trimInputFields();
 
     if ($(form).validate()) {
-      var form_data = new FormData(this);
+      // var form_data = new FormData(this);
 
-      form_data.append("id", $("#id").val());
-      form_data.append("start_time", $("#start_time").val());
-      form_data.append("end_time", $("#end_time").val());
-      form_data.append("status", $("#status").val());
-      form_data.append("is_active", $("#is_active").val());
+      // form_data.append("id", $("#id").val());
+      // form_data.append("start_time", $("#start_time").val());
+      // form_data.append("end_time", $("#end_time").val());
+      // form_data.append("status", $("#status").val());
+      // form_data.append("is_active", $("#is_active").val());
+
+      var form_data = new FormData();
+
+      fieldsAppendToFormData(form_data);
+
       in_charge = $("#surgeon_in_charge").val();
       in_charge = [...in_charge, ...$("#nurse_in_charge").val()];
       form_data.append("in_charge", in_charge);
@@ -451,6 +458,7 @@ editData = (id) => {
         if(data.error == false){
 					const currentSurgery = data.data;
           setState("edit", currentSurgery);
+          console.log(currentSurgery)
 
           // TODO: CLARIFY/FINALIZE
           // IN_CHARGES
@@ -465,6 +473,13 @@ editData = (id) => {
 
             if(position == 'surgical_nurse')
               _surgical_nurses.push(v?.in_charge_id);
+
+            window.temp_end_time = $('#end_time').val();
+
+            if(currentSurgery?.status != 'PENDING'){
+              setFieldsReadOnly(fields,true);
+              $("#status").prop('disabled', false);
+            }
           });
 
           $('#surgeon_in_charge').val(_surgeons).trigger('change');

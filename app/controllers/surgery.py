@@ -24,7 +24,6 @@ def get_one(id, db: Session):
     }
 
 def create(surgery, db: Session):
-    print(surgery)
     _surgery_no = 'SN-' + (str(uuid4()).split('-')[0]).upper()
     new_surgery = models.Surgery(
         surgery_no = _surgery_no,

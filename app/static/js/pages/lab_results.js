@@ -368,6 +368,7 @@ editData = (id) => {
 					 $('#lab_request_id').html(_labRequestOptions);
 
 					$("#status").val(currentLabResult?.status).trigger('change');
+					window.temp_dt_reported = $('#dt_reported').val();
 				 }else{
 					notification("error", "Error!", data.message)
 				 }

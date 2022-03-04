@@ -128,7 +128,7 @@
               <th>Patient</th>
               <th>Room</th>
               <th>Surgery Type</th>
-              <th>Surgery Service</th>
+              <th>Surgery Procedure</th>
               <th>Schedule Start(DATE)</th>
               <th>Schedule Start</th>
               <th>Schedule End</th>
@@ -175,7 +175,7 @@
                             <div class="col-sm-6">
                               {{ forms.viewItem('Surgery Type','surgery_type_name') }}
                             </div><div class="col-sm-6">
-                              {{ forms.viewItem('Surgery Service','surgery_service_name') }}
+                              {{ forms.viewItem('Surgery Procedure','surgery_service_name') }}
                             </div>
                           </div>
                       
@@ -259,7 +259,7 @@
                   <!-- SURGERY SERVICE -->
                   <div class="form-group col-md-6" id="group-surgery_service_id">
                     <label>
-                      Surgery Service
+                      Surgery Procedure
                       <span style="color:red">*</span>
                     </label>
                     <select class="form-control select2" style="width: 100%;" id="surgery_service_id"
@@ -382,7 +382,7 @@
       locale: {
         format: 'YYYY-MM-DD hh:mm:ss'
       },
-      minYear: 1901,
+      minDate: moment(),
     });
     $("#start_time").daterangepicker({
       singleDatePicker: true,
@@ -391,7 +391,7 @@
       locale: {
         format: 'YYYY-MM-DD hh:mm:ss'
       },
-      minYear: 1901,
+      minDate: moment(),
     });
 
 
@@ -453,6 +453,14 @@
     );
 
 
+  $('#start_time').attr("min", getTodayDateTimeLocal())
+$('#status').on('change', function(){
+    let _status = this.value;
+    if(_status == 'DONE')
+      $('#end_time').val(getTodayDateTimeLocal());
+    else
+      $('#end_time').val(temp_end_time);
+})
 
   });
 
