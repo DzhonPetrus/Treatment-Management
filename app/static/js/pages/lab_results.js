@@ -38,12 +38,12 @@ $(function () {
 		trimInputFields();
 
 		if ($(form).validate()) {
-			// var form_data = new FormData(this);
-			// form_data.append('is_active', $('#is_active').val());
-			// form_data.append('status', $('#status').val());
-			var form_data = new FormData();
+			var form_data = new FormData(this);
+			form_data.append('is_active', $('#is_active').val());
+			form_data.append('status', $('#status').val());
+			// var form_data = new FormData();
 
-			fieldsAppendToFormData(form_data);
+			// fieldsAppendToFormData(form_data);
 
 			var id = $("#id").val();
 			if (id == "") {
