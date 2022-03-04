@@ -15,6 +15,8 @@ window.fields = [
   "inpatient_id",
   "outpatient_id",
   "quantity",
+  "patient_type",
+  "lab_test_types_id",
 ];
 window.fieldsHidden = [
   "id",
@@ -68,11 +70,11 @@ $(function () {
     trimInputFields();
 
     if ($(form).validate()) {
-      var form_data = new FormData(this);
+      // var form_data = new FormData(this);
+      var form_data = new FormData();
 
-      form_data.append("id", $("#id").val());
-      form_data.append("status", $("#status").val());
-      form_data.append("is_active", $("#is_active").val());
+      fieldsAppendToFormData(form_data);
+      $('#inpatient_id').val() == null ? form_data.delete('inpatient_id') : form_data.delete('outpatient_id');
 
       var id = $("#id").val();
       if (id == "") {
@@ -360,7 +362,6 @@ editData = (id) => {
         if(data.error == false){
 					const currentLabRequest = data.data;
           setState("edit", currentLabRequest);
-          console.log(currentLabRequest)
 
 					const patientType = currentLabRequest?.outpatient ? 'Outpatient' : 'Inpatient';
 					$("#patient_type").val(patientType).trigger('change');
@@ -370,6 +371,17 @@ editData = (id) => {
 					$("#lab_test_types_id").val(currentLabRequest?.lab_service_name?.lab_test_type_info?.lab_test_type_name).trigger('change');
 
 					$("#lab_service_name_id").val(currentLabRequest?.lab_service_name_id).trigger('change');
+     
+
+					$("#status").val(currentLabRequest?.status).trigger('change');
+        
+          const requestStatusCondition = ['IN-QUEUE', 'PAID - IN-QUEUE', 'PAID'];
+          if(!requestStatusCondition.includes(currentLabRequest?.status)){
+            setFieldsReadOnly(fields,true);
+            $("#status").prop('disabled', false);
+
+          }
+            
         }else{
           notification("error", "Error!", data.message);
         }

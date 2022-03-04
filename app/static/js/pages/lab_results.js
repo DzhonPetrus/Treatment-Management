@@ -38,9 +38,12 @@ $(function () {
 		trimInputFields();
 
 		if ($(form).validate()) {
-			var form_data = new FormData(this);
-			form_data.append('is_active', $('#is_active').val());
-			form_data.append('status', $('#status').val());
+			// var form_data = new FormData(this);
+			// form_data.append('is_active', $('#is_active').val());
+			// form_data.append('status', $('#status').val());
+			var form_data = new FormData();
+
+			fieldsAppendToFormData(form_data);
 
 			var id = $("#id").val();
 			if (id == "") {
@@ -174,22 +177,25 @@ className: 'btn-sm',
 				data: "result",
 				name: "result",
 				searchable: true,
+				render: (aData) => aData || `<span class='font-italic text-secondary'>No data</span>`
 			},
 			{
 				data: "reference",
 				name: "reference",
 				searchable: true,
+				render: (aData) => aData || `<span class='font-italic text-secondary'>No data</span>`
 			},
 			{
 				data: "unit",
 				name: "unit",
 				searchable: true,
+				render: (aData) => aData || `<span class='font-italic text-secondary'>No data</span>`
 			},
 			{
 				data: "detailed_result",
 				name: "detailed_result",
 				searchable: true,
-				render: (aData) => `<a target="_blank" href="${BASE_URL}static/upload/${aData}">${aData}</a>` || `<span class='font-italic text-secondary'>No data</span>`
+				render: (aData) => aData != null ? `<a target="_blank" href="${BASE_URL}static/upload/${aData}">${aData}</a>` : `<span class='font-italic text-secondary'>No data</span>`
 			},
 			{
 				data: "status",
@@ -354,13 +360,14 @@ editData = (id) => {
 					//  TODO: double check implementation of lab request in result
 					 const currentLabResult = data.data;
 					 setState("edit", currentLabResult)
-					 console.log(currentLabResult)
 
 					 let _labRequestOptions = $('#lab_request_id').html();
 					 _labRequestOptions += `
 					 <option selected value=${currentLabResult?.lab_request_id}>${currentLabResult?.lab_request_no}</option>
 					 `;
 					 $('#lab_request_id').html(_labRequestOptions);
+
+					$("#status").val(currentLabResult?.status).trigger('change');
 				 }else{
 					notification("error", "Error!", data.message)
 				 }

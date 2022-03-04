@@ -40,6 +40,9 @@ def create(lab_result, db: Session):
         created_by = lab_result.created_by,
         status = lab_result.status
     )
+    lab_request = db.query(models.LabRequest).filter(models.LabRequest.id == lab_result.lab_request_id)
+    if lab_request.first():
+        lab_request.update({ "status": "PROCESSING" })
     db.add(new_lab_result)
     db.commit()
     db.refresh(new_lab_result)

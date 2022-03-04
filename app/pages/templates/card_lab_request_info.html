@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card card-primary card-outline">
+      <h6 class="card-header">Lab Request Information</h6>
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-sm-6">
+            {{ forms.viewItem('Lab Request No','lab_request_no') }}
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            {{ forms.viewItem('Laboratory Type','lab_type_name') }}
+          </div>
+          <div class="col-sm-6">
+            {{ forms.viewItem('Laboratory Service','lab_service_name') }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            {{ forms.viewItem('Quantity','quantity') }}
+          </div>
+          <div class="col-sm-6">
+            {{ forms.viewItem('Status','status') }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

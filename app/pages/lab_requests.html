@@ -136,36 +136,7 @@
           <div class="modal-body">
               <div class="container-fluid">
                 {% include 'templates/card_patient_info.html' %}
-                <div class="row">
-                  <div class="col-sm-12">
-    <div class="card card-primary card-outline">
-                        <h6 class="card-header">Lab Request Information</h6>
-                        <div class="card-body">
-          
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Lab Request No','lab_request_no') }}
-                            </div>
-                            
-                          </div><div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Laboratory Type','lab_type_name') }}
-                            </div><div class="col-sm-6">
-                              {{ forms.viewItem('Laboratory Service','lab_service_name') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Quantity','quantity') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Status','status') }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
+                {% include 'templates/card_lab_request_info.html' %}
               </div>
           </div>
           <div class="modal-footer float-right">
@@ -252,7 +223,7 @@
                 </div>
                 <!-- END LAB SERVICE -->
 
-                {{ forms.input('Quantity', 'quantity', 'number', 'required min=1', 1, 'col-md-2' ) }}
+                {{ forms.input('Quantity', 'quantity', 'number', 'hidden required min=1', 1, 'col-md-2' ) }}
 
 
               </div>

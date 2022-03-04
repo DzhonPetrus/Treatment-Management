@@ -30,10 +30,9 @@ def create(lab_request, db: Session):
     # print(request_no)
 
     new_lab_request = models.LabRequest(
-        lab_service_name_id = lab_request.lab_service_name_id,
         lab_request_no = request_no,
+        lab_service_name_id = lab_request.lab_service_name_id,
         quantity = lab_request.quantity,
-        # lab_result_id = lab_request.lab_result_id,
         inpatient_id = lab_request.inpatient_id,
         outpatient_id = lab_request.outpatient_id,
         status = lab_request.status,
@@ -84,6 +83,7 @@ def update(id, LabRequest, db: Session):
             "quantity" : LabRequest.quantity,
             "inpatient_id" : LabRequest.inpatient_id,
             "outpatient_id" : LabRequest.outpatient_id,
+            "lab_service_name_id" : LabRequest.lab_service_name_id,
             "status" : LabRequest.status,
             "updated_by" : LabRequest.updated_by,
             "is_active" : LabRequest.is_active

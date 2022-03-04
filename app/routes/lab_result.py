@@ -1,5 +1,5 @@
 from app.utils.file_upload import file_upload
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Depends, status, Request, UploadFile, File
 from sqlalchemy.orm import Session
 
@@ -39,8 +39,9 @@ def show(request: Request, id, db: Session = Depends(get_db),  current_user: sch
     # return templates.TemplateResponse("lab_result.html", {"request":request, "lab_result": lab_result.get_one(id, db)})
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-async def create(LabResult: schemas.CreateLabResult = Depends(schemas.CreateLabResult.as_form), file: UploadFile = File(...), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
+async def create(LabResult: schemas.CreateLabResult = Depends(schemas.CreateLabResult.as_form), file: Optional[UploadFile] = File(...), db: Session = Depends(get_db),  current_user: schemas.User = Depends(oauth2.get_current_user)):
     LabResult.created_by = current_user["id"]
+
     LabResult.detailed_result = await file_upload(file)
     return lab_result.create(LabResult, db)
 

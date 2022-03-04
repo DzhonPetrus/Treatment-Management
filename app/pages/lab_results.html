@@ -132,84 +132,7 @@
           </div>
           <div class="modal-body">
               <div class="container-fluid">
-                <!-- <div class="row">
-                  <div class="col-sm-12">
-    <div class="card card-primary card-outline">
-                        <h6 class="card-header">Patient Information</h6>
-                        <div class="card-body">
-          
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Name','full_name') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Gender','gender') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Birth Date','birth_date') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Blood Type','blood_type') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Contact Number','contact_no') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Email','email') }}
-                            </div>
-                          </div><div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Status','is_active') }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div> -->
-                <!-- <div class="row">
-                  <div class="col-sm-12">
-    <div class="card card-primary card-outline">
-                        <h6 class="card-header">Lab Request Information</h6>
-                        <div class="card-body">
-          
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Lab Request No','lab_request_no') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Status','status') }}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Specimen','specimen') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Result','result') }}
-                            </div>
-                          </div>
-                         <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Reference','reference') }}
-                            </div>
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Unit','unit') }}
-                            </div>
-                          </div> 
-                          <div class="row">
-                            <div class="col-sm-6">
-                              {{ forms.viewItem('Detailed Result','detailed_result') }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div> -->
-                <!-- {% include 'templates/card_patient_info.html' %} -->
+                {% include 'templates/card_patient_info.html' %}
 
                 <div class="row">
                   <div class="col-sm-12">
@@ -357,8 +280,8 @@
 
                 <div class="row">
 
-                {{ forms.input('Date/Time Requested', 'dt_requested', 'datetime-local', '', '', 'col-md-4') }}
-                {{ forms.input('Date/Time Received', 'dt_received', 'datetime-local', '','', 'col-md-4') }}
+                {{ forms.input('Date/Time Requested', 'dt_requested', 'datetime-local', 'readonly', '', 'col-md-4') }}
+                {{ forms.input('Date/Time Received', 'dt_received', 'datetime-local', 'readonly','', 'col-md-4') }}
                 {{ forms.input('Date/Time Reported', 'dt_reported', 'datetime-local' ,'', '', 'col-md-4')}}
                 </div>
 
@@ -368,9 +291,9 @@
                 </div>
                 <div class="row">
 
-                {{ forms.input('Result', 'result', 'text', 'required', '', 'col-md-4') }}
-                {{ forms.input('Reference', 'reference', 'text', 'required', '', 'col-md-4') }}
-                {{ forms.input('Unit', 'unit', 'text', 'required', '', 'col-md-4') }}
+                {{ forms.input('Result', 'result', 'text', '', '', 'col-md-4') }}
+                {{ forms.input('Reference', 'reference', 'text', '', '', 'col-md-4') }}
+                {{ forms.input('Unit', 'unit', 'text', '', '', 'col-md-4') }}
                 </div>
                 <div class="row">
 
@@ -421,6 +344,7 @@
 {% block scripts %}
 
 <script defer>
+getTodayDateTimeLocal = () => moment().format(moment.HTML5_FMT.DATETIME_LOCAL);
   // const lab_requests = JSON.parse(' {{lab_requests|tojson}} ');
     $('#lab_request_id').select2();
 
@@ -455,7 +379,8 @@ setLabRequests = (_data) => {
     let status_inpatient=['PROCESSING', 'UNFORWARDED', 'FORWARDED'];
 
   window.requests = {};
-  let lab_requests_options = ``;
+  window.requests2 = {};
+  let lab_requests_options = `<option selected disabled hidden>Select an Option</option>`;
   _data.forEach(_r => {
     // TODO: clarify request status to create result
     const requestStatusCondition = ['IN-QUEUE', 'PAID - IN-QUEUE', 'PAID'];
@@ -464,6 +389,7 @@ setLabRequests = (_data) => {
     
         _request_patient_type = _r?.outpatient == null ? 'inpatient' : 'outpatient';
         requests[_r?.id] = _request_patient_type;
+        requests2[_r?.id] = _r;
     });
 
     // window.lab_requests[_request?.name] = requests;
@@ -477,10 +403,13 @@ setLabRequests = (_data) => {
     else
       $('#status').html(arrToOptions(status_outpatient));
     
+    $('#dt_requested').val(requests2[selectedRequest]?.created_at)
+    $('#dt_received').val(getTodayDateTimeLocal())
 
   } )
   
 }
+$('#dt_reported').attr("min", getTodayDateTimeLocal())
 
 getLabRequests();
 </script>

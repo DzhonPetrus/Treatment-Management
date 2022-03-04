@@ -125,31 +125,7 @@ const setState = (state, data) => {
 		$("#detailed_result_placeholder").show();
 	}
 
-	if(Object.keys(data).includes('outpatient')){
-		if(patient_fields !== undefined){
-			window.temp_fields = window.fields
-			window.fields = window.patient_fields
-		}
-		if(data.outpatient != null){
-			setInputValue(data.outpatient);
-			let age = Math.floor(moment().diff(data.outpatient.birth_date, 'years', true));
-			$('#ageView').html(age);
-		}
-		window.fields = window.temp_fields
-	}
-	if(Object.keys(data).includes('inpatient')){
-		if(patient_fields !== undefined){
-			window.temp_fields = window.fields
-			window.fields = window.patient_fields
-		}
-		if(data.inpatient != null){
-			setInputValue(data.inpatient);
-			let age = Math.floor(moment().diff(data.inpatient.birth_date, 'years', true));
-			$('#ageView').html(age);
-
-		}
-		window.fields = window.temp_fields
-	}
+	setPatientInfo(data);
 	// TODO: REFACTOR
 
 	showAllFields();
@@ -328,3 +304,40 @@ window.arrToOptions = (arr) => {
 	arr.forEach(v => options+=`<option value=${v}>${v}</option>`);
 	return options
 }
+
+setPatientInfo = (_data) => {
+	if(Object.keys(_data).includes('outpatient')){
+		if(patient_fields !== undefined){
+			window.temp_fields = window.fields
+			window.fields = window.patient_fields
+		}
+		if(_data?.outpatient != null){
+			setInputValue(_data?.outpatient);
+			let age = Math.floor(moment().diff(_data?.outpatient.birth_date, 'years', true));
+			$('#ageView').html(age);
+		}
+		window.fields = window.temp_fields
+	}
+	if(Object.keys(_data).includes('inpatient')){
+		if(patient_fields !== undefined){
+			window.temp_fields = window.fields
+			window.fields = window.patient_fields
+		}
+		if(_data?.inpatient != null){
+			setInputValue(_data?.inpatient);
+			let age = Math.floor(moment().diff(_data?.inpatient.birth_date, 'years', true));
+			$('#ageView').html(age);
+
+		}
+		window.fields = window.temp_fields
+	}
+}
+
+getTodayDateTimeLocal = () => moment().format(moment.HTML5_FMT.DATETIME_LOCAL);
+
+fieldsAppendToFormData = (_form_data) => {
+	fields.forEach(_field => {
+		console.log($(`#${_field}`).val())
+		_form_data.append(_field, $(`#${_field}`).val())
+	});
+};
