@@ -253,14 +253,9 @@ localStorage.removeItem("PrintTreatment");
       ? TREATMENT.outpatient
       : TREATMENT.inpatient;
 
-  const {birth_date, blood_type, gender, contact_no, email, is_active} = patient;
+  const {birth_date, blood_type, gender, contact_no, email, is_active, diagnosis, prev_treatments, prev_diagnosis, prev_surgeries} = patient;
   const age = Math.floor(moment().diff(birth_date, 'years', true));
 
-//   TODO: ADD  INITIAL DIAGNOSIS, DIAGNOSIS, PAST TREATMENTS, PREVIOUS THERAPY
-  const initial_diagnosis = "None";
-  const diagnosis = "None";
-  const past_treatments = "None";
-  const previous_therapy = "None";
 
   const { treatment_no, session_no, session_datetime, drug, dose, next_schedule, status, comments } = TREATMENT;
   const treatment_type = TREATMENT?.treatment_service?.treatment_type_info?.treatment_type_name;
@@ -290,10 +285,10 @@ localStorage.removeItem("PrintTreatment");
 	email,
 	is_active,
 
-	initial_diagnosis,
 	diagnosis,
-	past_treatments,
-	previous_therapy,
+	prev_treatments,
+	prev_diagnosis,
+	prev_surgeries,
 
 	treatment_type,
 	treatment_service,

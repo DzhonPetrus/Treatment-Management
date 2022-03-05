@@ -10,10 +10,10 @@ window.PrintTreatment = () => {
     email,
     is_active,
     comments,
-    initial_diagnosis,
     diagnosis,
-    previous_therapy,
-    past_treatments,
+    prev_diagnosis,
+    prev_surgeries,
+    prev_treatments,
     treatment_no,
     treatment_service,
     treatment_type,
@@ -65,19 +65,19 @@ MEDICAL CENTER</u></h6>
 <tr>
 <td style="background-color:#BFEEB7;"> E-mail: </td>
 <td>${email}</td>
-<td style="background-color:#BFEEB7;"> Initial Diagnosis: </td>
-<td>${initial_diagnosis}</td>
 <td style="background-color:#BFEEB7;"> Diagnosis: </td>
 <td>${diagnosis}</td>
+<td style="background-color:#BFEEB7;">Previous Diagnosis:</td>
+<td>${prev_diagnosis}</td>
 </tr>
 
 
 
 <tr>
-<td style="background-color:#BFEEB7;"> Past Treatments: </td>
-<td>${past_treatments}</td>
-<td style="background-color:#BFEEB7;"> Previous Therapy: </td>
-<td>${previous_therapy}</td>
+<td style="background-color:#BFEEB7;">Previous Treatments:</td>
+<td>${prev_treatments}</td>
+<td style="background-color:#BFEEB7;"> Previous Surgeries: </td>
+<td>${prev_surgeries}</td>
 <td style="background-color:#BFEEB7;"> Status: </td>
 <td>${is_active}</td>
 </tr>

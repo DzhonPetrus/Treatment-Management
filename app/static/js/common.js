@@ -297,7 +297,7 @@ $("#sidebar_user_type").html(user_type);
 $("#sidebar_user_department").html(user_profile?.department);
 
 
-window.patient_fields = ["id", "type", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "is_active", "btnAdd", "btnUpdate"];
+window.patient_fields = ["id", "type", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "diagnosis", "prev_diagnosis", "prev_treatments", "prev_surgeries", "is_active", "btnAdd", "btnUpdate"];
     
 
 window.arrToOptions = (arr) => {
