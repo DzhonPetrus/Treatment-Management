@@ -292,6 +292,17 @@ loadTable = () => {
         $("#totalSurgeries").html(surgeries.data.length);
         $("#totalSurgeriesActive").html(active_surgeries.length);
         $("#totalSurgeriesInactive").html(inactive_surgeries.length);
+          
+        // TODO: READY FOR POPULATING WITH "MY SURGERIES"
+        //   window.mySurgeries = [];
+
+        // surgeries?.data?.forEach(_data =>{
+        //   _isMySurgery = _data?.in_charge.filter(_d => _d?.in_charge_id == window.user_id);
+        //   if(_isMySurgery?.length > 0)
+        //     window.mySurgeries.push(_data)
+
+        // });
+
       }
     },
   });
