@@ -8,13 +8,21 @@
   ] -%}
 {% endif -%}
 
-{% if user_type == 'lab_technician' or user_type == 'lab_receptionist' -%}
+{% if user_type == 'lab_technician' -%}
 {% set navigation_core = [
   ('/', 'index', 'Dashboard', 'fa-home'),
   ] -%}
 {% set navigation_lab = [
   ('/lab_request', 'lab_request', 'Lab Requests', 'fa-file-medical'),
   ('/lab_result', 'lab_result', 'Lab Results', 'fa-file-medical-alt')
+  ] -%}
+{% endif -%}
+{% if user_type == 'lab_receptionist' -%}
+{% set navigation_core = [
+  ('/', 'index', 'Dashboard', 'fa-home'),
+  ] -%}
+{% set navigation_lab = [
+  ('/lab_request', 'lab_request', 'Lab Requests', 'fa-file-medical'),
   ] -%}
 {% endif -%}
 
