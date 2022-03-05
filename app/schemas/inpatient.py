@@ -18,6 +18,14 @@ class InPatientBase(Base):
     blood_type : str
     picture : Optional[str] = None
 
+    diagnosis : Optional[str] = None
+    tests : Optional[str] = None
+    treatments : Optional[str] = None
+    surgeries : Optional[str] = None
+    prev_diagnosis : Optional[str] = None
+    prev_treatments : Optional[str] = None
+    prev_surgeries : Optional[str] = None
+
     is_active: Optional[str] = None
 
 

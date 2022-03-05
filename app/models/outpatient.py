@@ -20,6 +20,12 @@ class OutPatient(Base):
     blood_type = Column(String(10))
     picture = Column(String(255))
 
+    diagnosis = Column(String(255))
+    tests = Column(String(255))
+    purpose = Column(String(255))
+    prev_diagnosis = Column(String(255))
+    prev_treatments = Column(String(255))
+    prev_surgeries = Column(String(255))
 
     is_active = Column(String(100), default='ACTIVE')
     created_at = Column(DateTime, default=text('NOW()'))

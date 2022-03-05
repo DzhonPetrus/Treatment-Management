@@ -4,7 +4,7 @@
 	window.modal = "#modal-outpatient";
 	window.dataTable = "#dataTable";
 
-	window.fields = ["id", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "is_active", "btnAdd", "btnUpdate"];
+	window.fields = ["id", "first_name", "middle_name", "last_name", "suffix_name", "birth_date", "gender", "contact_no", "email", "blood_type", "is_active", "btnAdd", "btnUpdate", "diagnosis", "tests", "purpose", "prev_diagnosis", "prev_treatments", "prev_surgeries"];
 	window.fieldsHidden = ["id", "btnUpdate", "is_active"];
 	window.readOnlyFields = ["id", "is_active"];
 

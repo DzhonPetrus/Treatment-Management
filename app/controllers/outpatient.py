@@ -36,6 +36,12 @@ def create(outpatient, db: Session):
             contact_no = outpatient.contact_no,
             email = outpatient.email,
             blood_type = outpatient.blood_type,
+            diagnosis = outpatient.diagnosis,
+            tests = outpatient.tests,
+            purpose = outpatient.purpose,
+            prev_diagnosis = outpatient.prev_diagnosis,
+            prev_treatments = outpatient.prev_treatments,
+            prev_surgeries = outpatient.prev_surgeries,
             # picture = outpatient.picture,
         )
         db.add(new_outpatient)
@@ -75,6 +81,12 @@ def update(id, OutPatient, db: Session):
             "contact_no" : OutPatient.contact_no,
             "email" : OutPatient.email,
             "blood_type" : OutPatient.blood_type,
+            "diagnosis" : OutPatient.diagnosis,
+            "tests" : OutPatient.tests,
+            "purpose" : OutPatient.purpose,
+            "prev_diagnosis" : OutPatient.prev_diagnosis,
+            "prev_treatments" : OutPatient.prev_treatments,
+            "prev_surgeries" : OutPatient.prev_surgeries,
             # "picture" = OutPatient.picture,
         })
         db.commit()

@@ -176,7 +176,20 @@
                     {{ forms.input('Contact Number', 'contact_no', 'text', 'required', '', 'col-md-3') }}
                     {{ forms.input('Email', 'email', 'email', 'required', '', 'col-md-3') }}
                 </div>
-                    <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
+                <div class="row">
+                    {{ forms.textarea('Diagnosis', 'diagnosis', '', '', 'col-md-6' ) }}
+                    {{ forms.textarea('Tests', 'tests', '', '', 'col-md-6' ) }}
+                </div>    
+                <div class="row">
+                    {{ forms.textarea('Treatments', 'treatments', '', '', 'col-md-6' ) }}
+                    {{ forms.textarea('Surgeries', 'surgeries', '', '', 'col-md-6' ) }}
+                </div>    
+                <div class="row">
+                    {{ forms.textarea('Previous Diagnosis', 'prev_diagnosis', '', '', 'col-md-4' ) }}
+                    {{ forms.textarea('Previous Treatments', 'prev_treatments', '', '', 'col-md-4' ) }}
+                    {{ forms.textarea('Previous Surgeries', 'prev_surgeries', '', '', 'col-md-4' ) }}
+                </div>    
+                <!-- {{ forms.input('Picture', 'picture', 'text', '') }} -->
                     {{ forms.input('Is Active Status', 'is_active', 'text', 'required', 'ACTIVE' ) }}
 
               </div>

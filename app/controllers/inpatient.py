@@ -36,6 +36,13 @@ def create(inpatient, db: Session):
             contact_no = inpatient.contact_no,
             email = inpatient.email,
             blood_type = inpatient.blood_type,
+            diagnosis = inpatient.diagnosis,
+            tests = inpatient.tests,
+            treatments = inpatient.treatments,
+            surgeries = inpatient.surgeries,
+            prev_diagnosis = inpatient.prev_diagnosis,
+            prev_treatments = inpatient.prev_treatments,
+            prev_surgeries = inpatient.prev_surgeries,
             # picture = inpatient.picture,
         )
         db.add(new_inpatient)
@@ -75,6 +82,13 @@ def update(id, InPatient, db: Session):
             "contact_no" : InPatient.contact_no,
             "email" : InPatient.email,
             "blood_type" : InPatient.blood_type,
+            "diagnosis" : InPatient.diagnosis,
+            "tests" : InPatient.tests,
+            "treatments" : InPatient.treatments,
+            "surgeries" : InPatient.surgeries,
+            "prev_diagnosis" : InPatient.prev_diagnosis,
+            "prev_treatments" : InPatient.prev_treatments,
+            "prev_surgeries" : InPatient.prev_surgeries,
             # "picture" = InPatient.picture,
         })
         db.commit()
