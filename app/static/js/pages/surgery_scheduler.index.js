@@ -25,11 +25,11 @@ const random_hex_color_code = () => {
 //- CARDS
 //-------------
 (async() => {
-  let _totalTreatments = await ajaxGet('treatment');
-  let _totalTreatmentTypes = await ajaxGet('treatment_type');
+  let _totalSurgerys = await ajaxGet('surgery');
+  let _totalSurgeryTypes = await ajaxGet('surgery_type');
 
-  $('#totalTreatmentsCard').html(_totalTreatments.length);
-  $('#totalTreatmentTypesCard').html(_totalTreatmentTypes.length);
+  $('#totalSurgerysCard').html(_totalSurgerys.length);
+  $('#totalSurgeryTypesCard').html(_totalSurgeryTypes.length);
 })();
 
 
@@ -163,27 +163,27 @@ const random_hex_color_code = () => {
 
 
 
-  //- Treatment Types Table
+  //- Surgery Types Table
 
 (async () => {
     let template = ``;
-    let _treatment_types = await ajaxGet("treatment_type");
+    let _surgery_types = await ajaxGet("surgery_type");
 
-    top_20_treatment_types = _treatment_types.slice(0, 20);
+    top_20_surgery_types = _surgery_types.slice(0, 20);
 
-    top_20_treatment_types.forEach((_treatment_type) => {
+    top_20_surgery_types.forEach((_surgery_type) => {
 
 
       template += `
 		<tr>
-			<td>${_treatment_type?.treatment_type_name}</td>
-			<td>${_treatment_type?.treatment_service_name[0]?.treatment_service_name}</td>
-			<td>${_treatment_type?.treatment_service_name[0]?.status}</td>
+			<td>${_surgery_type?.surgery_type_name}</td>
+			<td>${_surgery_type?.surgery_services[0]?.surgery_service_name}</td>
+			<td>${_surgery_type?.surgery_services[0]?.is_active}</td>
 		</tr>
 		`;
     });
 
-    $("#tableTreatmentTypes").html(template);
+    $("#tableSurgeryTypes").html(template);
   }
 )();
 
@@ -194,9 +194,9 @@ const random_hex_color_code = () => {
   //- Latest Transaction Table
 (async () => {
     let template = ``;
-    let _treatments = await ajaxGet("treatment");
+    let _surgerys = await ajaxGet("surgery");
 
-    sorted_transactions = _treatments.sort(
+    sorted_transactions = _surgerys.sort(
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
     top_20_latest_transactions = sorted_transactions.slice(0, 20);
@@ -204,6 +204,7 @@ const random_hex_color_code = () => {
     top_20_latest_transactions.forEach((_transaction) => {
       let _type = "";
 
+      const head_surgeon = _transaction?.head_surgeon?.user_profile;
       const patient =
         _transaction?.inpatient == null
           ? _transaction.outpatient
@@ -212,17 +213,22 @@ const random_hex_color_code = () => {
         patient.middle_name || ""
       } ${patient.suffix_name ? ", " + patient.suffix_name : ""}`;
 
+      const head_surgeon_name = `${head_surgeon.last_name}, ${head_surgeon.first_name} ${
+        head_surgeon.middle_name || ""
+      } ${head_surgeon.suffix_name ? ", " + head_surgeon.suffix_name : ""}`;
+
       template += `
 		<tr>
-			<td>${_transaction?.treatment_no}</td>
-			<td>${_transaction?.treatment_service?.treatment_service_name}</td>
+			<td>${_transaction?.surgery_no}</td>
+			<td>${_transaction?.surgery_service?.surgery_service_name}</td>
 			<td>${patient_name}</td>
+			<td>${head_surgeon_name}</td>
 			<td>${_transaction?.status}</td>
 			<td>${moment(_transaction?.created_at).format("DD-MM-YYYY hh:mm:ss")}</td>
 		</tr>
 		`;
     });
 
-    $("#tableTreatmentTransactions").html(template);
+    $("#tableSurgeryTransactions").html(template);
   }
 )();
