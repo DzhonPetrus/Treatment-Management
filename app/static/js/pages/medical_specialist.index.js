@@ -26,12 +26,10 @@ const random_hex_color_code = () => {
 //-------------
 (async() => {
   let _totalTreatments = await ajaxGet('treatment');
-  let _totalLabRequests = await ajaxGet('lab_request');
-  let _totalSurgeries = await ajaxGet('surgery');
+  let _totalTreatmentTypes = await ajaxGet('treatment_type');
 
   $('#totalTreatmentsCard').html(_totalTreatments.length);
-  $('#totalLaboratoriesCard').html(_totalLabRequests.length);
-  $('#totalSurgeriesCard').html(_totalSurgeries.length);
+  $('#totalTreatmentTypesCard').html(_totalTreatmentTypes.length);
 })();
 
 
@@ -165,119 +163,29 @@ const random_hex_color_code = () => {
 
 
 
+  //- Treatment Types Table
+
+(async () => {
+    let template = ``;
+    let _treatment_types = await ajaxGet("treatment_type");
+
+    top_20_treatment_types = _treatment_types.slice(0, 20);
+
+    top_20_treatment_types.forEach((_treatment_type) => {
 
 
-//-------------
-//- DONUT CHARTS -
-//-------------
-
-//- TREATMENT SERVICES
-ajaxGet("treatment_type")
-  .then((data) => {
-    let treatment_types = data;
-    let _labels = [];
-    let _data = [];
-    let _backgroundColor = [];
-
-    treatment_types.forEach((_treatment_type) => {
-      _labels.push(_treatment_type?.treatment_type_name);
-      _data.push(_treatment_type?.treatment_service_name?.length);
-      _backgroundColor.push(random_hex_color_code());
+      template += `
+		<tr>
+			<td>${_treatment_type?.treatment_type_name}</td>
+			<td>${_treatment_type?.treatment_service_name[0]?.treatment_service_name}</td>
+			<td>${_treatment_type?.treatment_service_name[0]?.status}</td>
+		</tr>
+		`;
     });
 
-    var donutTTChart = $("#donutTreatmentTypes").get(0).getContext("2d");
-    var donutTTData = {
-      labels: _labels,
-      datasets: [
-        {
-          data: _data,
-          backgroundColor: _backgroundColor,
-        },
-      ],
-    };
-    var donutOptions = {
-      maintainAspectRatio: false,
-      responsive: true,
-    };
-    new Chart(donutTTChart, {
-      type: "doughnut",
-      data: donutTTData,
-      options: donutOptions,
-    });
-  })
-  .catch((err) => console.error(err));
-
-//- LABORATORY SERVICES
-ajaxGet("lab_test_type")
-  .then((data) => {
-    let lab_test_types = data;
-    let _labels = [];
-    let _data = [];
-    let _backgroundColor = [];
-
-    lab_test_types.forEach((_lab_test_type) => {
-      _labels.push(_lab_test_type?.lab_test_type_name);
-      _data.push(_lab_test_type?.lab_service_name?.length);
-      _backgroundColor.push(random_hex_color_code());
-    });
-
-    var donutLTChart = $("#donutLabTypes").get(0).getContext("2d");
-    var donutLTData = {
-      labels: _labels,
-      datasets: [
-        {
-          data: _data,
-          backgroundColor: _backgroundColor,
-        },
-      ],
-    };
-    var donutOptions = {
-      maintainAspectRatio: false,
-      responsive: true,
-    };
-    new Chart(donutLTChart, {
-      type: "doughnut",
-      data: donutLTData,
-      options: donutOptions,
-    });
-  })
-  .catch((err) => console.error(err));
-
-//- Surgery Types
-ajaxGet("surgery_type")
-  .then((data) => {
-    let surgery_types = data;
-    let _labels = [];
-    let _data = [];
-    let _backgroundColor = [];
-
-    surgery_types.forEach((_surgery_type) => {
-      _labels.push(_surgery_type?.surgery_type_name);
-      _data.push(_surgery_type?.surgery_services?.length);
-      _backgroundColor.push(random_hex_color_code());
-    });
-
-    var donutSPChart = $("#donutSurgeryTypes").get(0).getContext("2d");
-    var donutSPData = {
-      labels: _labels,
-      datasets: [
-        {
-          data: _data,
-          backgroundColor: _backgroundColor,
-        },
-      ],
-    };
-    var donutOptions = {
-      maintainAspectRatio: false,
-      responsive: true,
-    };
-    new Chart(donutSPChart, {
-      type: "doughnut",
-      data: donutSPData,
-      options: donutOptions,
-    });
-  })
-  .catch((err) => console.error(err));
+    $("#tableTreatmentTypes").html(template);
+  }
+)();
 
 
 
@@ -287,40 +195,35 @@ ajaxGet("surgery_type")
 (async () => {
     let template = ``;
     let _treatments = await ajaxGet("treatment");
-    let _surgeries = await ajaxGet("surgery");
-    let _lab_requests = await ajaxGet("lab_request");
 
-    _transactions = [..._treatments, ..._surgeries, ..._lab_requests];
-    sorted_transactions = _transactions.sort(
+    sorted_transactions = _treatments.sort(
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
     top_20_latest_transactions = sorted_transactions.slice(0, 20);
 
     top_20_latest_transactions.forEach((_transaction) => {
       let _type = "";
-      if (_transaction?.surgery_no) {
-        _type = "surgery";
-        _typeOut = "Surgery";
-      }
-      if (_transaction?.treatment_no) {
-        _type = "treatment";
-        _typeOut = "Treatment";
-      }
-      if (_transaction?.lab_request_no) {
-        _type = "lab_request";
-        _typeOut = "Laboratory Request";
-      }
+
+      const patient =
+        _transaction?.inpatient == null
+          ? _transaction.outpatient
+          : _transaction.inpatient;
+      const patient_name = `${patient.last_name}, ${patient.first_name} ${
+        patient.middle_name || ""
+      } ${patient.suffix_name ? ", " + patient.suffix_name : ""}`;
 
       template += `
 		<tr>
-			<td>${_transaction[`${_type}_no`]}</td>
-			<td>${_typeOut}</td>
+			<td>${_transaction?.treatment_no}</td>
+			<td>${_transaction?.treatment_service?.treatment_service_name}</td>
+			<td>${patient_name}</td>
 			<td>${_transaction?.status}</td>
 			<td>${moment(_transaction?.created_at).format("DD-MM-YYYY hh:mm:ss")}</td>
 		</tr>
 		`;
     });
 
-    $("#transactionBody").html(template);
+    $("#tableTreatmentTypes").html(template);
+    $("#tableTreatmentTransactions").html(template);
   }
 )();
