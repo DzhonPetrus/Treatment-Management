@@ -134,7 +134,8 @@ className: 'btn-sm',
 		columns: [
 			{
 				data: null,
-				render: (aData) => `${aData.last_name}, ${aData.first_name} ${aData.middle_name || ''} ${aData.suffix_name ? ', ' + aData.suffix_name : ''}`
+				render: (aData) => `${aData.last_name}, ${aData.first_name} ${aData.middle_name || ''} ${aData.suffix_name ? ', ' + aData.suffix_name : ''}`,
+				searchable: true,
 			},
 			{
 				data: "first_name",
