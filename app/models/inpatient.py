@@ -34,6 +34,6 @@ class InPatient(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
 
 
-    surgeries = relationship('Surgery', back_populates='inpatient')
-    treatments = relationship('Treatment', back_populates='inpatient')
+    _surgeries = relationship('Surgery', back_populates='inpatient')
+    _treatments = relationship('Treatment', back_populates='inpatient')
     lab_requests = relationship('LabRequest', back_populates='inpatient')

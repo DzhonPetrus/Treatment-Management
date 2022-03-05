@@ -34,7 +34,7 @@ class Surgery(Base):
     updator = relationship('User', back_populates='surgery_updated', foreign_keys=[updated_by])
     head_surgeon = relationship('User', back_populates='head_surgeries', foreign_keys=[head_surgeon_id])
 
-    inpatient = relationship('InPatient', back_populates='surgeries')
+    inpatient = relationship('InPatient', back_populates='_surgeries')
     surgery_service = relationship("Surgery_service", back_populates="surgeries")
 
     in_charge = relationship('SurgeryInCharge', back_populates="surgery")

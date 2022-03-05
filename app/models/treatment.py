@@ -39,7 +39,7 @@ class Treatment(Base):
     creator = relationship('User', back_populates='treatment_created', foreign_keys=[created_by])
     updator = relationship('User', back_populates='treatment_updated', foreign_keys=[updated_by])
 
-    inpatient = relationship('InPatient', back_populates='treatments')
+    inpatient = relationship('InPatient', back_populates='_treatments')
     outpatient = relationship('OutPatient', back_populates='treatments')
     physician = relationship('User', back_populates='treatments', foreign_keys=[physician_id])
 
