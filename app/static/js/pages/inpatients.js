@@ -183,10 +183,10 @@ className: 'btn-sm',
 			// POPULATE ANALYTIC CARDS
 			let inpatients = settings.json;
 			if(inpatients !== undefined){
-				// const active_inpatients = inpatients.data.filter(types => types.is_active === 'ACTIVE')
-				// const inactive_inpatients = inpatients.data.filter(types => types.is_active === 'INACTIVE')
-				// $('#totalInPatientsActive').html(active_inpatients.length)
-				// $('#totalInPatientsInactive').html(inactive_inpatients.length)
+				const active_inpatients = inpatients.data.filter(types => types.is_active === 'ACTIVE')
+				const inactive_inpatients = inpatients.data.filter(types => types.is_active === 'INACTIVE')
+				$('#totalInPatientsActive').html(active_inpatients.length)
+				$('#totalInPatientsInactive').html(inactive_inpatients.length)
 
 				$('#totalInPatients').html(inpatients.data.length)
 			}
