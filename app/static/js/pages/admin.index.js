@@ -1,331 +1,312 @@
-$(function () {
-	$.ajaxSetup({
-		headers: {
-			Accept: "application/json",
-			Authorization: "Bearer " + token,
-			ContentType: "application/x-www-form-urlencoded",
-		},
-	});
+// AJAX GET
+async function ajaxGet(_endpoint) {
+  const result = await $.ajax({
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+      ContentType: "application/x-www-form-urlencoded",
+    },
+    url: `${BASE_URL}admin/${_endpoint}/all`,
+    type: "GET",
+    dataType: "json",
+  });
+  return result.data;
+}
 
-	// USERS
-	$.ajax({
-		url: BASE_URL + `admin/user/all`,
-		type: "GET",
-		dataType: "json",
-
-		success: data => {
-			const users = data.data;
-			const active_users = users.filter(user => user.is_active === 'ACTIVE')
-			const inactive_users = users.filter(user => user.is_active === 'INACTIVE')
-			const totalUsers = users.length;
-			const totalUsersActive = active_users.length;
-			const totalUsersInactive = inactive_users.length;
-
-			$('#totalUsers').html(totalUsers);
-			let chartCanvas = $('#usersChart').get(0).getContext('2d');
-			let chartData = {
-			  labels: [
-				  'Active Users',
-				  'Inactive Users',
-			  ],
-			  datasets: [
-				{
-				  data: [totalUsersActive, totalUsersInactive],
-				  backgroundColor : ['#f56954', '#00a65a'],
-				}
-			  ]
-			}
-			let chartOptions = {
-			  maintainAspectRatio : false,
-			  responsive : true,
-			}
-			new Chart(chartCanvas, {
-			  type: 'polarArea',
-			  data: chartData,
-			  options: chartOptions
-			})
-
-		},
-		error: (data) => notification("error", data.responseJSON.detail),
-	});
-
-
-	// PATIENTS
-	$.ajax({
-		url: BASE_URL + `admin/patient/all`,
-		type: "GET",
-		dataType: "json",
-
-		success: data => {
-			const patients = data.data;
-			const active_patients = patients.filter(patient => patient.is_active === 'ACTIVE')
-			const inactive_patients = patients.filter(patient => patient.is_active === 'INACTIVE')
-
-			const total_patients = patients.length;
-			const total_active_patients = active_patients.length;
-			const total_inactive_patients = inactive_patients.length;
-
-			$('#totalPatients').html(total_patients);
-			let chartCanvas = $('#patientsChart').get(0).getContext('2d');
-			let chartData = {
-			  labels: [
-				  'Active Patients',
-				  'Inactive Patients',
-			  ],
-			  datasets: [
-				{
-				  data: [total_active_patients, total_inactive_patients],
-				  backgroundColor : ['#f56954', '#00a65a'],
-				}
-			  ]
-			}
-			let chartOptions = {
-			  maintainAspectRatio : false,
-			  responsive : true,
-			}
-			new Chart(chartCanvas, {
-			  type: 'doughnut',
-			  data: chartData,
-			  options: chartOptions
-			})
-
-
-		},
-		error: (data) => notification("error", data.responseJSON.detail),
-	});
+// HEX COLOR GENERATOR
+const random_hex_color_code = () => {
+  let n = (Math.random() * 0xfffff * 1000000).toString(16);
+  return "#" + n.slice(0, 6);
+};
 
 
 
-	// TREATMENT TYPES
-	$.ajax({
-		url: BASE_URL + `admin/treatment_type/all`,
-		type: "GET",
-		dataType: "json",
 
-		success: data => {
-			const treatment_types = data.data;
-			const active_treatment_types = treatment_types.filter(treatment_type => treatment_type.is_active === 'ACTIVE')
-			const inactive_treatment_types = treatment_types.filter(treatment_type => treatment_type.is_active === 'INACTIVE')
+    //--------------
+    //- PATIENT CHART
+    //--------------
+(async () => {
+    let _outpatients = await ajaxGet("outpatient");
+    let _inpatients = await ajaxGet("inpatient");
+    let _patients = [..._outpatients, ..._inpatients];
+    const _totalPatients = _patients.length;
+    $('#totalPatientsCard').html(_totalPatients);
+    $('#totalPatientsChart').html(_totalPatients);
+	console.log(_patients)
+    const startDate = moment().subtract(6,'day')
+    const endDate = moment();
+    const _filteredData = _patients.filter(_p => moment(_p?.created_at).isBetween(startDate,endDate));
+    let _daysActive = [];
+    let _daysInactive = [];
+    let _daysLabel = [];
+    let _daysGrowth = [];
+    for (var m = moment(startDate); m.isBefore(endDate); m.add(1, 'days')) {
+      _daysActive.push({x:m.format('YYYY-MM-DD'),y:0});
+      _daysInactive.push({x:m.format('YYYY-MM-DD'),y:0});
+      _daysGrowth[m.format('YYYY-MM-DD')] = 0;
+      _daysLabel.push(m.format('YYYY-MM-DD'));
+  } ;
+    _filteredData.forEach(_f => {
+      let _dt = moment(_f?.created_at).format('YYYY-MM-DD');
+      _daysGrowth[_dt] += 1;
+      if(_f?.is_active == 'ACTIVE'){
+        const _day = _daysActive.filter(_d => _d.x == _dt)[0];
+        _day.y += 1;
+        _daysActive[_daysActive.findIndex(_d => _d.x === _day.x)] = _day
+      }else{
+        const _day = _daysInactive.filter(_d => _d.x == _dt)[0];
+        _day.y += 1;
+        _daysInactive[_daysInactive.findIndex(_d => _d.x === _day.x)] = _day
+      }
+    });
 
-			const total_treatment_types = treatment_types.length;
-			const total_active_treatment_types = active_treatment_types.length;
-			const total_inactive_treatment_types = inactive_treatment_types.length;
-
-			$('#totalTreatmentTypes').html(total_treatment_types);
-			let chartCanvas = $('#treatmentTypeChart').get(0).getContext('2d');
-			let chartData = {
-			  labels: [
-				  'Active Treatment Type',
-				  'Inactive Treatment Type',
-			  ],
-			  datasets: [
-				{
-				  data: [total_active_treatment_types, total_inactive_treatment_types],
-				  backgroundColor : ['#f56954', '#00a65a'],
-				}
-			  ]
-			}
-			let chartOptions = {
-			  maintainAspectRatio : false,
-			  responsive : true,
-			}
-			new Chart(chartCanvas, {
-			  type: 'pie',
-			  data: chartData,
-			  options: chartOptions
-			})
-
-
-		},
-		error: (data) => notification("error", data.responseJSON.detail),
-	});
-
-
-
-	// LAB REQUESTS
-	$.ajax({
-		url: BASE_URL + `admin/lab_request/all`,
-		type: "GET",
-		dataType: "json",
-
-		success: data => {
-			const lab_requests = data.data;
-			const active_lab_requests = lab_requests.filter(lab_request => lab_request.is_active === 'ACTIVE')
-			const inactive_lab_requests = lab_requests.filter(lab_request => lab_request.is_active === 'INACTIVE')
-
-			const total_lab_requests = lab_requests.length;
-			const total_active_lab_requests = active_lab_requests.length;
-			const total_inactive_lab_requests = inactive_lab_requests.length;
-
-			$('#totalLabRequests').html(total_lab_requests);
-			let chartCanvas = $('#labRequestChart').get(0).getContext('2d');
-			let chartData = {
-			  labels: [
-				  'Active Lab Request',
-				  'Inactive Lab Request',
-			  ],
-			  datasets: [
-				{
-				  data: [total_active_lab_requests, total_inactive_lab_requests],
-				  backgroundColor : ['#f56954', '#00a65a'],
-				}
-			  ]
-			}
-			let chartOptions = {
-			  maintainAspectRatio : false,
-			  responsive : true,
-			}
-			new Chart(chartCanvas, {
-			  type: 'polarArea',
-			  data: chartData,
-			  options: chartOptions
-			})
+    _percentage_growth = (((_totalPatients+_daysGrowth[endDate.format('YYYY-MM-DD')])-(_totalPatients+_daysGrowth[startDate.format('YYYY-MM-DD')]))/(_totalPatients+_daysGrowth[startDate.format('YYYY-MM-DD')]))*100;
+    const growth_content = `
+    <span class="${_percentage_growth > 0 ? 'text-success' : 'text-danger'}">
+    <i class="fas ${_percentage_growth > 0 ? 'fa-arrow-up' : 'fa-arrow-down'}"></i> ${_percentage_growth.toFixed(2)}%
+  </span>
+  <span class="text-muted">Since last week</span>
+    `;
+    $('#patientGrowth').html(growth_content);
 
 
-		},
-		error: (data) => notification("error", data.responseJSON.detail),
-	});
+    var patientChartData = {
+      labels  : _daysLabel,
+      datasets: [
+        {
+          label               : 'Active',
+          backgroundColor     : 'rgba(60,141,188,0.9)',
+          borderColor         : 'rgba(60,141,188,0.8)',
+          pointRadius          : false,
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          // data                : [28, 48, 40, 19, 86, 27, 90]
+          data                : _daysActive
+        },
+        {
+          label               : 'Inactive',
+          backgroundColor     : 'rgba(210, 214, 222, 1)',
+          borderColor         : 'rgba(210, 214, 222, 1)',
+          pointRadius         : false,
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          // data                : [65, 59, 80, 81, 56, 55, 40]
+          data                : _daysInactive
+        },
+      ]
+    }
+
+    var patientChartOptions = {
+      maintainAspectRatio : false,
+      responsive : true,
+      legend: {
+        display: false
+      },
+      scales:{
+        x: {
+          type: 'time',
+          time: {
+            unit: 'day'
+          }
+        },
+        y: {
+          beginAtZero: true
+        }
+      }
+      // scales: {
+      //   xAxes: [{
+      //     gridLines : {
+      //       display : false,
+      //     }
+      //   }],
+      //   yAxes: [{
+      //     gridLines : {
+      //       display : false,
+      //     }
+      //   }]
+      // }
+    }
+
+    var _patientChartCanvas = $('#chartPatients').get(0).getContext('2d')
+    var _patientChartOptions = $.extend(true, {}, patientChartOptions)
+    var _patientChartData = $.extend(true, {}, patientChartData)
+    _patientChartData.datasets[0].fill = false;
+    _patientChartData.datasets[1].fill = false;
+    _patientChartOptions.datasetFill = false
+
+    new Chart(_patientChartCanvas, {
+      type: 'line',
+      data: _patientChartData,
+      options: _patientChartOptions
+    })
 
 
-
-	// LAB TESTS
-	$.ajax({
-		url: BASE_URL + `admin/lab_test/all`,
-		type: "GET",
-		dataType: "json",
-
-		success: data => {
-			const lab_tests = data.data;
-			const active_lab_tests = lab_tests.filter(lab_test => lab_test.is_active === 'ACTIVE')
-			const inactive_lab_tests = lab_tests.filter(lab_test => lab_test.is_active === 'INACTIVE')
-
-			const total_lab_tests = lab_tests.length;
-			const total_active_lab_tests = active_lab_tests.length;
-			const total_inactive_lab_tests = inactive_lab_tests.length;
-
-			$('#totalLabTests').html(total_lab_tests);
-			let chartCanvas = $('#labTestChart').get(0).getContext('2d');
-			let chartData = {
-			  labels: [
-				  'Active Lab Test',
-				  'Inactive Lab Test',
-			  ],
-			  datasets: [
-				{
-				  data: [total_active_lab_tests, total_inactive_lab_tests],
-				  backgroundColor : ['#f56954', '#00a65a'],
-				}
-			  ]
-			}
-			let chartOptions = {
-			  maintainAspectRatio : false,
-			  responsive : true,
-			}
-			new Chart(chartCanvas, {
-			  type: 'pie',
-			  data: chartData,
-			  options: chartOptions
-			})
-
-
-		},
-		error: (data) => notification("error", data.responseJSON.detail),
-	});
-
-
-
-	// SURGERIES
-	$.ajax({
-		url: BASE_URL + `admin/surgery/all`,
-		type: "GET",
-		dataType: "json",
-
-		success: data => {
-			const surgeries = data.data;
-			const active_surgeries = surgeries.filter(surgery => surgery.is_active === 'ACTIVE')
-			const inactive_surgeries = surgeries.filter(surgery => surgery.is_active === 'INACTIVE')
-
-			const total_surgeries = surgeries.length;
-			const total_active_surgeries = active_surgeries.length;
-			const total_inactive_surgeries = inactive_surgeries.length;
-
-			$('#totalSurgeries').html(total_surgeries);
-			let chartCanvas = $('#surgeriesChart').get(0).getContext('2d');
-			let chartData = {
-			  labels: [
-				  'Active Surgery',
-				  'Inactive Surgery',
-			  ],
-			  datasets: [
-				{
-				  data: [total_active_surgeries, total_inactive_surgeries],
-				  backgroundColor : ['#f56954', '#00a65a'],
-				}
-			  ]
-			}
-			let chartOptions = {
-			  maintainAspectRatio : false,
-			  responsive : true,
-			}
-			new Chart(chartCanvas, {
-			  type: 'doughnut',
-			  data: chartData,
-			  options: chartOptions
-			})
-
-
-		},
-		error: (data) => notification("error", data.responseJSON.detail),
-	});
-
-
-
-	// SURGERY TYPES
-	$.ajax({
-		url: BASE_URL + `admin/surgery_type/all`,
-		type: "GET",
-		dataType: "json",
-
-		success: data => {
-			const surgery_types = data.data;
-			const active_surgery_types = surgery_types.filter(surgery_type => surgery_type.is_active === 'ACTIVE')
-			const inactive_surgery_types = surgery_types.filter(surgery_type => surgery_type.is_active === 'INACTIVE')
-
-			const total_surgery_types = surgery_types.length;
-			const total_active_surgery_types = active_surgery_types.length;
-			const total_inactive_surgery_types = inactive_surgery_types.length;
-
-			$('#totalSurgeryTypes').html(total_surgery_types);
-			let chartCanvas = $('#surgeryTypeChart').get(0).getContext('2d');
-			let chartData = {
-			  labels: [
-				  'Active Surgery Type',
-				  'Inactive Surgery Type',
-			  ],
-			  datasets: [
-				{
-				  data: [total_active_surgery_types, total_inactive_surgery_types],
-				  backgroundColor : ['#f56954', '#00a65a'],
-				}
-			  ]
-			}
-			let chartOptions = {
-			  maintainAspectRatio : false,
-			  responsive : true,
-			}
-			new Chart(chartCanvas, {
-			  type: 'polarArea',
-			  data: chartData,
-			  options: chartOptions
-			})
-
-
-		},
-		error: (data) => notification("error", data.responseJSON.detail),
-	});
+}
+)();
 
 
 
 
 
-});
+
+//-------------
+//- DONUT CHARTS -
+//-------------
+
+//- TREATMENT SERVICES
+ajaxGet("treatment_type")
+  .then((data) => {
+    let treatment_types = data;
+    let _labels = [];
+    let _data = [];
+    let _backgroundColor = [];
+
+    treatment_types.forEach((_treatment_type) => {
+      _labels.push(_treatment_type?.treatment_type_name);
+      _data.push(_treatment_type?.treatment_service_name?.length);
+      _backgroundColor.push(random_hex_color_code());
+    });
+
+    var donutTTChart = $("#donutTreatmentTypes").get(0).getContext("2d");
+    var donutTTData = {
+      labels: _labels,
+      datasets: [
+        {
+          data: _data,
+          backgroundColor: _backgroundColor,
+        },
+      ],
+    };
+    var donutOptions = {
+      maintainAspectRatio: false,
+      responsive: true,
+    };
+    new Chart(donutTTChart, {
+      type: "doughnut",
+      data: donutTTData,
+      options: donutOptions,
+    });
+  })
+  .catch((err) => console.error(err));
+
+//- LABORATORY SERVICES
+ajaxGet("lab_test_type")
+  .then((data) => {
+    let lab_test_types = data;
+    let _labels = [];
+    let _data = [];
+    let _backgroundColor = [];
+
+    lab_test_types.forEach((_lab_test_type) => {
+      _labels.push(_lab_test_type?.lab_test_type_name);
+      _data.push(_lab_test_type?.lab_service_name?.length);
+      _backgroundColor.push(random_hex_color_code());
+    });
+
+    var donutLTChart = $("#donutLabTypes").get(0).getContext("2d");
+    var donutLTData = {
+      labels: _labels,
+      datasets: [
+        {
+          data: _data,
+          backgroundColor: _backgroundColor,
+        },
+      ],
+    };
+    var donutOptions = {
+      maintainAspectRatio: false,
+      responsive: true,
+    };
+    new Chart(donutLTChart, {
+      type: "doughnut",
+      data: donutLTData,
+      options: donutOptions,
+    });
+  })
+  .catch((err) => console.error(err));
+
+//- Surgery Types
+ajaxGet("surgery_type")
+  .then((data) => {
+    let surgery_types = data;
+    let _labels = [];
+    let _data = [];
+    let _backgroundColor = [];
+
+    surgery_types.forEach((_surgery_type) => {
+      _labels.push(_surgery_type?.surgery_type_name);
+      _data.push(_surgery_type?.surgery_services?.length);
+      _backgroundColor.push(random_hex_color_code());
+    });
+
+    var donutSPChart = $("#donutSurgeryTypes").get(0).getContext("2d");
+    var donutSPData = {
+      labels: _labels,
+      datasets: [
+        {
+          data: _data,
+          backgroundColor: _backgroundColor,
+        },
+      ],
+    };
+    var donutOptions = {
+      maintainAspectRatio: false,
+      responsive: true,
+    };
+    new Chart(donutSPChart, {
+      type: "doughnut",
+      data: donutSPData,
+      options: donutOptions,
+    });
+  })
+  .catch((err) => console.error(err));
+
+
+
+
+
+  //- Latest Transaction Table
+(async () => {
+    let template = ``;
+    let _treatments = await ajaxGet("treatment");
+    let _surgeries = await ajaxGet("surgery");
+    let _lab_requests = await ajaxGet("lab_request");
+
+    _transactions = [..._treatments, ..._surgeries, ..._lab_requests];
+    sorted_transactions = _transactions.sort(
+      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+    );
+    top_20_latest_transactions = sorted_transactions.slice(0, 20);
+
+    top_20_latest_transactions.forEach((_transaction) => {
+      let _type = "";
+      if (_transaction?.surgery_no) {
+        _type = "surgery";
+        _typeOut = "Surgery";
+      }
+      if (_transaction?.treatment_no) {
+        _type = "treatment";
+        _typeOut = "Treatment";
+      }
+      if (_transaction?.lab_request_no) {
+        _type = "lab_request";
+        _typeOut = "Laboratory Request";
+      }
+
+      template += `
+		<tr>
+			<td>${_transaction[`${_type}_no`]}</td>
+			<td>${_typeOut}</td>
+			<td>${_transaction?.status}</td>
+			<td>${moment(_transaction?.created_at).format("DD-MM-YYYY hh:mm:ss")}</td>
+		</tr>
+		`;
+    });
+
+    $("#transactionBody").html(template);
+  }
+)();
