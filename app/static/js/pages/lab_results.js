@@ -253,7 +253,7 @@ localStorage.removeItem("PrintLabResult");
 
   const initial_diagnosis = "None";
 
-  const { lab_result_no, result, reference, specimen, ordered, dt_requested, dt_received, dt_reported, comments, status } = LAB_RESULT;
+  const { detailed_result, lab_result_no, result, reference, specimen, ordered, dt_requested, dt_received, dt_reported, comments, status } = LAB_RESULT;
 
   const lab_type = LAB_RESULT?.lab_request?.lab_service_name?.lab_test_type_info?.lab_test_type_name;
   const lab_service = LAB_RESULT?.lab_request?.lab_service_name?.lab_service_name;
@@ -271,7 +271,7 @@ localStorage.removeItem("PrintLabResult");
 	contact_no,
 	email,
 	is_active,
-
+detailed_result, 
 	lab_technician,
 	initial_diagnosis,
 

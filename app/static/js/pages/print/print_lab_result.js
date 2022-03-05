@@ -24,6 +24,7 @@ window.PrintLabResult = () => {
     dt_requested,
     dt_received,
     dt_reported,
+    detailed_result,
   } = LabResult;
   let val = htmlToPdfmake(`
 <div class="header" style="text-align:center;" >
@@ -139,7 +140,7 @@ MEDICAL CENTER</u></h6>
 <br>
 <p> ============================================================================== </p>
 <br>
-
+<a href="${BASE_URL}static/upload/${detailed_result}">Detailed Result Link</a>
 </div>
 
 

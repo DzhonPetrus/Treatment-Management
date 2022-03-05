@@ -303,7 +303,7 @@ loadTable = () => {
       options = "";
       data.data.forEach((data) => {
         options += `
-					<option value="${data.id}">${data.user_profile.first_name}</option>
+					<option value="${data.id}">${data.user_profile?.last_name}, ${data.user_profile?.first_name}</option>
 				`;
       });
       $("#nurse_in_charge").html(options);
@@ -318,7 +318,7 @@ loadTable = () => {
       options = "";
       data.data.forEach((data) => {
         options += `
-					<option value="${data.id}">${data.user_profile.first_name}</option>
+					<option value="${data.id}">${data.user_profile?.last_name}, ${data.user_profile?.first_name}</option>
 				`;
       });
       $("#surgeon_in_charge").html(options);

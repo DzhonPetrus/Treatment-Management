@@ -86,7 +86,7 @@
       <div class="card-header">
         <h3 class="card-title">List of Surgeries</h3>
 
-        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery"
+        <button id="newSurgery" type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-surgery"
           onclick="newHandler()">
           <i class="fa fa-plus"></i>
           New Surgery
@@ -522,6 +522,11 @@ $('#status').on('change', function(){
       $('#surgery_service_id').html(surgery_service_options);
     })
 
+	const readOnlyUsers = ['surgeon','surgical_nurse']
+  if(readOnlyUsers.includes(window.user_type.toLowerCase()))
+    $('#newSurgery').hide();
+  else
+    $('#newSurgery').show();
   }
 
   getSurgeryTypes();

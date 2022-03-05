@@ -12,8 +12,8 @@
         <h1>User Profiles</h1>
         <p class="text-muted">List of User Profiles</p>
       </div>
-
-      <!-- Breadcrumb -->
+ 
+      <!--Breadcrumb -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Core</a></li>
@@ -145,10 +145,10 @@
                 {{ forms.input('ID', 'id', 'text', '', '' )}}
                 <!-- {{ forms.input('Department', 'department', 'text', 'required') }} -->
                 <!-- {{ forms.input('Position', 'position', 'text', 'required') }} -->
-                {{ forms.select('Department', 'department', 'text', ['Emergency Room', 'Emergency Department',
-                'Intensive Care Unit', 'Cardiac Care Unit', 'Nursery', 'Labor and Delivery', 'Surgery', 'Pediatrics'])
+                {{ forms.select('Department', 'department', 'text', [ 'Surgery', 'Pediatrics', 'Laboratory', 'Treatment', 'I.T.'])
                 }}
-                {{ forms.select('Position', 'position', 'text', ['Physician', 'Surgeon', 'Nurse']) }}
+                {{ forms.select('Position', 'position', 'text', ['Surgery Scheduler', 'Surgeon', 'Admin',
+                'Laboratory Technician', 'Laboratory Receptionist', 'Medical Specialist', 'Surgical Nurse']) }}
                 {{ forms.input('First Name', 'first_name', 'text', 'required') }}
                 {{ forms.input('Middle Name', 'middle_name', 'text', '') }}
                 {{ forms.input('Last Name', 'last_name', 'text', 'required') }}

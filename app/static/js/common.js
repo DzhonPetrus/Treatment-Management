@@ -154,6 +154,7 @@ const setState = (state, data) => {
 const renderButtons = (aData, title, additionalButtons = '') => {
 	const disabledCriteria = ['INACTIVE', 'DONE - FOR BILLING', 'DONE', 'CLAIMED', 'CANCELLED']
 	let _is_active = aData?.is_active == 'ACTIVE';
+	const readOnlyUsers = ['surgeon','surgical_nurse']
 
 	let buttons =
 		`
@@ -171,12 +172,19 @@ const renderButtons = (aData, title, additionalButtons = '') => {
 			<div>View ${title}</div>
 		</div>
 
+		${(!readOnlyUsers.includes(window.user_type.toLowerCase())) ?
+			`
         <div class="${disabledCriteria.includes(aData?.status) || !_is_active ? 'disabled' : ''} dropdown-item d-flex" role="button" onClick="return editData('${aData.id}') ">
 			<div style="width:2rem">
 				<i class="fa fa-edit"> </i>
 			</div>
 			<div>Edit ${title}</div>
 		</div>
+		`
+			:
+			``
+		}
+
 		`;
 		buttons += _is_active
 			? `
