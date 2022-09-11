@@ -1,8 +1,10 @@
-const BASE_URL = `http://127.0.0.1:8000/`;
+const BASE_URL = `http://127.0.0.1:8001/`;
+const ROOT_PATH_PROXY = `http://127.0.0.1/tm/`;
+const PUBLIC_ROOT_PATH = `http://127.0.0.1/`;
 
-const getToken = () => (localStorage.getItem('session_token') === null) ? window.location.replace(`${BASE_URL}login`) : localStorage.getItem('session_token');
-const getUserType = () => (localStorage.getItem('user_type') === null) ? window.location.replace(`${BASE_URL}login`) : localStorage.getItem('user_type');
-const getUserId = () => (localStorage.getItem('user_id') === null) ? window.location.replace(`${BASE_URL}login`) : localStorage.getItem('user_id');
+const getToken = () => (localStorage.getItem('session_token') === null) ? window.location.replace(`${PUBLIC_ROOT_PATH}login`) : localStorage.getItem('session_token');
+const getUserType = () => (localStorage.getItem('user_type') === null) ? window.location.replace(`${PUBLIC_ROOT_PATH}login`) : localStorage.getItem('user_type');
+const getUserId = () => (localStorage.getItem('user_id') === null) ? window.location.replace(`${PUBLIC_ROOT_PATH}login`) : localStorage.getItem('user_id');
 const getUserProfile = () => JSON.parse(localStorage.getItem('user_profile'));
 
 
@@ -24,8 +26,8 @@ if ((window.location.pathname !== '/login')){
 	window.user_type = getUserType()
 	window.user_profile = getUserProfile()
 	window.user_id = getUserId()
-	if((window.location.pathname.split('/')[1] !== `${window.user_type}`) && window.user_id)
-		location.replace(`${BASE_URL}${window.user_type}/`);
+	if((window.location.pathname.split('/')[2] !== `${window.user_type}`) && window.user_id)
+		location.replace(`${ROOT_PATH_PROXY}/tm/${window.user_type}/`);
 
 }else {
 	removeToken();

@@ -19,9 +19,9 @@ app.add_middleware(
 )
 
 router = APIRouter()
-@router.get('/')
-def redirect():
-    return RedirectResponse("http://127.0.0.1:8000/public")
+# @router.get('/')
+# def redirect():
+#     return RedirectResponse("/pm/public")
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 

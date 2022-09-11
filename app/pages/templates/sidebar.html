@@ -75,7 +75,7 @@
           <img src="{{ url_for('static', path='/img/user2-160x160.jpg') }}" class="img-circle border" alt="User Image" id="sidebar_picture">
         </div>
         <div class="info mr-1">
-          <a href="/{{user_type}}/me" class="nav-item text-truncate" id="sidebar_full_name"></a>
+          <a href="/tm/{{user_type}}/me" class="nav-item text-truncate" id="sidebar_full_name"></a>
           <div class="small text-secondary text-truncate" id="sidebar_user_type"></div>
           <div class="small text-secondary text-truncate" id="sidebar_user_department"></div>
         </div>
@@ -108,7 +108,7 @@
           {% for href, id, caption, icon in navigation_core -%}
 
           <li class="nav-item">
-            <a href="/{{user_type}}{{ href|e }}" 
+            <a href="/tm/{{user_type}}{{ href|e }}" 
 
             {% if id == active_page %} 
             class="nav-link active" 
@@ -128,7 +128,7 @@
           {% for href, id, caption, icon in navigation_treatment -%}
 
           <li class="nav-item">
-            <a href="/{{user_type}}{{ href|e }}" 
+            <a href="/tm/{{user_type}}{{ href|e }}" 
 
             {% if id == active_page %} 
             class="nav-link active" 
@@ -148,7 +148,7 @@
           {% for href, id, caption, icon in navigation_lab -%}
 
           <li class="nav-item">
-            <a href="/{{user_type}}{{ href|e }}" 
+            <a href="/tm/{{user_type}}{{ href|e }}" 
 
             {% if id == active_page %} 
             class="nav-link active" 
@@ -168,7 +168,7 @@
           {% for href, id, caption, icon in navigation_surgery -%}
 
           <li class="nav-item">
-            <a href="/{{user_type}}{{ href|e }}" 
+            <a href="/tm/{{user_type}}{{ href|e }}" 
 
             {% if id == active_page %} 
             class="nav-link active" 

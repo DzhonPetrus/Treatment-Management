@@ -30,8 +30,8 @@
           >Hospital Core</a>
           
           <ul class="dropdown-menu dropdown-menu-left">
-              <li><a href="#" class="dropdown-item">Patient Management</a></li>
-              <li><a href="/admin" class="dropdown-item {{'active' if not isSysAdmin}}">Treatment Management</a></li>
+              <li><a href="http://127.0.0.1/pm/admin/dashboard" class="dropdown-item">Patient Management</a></li>
+              <li><a href="http://127.0.0.1/tm/admin/" class="dropdown-item {{'active' if not isSysAdmin}}">Treatment Management</a></li>
               <li><a href="#" class="dropdown-item">Pharmacy</a></li>
               <li><a href="#" class="dropdown-item">Medical Record</a></li>
               <li><a href="#" class="dropdown-item">Doctors Management</a></li>
@@ -178,7 +178,7 @@
             </a>
     
             <div class="dropdown-menu dropdown-menu-right" style="left: inherit; right: 0px;">
-                <a role="button" class="dropdown-item d-flex align-items-center" onclick="location.replace(`${BASE_URL}${user_type}/me`)">
+                <a role="button" class="dropdown-item d-flex align-items-center" onclick="location.replace(`${ROOT_PATH_PROXY}${user_type}/me`)">
                     <div class="mr-3" style="width: 1.25rem">
                         <i class="fas fa-user"></i>
                     </div>

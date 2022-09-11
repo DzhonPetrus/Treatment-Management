@@ -280,7 +280,7 @@ function confirmationModal(type, id='') {
 						${(id !== '' && (type === 'delete' ||type === 'reactivate' || type === 'cancel')) 
 							? `onClick="${type}Data('${id}', ${true})"` 
 							: ""}
-						${(type === 'logout') ? `onclick="location.replace('${BASE_URL}login')"` : ''}
+						${(type === 'logout') ? `onclick="location.replace('${ROOT_PATH_PROXY}login')"` : ''}
 					  >
 
 						${btnText}
